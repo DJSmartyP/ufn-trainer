@@ -1,3 +1,5 @@
-UFN logo asset supplied by the site owner/user for use in this project.
+UFN logo and UFN sector briefing assets were supplied by the site owner/user for use in this project.
 
-The web app code in this repository is a clean browser-side reimplementation of the described puzzle mechanics and does not include copied EmptyEpsilon source code.
+The browser-side practice tools are clean reimplementations of the relevant interaction mechanics. No EmptyEpsilon source code is bundled into the player-facing application.
+
+The source-reference notes in SOURCES.md are maintained for development verification only and are not shown inside the in-world player interface.

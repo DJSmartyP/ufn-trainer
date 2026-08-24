@@ -1,64 +1,55 @@
-# UFN Relay Hacking Practice
+# UFN Crew Operations Network
 
-A lightweight, static web app for practising the two hacking mini-games used by **EmptyEpsilon**, themed as a United Federated Navy Relay Officer training terminal.
+Static, player-facing United Federated Navy crew reference and practice site.
 
-## Included games
+## Player-facing structure
 
-### Binary Countermeasures (Lights Out)
-Uses the EmptyEpsilon grid formula `difficulty × 2 + 3`:
+- Station Directory
+- General Briefing
+  - Admiralty Briefing
+  - Duty Stations
+  - Allied Forces
+  - Hostile Entities
+  - Unidentified Phenomena
+  - Protocols
+  - Crew Notices
+- Captain
+- Helms
+- Weapons
+- Engineering
+  - H.I.D.E.S. placeholder, Levels I-V
+- Science
+  - Scan practice simulator
+- Relay
+  - Hacking mechanics reference
+  - Binary Countermeasure Matrix practice
+  - Sensitive Node Mapping practice
 
-- D0: 3 × 3
-- D1: 5 × 5
-- D2: 7 × 7
-- D3: 9 × 9
+Every station includes a Console Orientation placeholder ready to be replaced by a real bridge screenshot and labelled guide.
 
-Boards are generated from a solved state using the same EmptyEpsilon approach: apply a random number of valid moves from 3 to `3 × grid size`, retrying if the result happens to remain solved.
+## Accuracy baseline
 
-### Sensitive Node Mapping (Minesweeper)
-Uses the EmptyEpsilon formulas `field size = difficulty × 2 + 6` and `mine count = difficulty × 2 + 6`:
+Standard console mechanics and practice behaviour were checked against EmptyEpsilon tag `EE-2024.12.08`. The visible site deliberately stays in-world and does not name the underlying software.
 
-- D0: 6 × 6, 6 sensitive nodes
-- D1: 8 × 8, 8 sensitive nodes
-- D2: 10 × 10, 10 sensitive nodes
-- D3: 12 × 12, 12 sensitive nodes
+The General Briefing section is grounded in the supplied `UFN_SECTOR_BRIEFING_A4_booklet.pdf`, also included in `assets/UFN-Sector-Briefing.pdf` so the original packet remains available from the site.
 
-As in EmptyEpsilon, the first sensitive node can be revealed without ending the attempt. Revealing a second sensitive node fails the intrusion. Zero-adjacent safe cells cascade open. Right-click flags on desktop; Flag mode provides the same function on touch devices.
+H.I.D.E.S. is intentionally incomplete: only the supplied name, **Hacking Intrusion Detection and Elimination System**, and Levels I-V are shown. No level effects have been invented.
 
-## Controls
+## Deploy to GitHub Pages
 
-- **Reset Grid** restores the current puzzle to its initial state.
-- **Restart Grid** generates a fresh puzzle at the currently selected EmptyEpsilon difficulty.
-- Difficulty buttons select only grid parameters used by EmptyEpsilon.
+This project has no build step.
 
-## Run locally
-
-No build step or server is required. Open `index.html` directly, or serve the directory with any static web server.
-
-Example:
-
-```bash
-python3 -m http.server 8080
-```
-
-Then open `http://localhost:8080`.
-
-## GitHub Pages
-
-1. Push this repository to GitHub.
+1. Push the repository to GitHub.
 2. Open **Settings → Pages**.
-3. Choose **Deploy from a branch**.
-4. Select your default branch and `/ (root)`.
-5. Save.
-
-The site is entirely static and is ready for GitHub Pages as-is.
+3. Select **Deploy from a branch**.
+4. Choose the default branch and `/ (root)`.
 
 ## Files
 
-- `index.html` – application shell
-- `styles.css` – UFN visual theme and responsive layout
-- `app.js` – both puzzle engines and controls
-- `assets/ufn-logo.jpg` – supplied UFN branding asset
-
-## Notes
-
-This project reimplements the game rules in browser JavaScript rather than copying EmptyEpsilon source code.
+- `index.html` - application shell and navigation
+- `content.js` - station/reference content
+- `app.js` - routing, Relay hacking practice and Science scan practice
+- `styles.css` - responsive UFN interface
+- `assets/ufn-logo.jpg` - supplied UFN logo
+- `assets/UFN-Sector-Briefing.pdf` - supplied briefing packet
+- `SOURCES.md` - implementation/source audit notes
