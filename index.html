@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#061127" />
+  <meta name="description" content="UFN Relay Officer hacking practice for EmptyEpsilon." />
+  <title>UFN Relay Hacking Practice</title>
+  <link rel="icon" href="assets/ufn-logo.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="site-header">
+      <img class="brand-mark" src="assets/ufn-logo.jpg" alt="United Federated Navy emblem" />
+      <div class="brand-copy">
+        <p class="eyebrow">UNITED FEDERATED NAVY</p>
+        <h1>Relay Hacking Practice</h1>
+        <p class="subtitle">EmptyEpsilon intrusion simulator</p>
+      </div>
+      <div class="header-status" aria-label="System status">
+        <span class="status-dot" aria-hidden="true"></span>
+        TRAINING LINK ONLINE
+      </div>
+    </header>
+
+    <main>
+      <section class="game-switcher" aria-label="Choose hacking game">
+        <button class="game-tab active" type="button" data-game="lights" aria-pressed="true">
+          <span class="tab-code">01</span>
+          <span>
+            <strong>Binary Countermeasures</strong>
+            <small>Lights Out</small>
+          </span>
+        </button>
+        <button class="game-tab" type="button" data-game="mines" aria-pressed="false">
+          <span class="tab-code">02</span>
+          <span>
+            <strong>Sensitive Node Mapping</strong>
+            <small>Minesweeper</small>
+          </span>
+        </button>
+      </section>
+
+      <section class="training-console">
+        <aside class="control-panel">
+          <div>
+            <p class="panel-label">SIMULATION PARAMETERS</p>
+            <h2 id="game-title">Binary Countermeasures</h2>
+            <p id="game-description" class="panel-copy">Illuminate every node. Selecting a node toggles it and its orthogonal neighbours.</p>
+          </div>
+
+          <fieldset class="difficulty-fieldset">
+            <legend>EMPTYEPSILON GRID</legend>
+            <div id="difficulty-options" class="difficulty-options"></div>
+          </fieldset>
+
+          <div class="controls">
+            <button id="reset-button" class="button secondary" type="button">Reset Grid</button>
+            <button id="restart-button" class="button primary" type="button">Restart Grid</button>
+          </div>
+
+          <p class="control-note"><strong>Reset</strong> restores the current puzzle to its starting state. <strong>Restart</strong> generates a fresh puzzle using the selected EmptyEpsilon parameters.</p>
+
+          <div id="mine-controls" class="mine-controls" hidden>
+            <button id="flag-mode-button" class="flag-toggle" type="button" aria-pressed="false">
+              <span aria-hidden="true">⚑</span>
+              Flag mode: OFF
+            </button>
+            <p>Desktop: right-click to flag. Touch: use Flag mode.</p>
+          </div>
+        </aside>
+
+        <section class="simulator-panel" aria-live="polite">
+          <div class="simulator-topline">
+            <div>
+              <span class="micro-label">TARGET SYSTEM</span>
+              <strong>TRAINING NODE ARRAY</strong>
+            </div>
+            <div class="readout-group">
+              <div>
+                <span class="micro-label">GRID</span>
+                <strong id="grid-readout">7 × 7</strong>
+              </div>
+              <div id="attempts-readout-wrap" hidden>
+                <span class="micro-label">ATTEMPTS</span>
+                <strong id="attempts-readout">2 / 2</strong>
+              </div>
+              <div>
+                <span class="micro-label">MOVES</span>
+                <strong id="moves-readout">0</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="progress-shell" aria-label="Hacking progress">
+            <div id="progress-bar" class="progress-bar"></div>
+          </div>
+          <div class="status-line">
+            <span id="status-text">HACKING IN PROGRESS: 0%</span>
+            <span id="timer-text">00:00.0</span>
+          </div>
+
+          <div class="board-frame">
+            <div id="board" class="board lights-board" role="grid" aria-label="Hacking puzzle grid"></div>
+          </div>
+
+          <div id="result-banner" class="result-banner" hidden></div>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <span>UFN RELAY TRAINING TERMINAL</span>
+      <span>Practice simulator • EmptyEpsilon-compatible grid parameters</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

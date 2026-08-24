@@ -1,0 +1,3 @@
+UFN logo asset supplied by the site owner/user for use in this project.
+
+The web app code in this repository is a clean browser-side reimplementation of the described puzzle mechanics and does not include copied EmptyEpsilon source code.
