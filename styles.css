@@ -368,12 +368,34 @@ button { color: inherit; }
   width: 100%;
   height: 100%;
 }
-.station-icon-image {
+.station-icon-svg {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 6px 16px rgba(0,0,0,.25));
+  overflow: visible;
+}
+.station-icon-svg .icon-line {
+  fill: none;
+  stroke: var(--blue-soft);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.station-icon-svg .icon-line-thin {
+  fill: none;
+  stroke: var(--blue-soft);
+  stroke-width: 3.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.station-icon-svg .icon-blue-fill { fill: var(--blue-soft); }
+.station-icon-svg .icon-gold-fill { fill: var(--gold-bright); }
+.station-icon-svg .icon-gold-line {
+  fill: none;
+  stroke: var(--gold-bright);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .nav-code.station-icon-host {
@@ -384,31 +406,120 @@ button { color: inherit; }
   border-radius: 50%;
   border-color: rgba(228,175,46,.5);
 }
-.nav-code.station-icon-host .station-icon-image { width: 28px; height: 28px; }
+.nav-code.station-icon-host .station-icon-svg { width: 28px; height: 28px; }
 
 .station-card-code.station-icon-host {
   padding: 6px;
   color: var(--blue-soft);
   border-color: rgba(228,175,46,.56) !important;
 }
-.station-card-code.station-icon-host .station-icon-image { width: 38px; height: 38px; }
+.station-card-code.station-icon-host .station-icon-svg { width: 38px; height: 38px; }
 
 .page-id.station-icon-host {
   padding: 11px;
   color: var(--blue-soft);
 }
-.page-id.station-icon-host .station-icon-image { width: 48px; height: 48px; }
+.page-id.station-icon-host .station-icon-svg { width: 48px; height: 48px; }
 
 .station-monogram.station-icon-host {
   padding: 9px;
   color: var(--blue-soft);
 }
-.station-monogram.station-icon-host .station-icon-image { width: 54px; height: 54px; }
+.station-monogram.station-icon-host .station-icon-svg { width: 54px; height: 54px; }
 
 @media (max-width: 640px) {
   .nav-code.station-icon-host { width: 36px; height: 36px; min-height: 36px; padding: 5px; }
-  .nav-code.station-icon-host .station-icon-image { width: 26px; height: 26px; }
-  .station-card-code.station-icon-host .station-icon-image { width: 34px; height: 34px; }
+  .nav-code.station-icon-host .station-icon-svg { width: 26px; height: 26px; }
+  .station-card-code.station-icon-host .station-icon-svg { width: 34px; height: 34px; }
   .page-id.station-icon-host { padding: 8px; }
-  .page-id.station-icon-host .station-icon-image { width: 38px; height: 38px; }
+  .page-id.station-icon-host .station-icon-svg { width: 38px; height: 38px; }
+}
+
+/* Short landscape optimisation (phones / foldables)
+   Keep station tools usable when viewport height is limited. */
+@media (orientation: landscape) and (max-height: 650px) and (min-width: 560px) and (max-width: 1180px) {
+  .topbar {
+    min-height: 60px;
+    padding: 6px 10px;
+    grid-template-columns: auto 1fr auto;
+  }
+  .menu-button { display: grid; place-items: center; width: 40px; height: 40px; }
+  .brand-mark { width: 40px; height: 40px; }
+  .brand-copy .eyebrow { display: none; }
+  .brand-copy strong { font-size: .74rem; letter-spacing: .045em; }
+  .link-status { font-size: 0; gap: 0; }
+  .link-status .status-dot { width: 9px; height: 9px; }
+
+  .app-layout { grid-template-columns: 1fr; min-height: calc(100vh - 60px); }
+  .sidebar {
+    position: fixed;
+    z-index: 30;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    width: min(300px, 82vw);
+    height: auto;
+    transform: translateX(-103%);
+    transition: transform 180ms ease;
+    box-shadow: 20px 0 60px rgba(0,0,0,.48);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .nav-scrim { inset: 60px 0 0; }
+
+  .content { padding: 10px 12px 16px; }
+  .page-head { align-items: center; gap: 12px; margin-bottom: 8px; }
+  .page-head h1 { margin: 2px 0 0; font-size: 1.45rem; line-height: 1; }
+  .page-head p { display: none; }
+  .page-id { width: 42px; flex-basis: 42px; font-size: .68rem; }
+  .page-id.station-icon-host { padding: 5px; }
+  .page-id.station-icon-host .station-icon-svg,
+  .page-id.station-icon-host .station-icon-image { width: 30px; height: 30px; }
+
+  .section-tabs { gap: 6px; padding: 2px 0 7px; margin-bottom: 4px; }
+  .section-tab { min-height: 34px; padding: 6px 10px; font-size: .72rem; }
+  .section-heading { margin: 2px 0 8px; }
+  .section-heading h2 { margin: 3px 0 0; font-size: 1.2rem; }
+  .section-heading p { display: none; }
+
+  /* Science scanner: remain side-by-side instead of stacking. */
+  .scan-practice-shell {
+    grid-template-columns: minmax(180px, 225px) minmax(0, 1fr);
+    min-height: 0;
+    overflow: visible;
+  }
+  .scan-config {
+    padding: 12px 14px;
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
+  }
+  .scan-config h2 { margin: 4px 0; font-size: 1.05rem; }
+  .scan-config > p:not(.control-note) { display: none; }
+  .select-grid { gap: 7px; margin-top: 8px; }
+  .select-grid label { gap: 3px; font-size: .64rem; }
+  .select-grid select { padding: 6px 8px; font-size: .76rem; }
+  .scan-config .button { min-height: 35px; margin-top: 8px; padding: 7px 9px; font-size: .72rem; }
+  .scan-config .control-note { margin-top: 7px; font-size: .66rem; line-height: 1.35; }
+
+  .scan-workspace { min-width: 0; padding: 11px 13px; }
+  .scan-topline { display: flex; align-items: flex-start; gap: 10px; }
+  .scan-topline h3 { margin: 2px 0 0; font-size: .98rem; }
+  .scan-stage { font-size: .78rem; }
+  .signal-display { height: 78px; margin: 8px 0; }
+  .lock-indicator { font-size: 1.35rem; }
+  .scan-sliders { gap: 6px; }
+  .scan-slider { grid-template-columns: 72px minmax(0,1fr) 42px; gap: 6px; }
+  .scan-slider label, .scan-slider output { font-size: .66rem; }
+  .scan-slider input[type="range"] { min-width: 0; }
+  .signal-readouts { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 6px; margin-top: 8px; }
+  .signal-readouts > div { min-width: 0; padding: 6px 7px; }
+  .signal-readouts .micro-label { font-size: .55rem; letter-spacing: .08em; }
+  .signal-readouts strong { overflow-wrap: anywhere; font-size: .72rem; }
+
+  .site-footer { display: none; }
+}
+
+/* Very narrow landscape: allow the scanner to stack rather than squeeze controls. */
+@media (orientation: landscape) and (max-height: 650px) and (max-width: 559px) {
+  .scan-practice-shell { grid-template-columns: 1fr; min-height: 0; }
+  .scan-config { border-right: 0; border-bottom: 1px solid var(--line); }
 }
