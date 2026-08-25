@@ -360,3 +360,77 @@ button { color: inherit; }
   .site-footer { display: grid; }
   .callout-strip { align-items: flex-start; flex-direction: column; gap: 4px; }
 }
+
+/* Station icon system */
+.station-icon {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+.station-icon-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.station-icon-svg .icon-line {
+  fill: none;
+  stroke: var(--blue-soft);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.station-icon-svg .icon-line-thin {
+  fill: none;
+  stroke: var(--blue-soft);
+  stroke-width: 3.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.station-icon-svg .icon-blue-fill { fill: var(--blue-soft); }
+.station-icon-svg .icon-gold-fill { fill: var(--gold-bright); }
+.station-icon-svg .icon-gold-line {
+  fill: none;
+  stroke: var(--gold-bright);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nav-code.station-icon-host {
+  min-height: 38px;
+  height: 38px;
+  width: 38px;
+  padding: 5px;
+  border-radius: 50%;
+  border-color: rgba(228,175,46,.5);
+}
+.nav-code.station-icon-host .station-icon-svg { width: 28px; height: 28px; }
+
+.station-card-code.station-icon-host {
+  padding: 6px;
+  color: var(--blue-soft);
+  border-color: rgba(228,175,46,.56) !important;
+}
+.station-card-code.station-icon-host .station-icon-svg { width: 38px; height: 38px; }
+
+.page-id.station-icon-host {
+  padding: 11px;
+  color: var(--blue-soft);
+}
+.page-id.station-icon-host .station-icon-svg { width: 48px; height: 48px; }
+
+.station-monogram.station-icon-host {
+  padding: 9px;
+  color: var(--blue-soft);
+}
+.station-monogram.station-icon-host .station-icon-svg { width: 54px; height: 54px; }
+
+@media (max-width: 640px) {
+  .nav-code.station-icon-host { width: 36px; height: 36px; min-height: 36px; padding: 5px; }
+  .nav-code.station-icon-host .station-icon-svg { width: 26px; height: 26px; }
+  .station-card-code.station-icon-host .station-icon-svg { width: 34px; height: 34px; }
+  .page-id.station-icon-host { padding: 8px; }
+  .page-id.station-icon-host .station-icon-svg { width: 38px; height: 38px; }
+}

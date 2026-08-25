@@ -7,7 +7,7 @@
   <meta name="description" content="United Federated Navy crew operations reference and practice terminal." />
   <title>UFN Crew Operations Network</title>
   <link rel="icon" href="assets/ufn-logo.jpg" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20260825-2" />
 </head>
 <body>
   <div class="app-shell">
@@ -32,12 +32,12 @@
         </div>
         <div class="side-section">
           <span class="side-label">DUTY STATIONS</span>
-          <button class="nav-item" type="button" data-nav="captain"><span class="nav-code">CAP</span><span>Captain</span></button>
-          <button class="nav-item" type="button" data-nav="helms"><span class="nav-code">HLM</span><span>Helms</span></button>
-          <button class="nav-item" type="button" data-nav="weapons"><span class="nav-code">WPN</span><span>Weapons</span></button>
-          <button class="nav-item" type="button" data-nav="engineering"><span class="nav-code">ENG</span><span>Engineering</span></button>
-          <button class="nav-item" type="button" data-nav="science"><span class="nav-code">SCI</span><span>Science</span></button>
-          <button class="nav-item" type="button" data-nav="relay"><span class="nav-code">RLY</span><span>Relay</span></button>
+          <button class="nav-item" type="button" data-nav="captain"><span class="nav-code" data-station-icon="captain" aria-hidden="true"></span><span>Captain</span></button>
+          <button class="nav-item" type="button" data-nav="helms"><span class="nav-code" data-station-icon="helms" aria-hidden="true"></span><span>Helms</span></button>
+          <button class="nav-item" type="button" data-nav="weapons"><span class="nav-code" data-station-icon="weapons" aria-hidden="true"></span><span>Weapons</span></button>
+          <button class="nav-item" type="button" data-nav="engineering"><span class="nav-code" data-station-icon="engineering" aria-hidden="true"></span><span>Engineering</span></button>
+          <button class="nav-item" type="button" data-nav="science"><span class="nav-code" data-station-icon="science" aria-hidden="true"></span><span>Science</span></button>
+          <button class="nav-item" type="button" data-nav="relay"><span class="nav-code" data-station-icon="relay" aria-hidden="true"></span><span>Relay</span></button>
         </div>
         <div class="sidebar-footer">
           <span class="micro-label">ACCESS</span>
@@ -56,7 +56,8 @@
   </div>
 
   <div id="nav-scrim" class="nav-scrim" hidden></div>
-  <script src="content.js"></script>
-  <script src="app.js"></script>
+  <script src="station-icons.js?v=20260825-2"></script>
+  <script src="content.js?v=20260825-2"></script>
+  <script src="app.js?v=20260825-2"></script>
 </body>
 </html>

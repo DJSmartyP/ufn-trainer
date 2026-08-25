@@ -1,4 +1,6 @@
 (() => {
+  const stationIcon = (name, extraClass = "") => window.UFN_STATION_ICON ? window.UFN_STATION_ICON(name, extraClass) : name;
+
   const screenPlaceholder = (station, note = "Station console capture pending.") => `
     <div class="screen-placeholder" role="img" aria-label="${station} console screenshot placeholder">
       <div class="screen-scanlines"></div>
@@ -19,7 +21,7 @@
 
   const stationIntro = (code, title, summary) => `
     <div class="station-intro-card">
-      <span class="station-monogram">${code}</span>
+      <span class="station-monogram station-icon-host">${stationIcon(code)}</span>
       <div><span class="micro-label">PRIMARY RESPONSIBILITY</span><h3>${title}</h3><p>${summary}</p></div>
     </div>`;
 
@@ -43,12 +45,12 @@
             <img src="assets/ufn-logo.jpg" alt="" class="hero-emblem" />
           </section>
           <section class="station-grid" aria-label="Duty stations">
-            <button class="station-card captain" type="button" data-nav="captain"><span class="station-card-code">CAP</span><strong>Captain</strong><span>Mission direction, priorities and final tactical decisions.</span></button>
-            <button class="station-card helms" type="button" data-nav="helms"><span class="station-card-code">HLM</span><strong>Helms</strong><span>Movement, positioning, docking and propulsion.</span></button>
-            <button class="station-card weapons" type="button" data-nav="weapons"><span class="station-card-code">WPN</span><strong>Weapons</strong><span>Targeting, missiles, beams and shields.</span></button>
-            <button class="station-card engineering" type="button" data-nav="engineering"><span class="station-card-code">ENG</span><strong>Engineering</strong><span>Power, coolant, heat and repairs.</span></button>
-            <button class="station-card science" type="button" data-nav="science"><span class="station-card-code">SCI</span><strong>Science</strong><span>Long-range awareness, scanning and analysis.</span></button>
-            <button class="station-card relay" type="button" data-nav="relay"><span class="station-card-code">RLY</span><strong>Relay</strong><span>Sector map, probes, communications and intrusion.</span></button>
+            <button class="station-card captain" type="button" data-nav="captain"><span class="station-card-code station-icon-host">${stationIcon("captain")}</span><strong>Captain</strong><span>Mission direction, priorities and final tactical decisions.</span></button>
+            <button class="station-card helms" type="button" data-nav="helms"><span class="station-card-code station-icon-host">${stationIcon("helms")}</span><strong>Helms</strong><span>Movement, positioning, docking and propulsion.</span></button>
+            <button class="station-card weapons" type="button" data-nav="weapons"><span class="station-card-code station-icon-host">${stationIcon("weapons")}</span><strong>Weapons</strong><span>Targeting, missiles, beams and shields.</span></button>
+            <button class="station-card engineering" type="button" data-nav="engineering"><span class="station-card-code station-icon-host">${stationIcon("engineering")}</span><strong>Engineering</strong><span>Power, coolant, heat and repairs.</span></button>
+            <button class="station-card science" type="button" data-nav="science"><span class="station-card-code station-icon-host">${stationIcon("science")}</span><strong>Science</strong><span>Long-range awareness, scanning and analysis.</span></button>
+            <button class="station-card relay" type="button" data-nav="relay"><span class="station-card-code station-icon-host">${stationIcon("relay")}</span><strong>Relay</strong><span>Sector map, probes, communications and intrusion.</span></button>
           </section>
           <div class="callout-strip"><strong>FRONTIER RULE:</strong><span>When information is incomplete, communicate what you know, what you do not know, and what changed.</span></div>
         `

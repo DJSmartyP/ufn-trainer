@@ -10,6 +10,7 @@
   };
 
   const routeCodes = { home: "00", general: "GEN", captain: "CAP", helms: "HLM", weapons: "WPN", engineering: "ENG", science: "SCI", relay: "RLY" };
+  const stationRoutes = new Set(["captain", "helms", "weapons", "engineering", "science", "relay"]);
   let activeRoute = "home";
   let activeTab = "";
   let hackingController = null;
@@ -77,7 +78,7 @@
     els.content.innerHTML = `
       <header class="page-head">
         <div><span class="eyebrow">${page.eyebrow}</span><h1>${page.title}</h1><p>${page.subtitle}</p></div>
-        <div class="page-id" aria-hidden="true">${routeCodes[route] || "UFN"}</div>
+        <div class="page-id ${stationRoutes.has(route) ? "station-icon-host" : ""}" aria-hidden="true">${stationRoutes.has(route) && window.UFN_STATION_ICON ? window.UFN_STATION_ICON(route) : (routeCodes[route] || "UFN")}</div>
       </header>
       ${tabs}
       <section class="tab-panel" data-panel="${panel.id}">${panel.content}</section>
