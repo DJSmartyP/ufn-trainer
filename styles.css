@@ -296,6 +296,10 @@ button { color: inherit; }
 .scan-slider label { color: var(--blue-soft); font-size: .75rem; font-weight: 800; }
 .scan-slider input[type="range"] { width: 100%; accent-color: var(--gold); }
 .scan-slider output { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; font-size: .75rem; }
+.scan-slider { padding: 5px 7px; border: 1px solid transparent; border-radius: 7px; transition: border-color 120ms ease, background 120ms ease; }
+.scan-slider.aligned { border-color: rgba(114,240,189,.38); background: rgba(114,240,189,.06); }
+.scan-slider.aligned label { color: var(--success); }
+.scan-slider.aligned label::after { content: "  LOCK"; color: var(--success); font-size: .62rem; letter-spacing: .08em; }
 .signal-readouts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin-top: auto; padding-top: 18px; }
 .signal-readouts > div { padding: 10px; border: 1px solid var(--line); border-radius: 7px; background: rgba(4,15,32,.72); }
 .signal-readouts strong { display: block; margin-top: 3px; }

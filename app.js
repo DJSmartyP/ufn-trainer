@@ -10,7 +10,7 @@
   };
 
   const routeCodes = { home: "00", general: "GEN", captain: "CAP", helms: "HLM", weapons: "WPN", engineering: "ENG", science: "SCI", relay: "RLY" };
-  const stationRoutes = new Set(["captain", "helms", "weapons", "engineering", "science", "relay"]);
+  const iconRoutes = new Set(["home", "general", "captain", "helms", "weapons", "engineering", "science", "relay"]);
   let activeRoute = "home";
   let activeTab = "";
   let hackingController = null;
@@ -78,7 +78,7 @@
     els.content.innerHTML = `
       <header class="page-head">
         <div><span class="eyebrow">${page.eyebrow}</span><h1>${page.title}</h1><p>${page.subtitle}</p></div>
-        <div class="page-id ${stationRoutes.has(route) ? "station-icon-host" : ""}" aria-hidden="true">${stationRoutes.has(route) && window.UFN_STATION_ICON ? window.UFN_STATION_ICON(route) : (routeCodes[route] || "UFN")}</div>
+        <div class="page-id ${iconRoutes.has(route) ? "station-icon-host" : ""}" aria-hidden="true">${iconRoutes.has(route) && window.UFN_STATION_ICON ? window.UFN_STATION_ICON(route) : (routeCodes[route] || "UFN")}</div>
       </header>
       ${tabs}
       <section class="tab-panel" data-panel="${panel.id}">${panel.content}</section>
@@ -199,7 +199,7 @@
   function createScanSimulator(root) {
     if (!root) return null;
     root.innerHTML = `
-      <div class="section-heading"><span class="micro-label">SCIENCE SENSOR OPERATIONS</span><h2>Scanning Practice Simulator</h2><p>Align the hidden sensor channels by reducing signal error. Hold a stable lock for two seconds to complete each stage.</p></div>
+      <div class="section-heading"><span class="micro-label">SCIENCE SENSOR OPERATIONS</span><h2>Scanning Practice Simulator</h2><p>Tune each sensor channel until every coloured waveform synchronises with the reference signal. The scan locks only when the complete signal is aligned.</p></div>
       <section class="scan-practice-shell">
         <aside class="scan-config">
           <span class="micro-label">TRAINING PARAMETERS</span><h2>Sensor Profile</h2><p>The built-in profiles reproduce the scan-complexity rules used by fleet systems. Scripted mission contacts can override these values in live operations.</p>
@@ -212,7 +212,7 @@
         </aside>
         <div class="scan-workspace">
           <div class="scan-topline"><div><span class="micro-label">ACTIVE SENSOR CHANNEL</span><h3 id="scan-label">Electric signature</h3></div><div><span class="micro-label">STAGE</span><strong id="scan-stage" class="scan-stage">1 / 2</strong></div></div>
-          <div class="signal-display"><canvas id="signal-canvas" width="900" height="160"></canvas><div id="lock-indicator" class="lock-indicator">LOCKED</div></div>
+          <div class="signal-display"><canvas id="signal-canvas" width="900" height="190"></canvas><div id="lock-indicator" class="lock-indicator">LOCKED</div></div>
           <div id="scan-sliders" class="scan-sliders"></div>
           <div class="signal-readouts"><div><span class="micro-label">SIGNAL ERROR</span><strong id="scan-error">0.000</strong></div><div><span class="micro-label">LOCK STATE</span><strong id="scan-lock">SEARCHING</strong></div><div><span class="micro-label">SCAN STATUS</span><strong id="scan-status">IN PROGRESS</strong></div></div>
         </div>
@@ -222,17 +222,120 @@
     const e={ profile:q("#scan-profile"), pass:q("#scan-pass"), fresh:q("#scan-new"), note:q("#scan-param-note"), label:q("#scan-label"), stage:q("#scan-stage"), canvas:q("#signal-canvas"), lockIndicator:q("#lock-indicator"), sliders:q("#scan-sliders"), error:q("#scan-error"), lock:q("#scan-lock"), status:q("#scan-status") };
     const ctx=e.canvas.getContext("2d");
     const labels=["Electric signature","Biomass frequency","Gravity well signature","Radiation halftime","Radio profile","Ionic phase shift","Infra-red color shift","Doppler stability","Raspberry jam prevention","Infinity impropability","Zerospace audio frequency"];
-    const state={ complexity:1, depth:2, stage:0, targets:[], values:[], lockedAt:null, finished:false, timer:null, label:"" };
+    const colours=["rgba(255,45,84,.98)","rgba(65,255,81,.98)","rgba(70,120,255,.98)","rgba(255,217,110,.98)"];
+    const state={ complexity:1, depth:2, stage:0, targets:[], values:[], lockedAt:null, finished:false, timer:null, label:"", targetPeriod:3.5, phaseSeed:0 };
 
     function params(){const p=e.profile.value,deep=e.pass.value==="deep";if(p==="simple")return{complexity:1,depth:1};if(p==="advanced")return{complexity:deep?3:2,depth:2};return{complexity:deep?2:1,depth:2};}
     function randomValue(){return Math.random();}
-    function newStage(){state.targets=[];state.values=[];for(let i=0;i<state.complexity;i++){const t=randomValue();let v=randomValue();while(Math.abs(t-v)<.2)v=randomValue();state.targets.push(t);state.values.push(v);}state.lockedAt=null;state.label=labels[Math.floor(Math.random()*labels.length)];e.label.textContent=`[${state.stage+1}/${state.depth}] ${state.label}`;e.stage.textContent=`${state.stage+1} / ${state.depth}`;e.lock.textContent="SEARCHING";e.lockIndicator.classList.remove("visible");renderSliders();updateSignal();}
-    function reset(){const p=params();state.complexity=p.complexity;state.depth=p.depth;state.stage=0;state.finished=false;e.status.textContent="IN PROGRESS";e.status.classList.remove("scan-complete");e.note.textContent=`${state.complexity} active channel${state.complexity===1?"":"s"} • ${state.depth} stage${state.depth===1?"":"s"} • lock threshold 0.05`;newStage();}
-    function renderSliders(){e.sliders.innerHTML="";state.values.forEach((value,i)=>{const row=document.createElement("div");row.className="scan-slider";const label=document.createElement("label");label.textContent=`Channel ${i+1}`;const input=document.createElement("input");input.type="range";input.min="0";input.max="1000";input.step="1";input.value=String(Math.round(value*1000));input.setAttribute("aria-label",`Sensor channel ${i+1}`);const out=document.createElement("output");out.textContent=(value).toFixed(3);input.oninput=()=>{if(state.finished)return;state.values[i]=Number(input.value)/1000;out.textContent=state.values[i].toFixed(3);updateSignal();};row.append(label,input,out);e.sliders.appendChild(row);});}
-    function errorValue(){return state.values.reduce((sum,v,i)=>sum+Math.abs(state.targets[i]-v),0);}
-    function drawSignal(error){const w=e.canvas.width,h=e.canvas.height;ctx.clearRect(0,0,w,h);ctx.strokeStyle="rgba(105,186,255,.14)";ctx.lineWidth=1;for(let x=0;x<w;x+=45){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}for(let y=0;y<h;y+=32){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}const amp=Math.min(1,error*2.2);ctx.strokeStyle=error<.05?"rgba(114,240,189,.95)":"rgba(112,232,255,.95)";ctx.lineWidth=2.5;ctx.beginPath();for(let x=0;x<w;x++){const t=x/18;const noise=(Math.sin(t*2.7)+Math.sin(t*.83)*.5+Math.sin(t*7.1)*.22)*amp;const clean=Math.sin(t*.38)*3;const y=h/2+noise*(h*.23)+clean;if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();}
-    function updateSignal(){const err=errorValue();e.error.textContent=err.toFixed(3);drawSignal(err);if(err<.05){if(state.lockedAt===null)state.lockedAt=performance.now();}else{state.lockedAt=null;e.lock.textContent="SEARCHING";e.lockIndicator.classList.remove("visible");}}
-    function tick(){if(state.finished||state.lockedAt===null)return;const held=performance.now()-state.lockedAt;if(errorValue()>=.05){state.lockedAt=null;return;}if(held>=1000){e.lock.textContent="LOCKED";e.lockIndicator.classList.add("visible");}else e.lock.textContent="ACQUIRING";if(held>=2000){state.stage++;if(state.stage>=state.depth){state.finished=true;e.status.textContent="SCAN COMPLETE";e.status.classList.add("scan-complete");e.lock.textContent="LOCKED";e.lockIndicator.classList.add("visible");[...e.sliders.querySelectorAll("input")].forEach(i=>i.disabled=true);}else newStage();}}
+    function totalError(){return state.values.reduce((sum,value,i)=>sum+Math.abs(state.targets[i]-value),0);}
+    function fullyAligned(){return state.values.length>0&&totalError()<.05;}
+
+    function newStage(){
+      state.targets=[];state.values=[];
+      for(let i=0;i<state.complexity;i++){
+        const t=randomValue();let v=randomValue();
+        while(Math.abs(t-v)<.2)v=randomValue();
+        state.targets.push(t);state.values.push(v);
+      }
+      state.targetPeriod=2+Math.random()*3;
+      state.phaseSeed=Math.random()*Math.PI*2;
+      state.lockedAt=null;
+      state.label=labels[Math.floor(Math.random()*labels.length)];
+      e.label.textContent=`[${state.stage+1}/${state.depth}] ${state.label}`;
+      e.stage.textContent=`${state.stage+1} / ${state.depth}`;
+      e.lock.textContent="SEARCHING";
+      e.lockIndicator.classList.remove("visible");
+      renderSliders();
+      updateSignal();
+    }
+
+    function reset(){
+      const p=params();state.complexity=p.complexity;state.depth=p.depth;state.stage=0;state.finished=false;
+      e.status.textContent="IN PROGRESS";e.status.classList.remove("scan-complete");
+      e.note.textContent=`${state.complexity} active channel${state.complexity===1?"":"s"} • ${state.depth} stage${state.depth===1?"":"s"} • all channels must align • combined tolerance < 0.05`;
+      newStage();
+    }
+
+    function renderSliders(){
+      e.sliders.innerHTML="";
+      state.values.forEach((value,i)=>{
+        const row=document.createElement("div");row.className="scan-slider";
+        const label=document.createElement("label");label.textContent=`Channel ${i+1}`;label.style.color=colours[i%colours.length];
+        const input=document.createElement("input");input.type="range";input.min="0";input.max="1000";input.step="1";input.value=String(Math.round(value*1000));input.setAttribute("aria-label",`Sensor channel ${i+1}`);
+        const out=document.createElement("output");out.textContent=value.toFixed(3);
+        input.oninput=()=>{if(state.finished)return;state.values[i]=Number(input.value)/1000;out.textContent=state.values[i].toFixed(3);updateSignal();};
+        row.append(label,input,out);e.sliders.appendChild(row);
+      });
+    }
+
+    function drawWave(stroke,width,period,phase,noise=0,alpha=1){
+      const w=e.canvas.width,h=e.canvas.height,amp=h*.34,centre=h/2,points=Math.floor(w/4)-1;
+      ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.beginPath();
+      for(let n=0;n<points;n++){
+        const x=4+n*4;
+        let f=Math.sin((n/points)*Math.PI*2*period+phase);
+        if(noise>0){
+          const deterministic=Math.sin(n*12.9898+phase*78.233)*43758.5453;
+          const randomish=(deterministic-Math.floor(deterministic))*2-1;
+          f=(1-noise)*f+noise*randomish;
+        }
+        const y=centre+f*amp;
+        if(n===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+      }
+      ctx.stroke();ctx.restore();
+    }
+
+    function drawSignal(){
+      const w=e.canvas.width,h=e.canvas.height;
+      ctx.clearRect(0,0,w,h);
+      ctx.fillStyle="#020812";ctx.fillRect(0,0,w,h);
+      ctx.strokeStyle="rgba(105,186,255,.10)";ctx.lineWidth=1;
+      for(let x=0;x<w;x+=45){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+      for(let y=0;y<h;y+=38){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+
+      const now=performance.now()/1000;
+      const basePhase=now*1.8+state.phaseSeed;
+      // Faint target waveform: the correct answer is this moving sine, never a flat line.
+      drawWave("rgba(242,247,255,.24)",1.5,state.targetPeriod,basePhase,0,1);
+
+      const hold=state.lockedAt===null?0:performance.now()-state.lockedAt;
+      const settle=state.lockedAt===null?1:Math.max(0,1-Math.min(1000,hold)/1000);
+      state.values.forEach((value,i)=>{
+        const signed=(value-state.targets[i])*settle;
+        const error=Math.abs(signed);
+        // Each bar controls one waveform. As its value approaches target, period,
+        // phase and noise all converge on the common reference waveform.
+        const period=state.targetPeriod*(1+signed*1.8);
+        const phase=basePhase+signed*(9+i*1.6);
+        const noise=Math.min(.72,error*2.4);
+        drawWave(colours[i%colours.length],2.7,period,phase,noise,1);
+      });
+    }
+
+    function updateSignal(){
+      const err=totalError();e.error.textContent=err.toFixed(3);
+      if(fullyAligned()){
+        if(state.lockedAt===null)state.lockedAt=performance.now();
+      }else{
+        state.lockedAt=null;e.lock.textContent="SEARCHING";e.lockIndicator.classList.remove("visible");
+      }
+      drawSignal();
+    }
+
+    function tick(){
+      drawSignal();
+      if(state.finished||state.lockedAt===null)return;
+      const held=performance.now()-state.lockedAt;
+      if(!fullyAligned()){state.lockedAt=null;e.lock.textContent="SEARCHING";e.lockIndicator.classList.remove("visible");return;}
+      if(held>=1000){e.lock.textContent="LOCKED";e.lockIndicator.classList.add("visible");}else e.lock.textContent="ACQUIRING";
+      if(held>=2000){
+        state.stage++;
+        if(state.stage>=state.depth){
+          state.finished=true;e.status.textContent="SCAN COMPLETE";e.status.classList.add("scan-complete");e.lock.textContent="LOCKED";e.lockIndicator.classList.add("visible");
+          [...e.sliders.querySelectorAll("input")].forEach(i=>i.disabled=true);
+        }else newStage();
+      }
+    }
 
     e.profile.onchange=reset;e.pass.onchange=reset;e.fresh.onclick=reset;state.timer=setInterval(tick,50);reset();
     return { destroy(){clearInterval(state.timer);} };
