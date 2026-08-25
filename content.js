@@ -20,7 +20,7 @@
       <figcaption><span class="micro-label">LIVE BRIDGE REFERENCE</span><strong>${station.toUpperCase()} CONSOLE</strong></figcaption>
     </figure>`;
 
-  const factionMark = (src, alt) => `<span class="faction-mark"><img src="${src}" alt="${alt}" loading="lazy" /></span>`;
+  const factionMark = (src, alt, variant = "") => `<span class="faction-mark ${variant}"><img src="${src}" alt="${alt}" loading="lazy" /></span>`;
 
   const infoCard = (title, body, tone = "") => `
     <article class="info-card ${tone}">
@@ -28,8 +28,17 @@
       ${body}
     </article>`;
 
+  const controlTone = (type) => {
+    const category = String(type || "").toUpperCase();
+    if (category.includes("EMERGENCY")) return "alert";
+    if (category.includes("HAZARD") || category.includes("CAUTION")) return "caution";
+    if (category.includes("COMMAND") || category.includes("UFN COMMUNICATION") || category.includes("ESCALATION")) return "command";
+    if (category.includes("CONTROL") || category.includes("SELECTOR") || category.includes("SETTING") || category.includes("AIM")) return "action";
+    return "info";
+  };
+
   const controlCard = (title, type, body, tone = "") => `
-    <article class="control-guide-card ${tone}">
+    <article class="control-guide-card ${controlTone(type)}">
       <span class="control-type">${type}</span>
       <h3>${title}</h3>
       ${body}
@@ -69,6 +78,13 @@
       <span class="micro-label">HOW TO PLAY THIS STATION</span>
       <h2>${title}</h2>
       <ol>${steps.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><p>${step}</p></li>`).join("")}</ol>
+      <div class="guide-colour-key" aria-label="Guide colour key">
+        <span class="key-info">Information / readout</span>
+        <span class="key-action">Control / action</span>
+        <span class="key-command">Command / UFN comms</span>
+        <span class="key-caution">Hazard / caution</span>
+        <span class="key-alert">Emergency only</span>
+      </div>
     </section>`;
 
   const stationIntro = (code, title, summary) => `
@@ -164,7 +180,7 @@
         { id: "allies", label: "Allied Forces", content: `
           <div class="section-heading"><span class="micro-label">SECTION I</span><h2>Allied Forces</h2><p>Friendly organisations operating across human space and the frontier.</p></div>
           <div class="dossier-stack">
-            <details class="dossier ally" open><summary>${factionMark("assets/factions/ufn-allied.png", "United Federated Navy emblem")}<strong>United Federated Navy</strong><em>Primary human military power</em></summary><div class="dossier-body">
+            <details class="dossier ally" open><summary>${factionMark("assets/factions/ufn-allied.png", "United Federated Navy emblem", "ufn-allied-mark")}<strong>United Federated Navy</strong><em>Primary human military power</em></summary><div class="dossier-body">
               <div><h4>Overview</h4><p>The UFN serves as the primary defence force of the United Federated Nations, operating across the core worlds and beyond. Formed from Earth’s major national fleets, it protects human space and UFN interests from external threats and serves as a stabilising presence within established territories.</p><h4>Fleet characteristics</h4><ul><li>Battleships and heavy cruisers</li><li>Warships upgraded for long-duration missions</li><li>Multi-role carrier strike groups</li><li>Armoured forward operating stations</li></ul></div>
               <div><h4>Role in human space</h4><ul><li>Protection of inner colonies and trade routes</li><li>Patrolling and securing the frontier</li><li>Escorting civilian traffic in unstable regions</li><li>Peacekeeping missions as needed</li></ul><h4>Relationships</h4><p>Coordinates closely with the Terran Space Navy, operates alongside Commonwealth United Forces, and co-operates with civilian organisations including the Independent Traders Guild.</p><h4>Current priorities</h4><p>Heightened readiness around outer colonies and trade routes; border patrols; defence of remote stations and outposts; co-ordinated responses to rising pirate and raider activity.</p></div>
             </div></details>
@@ -188,7 +204,6 @@
             <div class="threat-chip minor"><span>UMBRA CORP</span><strong>MINOR</strong></div>
             <div class="threat-chip minor ghost"><span>GHOSTS</span><strong>MINOR</strong></div>
             <div class="threat-chip major"><span>AXIS PROJECT</span><strong>MAJOR</strong></div>
-            <div class="threat-chip catastrophic"><span>THE DARKNESS</span><strong>CATASTROPHIC</strong></div>
           </div>
           <div class="dossier-stack">
             <details class="dossier hostile" open><summary>${factionMark("assets/factions/umbra.png", "Umbra Corp emblem")}<strong>Umbra Corp</strong><em>Threat level: Minor</em></summary><div class="dossier-body">
@@ -295,12 +310,12 @@
             "If the crew is stuck, needs reinforcements, supplies, clarification or extraction, use the Flight Commander rather than guessing."
           ])}
           <div class="control-guide-grid">
-            ${controlCard("Main Screen / Ship's Window", "SITUATIONAL VIEW", `<p><strong>Use it:</strong> Keep the immediate scene visible while the stations work. Watch what the ship is approaching, the direction of travel, nearby contacts and obvious hazards.</p><p><strong>Your action:</strong> Ask the relevant station what an object is before making a decision from appearance alone.</p>`)}
-            ${controlCard("Strategic Map", "TRAVEL OVERVIEW", `<p><strong>Use it:</strong> Switch to the wider map when the decision is about route, destination or how several locations relate to the current orders.</p><p><strong>Your action:</strong> Tell Relay the destination or objective and let Relay/Helms turn that intent into waypoints and movement.</p>`)}
-            ${controlCard("Request station reports", "COMMAND TOOL", `<p><strong>Use it:</strong> Ask short, specific questions: “Science, identify that contact.” “Engineering, can we sustain warp?” “Weapons, are we in arc?”</p><p>Avoid asking every station for a full report at once unless you genuinely need one.</p>`)}
-            ${controlCard("Set intent", "COMMAND TOOL", `<p><strong>Use it:</strong> State the desired outcome, not every button press. Examples: “Helms, keep us outside mine range.” “Weapons, disable propulsion.” “Relay, get us a route to the station.”</p>`)}
-            ${controlCard("Make the decision", "COMMAND TOOL", `<p><strong>Use it:</strong> Combine the crew's information into the ship's next action. Decide whether to continue, investigate, communicate, engage, withdraw or ask for help.</p>`)}
-            ${controlCard("Call the Flight Commander", "ESCALATION", `<p><strong>Use it:</strong> When the crew does not know what comes next, needs external support, clarification, supply or extraction. Calling for help is an intended part of the mission structure.</p>`, "gold")}
+            ${controlCard("Main Screen / Ship's Window", "SITUATIONAL VIEW", `<p>Keep the immediate scene visible while the stations work. It gives you a shared visual picture of what the ship is approaching, the direction of travel, nearby contacts and obvious hazards.</p><p><strong>Command:</strong> Ask the relevant station what an object is before making a decision from appearance alone.</p>`)}
+            ${controlCard("Strategic Map", "TRAVEL OVERVIEW", `<p>The wider map provides context when the decision is about route, destination or how several locations relate to the current orders.</p><p><strong>Command:</strong> Tell Relay the destination or objective and let Relay/Helms turn that intent into waypoints and movement.</p>`)}
+            ${controlCard("Request station reports", "COMMAND TOOL", `<p>Ask short, specific questions: “Science, identify that contact.” “Engineering, can we sustain warp?” “Weapons, are we in arc?”</p><p>Avoid asking every station for a full report at once unless you genuinely need one.</p>`)}
+            ${controlCard("Set intent", "COMMAND TOOL", `<p>State the desired outcome, not every button press. Examples: “Helms, keep us outside mine range.” “Weapons, disable propulsion.” “Relay, get us a route to the station.”</p>`)}
+            ${controlCard("Make the decision", "COMMAND TOOL", `<p>Combine the crew's information into the ship's next action. Decide whether to continue, investigate, communicate, engage, withdraw or ask for help.</p>`)}
+            ${controlCard("Call the Flight Commander", "ESCALATION", `<p>Call when the crew does not know what comes next, needs external support, clarification, supply or extraction. Calling for help is an intended part of the mission structure.</p>`, "gold")}
             ${controlCard("Do not operate the crew's stations", "COMMAND RULE", `<p><strong>Do not take over controls simply because you can see what needs doing.</strong> Give the order, trust the station officer and keep enough attention free to command the whole ship.</p>`, "warning")}
           </div>
         `},
@@ -448,10 +463,10 @@
         { id: "ordnance", label: "Ordnance Reference", content: `
           <div class="ordnance-grid">
             ${infoCard("Homing", `<p>A simple, high-speed guided missile with a small warhead.</p>`)}
-            ${infoCard("Nuke", `<p>A powerful homing missile that deals tremendous damage to all ships within 1U of detonation.</p>`, "danger")}
+            ${infoCard("Nuke", `<p>A powerful homing missile that deals tremendous damage to all ships within 1U of detonation.</p>`)}
             ${infoCard("EMP", `<p>A homing missile that deals powerful shield damage to all ships within 1U of detonation, without damaging physical systems or hulls.</p>`)}
             ${infoCard("HVLI", `<p>Five simple lead slugs fired in a single burst at extremely high velocity. HVLI rounds do not home on a target.</p>`)}
-            ${infoCard("Mine", `<p>A powerful stationary explosive that detonates when a ship comes within 0.6U. The explosion damages all objects within a 1U radius.</p>`, "danger")}
+            ${infoCard("Mine", `<p>A powerful stationary explosive that detonates when a ship comes within 0.6U. The explosion damages all objects within a 1U radius.</p>`)}
           </div>
           <div class="callout-strip warning"><strong>AMMUNITION:</strong><span>Missiles are limited. Use them wisely.</span></div>
         `},

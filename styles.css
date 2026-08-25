@@ -247,8 +247,6 @@ button { color: inherit; }
 .params { color: var(--blue-soft); font-size: .75rem; }
 .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .mine-controls { display: grid; gap: 7px; }
-.flag-toggle { min-height: 42px; border: 1px solid var(--line); border-radius: 7px; background: rgba(4,14,31,.72); cursor: pointer; }
-.flag-toggle.active { border-color: var(--gold); color: var(--gold-bright); }
 .simulator-panel { display: flex; flex-direction: column; min-width: 0; padding: clamp(18px, 2.5vw, 30px); }
 .simulator-topline { display: flex; justify-content: space-between; gap: 15px; align-items: flex-start; }
 .readout-group { display: flex; gap: 18px; }
@@ -265,7 +263,6 @@ button { color: inherit; }
 .lights-board .cell.off { background: radial-gradient(circle, #14213a, #050a14 74%); }
 .mines-board .cell.revealed { background: #0d203c; cursor: default; }
 .mines-board .cell.mine-hit { color: #08101e; background: var(--danger); }
-.mines-board .cell.flagged { color: var(--gold-bright); }
 .mines-board .cell[data-count="1"] { color: #8fd1ff; }
 .mines-board .cell[data-count="2"] { color: #7cf2b5; }
 .mines-board .cell[data-count="3"] { color: #ffd26f; }
@@ -700,8 +697,15 @@ button { color: inherit; }
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  padding: 3px;
+  box-sizing: border-box;
+  object-fit: contain;
   object-position: center;
+}
+/* The supplied UFN recognition plate has a tighter crop than the other faction plates.
+   Keep the exact asset, but give it the same visual breathing room in the dossier thumbnail. */
+.dossier summary > .faction-mark.ufn-allied-mark img {
+  padding: 7px 9px;
 }
 .dossier.ally summary > .faction-mark {
   border-color: rgba(105,186,255,.42);
@@ -823,16 +827,57 @@ button { color: inherit; }
 }
 .control-guide-card p:last-child { margin-bottom: 0; }
 .control-guide-card strong { color: var(--text); }
-.control-guide-card.gold {
+.control-guide-card.info {
+  border-color: var(--line);
+  background: linear-gradient(145deg, rgba(9,27,54,.88), rgba(3,12,28,.9));
+}
+.control-guide-card.info .control-type { color: var(--blue-soft); }
+.control-guide-card.action {
+  border-color: rgba(94,178,255,.40);
+  background: linear-gradient(145deg, rgba(10,43,76,.40), rgba(3,12,28,.92));
+}
+.control-guide-card.action .control-type { color: #88caff; }
+.control-guide-card.command {
   border-color: rgba(228,175,46,.48);
   background: linear-gradient(145deg, rgba(79,59,12,.22), rgba(4,14,30,.92));
 }
-.control-guide-card.gold .control-type { color: var(--gold-bright); }
-.control-guide-card.warning {
+.control-guide-card.command .control-type { color: var(--gold-bright); }
+.control-guide-card.caution {
   border-color: rgba(255,189,92,.48);
   background: linear-gradient(145deg, rgba(91,58,13,.18), rgba(4,14,30,.92));
 }
-.control-guide-card.warning .control-type { color: var(--warning); }
+.control-guide-card.caution .control-type { color: var(--warning); }
+.control-guide-card.alert {
+  border-color: rgba(255,99,119,.50);
+  background: linear-gradient(145deg, rgba(92,21,36,.22), rgba(4,14,30,.92));
+}
+.control-guide-card.alert .control-type { color: var(--danger); }
+
+.guide-colour-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 12px;
+  margin-top: 13px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(126,190,245,.16);
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .035em;
+}
+.guide-colour-key span { display: inline-flex; align-items: center; gap: 6px; }
+.guide-colour-key span::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.28);
+  background: var(--blue-soft);
+}
+.guide-colour-key .key-action::before { background: #88caff; }
+.guide-colour-key .key-command::before { background: var(--gold-bright); }
+.guide-colour-key .key-caution::before { background: var(--warning); }
+.guide-colour-key .key-alert::before { background: var(--danger); }
 
 @media (max-width: 1180px) {
   .play-flow ol { grid-template-columns: repeat(3, minmax(0,1fr)); }
