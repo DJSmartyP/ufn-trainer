@@ -12,13 +12,65 @@
       </div>
     </div>`;
 
-  const screenReference = (station, src, alt) => `
+  const SCREEN_HOTSPOTS = {
+    helms: [
+      ["Ship readouts", 1.2, 11.2, 15.2, 13.2, "Energy, heading and current speed. Check these before and during manoeuvres so you know what the ship is actually doing."],
+      ["Propulsion controls", 1.1, 55.0, 18.2, 32.0, "Impulse controls normal forward/reverse speed. Warp or Jump appears beside it when fitted. Jump distance is set before pressing Jump."],
+      ["Short-range radar", 25.0, 5.0, 50.0, 90.0, "Press or drag on the radar to command a heading. Use contacts, waypoints and visible weapon arcs to position the ship for the crew."],
+      ["Docking", 1.1, 92.3, 18.0, 5.8, "Request Dock becomes available when a compatible friendly or neutral target is close enough. Helms also controls undocking."],
+      ["Combat manoeuvre", 81.0, 74.0, 18.0, 23.0, "If fitted, this control provides forward boost and lateral strafe. It is limited, recharges over time and can generate substantial system heat."],
+      ["H.I.D.E.S. status", 82.6, 12.8, 16.3, 23.0, "Shows the ship's current intrusion state. If a Helms intrusion appears, open the H.I.D.E.S. reference for Drive Lock or Drive Decay clearance information."]
+    ],
+    weapons: [
+      ["Ship readouts", 1.2, 11.3, 15.2, 13.2, "Energy plus front and rear shield strength. Watch shield state while fighting and coordinate power concerns with Engineering."],
+      ["Ordnance and tubes", 1.0, 59.0, 22.0, 38.0, "Select an ordnance type, load an available tube, then fire the loaded tube. Tube direction matters, so coordinate the firing solution with Helms."],
+      ["Target radar", 25.0, 5.0, 50.0, 90.0, "Select a target on the short-range radar. Guided missiles use the selected target and beams automatically fire when that target is inside a firing arc."],
+      ["Missile aim lock", 61.3, 2.0, 9.0, 6.8, "Use Lock to switch between target-linked missile aiming and manual tube aiming when the tactical situation requires it."],
+      ["Beam information", 81.3, 70.0, 17.8, 27.0, "Choose hull or a subsystem as the beam target and set beam frequency when frequency mechanics are active. Science can provide useful frequency data."],
+      ["H.I.D.E.S. status", 82.6, 12.8, 16.3, 23.0, "Shows current intrusion state. Weapons intrusions include Fire Decay, Missile Scramble and Shield Collapse."]
+    ],
+    engineering: [
+      ["Ship status", 1.2, 11.2, 15.2, 24.0, "Energy trend, hull, shields and total coolant capacity. Use these to judge whether the ship is stable or entering a resource crisis."],
+      ["Self destruct", 1.2, 2.6, 15.0, 5.3, "Emergency control only. Activation requires confirmation. Do not use unless command has deliberately ordered destruction of the ship."],
+      ["Internal ship view", 36.0, 2.5, 29.0, 41.0, "Shows system rooms and repair crews. Select or dispatch repair capability to damaged systems using the engineering controls."],
+      ["System rows", 17.0, 48.0, 47.5, 49.0, "Each installed system has health, heat, requested power and coolant information. Select a row before using the large power/coolant controls."],
+      ["Power and coolant", 65.8, 53.7, 17.0, 43.5, "Allocate power to change system output and coolant to control heat. More than 100% power improves performance but increases heat and, except for the reactor, energy draw."],
+      ["H.I.D.E.S. status", 82.6, 12.8, 16.3, 23.0, "Shows current intrusion state. Engineering intrusions include Heat Surge and Grid Decay."]
+    ],
+    science: [
+      ["Long-range radar", 13.0, 0.5, 56.0, 98.0, "Your main sensor picture. Track contacts, hazards, nebula blind spots and changes in the sector, then report information that changes the crew's decisions."],
+      ["Probe / Radar / Database", 1.2, 81.0, 13.2, 16.0, "Probe View uses a Relay-linked probe. Radar returns to the ship's sensors. Database opens reference information on known ships, weapons and hazards."],
+      ["Scan control", 82.5, 18.2, 16.0, 6.5, "Select a scannable contact on the radar, then press Scan. Complete the sensor alignment to increase the target's scan state."],
+      ["Target information", 82.5, 24.8, 16.0, 28.0, "Displays callsign, distance, bearing, relative speed, faction, type, shields and hull as the target becomes sufficiently scanned."],
+      ["Radar zoom", 82.2, 91.6, 16.8, 6.0, "Change displayed sensor range. Zoom in to separate nearby contacts; zoom out for broader situational awareness."]
+    ],
+    relay: [
+      ["Comms / cyber controls", 1.1, 5.5, 15.8, 32.0, "Select a contact first. From here Relay can open communications, begin an eligible hack, link an owned probe to Science, place waypoints and launch probes."],
+      ["Reputation and clock", 1.1, 38.0, 15.8, 10.0, "Reputation can be spent on some support requests. The mission clock helps track timed orders, deadlines and the sequence of events."],
+      ["Sector map", 18.0, 3.0, 63.5, 88.0, "Pan and zoom the strategic map, select contacts, place routes and monitor hazards plus sensor coverage shared by friendly assets."],
+      ["Selected contact / Call FC", 82.5, 16.5, 16.0, 18.0, "Shows selected callsign and faction when known. Call FC is available when the crew needs guidance, reinforcement, supply, clarification or extraction."],
+      ["Zoom", 1.0, 86.5, 16.0, 7.0, "Changes sector-map scale. Zoom in for precise waypoint placement and local detail; zoom out for route planning."],
+      ["Alert level", 81.5, 86.8, 17.5, 7.0, "Sets the ship's alert posture when ordered or required by mission procedure."],
+      ["Ship log", 1.0, 94.5, 98.0, 5.0, "Records mission and ship messages. Use it to recover a missed message or reconstruct recent events."]
+    ]
+  };
+
+  const screenReference = (station, src, alt) => {
+    const hotspots = SCREEN_HOTSPOTS[String(station).toLowerCase()] || [];
+    return `
     <figure class="console-reference">
-      <div class="console-image-frame">
+      <div class="console-image-frame interactive-console-frame">
         <img src="${src}" alt="${alt}" loading="lazy" />
+        <div class="screen-hotspots" aria-label="Interactive ${station} console guide">
+          ${hotspots.map(([label,x,y,w,h,text]) => `
+            <button class="screen-hotspot ${y > 67 ? "popover-above" : ""} ${x > 72 ? "popover-left" : ""}" type="button" style="--x:${x}%;--y:${y}%;--w:${w}%;--h:${h}%;" aria-label="${label}: ${text}">
+              <span class="screen-hotspot-popover"><strong>${label}</strong><span>${text}</span></span>
+            </button>`).join("")}
+        </div>
       </div>
-      <figcaption><span class="micro-label">LIVE BRIDGE REFERENCE</span><strong>${station.toUpperCase()} CONSOLE</strong></figcaption>
+      <figcaption><span><span class="micro-label">LIVE BRIDGE REFERENCE</span><small>Hover, focus or tap highlighted areas for instructions.</small></span><strong>${station.toUpperCase()} CONSOLE</strong></figcaption>
     </figure>`;
+  };
 
   const factionMark = (src, alt, variant = "") => `<span class="faction-mark ${variant}"><img src="${src}" alt="${alt}" loading="lazy" /></span>`;
 
@@ -73,18 +125,18 @@
       <p>${effect}</p>
     </article>`;
 
-  const playFlow = (title, steps) => `
+  const playFlow = (_title, tips) => `
     <section class="play-flow">
       <span class="micro-label">HOW TO PLAY THIS STATION</span>
+      <h2>Top Tips</h2>
+      <ul>${tips.map(tip => `<li><p>${tip}</p></li>`).join("")}</ul>
+    </section>`;
+
+  const supportFlow = (title, steps) => `
+    <section class="play-flow support-flow">
+      <span class="micro-label">FLEET SUPPORT PROCEDURE</span>
       <h2>${title}</h2>
       <ol>${steps.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><p>${step}</p></li>`).join("")}</ol>
-      <div class="guide-colour-key" aria-label="Guide colour key">
-        <span class="key-info">Information / readout</span>
-        <span class="key-action">Control / action</span>
-        <span class="key-command">Command / UFN comms</span>
-        <span class="key-caution">Hazard / caution</span>
-        <span class="key-alert">Emergency only</span>
-      </div>
     </section>`;
 
   const stationIntro = (code, title, summary) => `
@@ -227,12 +279,12 @@
             <article class="phenomenon light"><span class="threat-badge allied-contact">ALLIED CONTACT // NATURE UNKNOWN</span><h3>The Light</h3><p class="intel-status">INTELLIGENCE STATUS: EXTREMELY LIMITED</p><dl><div><dt>Signal source</dt><dd>Unknown</dd></div><div><dt>Origin</dt><dd>Unknown</dd></div><div><dt>Current alignment</dt><dd>Allied</dd></div></dl><p>First detected during encounters involving The Darkness. Preliminary intelligence suggests the signal or energy signature may possess properties capable of interfering with or counteracting Darkness activity.</p><p>Its nature remains unclear. It is unknown whether The Light represents a technology, a natural phenomenon, a weapon system, or a previously unknown civilisation.</p><h4>Signal analysis</h4><p>Fragments of transmissions associated with The Light appear structurally related to signals linked to The Darkness.</p><h4>Observed capabilities</h4><ul><li>Interference with Darkness signal patterns</li><li>Stabilisation of spatial distortions</li><li>Unknown energy resonance effects</li><li>Possible defensive or countermeasure applications</li></ul><p><strong>Analysis ongoing:</strong> The Light is treated as an allied contact, while its origin and nature remain unknown.</p></article>
           </div>
         `},
-        { id: "supply-drops", label: "FC Supply Drops", content: `
-          <div class="section-heading"><span class="micro-label">UFN LOGISTICS // FLIGHT SUPPORT</span><h2>FC Supply Drops</h2><p>Crews operating away from a dock do not have to wait until supplies become critical. Contact any UFN station or the Flight Commander and request a supply drop.</p></div>
+        { id: "supply-drops", label: "Fleet Support", content: `
+          <div class="section-heading"><span class="micro-label">FLEET SUPPORT // UFN LOGISTICS</span><h2>FC Supply Drops</h2><p>Supply drops are a fleet support service, not a crew station. Crews operating away from a dock can contact any UFN station or the Flight Commander and request a delivery.</p></div>
           <div class="supply-brief">
             <span class="classification">STANDARD FRONTIER SUPPORT</span>
             <h3>Request the payload you need</h3>
-            <p>Most standard supply drops can carry <strong>up to three payload categories at once</strong>. Tell the station or Flight Commander which modules the crew requires, then coordinate with Helms to retrieve the drop when it arrives.</p>
+            <p>Most standard supply drops can carry <strong>up to three payload categories at once</strong>. Tell the station or Flight Commander which modules the crew requires. A UFN support craft will travel to your ship, then eject a self-propelled supply package which flies the final distance under its own power.</p>
           </div>
           <div class="payload-grid">
             ${payloadCard("Weapons", "2 Nukes • 4 EMPs • 4 Mines • 10 HVLI • 6 Homing", "Added directly to the ship's weapon storage when the payload is collected.")}
@@ -242,13 +294,14 @@
             ${payloadCard("Drone", "1 repair drone", "Adds +1 to the ship's repair crew / repair drone capacity.")}
             ${payloadCard("Coolant", "+2 coolant capacity", "Adds +2 to the ship's maximum simultaneous coolant capacity.")}
           </div>
-          ${playFlow("Requesting and collecting a drop", [
-            "Relay opens communications with a UFN station or contacts the Flight Commander and requests a supply drop.",
-            "State the payload categories required. Most drops can carry up to three categories in a single delivery.",
-            "Relay reports the drop location to Helms. Helms manoeuvres the ship onto the payload to collect it.",
-            "Once collected, the payload effect is applied to the ship. Confirm the relevant station has received what it expected."
+          ${supportFlow("Requesting a supply drop", [
+            "Relay opens communications with any UFN station or contacts the Flight Commander and requests a supply drop.",
+            "State the payload categories required. Most drops can carry up to three categories in one delivery.",
+            "A UFN support craft travels to the player's ship carrying the requested package.",
+            "When the support craft reaches the player, it ejects the supply drop. The drop then flies under its own power to the ship.",
+            "On contact, the payload effect is applied. The relevant station should confirm that the expected supplies or repair effect have been received."
           ])}
-          <div class="callout-strip warning"><strong>SUPPLY DISCIPLINE:</strong><span>Request support before the ship is in immediate crisis. A payload still has to reach you, and Helms still has to collect it.</span></div>
+          <div class="callout-strip warning"><strong>SUPPLY DISCIPLINE:</strong><span>Request support before the ship is in immediate crisis. The support craft must still travel to you before it can eject the self-propelled package.</span></div>
         `},
         { id: "protocols", label: "Protocols", content: `
           <div class="section-heading"><span class="micro-label">FLEET PROTOCOL</span><h2>Operational Protocols</h2><p>Quick-reference instructions reproduced from the briefing packet.</p></div>
@@ -637,10 +690,8 @@
         { id: "scanning", label: "Scanning Reference", content: `
           <div class="section-heading"><span class="micro-label">CONTACT ANALYSIS</span><h2>Scan Progression</h2></div>
           <div class="scan-states">
-            <div><span>01</span><strong>Unknown</strong><p>Unidentified contact.</p></div>
-            <div><span>02</span><strong>Friend / Foe</strong><p>Initial identification can establish faction relationship and ship type.</p></div>
-            <div><span>03</span><strong>Simple Scan</strong><p>Additional target information becomes available.</p></div>
-            <div><span>04</span><strong>Full Scan</strong><p>Deep target data is available, including tactical information used by other bridge stations.</p></div>
+            <div><span>01</span><strong>Simple Scan</strong><p>Completing the initial scan reveals additional target information used for identification and assessment.</p></div>
+            <div><span>02</span><strong>Full Scan</strong><p>A further deep scan reveals the detailed tactical information available from the contact, including data used by other bridge stations.</p></div>
           </div>
           <div class="two-column-cards">
             ${infoCard("Identification colours", `<p>The station tutorial identifies unknown contacts as grey, friendly as green, hostile as red and neutral as blue.</p>`)}

@@ -53,7 +53,7 @@ Sensitive Node Mapping / Mines:
 - Grid/mine counts: 6/6, 8/8, 10/10, 12/12 for difficulty 0-3.
 - Two total bomb contacts are allowed; the second fails.
 - Zero-neighbour safe cells recursively reveal.
-- Right-click/touch marking is supported in the training site.
+- The training site intentionally does not provide flag/mark controls, matching the player-facing interaction the crew can rely on in live play.
 
 ### Verified scan-practice rules
 
@@ -74,12 +74,24 @@ General-sector lore and crew-reminder material comes from the user-supplied `UFN
 
 ## H.I.D.E.S.
 
-User-supplied name only:
-
 **H.I.D.E.S. — Hacking Intrusion Detection and Elimination System**
 
-Levels I-V are placeholders until the custom package implementation/specification is supplied.
+The current station-specific effects and Levels I-V are user-supplied custom UFN mechanics. The site includes only the supplied effects:
+- Helms: Drive Lock, Drive Decay
+- Weapons: Fire Decay, Missile Scramble, Shield Collapse
+- Engineering: Heat Surge, Grid Decay
+
+No H.I.D.E.S. effects are added to Science or Relay without a supplied specification.
 
 ## Console play guides
 
 The detailed Console Orientation cards use the user-supplied bridge screenshots as the visual reference and the 2024.12.08 tutorial/screen source files above for standard control behaviour. Custom UFN controls visible in the screenshots (for example H.I.D.E.S. status and Call FC) are described only at the level supported by the supplied UFN material; undocumented custom mechanics are not invented.
+
+
+## Training-only helpers
+
+Binary Countermeasure Matrix Auto Solve is a training convenience, not a claim about a live bridge control. It solves the current generated matrix over GF(2) and replays one required node input every 0.75 seconds.
+
+## Interactive screenshots
+
+The console screen-map hotspots are authored against the supplied 1920×1080 screenshots and explain visible controls using the verified 2024.12.08 mechanics plus supplied custom UFN behaviour.

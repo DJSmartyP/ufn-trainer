@@ -120,8 +120,8 @@
           <aside class="control-panel">
             <div><p class="micro-label">SIMULATION PARAMETERS</p><h2 id="hack-game-title">Binary Countermeasure Matrix</h2><p id="hack-game-description" class="panel-copy">Fully illuminate the matrix. Activating a node also toggles its orthogonal neighbours.</p></div>
             <fieldset class="difficulty-fieldset"><legend>SECURITY GRADE</legend><div id="hack-difficulty-options" class="difficulty-options"></div></fieldset>
-            <div class="controls"><button id="hack-retry" class="button secondary" type="button">Retry Grid</button><button id="hack-new" class="button primary" type="button">New Grid</button></div>
-            <p class="control-note"><strong>Retry</strong> restores this exact training puzzle. <strong>New Grid</strong> generates a fresh puzzle at the selected security grade.</p>
+            <div class="controls"><button id="hack-retry" class="button secondary" type="button">Retry Grid</button><button id="hack-new" class="button primary" type="button">New Grid</button><button id="hack-auto" class="button secondary auto-solve" type="button">Auto Solve</button></div>
+            <p class="control-note"><strong>Retry</strong> restores this exact training puzzle. <strong>New Grid</strong> generates a fresh puzzle.<span id="hack-auto-note"> <strong>Auto Solve</strong> demonstrates the required matrix inputs one move every 0.75 seconds.</span></p>
           </aside>
           <section class="simulator-panel" aria-live="polite">
             <div class="simulator-topline"><div><span class="micro-label">TRAINING ARRAY</span><strong id="hack-target-label">COUNTERMEASURE MATRIX</strong></div><div class="readout-group"><div><span class="micro-label">GRID</span><strong id="hack-grid">7 × 7</strong></div><div id="hack-attempts-wrap" hidden><span class="micro-label">TOLERANCE</span><strong id="hack-attempts">2 / 2</strong></div><div><span class="micro-label">INPUTS</span><strong id="hack-moves">0</strong></div></div></div>
@@ -150,16 +150,53 @@
 
     const q = id => root.querySelector(id);
     const e = {
-      tabs: [...root.querySelectorAll(".practice-tab")], title: q("#hack-game-title"), desc: q("#hack-game-description"), target: q("#hack-target-label"), diff: q("#hack-difficulty-options"), retry: q("#hack-retry"), fresh: q("#hack-new"), attemptsWrap: q("#hack-attempts-wrap"), attempts: q("#hack-attempts"), grid: q("#hack-grid"), moves: q("#hack-moves"), progress: q("#hack-progress"), status: q("#hack-status"), timer: q("#hack-timer"), board: q("#hack-board"), result: q("#hack-result")
+      tabs: [...root.querySelectorAll(".practice-tab")], title: q("#hack-game-title"), desc: q("#hack-game-description"), target: q("#hack-target-label"), diff: q("#hack-difficulty-options"), retry: q("#hack-retry"), fresh: q("#hack-new"), auto: q("#hack-auto"), autoNote: q("#hack-auto-note"), attemptsWrap: q("#hack-attempts-wrap"), attempts: q("#hack-attempts"), grid: q("#hack-grid"), moves: q("#hack-moves"), progress: q("#hack-progress"), status: q("#hack-status"), timer: q("#hack-timer"), board: q("#hack-board"), result: q("#hack-result")
     };
 
-    const state = { game: "lights", grades: { lights: 3, mines: 3 }, size: 7, mines: 0, initial: null, current: [], bombs: new Set(), revealed: new Set(), errors: 0, moves: 0, complete: false, start: null, elapsed: 0, timerHandle: null };
+    const state = { game: "lights", grades: { lights: 3, mines: 3 }, size: 7, mines: 0, initial: null, current: [], bombs: new Set(), revealed: new Set(), errors: 0, moves: 0, complete: false, start: null, elapsed: 0, timerHandle: null, autoHandle: null, autoSolving: false };
     const randomInt = (min,max) => Math.floor(Math.random() * (max-min+1)) + min;
     const indexOf = (x,y,size=state.size) => y * size + x;
     const coords = index => ({ x: index % state.size, y: Math.floor(index / state.size) });
     const selected = () => GAMES[state.game].levels[state.grades[state.game] - 1];
 
     function toggleCross(board,x,y,size) { [[x,y],[x-1,y],[x+1,y],[x,y-1],[x,y+1]].forEach(([px,py]) => { if (px>=0 && py>=0 && px<size && py<size) { const i=indexOf(px,py,size); board[i]=!board[i]; }}); }
+
+    function solveLights(board, size) {
+      const count = size * size;
+      const rows = Array.from({ length: count }, (_, cell) => {
+        const row = new Uint8Array(count + 1);
+        const x = cell % size, y = Math.floor(cell / size);
+        [[x,y],[x-1,y],[x+1,y],[x,y-1],[x,y+1]].forEach(([px,py]) => {
+          if (px >= 0 && py >= 0 && px < size && py < size) row[py * size + px] = 1;
+        });
+        row[count] = board[cell] ? 0 : 1;
+        return row;
+      });
+      const pivots = [];
+      let pivotRow = 0;
+      for (let col = 0; col < count && pivotRow < count; col++) {
+        let found = pivotRow;
+        while (found < count && rows[found][col] === 0) found++;
+        if (found === count) continue;
+        [rows[pivotRow], rows[found]] = [rows[found], rows[pivotRow]];
+        for (let r = 0; r < count; r++) {
+          if (r !== pivotRow && rows[r][col]) {
+            for (let c = col; c <= count; c++) rows[r][c] ^= rows[pivotRow][c];
+          }
+        }
+        pivots.push([pivotRow, col]);
+        pivotRow++;
+      }
+      for (let r = pivotRow; r < count; r++) {
+        let any = false;
+        for (let c = 0; c < count; c++) if (rows[r][c]) { any = true; break; }
+        if (!any && rows[r][count]) return null;
+      }
+      const solution = new Uint8Array(count);
+      for (const [r, col] of pivots) solution[col] = rows[r][count];
+      return [...solution].map((value, index) => value ? index : -1).filter(index => index >= 0);
+    }
+
     function generateLights(size) { let board; do { board = Array(size*size).fill(true); const moves = randomInt(3,3*size); for(let i=0;i<moves;i++) toggleCross(board,randomInt(0,size-1),randomInt(0,size-1),size); } while(board.every(Boolean)); return board; }
     function generateBombs(size,count) { const bombs=new Set(); while(bombs.size<count) bombs.add(randomInt(0,size*size-1)); return bombs; }
     function adjacent(index) { const {x,y}=coords(index); const out=[]; for(let dy=-1;dy<=1;dy++) for(let dx=-1;dx<=1;dx++){ if(!dx&&!dy)continue; const nx=x+dx,ny=y+dy; if(nx>=0&&ny>=0&&nx<state.size&&ny<state.size) out.push(indexOf(nx,ny)); } return out; }
@@ -171,26 +208,51 @@
     function startTimer(){ if(state.start!==null||state.complete)return; state.start=performance.now(); state.timerHandle=setInterval(updateTimer,100); }
     function stopTimer(){ if(state.start!==null){state.elapsed+=performance.now()-state.start;state.start=null;} if(state.timerHandle)clearInterval(state.timerHandle);state.timerHandle=null;updateTimer(); }
 
-    function resetCommon(){ state.moves=0;state.complete=false;state.errors=0;state.revealed=new Set();e.moves.textContent="0";e.result.hidden=true;e.result.className="result-banner";clearTimer(); }
+    function cancelAutoSolve(){
+      if(state.autoHandle) clearTimeout(state.autoHandle);
+      state.autoHandle=null;state.autoSolving=false;
+      if(e.auto) e.auto.disabled=state.game!=="lights";
+    }
+    function resetCommon(){ cancelAutoSolve();state.moves=0;state.complete=false;state.errors=0;state.revealed=new Set();e.moves.textContent="0";e.result.hidden=true;e.result.className="result-banner";clearTimer(); }
     function newPuzzle(){ const cfg=selected(); state.size=cfg.size;state.mines=cfg.mines||0;resetCommon(); if(state.game==="lights"){state.initial=generateLights(state.size);state.current=[...state.initial];state.bombs=new Set();}else{state.bombs=generateBombs(state.size,state.mines);state.initial=[...state.bombs];state.current=[];} render(); update(); }
     function retry(){ resetCommon(); if(state.game==="lights")state.current=[...state.initial]; else state.bombs=new Set(state.initial); render();update(); }
 
     function renderDiff(){ e.diff.innerHTML=""; GAMES[state.game].levels.forEach(item=>{ const b=document.createElement("button"); b.type="button"; b.className=`difficulty-option ${item.grade===state.grades[state.game]?"active":""}`; const params=state.game==="lights"?`${item.size} × ${item.size}`:`${item.size} × ${item.size} • ${item.mines} sensitive`; b.innerHTML=`<span class="diff">G${item.grade}</span><span>Security Grade ${["I","II","III","IV"][item.grade-1]}</span><span class="params">${params}</span>`; b.onclick=()=>{state.grades[state.game]=item.grade;renderDiff();newPuzzle();}; e.diff.appendChild(b); }); }
-    function setGame(game){ state.game=game; e.tabs.forEach(t=>{const a=t.dataset.game===game;t.classList.toggle("active",a);t.setAttribute("aria-pressed",String(a));}); e.title.textContent=GAMES[game].title;e.desc.textContent=GAMES[game].desc;e.target.textContent=GAMES[game].target;e.attemptsWrap.hidden=game!=="mines";e.board.className=`board ${game==="lights"?"lights-board":"mines-board"}`;renderDiff();newPuzzle(); }
+    function setGame(game){ cancelAutoSolve();state.game=game; e.tabs.forEach(t=>{const a=t.dataset.game===game;t.classList.toggle("active",a);t.setAttribute("aria-pressed",String(a));}); e.title.textContent=GAMES[game].title;e.desc.textContent=GAMES[game].desc;e.target.textContent=GAMES[game].target;e.attemptsWrap.hidden=game!=="mines";e.auto.hidden=game!=="lights";e.auto.disabled=game!=="lights";e.autoNote.hidden=game!=="lights";e.board.className=`board ${game==="lights"?"lights-board":"mines-board"}`;renderDiff();newPuzzle(); }
 
     function update(){ const total=state.size*state.size; let progress=0; if(state.game==="lights") progress=state.current.filter(Boolean).length/total; else {const safe=total-state.mines;const seen=[...state.revealed].filter(i=>!state.bombs.has(i)).length;progress=seen/safe;e.attempts.textContent=`${Math.max(0,2-state.errors)} / 2`;} const pct=Math.floor(progress*100);e.grid.textContent=`${state.size} × ${state.size}`;e.moves.textContent=String(state.moves);e.progress.style.width=`${pct}%`;if(!state.complete)e.status.textContent=`INTRUSION IN PROGRESS: ${pct}%`; }
-    function finish(success){ state.complete=true;stopTimer();e.status.textContent=success?"INTRUSION SUCCESS":"INTRUSION FAILURE";e.result.hidden=false;e.result.textContent=success?"ACCESS ESTABLISHED":"CONNECTION TERMINATED";e.result.classList.add(success?"success":"failure");if(success)e.progress.style.width="100%";[...e.board.children].forEach(c=>c.disabled=true); }
+    function finish(success){ if(state.autoHandle)clearTimeout(state.autoHandle);state.autoHandle=null;state.autoSolving=false;state.complete=true;stopTimer();e.status.textContent=success?"INTRUSION SUCCESS":"INTRUSION FAILURE";e.result.hidden=false;e.result.textContent=success?"ACCESS ESTABLISHED":"CONNECTION TERMINATED";e.result.classList.add(success?"success":"failure");if(success)e.progress.style.width="100%";e.auto.disabled=true;[...e.board.children].forEach(c=>c.disabled=true); }
 
     function render(){ e.board.innerHTML="";e.board.style.setProperty("--cols",String(state.size)); if(state.game==="lights")renderLights();else renderMines(); }
-    function renderLights(){ state.current.forEach((on,index)=>{const {x,y}=coords(index);const c=document.createElement("button");c.type="button";c.className=`cell ${on?"on":"off"}`;c.setAttribute("role","gridcell");c.setAttribute("aria-label",`Node ${x+1}, ${y+1}: ${on?"illuminated":"dark"}`);c.onclick=()=>{if(state.complete)return;startTimer();toggleCross(state.current,x,y,state.size);state.moves++;render();update();if(state.current.every(Boolean))finish(true);};e.board.appendChild(c);}); }
+    function renderLights(){ state.current.forEach((on,index)=>{const {x,y}=coords(index);const c=document.createElement("button");c.type="button";c.className=`cell ${on?"on":"off"}`;c.setAttribute("role","gridcell");c.setAttribute("aria-label",`Node ${x+1}, ${y+1}: ${on?"illuminated":"dark"}`);c.disabled=state.autoSolving||state.complete;c.onclick=()=>{if(state.complete||state.autoSolving)return;startTimer();toggleCross(state.current,x,y,state.size);state.moves++;render();update();if(state.current.every(Boolean))finish(true);};e.board.appendChild(c);}); }
+
+    function autoSolve(){
+      if(state.game!=="lights"||state.complete||state.autoSolving)return;
+      const solution=solveLights([...state.current],state.size);
+      if(!solution){e.status.textContent="AUTO SOLVE UNAVAILABLE";return;}
+      if(solution.length===0){finish(true);return;}
+      startTimer();state.autoSolving=true;e.auto.disabled=true;render();
+      let step=0;
+      const applyNext=()=>{
+        if(!state.autoSolving||state.complete)return;
+        const cell=solution[step++];
+        const {x,y}=coords(cell);
+        toggleCross(state.current,x,y,state.size);state.moves++;render();update();
+        if(state.current.every(Boolean)){finish(true);return;}
+        if(step<solution.length) state.autoHandle=setTimeout(applyNext,750);
+        else {state.autoSolving=false;e.auto.disabled=false;render();}
+      };
+      state.autoHandle=setTimeout(applyNext,750);
+    }
+
     function revealSafe(start){const queue=[start],queued=new Set(queue);while(queue.length){const i=queue.shift();if(state.revealed.has(i)||state.bombs.has(i))continue;state.revealed.add(i);if(bombCount(i)===0)adjacent(i).forEach(a=>{if(!queued.has(a)&&!state.bombs.has(a)){queue.push(a);queued.add(a);}});}}
     function revealCell(i){if(state.complete||state.revealed.has(i))return;startTimer();state.moves++;if(state.bombs.has(i)){state.revealed.add(i);state.errors++;render();update();if(state.errors>1)finish(false);return;}revealSafe(i);render();update();const safe=state.size*state.size-state.mines;const seen=[...state.revealed].filter(x=>!state.bombs.has(x)).length;if(seen===safe)finish(true);}
     function renderMines(){for(let i=0;i<state.size*state.size;i++){const {x,y}=coords(i);const c=document.createElement("button");c.type="button";c.className="cell";c.setAttribute("role","gridcell");const revealed=state.revealed.has(i),bomb=state.bombs.has(i);if(revealed){c.classList.add("revealed");if(bomb){c.classList.add("mine-hit");c.textContent="X";}else{const n=bombCount(i);if(n){c.textContent=String(n);c.dataset.count=String(n);}}}c.onclick=()=>revealCell(i);c.setAttribute("aria-label",`Node ${x+1}, ${y+1}`);e.board.appendChild(c);}}
 
     e.tabs.forEach(t=>t.onclick=()=>setGame(t.dataset.game));
-    e.retry.onclick=retry;e.fresh.onclick=newPuzzle;
+    e.retry.onclick=retry;e.fresh.onclick=newPuzzle;e.auto.onclick=autoSolve;
     setGame("lights");
-    return { destroy(){ clearTimer(); } };
+    return { destroy(){ cancelAutoSolve();clearTimer(); } };
   }
 
   /* ------------------------- Science scan practice ------------------------- */
