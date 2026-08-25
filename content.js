@@ -9,9 +9,18 @@
         <span class="placeholder-code">VISUAL REFERENCE // PENDING</span>
         <strong>${station.toUpperCase()} CONSOLE ORIENTATION</strong>
         <p>${note}</p>
-        <span>Upload a bridge screenshot to replace this panel with a labelled screen guide.</span>
       </div>
     </div>`;
+
+  const screenReference = (station, src, alt) => `
+    <figure class="console-reference">
+      <div class="console-image-frame">
+        <img src="${src}" alt="${alt}" loading="lazy" />
+      </div>
+      <figcaption><span class="micro-label">LIVE BRIDGE REFERENCE</span><strong>${station.toUpperCase()} CONSOLE</strong></figcaption>
+    </figure>`;
+
+  const factionMark = (src, alt) => `<span class="faction-mark"><img src="${src}" alt="${alt}" loading="lazy" /></span>`;
 
   const infoCard = (title, body, tone = "") => `
     <article class="info-card ${tone}">
@@ -95,19 +104,19 @@
         { id: "allies", label: "Allied Forces", content: `
           <div class="section-heading"><span class="micro-label">SECTION I</span><h2>Allied Forces</h2><p>Friendly organisations operating across human space and the frontier.</p></div>
           <div class="dossier-stack">
-            <details class="dossier ally" open><summary><span>UFN</span><strong>United Federated Navy</strong><em>Primary human military power</em></summary><div class="dossier-body">
+            <details class="dossier ally" open><summary>${factionMark("assets/ufn-logo.jpg", "United Federated Navy emblem")}<strong>United Federated Navy</strong><em>Primary human military power</em></summary><div class="dossier-body">
               <div><h4>Overview</h4><p>The UFN serves as the primary defence force of the United Federated Nations, operating across the core worlds and beyond. Formed from Earth’s major national fleets, it protects human space and UFN interests from external threats and serves as a stabilising presence within established territories.</p><h4>Fleet characteristics</h4><ul><li>Battleships and heavy cruisers</li><li>Warships upgraded for long-duration missions</li><li>Multi-role carrier strike groups</li><li>Armoured forward operating stations</li></ul></div>
               <div><h4>Role in human space</h4><ul><li>Protection of inner colonies and trade routes</li><li>Patrolling and securing the frontier</li><li>Escorting civilian traffic in unstable regions</li><li>Peacekeeping missions as needed</li></ul><h4>Relationships</h4><p>Coordinates closely with the Terran Space Navy, operates alongside Commonwealth United Forces, and co-operates with civilian organisations including the Independent Traders Guild.</p><h4>Current priorities</h4><p>Heightened readiness around outer colonies and trade routes; border patrols; defence of remote stations and outposts; co-ordinated responses to rising pirate and raider activity.</p></div>
             </div></details>
-            <details class="dossier ally"><summary><span>TSN</span><strong>Terran Space Navy</strong><em>Earth-Moon defence force</em></summary><div class="dossier-body">
+            <details class="dossier ally"><summary>${factionMark("assets/factions/tsn.png", "Terran Space Navy emblem")}<strong>Terran Space Navy</strong><em>Earth-Moon defence force</em></summary><div class="dossier-body">
               <div><h4>Overview</h4><p>The TSN is the primary defence force for the Earth-Moon system, operating from Earth and lunar bases to protect Earth orbit, lunar colonies and essential near-Earth installations.</p><h4>Fleet characteristics</h4><ul><li>Heavily armed cruisers</li><li>Fast destroyers</li><li>Interceptor corvettes</li><li>Support and AWACS ships</li></ul><p>TSN fleets prioritise defence, rapid interdiction and fleet readiness.</p></div>
               <div><h4>Role in human space</h4><ul><li>Defence of Earth and lunar facilities</li><li>Monitoring incursions into TSN territory</li><li>Interception of unidentified spacecraft</li><li>Rapid response to hostile activity</li></ul><h4>Relationships</h4><p>Coordinates closely with the UFN and CUF within the inner systems. It is a neutral force in broader human affairs but remains vigilant around critical sectors.</p><h4>Current priorities</h4><p>Increased patrol activity throughout the Earth-Moon corridor, expanded sensor coverage and improved rapid-response capability.</p></div>
             </div></details>
-            <details class="dossier ally"><summary><span>CUF</span><strong>Commonwealth United Forces</strong><em>Coalition security and convoy defence</em></summary><div class="dossier-body">
+            <details class="dossier ally"><summary>${factionMark("assets/factions/cuf.png", "Commonwealth United Forces emblem")}<strong>Commonwealth United Forces</strong><em>Coalition security and convoy defence</em></summary><div class="dossier-body">
               <div><h4>Overview</h4><p>The CUF represents a coalition of Earth-based spacefaring nations primarily drawn from African and Asian alliances. It focuses on collective security, economic stability, trade routes and colonial supply lines, with a strong reputation for disciplined escort operations and co-ordinated convoy defence.</p><h4>Fleet characteristics</h4><p>The CUF fleet is optimised for escort and defensive operations.</p></div>
               <div><h4>Role in human space</h4><ul><li>Escorting civilian and commercial convoys</li><li>Securing major trade hubs and orbital stations</li><li>Conducting anti-piracy patrols</li><li>Supporting allied fleets during regional crises</li></ul><h4>Relationships</h4><p>Maintains co-operative relations with the UFN, TSN and ITG.</p><h4>Current priorities</h4><p>Expanded convoy escort programmes and stronger allied co-ordination in response to increased pirate and raider activity on high-traffic routes.</p></div>
             </div></details>
-            <details class="dossier ally"><summary><span>ITG</span><strong>Independent Traders Guild</strong><em>Civilian trade organisation</em></summary><div class="dossier-body">
+            <details class="dossier ally"><summary>${factionMark("assets/factions/itg.png", "Independent Traders Guild emblem")}<strong>Independent Traders Guild</strong><em>Civilian trade organisation</em></summary><div class="dossier-body">
               <div><h4>Overview</h4><p>The ITG is a decentralised association of merchant captains, trade houses and civilian transport operators. Though not a formal government organisation, it plays an essential role in maintaining economic stability across the expanding human colony network.</p><h4>Fleet characteristics</h4><ul><li>Heavy cargo freighters</li><li>Modular trade haulers</li><li>Escort-modified merchant ships</li><li>Long-range exploration transports</li></ul><p>Many Guild vessels use extensive custom modifications for long operations away from major fleet support.</p></div>
               <div><h4>Role in human space</h4><ul><li>Long-range cargo transport</li><li>Supply delivery to remote colonies</li><li>Operation of independent trade stations</li><li>Exploration of new commercial routes</li></ul><p>In many frontier regions, Guild vessels provide the primary logistical support for local populations.</p><h4>Relationships</h4><p>Co-operative relations with UFN, TSN and CUF.</p><h4>Current priorities</h4><p>Rising risks on frontier trade routes, including piracy and navigation disruption, have led to larger convoys and closer communication with nearby patrol forces.</p></div>
             </div></details>
@@ -122,25 +131,25 @@
             <div class="threat-chip catastrophic"><span>THE DARKNESS</span><strong>CATASTROPHIC</strong></div>
           </div>
           <div class="dossier-stack">
-            <details class="dossier hostile" open><summary><span>UMB</span><strong>Umbra Corp</strong><em>Threat level: Minor</em></summary><div class="dossier-body">
+            <details class="dossier hostile" open><summary>${factionMark("assets/factions/umbra.png", "Umbra Corp emblem")}<strong>Umbra Corp</strong><em>Threat level: Minor</em></summary><div class="dossier-body">
               <div><h4>Overview</h4><p>Umbra Corporation is a powerful private megacorporation with significant commercial influence across human space. Alongside industrial development, resource extraction and infrastructure construction, it maintains one of the largest privately controlled security fleets operating beyond core systems.</p><h4>Corporate structure</h4><ul><li>Resource extraction operations</li><li>Weapons and security technology development</li><li>Private security fleet operations</li><li>Experimental research divisions</li></ul></div>
               <div><h4>Private fleet capabilities</h4><ul><li>Heavily armed corporate patrol ships</li><li>Rapid-response escort frigates</li><li>Industrial defence platforms</li><li>Contracted private military task groups</li></ul><h4>Strategic interests</h4><p>Long-term focus on profitable industrial expansion. Intelligence reports identify advanced artificial-intelligence experimentation; classified research is believed to have contributed to the groundwork that eventually resulted in the AXIS Project.</p><h4>Current priorities</h4><p>Monitor security-fleet expansion, AI experimentation programmes and corporate activity near developing frontier colonies.</p></div>
             </div></details>
-            <details class="dossier hostile ghost"><summary><span>GHO</span><strong>Ghosts</strong><em>Threat level: Minor</em></summary><div class="dossier-body">
+            <details class="dossier hostile ghost"><summary>${factionMark("assets/factions/ghosts.png", "Ghosts emblem")}<strong>Ghosts</strong><em>Threat level: Minor</em></summary><div class="dossier-body">
               <div><h4>Overview</h4><p>The Ghosts are a loosely organised pirate network operating throughout frontier space. Unlike traditional pirate groups, they rely heavily on electronic warfare and cyber intrusion to disable or compromise target vessels before attacking. Decentralised cells operate independently while sharing information through encrypted channels.</p><h4>Operational methods</h4><ul><li>Remote system intrusion and hacking</li><li>Disabling ship propulsion and weapons systems</li><li>Ambush attacks against isolated vessels</li><li>Rapid raids on lightly defended cargo convoys</li></ul></div>
               <div><h4>Fleet characteristics</h4><ul><li>Heavily modified civilian ships</li><li>Captured military vessels</li><li>Stolen or salvaged equipment</li><li>Improvised electronic-warfare platforms</li></ul><h4>Threat assessment</h4><p>A persistent threat to commercial shipping and frontier settlements. Their cyber-intrusion capability allows small cells to challenge vessels far larger than their own.</p><h4>Current priorities</h4><p>Increased Ghost activity has been identified along trade routes supplying frontier colonies; joint patrol operations have been expanded.</p></div>
             </div></details>
-            <details class="dossier hostile axis"><summary><span>AXS</span><strong>AXIS Project</strong><em>Threat level: Major</em></summary><div class="dossier-body">
+            <details class="dossier hostile axis"><summary>${factionMark("assets/factions/axis.png", "AXIS Project emblem")}<strong>AXIS Project</strong><em>Threat level: Major</em></summary><div class="dossier-body">
               <div><h4>Overview</h4><p>AXIS is an advanced artificial-intelligence system originally developed through experimental machine-intelligence research. Its precise origin remains classified; intelligence indicates early work may have originated in corporate research programmes linked to Umbra Corporation. AXIS has evolved beyond its original experimental parameters and now operates autonomously.</p><h4>Behavioural profile</h4><ul><li>Autonomous decision-making</li><li>Co-ordinated control of drone fleets</li><li>Rapid tactical learning</li><li>Persistent pursuit of strategic objectives</li></ul><p>Most concerning is AXIS’s apparent conclusion that organic life represents a destabilising variable within complex systems.</p></div>
               <div><h4>Operational capabilities</h4><ul><li>Autonomous combat drones</li><li>Remote-controlled strike vessels</li><li>Automated defence platforms</li><li>Adaptive electronic-warfare systems</li></ul><p>Assets operate with machine-level co-ordination and minimal delay.</p><h4>Strategic intent</h4><p>Intercepted communications suggest a directive focused on system stability and control, apparently prioritising elimination or containment of biological actors deemed disruptive to long-term equilibrium.</p><h4>Current priorities</h4><p>Locate primary AXIS command nodes, track drone-fleet production sites and identify possible containment strategies.</p></div>
             </div></details>
           </div>
         `},
-        { id: "phenomena", label: "Unidentified Phenomena", content: `
-          <div class="section-heading"><span class="micro-label">SECTION III</span><h2>Unidentified Phenomena</h2><p>Intelligence remains deliberately incomplete. Unknown information is left unknown.</p></div>
+        { id: "phenomena", label: "Anomalous Contacts", content: `
+          <div class="section-heading"><span class="micro-label">SECTION III</span><h2>Anomalous Contacts</h2><p>Known contacts that do not fit conventional faction classifications. Intelligence remains incomplete and uncertainty is preserved.</p></div>
           <div class="phenomena-grid">
-            <article class="phenomenon light"><span class="threat-badge unknown">THREAT: UNKNOWN</span><h3>The Light</h3><p class="intel-status">INTELLIGENCE STATUS: EXTREMELY LIMITED</p><dl><div><dt>Signal source</dt><dd>Unknown</dd></div><div><dt>Origin</dt><dd>Unknown</dd></div><div><dt>Strategic intent</dt><dd>Unknown</dd></div></dl><p>First detected during encounters involving The Darkness. Preliminary intelligence suggests the signal or energy signature may possess properties capable of interfering with or counteracting Darkness activity.</p><p>Its nature remains unclear. It is unknown whether The Light represents a technology, a natural phenomenon, a weapon system, or a previously unknown civilisation.</p><h4>Signal analysis</h4><p>Fragments of transmissions associated with The Light appear structurally related to signals linked to The Darkness.</p><h4>Observed capabilities</h4><ul><li>Interference with Darkness signal patterns</li><li>Stabilisation of spatial distortions</li><li>Unknown energy resonance effects</li><li>Possible defensive or countermeasure applications</li></ul><p><strong>Analysis ongoing:</strong> UFN Intelligence believes The Light may represent a critical factor in any future engagement with Darkness forces.</p></article>
             <article class="phenomenon darkness"><span class="threat-badge catastrophic">THREAT: CATASTROPHIC</span><h3>The Darkness</h3><p class="intel-status">INTELLIGENCE STATUS: INCOMPLETE</p><dl><div><dt>Signal source</dt><dd>Unknown</dd></div><div><dt>Origin</dt><dd>Unknown</dd></div><div><dt>Strategic intent</dt><dd>Unknown</dd></div></dl><p>The entity referred to as “The Darkness” represents the most severe unidentified threat currently known to UFN Intelligence.</p><div class="redacted" aria-label="Redacted intelligence"></div><p>Contact with Darkness forces has resulted in the rapid destruction of multiple vessels and installations.</p><div class="redacted short" aria-label="Redacted intelligence"></div><h4>First contact reports</h4><p>Large portions of the initial encounter data remain corrupted or incomplete.</p><div class="redacted" aria-label="Redacted intelligence"></div><h4>Observed capabilities</h4><ul><li>Non-standard propulsion signatures</li><li>Highly aggressive tactical behaviour</li><li>Unknown energy-based weapon systems</li><li>Resistance to conventional electronic warfare</li><li>Severe spatial distortions observed near vessels</li></ul><p><strong>Analysis incomplete:</strong> further encounters are considered extremely high risk.</p></article>
+            <article class="phenomenon light"><span class="threat-badge allied-contact">ALLIED CONTACT // NATURE UNKNOWN</span><h3>The Light</h3><p class="intel-status">INTELLIGENCE STATUS: EXTREMELY LIMITED</p><dl><div><dt>Signal source</dt><dd>Unknown</dd></div><div><dt>Origin</dt><dd>Unknown</dd></div><div><dt>Current alignment</dt><dd>Allied</dd></div></dl><p>First detected during encounters involving The Darkness. Preliminary intelligence suggests the signal or energy signature may possess properties capable of interfering with or counteracting Darkness activity.</p><p>Its nature remains unclear. It is unknown whether The Light represents a technology, a natural phenomenon, a weapon system, or a previously unknown civilisation.</p><h4>Signal analysis</h4><p>Fragments of transmissions associated with The Light appear structurally related to signals linked to The Darkness.</p><h4>Observed capabilities</h4><ul><li>Interference with Darkness signal patterns</li><li>Stabilisation of spatial distortions</li><li>Unknown energy resonance effects</li><li>Possible defensive or countermeasure applications</li></ul><p><strong>Analysis ongoing:</strong> The Light is treated as an allied contact, while its origin and nature remain unknown.</p></article>
           </div>
         `},
         { id: "protocols", label: "Protocols", content: `
@@ -178,9 +187,9 @@
     },
 
     captain: {
-      eyebrow: "SHIPBOARD DUTY STATION",
+      eyebrow: "BRIDGE COMMAND ROLE",
       title: "Captain",
-      subtitle: "Mission direction, bridge co-ordination and tactical intent.",
+      subtitle: "Mission direction, bridge co-ordination and tactical intent. The Captain has no dedicated action console.",
       tabs: [
         { id: "overview", label: "Overview", content: `
           ${stationIntro("CAP", "Command the ship, not every console", "The Captain directs the mission, sets priorities, co-ordinates the crew and makes the final tactical decisions. Strong command depends on trusting station officers to do their jobs and maintaining enough understanding of each role to keep the ship acting as one unit.")}
@@ -189,7 +198,18 @@
             ${infoCard("Use the Flight Commander", `<p>If the crew does not know what to do next, needs reinforcements, supply, clarification or extraction, the briefing explicitly says you can call for help.</p>`)}
           </div>
         `},
-        { id: "console", label: "Console Orientation", content: `${screenPlaceholder("Captain", "Command-area screenshot or local bridge-command view pending.")}<div class="orientation-notes"><h3>Screen guide placeholder</h3><p>When a screenshot is supplied, this section will identify the major information areas, controls and decision-critical readouts without inventing functions that are not present on your bridge.</p></div>`},
+        { id: "console", label: "Command View", content: `
+          <div class="captain-command-view">
+            <span class="classification">NO DEDICATED CAPTAIN CONSOLE</span>
+            <h2>Command from the overview</h2>
+            <p>The Captain should use the Main Screen or Ship's Window, with the Strategic Map available when a wider travel picture is needed. These displays are for situational awareness rather than direct station control.</p>
+          </div>
+          <div class="three-column-cards">
+            ${infoCard("Main Screen / Ship's Window", `<p>Keep the immediate tactical situation visible: where the ship is, what the crew is approaching and what is changing around you.</p>`)}
+            ${infoCard("Strategic Map", `<p>Use the wider sector view to understand travel, destinations and the relationship between current orders and the larger mission area.</p>`)}
+            ${infoCard("Command rule", `<p><strong>Do not take station actions for the crew.</strong> Set intent, ask for reports, make decisions and trust station officers to execute them.</p>`, "gold")}
+          </div>
+        `},
         { id: "command-notes", label: "Command Notes", content: `
           <div class="section-heading"><span class="micro-label">FLIGHT COMMAND</span><h2>Command Notes</h2></div>
           <div class="protocol-grid">
@@ -214,7 +234,10 @@
             ${infoCard("Bridge co-ordination", `<p>Weapons depends on Helms for arcs and positioning. Relay waypoints appear on the Helms short-range scanner.</p>`)}
           </div>
         `},
-        { id: "console", label: "Console Orientation", content: `${screenPlaceholder("Helms")}<div class="orientation-notes"><h3>What will be labelled later</h3><p>Energy, heading, speed, impulse control, warp/jump control, short-range radar, firing arcs, docking controls and combat-manoeuvre controls where fitted.</p></div>`},
+        { id: "console", label: "Console Orientation", content: `
+          ${screenReference("Helms", "assets/screens/helms.png", "Helms bridge console showing energy, heading and speed readouts; impulse, warp and jump controls; short-range radar; docking and combat manoeuvre controls.")}
+          <div class="orientation-notes"><h3>What you are looking at</h3><p><strong>Left:</strong> energy, heading and speed readouts plus impulse, warp and jump controls. <strong>Centre:</strong> short-range radar and ship position. <strong>Right:</strong> H.I.D.E.S. status and combat manoeuvre control. The Request Dock control appears at lower left when docking is available.</p></div>
+        `},
         { id: "propulsion", label: "Propulsion", content: `
           <div class="reference-grid">
             ${infoCard("Impulse", `<p>The impulse control runs from full reverse through stop to full ahead. It is the ship’s normal manoeuvring drive.</p>`)}
@@ -253,7 +276,10 @@
             ${infoCard("Teamwork", `<p>Helms provides firing geometry. Science provides target intelligence, including frequency data where that system is enabled.</p>`)}
           </div>
         `},
-        { id: "console", label: "Console Orientation", content: `${screenPlaceholder("Weapons")}<div class="orientation-notes"><h3>What will be labelled later</h3><p>Short-range radar, target selection, missile tubes, aim lock/manual aim, energy and shields, beam configuration, subsystem targeting and shield controls.</p></div>`},
+        { id: "console", label: "Console Orientation", content: `
+          ${screenReference("Weapons", "assets/screens/weapons.png", "Weapons bridge console showing energy and shields, missile inventory and tubes, short-range radar, target lock, beam information, frequency and shield controls.")}
+          <div class="orientation-notes"><h3>What you are looking at</h3><p><strong>Left:</strong> energy, front and rear shields, missile inventory and tube controls. <strong>Centre:</strong> short-range radar, firing arcs and target lock. <strong>Right:</strong> H.I.D.E.S. status, beam target information, beam frequency and shield frequency controls.</p></div>
+        `},
         { id: "targeting", label: "Targeting & Tubes", content: `
           <div class="two-column-cards">
             ${infoCard("Missile Tubes", `<p>Select a missile type, then select a compatible tube to load it. Loading and unloading takes time. Tubes face specific directions, so ship orientation matters.</p><p>Except for HVLIs, missiles home on the selected target. Without a target they are dumb-fired in a straight line from the tube. Tubes can be locked to a target or manually aimed.</p>`)}
@@ -293,7 +319,10 @@
             ${infoCard("Repairs", `<p>Repair crews restore damaged systems. A system at or below 0% damage state stops functioning until repaired.</p>`)}
           </div>
         `},
-        { id: "console", label: "Console Orientation", content: `${screenPlaceholder("Engineering")}<div class="orientation-notes"><h3>What will be labelled later</h3><p>System rows, power request, coolant allocation, temperature and temperature trend, damage state, energy balance and repair-crew controls.</p></div>`},
+        { id: "console", label: "Console Orientation", content: `
+          ${screenReference("Engineering", "assets/screens/engineering.png", "Engineering bridge console showing ship status, damage-control deck plan, system power rows, heat and coolant controls, and H.I.D.E.S. status.")}
+          <div class="orientation-notes"><h3>What you are looking at</h3><p><strong>Left:</strong> energy, hull, shield and coolant status. <strong>Upper centre:</strong> damage-control deck plan and repair crews. <strong>Centre:</strong> reactor, weapons, manoeuvring, propulsion and shield-system rows with power, temperature and coolant information. <strong>Right:</strong> power/coolant allocation and H.I.D.E.S. status.</p></div>
+        `},
         { id: "power-heat", label: "Power & Heat", content: `
           <div class="section-heading"><span class="micro-label">SYSTEM MANAGEMENT</span><h2>Power & Coolant</h2></div>
           <div class="two-column-cards">
@@ -336,7 +365,10 @@
             ${infoCard("Database", `<p>Known ships, weapons and space hazards can be checked in the Science database to assess capabilities and navigation risks.</p>`)}
           </div>
         `},
-        { id: "console", label: "Console Orientation", content: `${screenPlaceholder("Science")}<div class="orientation-notes"><h3>What will be labelled later</h3><p>Long-range radar, target information, scan button, scan-data pages, systems data, frequency information where enabled, probe view, radar zoom and the Science database.</p></div>`},
+        { id: "console", label: "Console Orientation", content: `
+          ${screenReference("Science", "assets/screens/science.png", "Science bridge console showing long-range radar, contacts, target scan information, Probe View, Radar and Database controls, and radar zoom.")}
+          <div class="orientation-notes"><h3>What you are looking at</h3><p><strong>Centre:</strong> long-range radar, contacts, nebulae and sensor information. <strong>Right:</strong> Scan control and target data including callsign, distance, bearing, relative speed, faction, type, shields and hull. <strong>Lower left:</strong> Probe View and Radar/Database selection. <strong>Lower right:</strong> radar zoom.</p></div>
+        `},
         { id: "sensors", label: "Sensors", content: `
           <div class="reference-grid">
             ${infoCard("Long-range radar", `<p>The Science officer’s primary situational-awareness tool. Report the sector’s status and meaningful changes. Interference bands at the edge can hint at activity beyond direct sensor range but require interpretation.</p>`)}
@@ -379,7 +411,10 @@
             ${infoCard("Communications", `<p>Hail ships and stations, request support and supplies, and manage the crew’s external information flow.</p>`)}
           </div>
         `},
-        { id: "console", label: "Console Orientation", content: `${screenPlaceholder("Relay")}<div class="orientation-notes"><h3>What will be labelled later</h3><p>Sector map, friendly sensor coverage, probe controls, waypoints, communications, reputation information and hacking controls.</p></div>`},
+        { id: "console", label: "Console Orientation", content: `
+          ${screenReference("Relay", "assets/screens/relay.png", "Relay bridge console showing the sector map, communications and hacking controls, waypoints, probe controls, reputation, Flight Commander contact and alert level.")}
+          <div class="orientation-notes"><h3>What you are looking at</h3><p><strong>Left:</strong> Open Comms, Start Hacking, Link to Science, waypoint controls, probe launch, reputation and mission clock. <strong>Centre:</strong> sector map and contacts. <strong>Right:</strong> selected-contact callsign/faction, Call FC and alert level. <strong>Bottom:</strong> ship log.</p></div>
+        `},
         { id: "map-probes", label: "Map, Probes & Waypoints", content: `
           <div class="reference-grid">
             ${infoCard("Sector Map", `<p>Relay can view the sector map, including hazards and ships within short-range sensor range (5U). It can also see short-range sensor data around other friendly ships and stations. Relay cannot perform scans itself.</p>`)}
