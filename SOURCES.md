@@ -13,6 +13,12 @@ Key source files:
 - `scripts/tutorial/04_engineering.lua`
 - `scripts/tutorial/05_science.lua`
 - `scripts/tutorial/06_relay.lua`
+- `src/screens/crew6/helmsScreen.cpp`
+- `src/screens/crew6/weaponsScreen.cpp`
+- `src/screens/crew6/engineeringScreen.cpp`
+- `src/screens/crew6/scienceScreen.cpp`
+- `src/screens/crew6/relayScreen.cpp`
+- `src/screenComponents/selfDestructButton.cpp`
 - `src/screenComponents/scanningDialog.cpp`
 - `src/screenComponents/scanningDialog.h`
 - `src/screenComponents/hackingDialog.cpp`
@@ -73,3 +79,7 @@ User-supplied name only:
 **H.I.D.E.S. — Hacking Intrusion Detection and Elimination System**
 
 Levels I-V are placeholders until the custom package implementation/specification is supplied.
+
+## Console play guides
+
+The detailed Console Orientation cards use the user-supplied bridge screenshots as the visual reference and the 2024.12.08 tutorial/screen source files above for standard control behaviour. Custom UFN controls visible in the screenshots (for example H.I.D.E.S. status and Call FC) are described only at the level supported by the supplied UFN material; undocumented custom mechanics are not invented.

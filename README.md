@@ -53,3 +53,8 @@ This project has no build step.
 - `assets/ufn-logo.jpg` - supplied UFN logo
 - `assets/UFN-Sector-Briefing.pdf` - supplied briefing packet
 - `SOURCES.md` - implementation/source audit notes
+
+
+## Detailed console play guides
+
+Each active bridge station now includes a screenshot-led Console Orientation page with a step-by-step station workflow and separate control cards explaining how to use each visible control/readout in play. Captain remains a command role with Main Screen / Strategic Map guidance rather than a fabricated Captain console.

@@ -28,6 +28,49 @@
       ${body}
     </article>`;
 
+  const controlCard = (title, type, body, tone = "") => `
+    <article class="control-guide-card ${tone}">
+      <span class="control-type">${type}</span>
+      <h3>${title}</h3>
+      ${body}
+    </article>`;
+
+  const hidesCard = (title, station, status, effectLine, summary, cleared, rows, columns) => `
+    <details class="hides-incident">
+      <summary>
+        <span class="hides-summary-copy">
+          <span class="control-type">${station} // ${status}</span>
+          <strong>${title}</strong>
+          <small>${effectLine}</small>
+        </span>
+        <span class="hides-expand">LEVELS I–V</span>
+      </summary>
+      <div class="hides-incident-body">
+        <div class="hides-effect-copy">${summary}${cleared ? `<div class="hides-cleared"><strong>WHEN CLEARED</strong>${cleared}</div>` : ""}</div>
+        <div class="hides-level-table-wrap">
+          <table class="hides-level-table">
+            <thead><tr>${columns.map(c => `<th>${c}</th>`).join("")}</tr></thead>
+            <tbody>${rows.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody>
+          </table>
+        </div>
+      </div>
+    </details>`;
+
+  const payloadCard = (name, contents, effect) => `
+    <article class="payload-card">
+      <span class="control-type">SUPPLY MODULE</span>
+      <h3>${name}</h3>
+      <strong>${contents}</strong>
+      <p>${effect}</p>
+    </article>`;
+
+  const playFlow = (title, steps) => `
+    <section class="play-flow">
+      <span class="micro-label">HOW TO PLAY THIS STATION</span>
+      <h2>${title}</h2>
+      <ol>${steps.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><p>${step}</p></li>`).join("")}</ol>
+    </section>`;
+
   const stationIntro = (code, title, summary) => `
     <div class="station-intro-card">
       <span class="station-monogram station-icon-host">${stationIcon(code)}</span>
@@ -60,6 +103,23 @@
             <button class="station-card engineering" type="button" data-nav="engineering"><span class="station-card-code station-icon-host">${stationIcon("engineering")}</span><strong>Engineering</strong><span>Power, coolant, heat and repairs.</span></button>
             <button class="station-card science" type="button" data-nav="science"><span class="station-card-code station-icon-host">${stationIcon("science")}</span><strong>Science</strong><span>Long-range awareness, scanning and analysis.</span></button>
             <button class="station-card relay" type="button" data-nav="relay"><span class="station-card-code station-icon-host">${stationIcon("relay")}</span><strong>Relay</strong><span>Sector map, probes, communications and intrusion.</span></button>
+          </section>
+          <section class="network-services" aria-label="UFN network services">
+            <div class="section-heading compact"><span class="micro-label">UFN NETWORK SERVICES</span><h2>Fleet Access</h2><p>Authorised crew systems available outside the bridge console.</p></div>
+            <div class="network-grid">
+              <a class="network-card" href="https://terminal.ufn.systems/" target="_blank" rel="noopener noreferrer">
+                <span class="control-type">CREW OPERATIONS</span>
+                <strong>Terminal</strong>
+                <p>The main crew access point for finding assignments and checking mission records.</p>
+                <span class="network-action">OPEN TERMINAL ↗</span>
+              </a>
+              <a class="network-card" href="https://ufn.systems/" target="_blank" rel="noopener noreferrer">
+                <span class="control-type">FLEET INTELLIGENCE</span>
+                <strong>UFN Intranet</strong>
+                <p>Access the UFN intelligence database and Fleet Despatches detailing recent missions.</p>
+                <span class="network-action">OPEN INTRANET ↗</span>
+              </a>
+            </div>
           </section>
           <div class="callout-strip"><strong>FRONTIER RULE:</strong><span>When information is incomplete, communicate what you know, what you do not know, and what changed.</span></div>
         `
@@ -152,6 +212,29 @@
             <article class="phenomenon light"><span class="threat-badge allied-contact">ALLIED CONTACT // NATURE UNKNOWN</span><h3>The Light</h3><p class="intel-status">INTELLIGENCE STATUS: EXTREMELY LIMITED</p><dl><div><dt>Signal source</dt><dd>Unknown</dd></div><div><dt>Origin</dt><dd>Unknown</dd></div><div><dt>Current alignment</dt><dd>Allied</dd></div></dl><p>First detected during encounters involving The Darkness. Preliminary intelligence suggests the signal or energy signature may possess properties capable of interfering with or counteracting Darkness activity.</p><p>Its nature remains unclear. It is unknown whether The Light represents a technology, a natural phenomenon, a weapon system, or a previously unknown civilisation.</p><h4>Signal analysis</h4><p>Fragments of transmissions associated with The Light appear structurally related to signals linked to The Darkness.</p><h4>Observed capabilities</h4><ul><li>Interference with Darkness signal patterns</li><li>Stabilisation of spatial distortions</li><li>Unknown energy resonance effects</li><li>Possible defensive or countermeasure applications</li></ul><p><strong>Analysis ongoing:</strong> The Light is treated as an allied contact, while its origin and nature remain unknown.</p></article>
           </div>
         `},
+        { id: "supply-drops", label: "FC Supply Drops", content: `
+          <div class="section-heading"><span class="micro-label">UFN LOGISTICS // FLIGHT SUPPORT</span><h2>FC Supply Drops</h2><p>Crews operating away from a dock do not have to wait until supplies become critical. Contact any UFN station or the Flight Commander and request a supply drop.</p></div>
+          <div class="supply-brief">
+            <span class="classification">STANDARD FRONTIER SUPPORT</span>
+            <h3>Request the payload you need</h3>
+            <p>Most standard supply drops can carry <strong>up to three payload categories at once</strong>. Tell the station or Flight Commander which modules the crew requires, then coordinate with Helms to retrieve the drop when it arrives.</p>
+          </div>
+          <div class="payload-grid">
+            ${payloadCard("Weapons", "2 Nukes • 4 EMPs • 4 Mines • 10 HVLI • 6 Homing", "Added directly to the ship's weapon storage when the payload is collected.")}
+            ${payloadCard("Energy", "500 energy", "Added to the ship's current energy reserve on pickup.")}
+            ${payloadCard("Repair", "50% hull repair", "Restores hull integrity by up to 50% of the ship's maximum hull.")}
+            ${payloadCard("Probes", "3 scan probes", "Adds three probes to the ship's available scan-probe stock.")}
+            ${payloadCard("Drone", "1 repair drone", "Adds +1 to the ship's repair crew / repair drone capacity.")}
+            ${payloadCard("Coolant", "+2 coolant capacity", "Adds +2 to the ship's maximum simultaneous coolant capacity.")}
+          </div>
+          ${playFlow("Requesting and collecting a drop", [
+            "Relay opens communications with a UFN station or contacts the Flight Commander and requests a supply drop.",
+            "State the payload categories required. Most drops can carry up to three categories in a single delivery.",
+            "Relay reports the drop location to Helms. Helms manoeuvres the ship onto the payload to collect it.",
+            "Once collected, the payload effect is applied to the ship. Confirm the relevant station has received what it expected."
+          ])}
+          <div class="callout-strip warning"><strong>SUPPLY DISCIPLINE:</strong><span>Request support before the ship is in immediate crisis. A payload still has to reach you, and Helms still has to collect it.</span></div>
+        `},
         { id: "protocols", label: "Protocols", content: `
           <div class="section-heading"><span class="micro-label">FLEET PROTOCOL</span><h2>Operational Protocols</h2><p>Quick-reference instructions reproduced from the briefing packet.</p></div>
           <div class="protocol-grid">
@@ -202,12 +285,23 @@
           <div class="captain-command-view">
             <span class="classification">NO DEDICATED CAPTAIN CONSOLE</span>
             <h2>Command from the overview</h2>
-            <p>The Captain should use the Main Screen or Ship's Window, with the Strategic Map available when a wider travel picture is needed. These displays are for situational awareness rather than direct station control.</p>
+            <p>The Captain should use the Main Screen or Ship's Window for the immediate tactical picture, and the Strategic Map when the crew needs the wider travel picture. These are decision-making views, not substitutes for the crew stations.</p>
           </div>
-          <div class="three-column-cards">
-            ${infoCard("Main Screen / Ship's Window", `<p>Keep the immediate tactical situation visible: where the ship is, what the crew is approaching and what is changing around you.</p>`)}
-            ${infoCard("Strategic Map", `<p>Use the wider sector view to understand travel, destinations and the relationship between current orders and the larger mission area.</p>`)}
-            ${infoCard("Command rule", `<p><strong>Do not take station actions for the crew.</strong> Set intent, ask for reports, make decisions and trust station officers to execute them.</p>`, "gold")}
+          ${playFlow("A simple command loop", [
+            "Listen to the briefing and state the immediate objective in plain language so every station knows what the ship is trying to achieve.",
+            "Ask for the information you need rather than operating another station yourself: route from Relay, contact analysis from Science, ship readiness from Engineering, firing options from Weapons and position from Helms.",
+            "Choose a priority: travel, investigate, communicate, avoid, defend, attack, dock or withdraw. Give the crew intent rather than micromanaging every control.",
+            "When the situation changes, say what changed and reset the priority. Confirm critical orders when there is risk of misunderstanding.",
+            "If the crew is stuck, needs reinforcements, supplies, clarification or extraction, use the Flight Commander rather than guessing."
+          ])}
+          <div class="control-guide-grid">
+            ${controlCard("Main Screen / Ship's Window", "SITUATIONAL VIEW", `<p><strong>Use it:</strong> Keep the immediate scene visible while the stations work. Watch what the ship is approaching, the direction of travel, nearby contacts and obvious hazards.</p><p><strong>Your action:</strong> Ask the relevant station what an object is before making a decision from appearance alone.</p>`)}
+            ${controlCard("Strategic Map", "TRAVEL OVERVIEW", `<p><strong>Use it:</strong> Switch to the wider map when the decision is about route, destination or how several locations relate to the current orders.</p><p><strong>Your action:</strong> Tell Relay the destination or objective and let Relay/Helms turn that intent into waypoints and movement.</p>`)}
+            ${controlCard("Request station reports", "COMMAND TOOL", `<p><strong>Use it:</strong> Ask short, specific questions: “Science, identify that contact.” “Engineering, can we sustain warp?” “Weapons, are we in arc?”</p><p>Avoid asking every station for a full report at once unless you genuinely need one.</p>`)}
+            ${controlCard("Set intent", "COMMAND TOOL", `<p><strong>Use it:</strong> State the desired outcome, not every button press. Examples: “Helms, keep us outside mine range.” “Weapons, disable propulsion.” “Relay, get us a route to the station.”</p>`)}
+            ${controlCard("Make the decision", "COMMAND TOOL", `<p><strong>Use it:</strong> Combine the crew's information into the ship's next action. Decide whether to continue, investigate, communicate, engage, withdraw or ask for help.</p>`)}
+            ${controlCard("Call the Flight Commander", "ESCALATION", `<p><strong>Use it:</strong> When the crew does not know what comes next, needs external support, clarification, supply or extraction. Calling for help is an intended part of the mission structure.</p>`, "gold")}
+            ${controlCard("Do not operate the crew's stations", "COMMAND RULE", `<p><strong>Do not take over controls simply because you can see what needs doing.</strong> Give the order, trust the station officer and keep enough attention free to command the whole ship.</p>`, "warning")}
           </div>
         `},
         { id: "command-notes", label: "Command Notes", content: `
@@ -236,7 +330,27 @@
         `},
         { id: "console", label: "Console Orientation", content: `
           ${screenReference("Helms", "assets/screens/helms.png", "Helms bridge console showing energy, heading and speed readouts; impulse, warp and jump controls; short-range radar; docking and combat manoeuvre controls.")}
-          <div class="orientation-notes"><h3>What you are looking at</h3><p><strong>Left:</strong> energy, heading and speed readouts plus impulse, warp and jump controls. <strong>Centre:</strong> short-range radar and ship position. <strong>Right:</strong> H.I.D.E.S. status and combat manoeuvre control. The Request Dock control appears at lower left when docking is available.</p></div>
+          ${playFlow("From order to movement", [
+            "Identify where the Captain wants the ship to go. Use Relay waypoints when provided; otherwise use the radar and the requested bearing or contact.",
+            "Set the heading by pressing or dragging on the short-range radar. Watch the Heading readout to confirm the ship is turning to the intended course.",
+            "Set impulse for normal movement. Use warp or jump only when the route is clear and the mission calls for long-distance movement.",
+            "In combat, turn the ship so Weapons can keep the target inside useful firing arcs while also keeping dangerous arcs, mines and obstacles away from the ship.",
+            "On approach to a station or retrievable object, reduce speed early. Dock when the docking control becomes available, or fly directly into a retrievable item when ordered."
+          ])}
+          <div class="control-guide-grid">
+            ${controlCard("Energy", "READOUT", `<p>Shows the ship's current energy reserve.</p><p><strong>Use it:</strong> Watch it before sustained warp, repeated jumps or prolonged combat. If it is falling quickly, tell Engineering and Captain before propulsion choices become limited.</p>`)}
+            ${controlCard("Heading", "READOUT", `<p>Shows the ship's current heading in degrees.</p><p><strong>Use it:</strong> Confirm the ship has actually turned onto the ordered bearing before a jump or precision approach.</p>`)}
+            ${controlCard("Speed", "READOUT", `<p>Shows current speed in Units per minute.</p><p><strong>Use it:</strong> Use the number, not just visual motion, when judging an approach, rendezvous or withdrawal.</p>`)}
+            ${controlCard("Short-range radar", "PRIMARY CONTROL", `<p>The central tactical display shows the ship, nearby contacts, waypoints and hazards.</p><p><strong>How:</strong> Press or drag inside the radar to command a heading in that direction. The displayed heading changes as the ship turns.</p>`)}
+            ${controlCard("Beam firing arcs", "TACTICAL OVERLAY", `<p>Where the ship has beam weapons, their arcs appear on the radar.</p><p><strong>Use it:</strong> Coordinate with Weapons and turn the ship so the selected target sits inside an available arc. If Weapons says “out of arc”, positioning is your problem to solve.</p>`)}
+            ${controlCard("Impulse", "PROPULSION CONTROL", `<p>The normal drive, from full reverse through stop to full ahead.</p><p><strong>How:</strong> Move the impulse slider to the required setting. Use lower settings for docking, retrieval and close manoeuvring; higher settings for ordinary travel and combat positioning.</p>`)}
+            ${controlCard("Warp", "HIGH-SPEED CONTROL", `<p>Where fitted, warp drives the ship straight ahead at much higher speed and much higher energy use.</p><p><strong>How:</strong> Set the warp control above zero to engage and return it to zero before a close approach. Warp does not make the ship immune to collisions, asteroids or mines.</p>`, "warning")}
+            ${controlCard("Jump distance", "JUMP SETTING", `<p>Where fitted, this sets how far the ship will teleport along its current heading.</p><p><strong>How:</strong> Set the distance first, then verify heading and route clearance before initiating the jump. Longer jumps consume more energy.</p>`)}
+            ${controlCard("Jump", "JUMP CONTROL", `<p>Starts the jump sequence. The standard jump takes time to initiate rather than moving the ship immediately.</p><p><strong>How:</strong> Confirm heading, distance and destination, then press Jump. Impulse shuts down during the jump sequence and the ship reappears at the selected distance along its current heading.</p>`, "warning")}
+            ${controlCard("Request Dock / Undock", "DOCKING CONTROL", `<p>Docking becomes available near a compatible friendly or neutral station, or some larger ships.</p><p><strong>How:</strong> Approach to within docking range, reduce speed, then use Request Dock when enabled. While docked the ship cannot use engines or weapons. Helms is also responsible for undocking.</p>`)}
+            ${controlCard("Combat manoeuvre control", "TACTICAL CONTROL", `<p>Available on equipped vessels. The two-dimensional control provides a forward boost and lateral strafe.</p><p><strong>How:</strong> Vertical input boosts forward speed above normal cruise but heats impulse. Horizontal input strafes sideways and can overheat manoeuvring. The manoeuvre reserve can be exhausted and recharges over time.</p>`)}
+            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>The right-hand panel reports active hostile intrusion effects affecting Helms.</p><p><strong>Use it:</strong> Report the hack name and level immediately, then open the <strong>H.I.D.E.S.</strong> section for the exact effect and clearance time.</p>`)}
+          </div>
         `},
         { id: "propulsion", label: "Propulsion", content: `
           <div class="reference-grid">
@@ -252,6 +366,26 @@
             ${infoCard("Strafe", `<p>Horizontal combat-manoeuvre input moves the ship laterally and can rapidly overheat the manoeuvring system.</p>`)}
           </div>
           <p class="reference-note">Combat manoeuvres consume their available charge and recharge over time.</p>
+        `},
+        { id: "hides", label: "H.I.D.E.S.", content: `
+          <div class="hides-header"><span class="classification">HELMS // INTRUSION RESPONSE</span><h2>H.I.D.E.S.</h2><p>Hacking Intrusion Detection and Elimination System. This station reference covers only intrusion types that directly affect Helms.</p></div>
+          <div class="hides-incident-stack">
+            ${hidesCard(
+              "DRIVE LOCK", "HELMS", "LOCK", "Impulse off",
+              `<p><strong>Effect:</strong> Warp and jump are disabled. Impulse speed is forced to zero and the ship cannot rotate. The intrusion causes no system damage.</p><p><strong>Bridge impact:</strong> The ship loses propulsion and steering until the lock is cleared.</p>`,
+              `<p>Warp, jump, impulse speed and rotation are restored to their normal baseline settings.</p>`,
+              [["I","10s","0%"],["II","12s","0%"],["III","15s","0%"],["IV","18s","0%"],["V","20s","0%"]],
+              ["Level","Clear time","Damage"]
+            )}
+            ${hidesCard(
+              "DRIVE DECAY", "HELMS", "DECAY", "Drive degrade",
+              `<p><strong>Affected systems:</strong> Impulse, manoeuvring, warp and jump drive.</p><p><strong>Effect:</strong> All affected systems take an immediate 10% damage hit, followed by continuing damage once per second. Damage cannot exceed 100%.</p>`,
+              `<p>Further decay stops immediately, but any damage already caused remains. Engineering must repair the affected drive systems normally.</p>`,
+              [["I","10%","+1%/sec","10s"],["II","10%","+2%/sec","10s"],["III","10%","+3%/sec","10s"],["IV","10%","+4%/sec","10s"],["V","10%","+5%/sec","10s"]],
+              ["Level","Start damage","Ongoing damage","Clear time"]
+            )}
+          </div>
+          <div class="callout-strip"><strong>HELMS RESPONSE:</strong><span>Call the intrusion and level immediately. A Drive Lock removes movement; Drive Decay continues damaging propulsion until clearance and leaves repair work behind.</span></div>
         `},
         { id: "docking", label: "Docking", content: `
           <div class="section-heading"><span class="micro-label">CLOSE OPERATIONS</span><h2>Docking & Retrieval</h2></div>
@@ -278,7 +412,32 @@
         `},
         { id: "console", label: "Console Orientation", content: `
           ${screenReference("Weapons", "assets/screens/weapons.png", "Weapons bridge console showing energy and shields, missile inventory and tubes, short-range radar, target lock, beam information, frequency and shield controls.")}
-          <div class="orientation-notes"><h3>What you are looking at</h3><p><strong>Left:</strong> energy, front and rear shields, missile inventory and tube controls. <strong>Centre:</strong> short-range radar, firing arcs and target lock. <strong>Right:</strong> H.I.D.E.S. status, beam target information, beam frequency and shield frequency controls.</p></div>
+          ${playFlow("From target to firing solution", [
+            "Select the contact the Captain wants engaged on the short-range radar. Confirm you are attacking the correct contact before loading or firing anything destructive.",
+            "For missiles, choose the required ordnance, load a compatible tube and wait for loading to complete. Tell Helms if the tube needs the ship turned to create a clean firing direction.",
+            "For beams, keep the target selected and work with Helms to keep it inside a beam firing arc. Beams fire automatically when the selected target enters an available arc.",
+            "Use Science intelligence when available: choose a subsystem if the mission calls for disabling the target, and adjust beam frequency when shield-frequency information is known.",
+            "Raise shields when the threat justifies the energy cost. If remodulating shield frequency, warn the bridge because the shields go offline during calibration."
+          ])}
+          <div class="control-guide-grid">
+            ${controlCard("Energy", "READOUT", `<p>Shows the ship's current energy reserve.</p><p><strong>Use it:</strong> Shields and other systems consume energy. If energy is becoming critical, tell Engineering/Captain and avoid treating shields as a free permanent setting.</p>`)}
+            ${controlCard("Front shield", "READOUT", `<p>Shows the current strength of the forward shield where fitted.</p><p><strong>Use it:</strong> Report a rapidly falling shield and ask Helms to change aspect if the opposite shield is healthier.</p>`)}
+            ${controlCard("Rear shield", "READOUT", `<p>Shows the current strength of the aft shield where fitted.</p><p><strong>Use it:</strong> Compare front and rear values before telling Captain whether the ship can remain in the fight.</p>`)}
+            ${controlCard("Short-range radar / target selection", "PRIMARY CONTROL", `<p>Shows nearby targetable contacts and the ship's firing geometry.</p><p><strong>How:</strong> Press a contact to select it. That target becomes the reference for guided missiles, beam weapons and subsystem targeting.</p>`)}
+            ${controlCard("Beam firing arcs", "TACTICAL OVERLAY", `<p>Red arcs show where the ship's beam weapons can fire.</p><p><strong>Use it:</strong> Beams automatically fire at the selected target when it is inside an arc. Tell Helms which turn or side will bring the target into arc.</p>`)}
+            ${controlCard("Lock / manual missile aim", "MISSILE AIM", `<p>Switches between target-linked missile aiming and manual firing direction.</p><p><strong>Use it:</strong> Keep target lock for ordinary guided shots. Use manual aim when you deliberately need a firing direction rather than the selected target.</p>`)}
+            ${controlCard("Homing", "ORDNANCE SELECTOR", `<p>Selects the standard high-speed guided missile.</p><p><strong>How:</strong> Select Homing, choose a compatible empty tube to load, wait for loading, then press the loaded tube to fire.</p>`)}
+            ${controlCard("Nuke", "ORDNANCE SELECTOR", `<p>Selects the nuclear missile. It causes tremendous damage to every ship within 1U of detonation.</p><p><strong>How:</strong> Load and fire as a guided missile, but confirm the blast area is acceptable before launch.</p>`, "warning")}
+            ${controlCard("EMP", "ORDNANCE SELECTOR", `<p>Selects the EMP missile. It causes heavy shield damage within 1U but does not damage hull or physical systems.</p><p><strong>Use it:</strong> Useful when the objective is to strip shields without the same hull-damage effect as a conventional warhead.</p>`)}
+            ${controlCard("Mine", "ORDNANCE SELECTOR", `<p>Selects a stationary proximity explosive. It detonates when a ship comes within 0.6U and damages objects within 1U.</p><p><strong>Use it:</strong> Treat placement as an area-denial decision and make sure the crew understands where the mine was deployed.</p>`, "warning")}
+            ${controlCard("HVLI", "ORDNANCE SELECTOR", `<p>Selects a burst of five very high velocity lead slugs. HVLIs do not home.</p><p><strong>Use it:</strong> Fire only when the tube direction and target geometry are suitable; Helms positioning matters more because there is no homing correction.</p>`)}
+            ${controlCard("Load / missile tubes", "MISSILE CONTROL", `<p>Each tube must be loaded before it can fire, and loading/unloading takes time.</p><p><strong>How:</strong> Select an ordnance type, press Load on a compatible tube, wait until the tube reports the loaded weapon, then press that loaded tube to fire it.</p>`)}
+            ${controlCard("Beam target: Hull / subsystem", "BEAM CONTROL", `<p>Sets what the beam weapons try to damage.</p><p><strong>How:</strong> Leave it on Hull when the aim is destruction. Select a specific subsystem when the mission calls for disabling propulsion, weapons or another function.</p>`)}
+            ${controlCard("Beam frequency", "BEAM CONTROL", `<p>Sets beam frequency where frequency mechanics are enabled.</p><p><strong>How:</strong> Use shield-frequency intelligence from Science and adjust the beam frequency for a more favourable match. Beam frequency changes immediately.</p>`)}
+            ${controlCard("Shields ON / OFF", "DEFENSIVE CONTROL", `<p>Weapons controls whether the ship's shields are raised.</p><p><strong>How:</strong> Raise them when attack is likely or underway; lower them when the tactical situation allows and energy conservation matters.</p>`)}
+            ${controlCard("Shield frequency / Calibrate", "DEFENSIVE CONTROL", `<p>Sets the ship's shield frequency where frequency mechanics are enabled.</p><p><strong>How:</strong> Choose the intended frequency and calibrate/remodulate the shields. Unlike beam frequency changes, shield remodulation takes the shields offline for several seconds, so warn Captain before doing it in combat.</p>`, "warning")}
+            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Reports hostile intrusion effects affecting Weapons.</p><p><strong>Use it:</strong> Report the hack name and level immediately, then check the <strong>H.I.D.E.S.</strong> section for the exact effect, continuing damage or drain, and clearance time.</p>`)}
+          </div>
         `},
         { id: "targeting", label: "Targeting & Tubes", content: `
           <div class="two-column-cards">
@@ -295,6 +454,33 @@
             ${infoCard("Mine", `<p>A powerful stationary explosive that detonates when a ship comes within 0.6U. The explosion damages all objects within a 1U radius.</p>`, "danger")}
           </div>
           <div class="callout-strip warning"><strong>AMMUNITION:</strong><span>Missiles are limited. Use them wisely.</span></div>
+        `},
+        { id: "hides", label: "H.I.D.E.S.", content: `
+          <div class="hides-header"><span class="classification">WEAPONS // INTRUSION RESPONSE</span><h2>H.I.D.E.S.</h2><p>This station reference covers only hostile intrusion types that directly affect Weapons systems.</p></div>
+          <div class="hides-incident-stack">
+            ${hidesCard(
+              "FIRE DECAY", "WEAPONS", "FIRE DECAY", "Weapons degrade",
+              `<p><strong>Affected systems:</strong> Beam weapons and missile systems.</p><p><strong>Effect:</strong> Both weapon systems take an immediate 10% damage hit and continue taking damage once per second. Damage caps at 100%.</p>`,
+              `<p>Further decay stops, but damage already inflicted remains and must be repaired normally.</p>`,
+              [["I","10%","+1%/sec","10s"],["II","10%","+2%/sec","10s"],["III","10%","+3%/sec","10s"],["IV","10%","+4%/sec","10s"],["V","10%","+5%/sec","10s"]],
+              ["Level","Start damage","Ongoing damage","Clear time"]
+            )}
+            ${hidesCard(
+              "MISSILE SCRAMBLE", "WEAPONS", "MISSILE SCRAMBLE", "Tubes off",
+              `<p><strong>Effect:</strong> All weapon tubes are taken offline. The ship retains its stored ordnance, but tube count is temporarily reduced to zero. No system damage is caused.</p>`,
+              `<p>The previous weapon tube count is restored and the standard player tube configuration is re-applied.</p>`,
+              [["I","10s","0%"],["II","12s","0%"],["III","15s","0%"],["IV","18s","0%"],["V","20s","0%"]],
+              ["Level","Clear time","Damage"]
+            )}
+            ${hidesCard(
+              "SHIELD COLLAPSE", "WEAPONS", "SHIELD COLLAPSE", "Shields drain",
+              `<p><strong>Effect:</strong> Shield strength is drained once per second from the front shield and, on ships fitted with one, the rear shield. Shield strength cannot fall below zero.</p>`,
+              `<p>The continuing drain stops. Shield strength already lost is not restored by clearing the intrusion and must recover normally.</p>`,
+              [["I","4/sec","1s","10s"],["II","6/sec","1s","10s"],["III","8/sec","1s","10s"],["IV","10/sec","1s","10s"],["V","12/sec","1s","10s"]],
+              ["Level","Shield drain","Tick rate","Clear time"]
+            )}
+          </div>
+          <div class="callout-strip"><strong>WEAPONS RESPONSE:</strong><span>Report exactly what has been hit. Fire Decay leaves weapon-system damage, Missile Scramble removes tubes without damage, and Shield Collapse continuously drains defensive strength until cleared.</span></div>
         `},
         { id: "beams-shields", label: "Beams & Shields", content: `
           <div class="reference-grid">
@@ -321,7 +507,31 @@
         `},
         { id: "console", label: "Console Orientation", content: `
           ${screenReference("Engineering", "assets/screens/engineering.png", "Engineering bridge console showing ship status, damage-control deck plan, system power rows, heat and coolant controls, and H.I.D.E.S. status.")}
-          <div class="orientation-notes"><h3>What you are looking at</h3><p><strong>Left:</strong> energy, hull, shield and coolant status. <strong>Upper centre:</strong> damage-control deck plan and repair crews. <strong>Centre:</strong> reactor, weapons, manoeuvring, propulsion and shield-system rows with power, temperature and coolant information. <strong>Right:</strong> power/coolant allocation and H.I.D.E.S. status.</p></div>
+          ${playFlow("Keep the ship effective", [
+            "Start by reading the energy trend, hull, shields and system rows. Identify the one problem that will matter most to the crew right now.",
+            "Select the system that needs help and adjust power. Use 100% as the normal baseline; overpower only when the extra output is worth the additional heat and energy cost.",
+            "Allocate coolant to systems that are heating, heavily overpowered or at risk. Watch the temperature arrows to see whether your changes are actually reversing the trend.",
+            "If a system is damaged, send a repair crew to the room containing that system and monitor the damage value as the crew works.",
+            "Keep Captain informed about limits: low energy, damaged propulsion, weak shields, overheating or any system that is about to stop functioning."
+          ])}
+          <div class="control-guide-grid">
+            ${controlCard("Self destruct", "EMERGENCY CONTROL", `<p>Starts the ship's self-destruct sequence when that capability is enabled.</p><p><strong>How:</strong> The first press exposes Confirm and Cancel; Confirm sends the activation command. Treat this as a Captain-level emergency decision, not an Engineering convenience.</p>`, "warning")}
+            ${controlCard("Energy and energy/min", "READOUT", `<p>Shows current energy plus the recent rate of energy gain or loss.</p><p><strong>Use it:</strong> A negative rate tells you the ship is consuming more than it produces. Adjust system power or tell Captain that current operations are not sustainable.</p>`)}
+            ${controlCard("Hull", "READOUT", `<p>Shows hull integrity.</p><p><strong>Use it:</strong> Hull damage affects the whole ship. Docking can repair hull damage, but it repairs slowly, so tell Captain when hull loss should change the mission plan.</p>`)}
+            ${controlCard("Front shield", "READOUT", `<p>Shows forward shield strength.</p><p><strong>Use it:</strong> Combine this with the rear-shield value and Weapons reports to identify which facing is under the most pressure.</p>`)}
+            ${controlCard("Rear shield", "READOUT", `<p>Shows aft shield strength.</p><p><strong>Use it:</strong> Report major imbalance so Helms/Weapons can change ship orientation or tactical posture.</p>`)}
+            ${controlCard("Coolant capacity", "READOUT", `<p>Shows the ship's total simultaneous coolant capacity.</p><p><strong>Use it:</strong> Coolant supply is not consumed permanently, but only a finite amount can be distributed at once. Moving coolant to one system can mean taking it away from another.</p>`)}
+            ${controlCard("Damage-control deck plan", "REPAIR CONTROL", `<p>Shows the ship's internal rooms, system locations and repair crews.</p><p><strong>How:</strong> Send a repair crew to the room containing a damaged system. Keep crews moving toward the damage that matters most to the current mission.</p>`)}
+            ${controlCard("System selector", "PRIMARY CONTROL", `<p>Each row represents a ship system such as reactor, beams, missiles, manoeuvring, impulse, warp, jump or shields.</p><p><strong>How:</strong> Select a system row to make it the active system for the large Power and Coolant sliders on the right.</p>`)}
+            ${controlCard("System health / damage", "SYSTEM COLUMN", `<p>The health column shows how damaged each system is. Below 100% the system performs below its normal potential; at or below 0% it stops functioning until repaired.</p><p><strong>Use it:</strong> Prioritise repairs according to what the crew needs, not simply whichever number is lowest.</p>`)}
+            ${controlCard("Temperature / trend", "SYSTEM COLUMN", `<p>Shows system heat and the direction of temperature change. White arrows indicate heating or cooling; brighter arrows mean a stronger trend.</p><p><strong>Use it:</strong> If heat continues rising after you change power/coolant, you have not solved the problem yet.</p>`)}
+            ${controlCard("Power request", "SYSTEM COLUMN", `<p>Controls the requested power for each system.</p><p><strong>How:</strong> More power increases output. Above 100% increases heat and, except for the reactor, energy draw. Below 100% reduces output but also reduces heat and energy use.</p>`)}
+            ${controlCard("Coolant request", "SYSTEM COLUMN", `<p>Controls how much of the available coolant budget is assigned to each system.</p><p><strong>How:</strong> Increase coolant on hot or heavily stressed systems, then watch the heat trend. Reclaim coolant from stable systems when another system needs it more.</p>`)}
+            ${controlCard("Power slider", "SELECTED-SYSTEM CONTROL", `<p>The large right-hand Power slider controls the currently selected system.</p><p><strong>How:</strong> Select the system row first, then move the Power slider. Use 100% as normal unless the tactical need justifies under- or overpowering.</p>`)}
+            ${controlCard("Coolant slider", "SELECTED-SYSTEM CONTROL", `<p>The large right-hand Coolant slider controls coolant for the currently selected system.</p><p><strong>How:</strong> Select a system, add coolant, and confirm the temperature trend begins to stabilise or fall.</p>`)}
+            ${controlCard("What power changes", "SYSTEM EFFECT", `<p><strong>Reactor:</strong> more power produces more energy. <strong>Impulse:</strong> more power raises maximum speed. <strong>Shields:</strong> more power improves shield performance and regeneration. Other systems likewise lose effectiveness when underpowered or damaged.</p>`)}
+            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Shows hostile intrusion effects affecting Engineering systems.</p><p><strong>Use it:</strong> Report the hack name and level immediately. For Heat Surge, start managing the affected heat load while H.I.D.E.S. clearance is underway. For Grid Decay, be ready to repair damage after the intrusion is cleared.</p>`)}
+          </div>
         `},
         { id: "power-heat", label: "Power & Heat", content: `
           <div class="section-heading"><span class="micro-label">SYSTEM MANAGEMENT</span><h2>Power & Coolant</h2></div>
@@ -339,15 +549,24 @@
           </div>
         `},
         { id: "hides", label: "H.I.D.E.S.", content: `
-          <div class="hides-header"><span class="classification">AUTHORISED PACKAGE // TECHNICAL DATA PENDING</span><h2>H.I.D.E.S.</h2><p>Hacking Intrusion Detection and Elimination System</p></div>
-          <p class="reference-note">This package is part of the UFN Engineering configuration used by this fleet. Its Level I-V effects are intentionally left blank until the implementation specification is supplied. No placeholder effect has been invented.</p>
-          <div class="hides-levels">
-            <article><span>LEVEL I</span><strong>SPECIFICATION PENDING</strong><p>Authorised technical description to be added.</p></article>
-            <article><span>LEVEL II</span><strong>SPECIFICATION PENDING</strong><p>Authorised technical description to be added.</p></article>
-            <article><span>LEVEL III</span><strong>SPECIFICATION PENDING</strong><p>Authorised technical description to be added.</p></article>
-            <article><span>LEVEL IV</span><strong>SPECIFICATION PENDING</strong><p>Authorised technical description to be added.</p></article>
-            <article><span>LEVEL V</span><strong>SPECIFICATION PENDING</strong><p>Authorised technical description to be added.</p></article>
+          <div class="hides-header"><span class="classification">ENGINEERING // INTRUSION RESPONSE</span><h2>H.I.D.E.S.</h2><p>This station reference covers hostile intrusion types that directly affect Engineering systems.</p></div>
+          <div class="hides-incident-stack">
+            ${hidesCard(
+              "HEAT SURGE", "ENGINEERING", "HEAT SURGE", "Heat rising",
+              `<p><strong>Possible affected systems:</strong> Reactor, beam weapons, missile systems, manoeuvring, impulse, warp, jump drive, front shield, rear shield and sensors. H.I.D.E.S. selects a unique set according to intrusion level.</p><p><strong>Effect:</strong> Selected systems are immediately forced to the level's starting heat and then gain +2% heat every second. Heat caps at 100%.</p>`,
+              `<p>The forced heat increase stops, but existing heat remains. Engineering must cool and manage those systems normally.</p>`,
+              [["I","3 systems","10%","+2%/sec","10s"],["II","4 systems","15%","+2%/sec","10s"],["III","5 systems","20%","+2%/sec","10s"],["IV","6 systems","25%","+2%/sec","10s"],["V","7 systems","30%","+2%/sec","10s"]],
+              ["Level","Systems affected","Start heat","Ongoing heat","Clear time"]
+            )}
+            ${hidesCard(
+              "GRID DECAY", "ENGINEERING", "GRID DECAY", "Grid degrade",
+              `<p><strong>Affected systems:</strong> Reactor, front shield and rear shield.</p><p><strong>Effect:</strong> The affected grid systems take immediate damage and then continue taking damage once per second. Damage caps at 100%.</p>`,
+              `<p>Further decay stops, but damage already caused remains and must be repaired normally.</p>`,
+              [["I","10%","+1%/sec","10s"],["II","15%","+1.5%/sec","10s"],["III","20%","+2%/sec","10s"],["IV","25%","+2.5%/sec","10s"],["V","30%","+3%/sec","10s"]],
+              ["Level","Start damage","Ongoing damage","Clear time"]
+            )}
           </div>
+          <div class="callout-strip warning"><strong>ENGINEERING RESPONSE:</strong><span>Do not wait for clearance before managing the consequences. A Heat Surge needs active coolant/power management; Grid Decay may leave reactor and shield systems requiring repairs after the intrusion ends.</span></div>
         `}
       ]
     },
@@ -367,7 +586,31 @@
         `},
         { id: "console", label: "Console Orientation", content: `
           ${screenReference("Science", "assets/screens/science.png", "Science bridge console showing long-range radar, contacts, target scan information, Probe View, Radar and Database controls, and radar zoom.")}
-          <div class="orientation-notes"><h3>What you are looking at</h3><p><strong>Centre:</strong> long-range radar, contacts, nebulae and sensor information. <strong>Right:</strong> Scan control and target data including callsign, distance, bearing, relative speed, faction, type, shields and hull. <strong>Lower left:</strong> Probe View and Radar/Database selection. <strong>Lower right:</strong> radar zoom.</p></div>
+          ${playFlow("Turn contacts into useful information", [
+            "Continuously read the long-range radar and report meaningful changes: new contacts, disappearing contacts, hazards, nebula blind spots or activity near the ship's route.",
+            "Select an unknown contact on the radar. Before scanning, give Captain a quick location report if the contact is relevant: bearing, distance and whether it is closing or moving away.",
+            "Press Scan and complete the scanning alignment. Report the identification as soon as it appears, then perform the deeper scan when the crew needs tactical detail.",
+            "Use the target data panel and Database to tell the crew what the contact is capable of, not just what it is called.",
+            "If Relay links a probe, use Probe View to inspect and scan through the probe's sensor range, especially beyond normal range or inside a nebula."
+          ])}
+          <div class="control-guide-grid">
+            ${controlCard("Long-range radar", "PRIMARY DISPLAY", `<p>Shows contacts and hazards at much greater range than the tactical stations.</p><p><strong>Use it:</strong> Watch the whole sector, not only the currently selected target. Science's most important job is reporting what changed.</p>`)}
+            ${controlCard("Raw scanner bands", "SENSOR OVERLAY", `<p>Coloured traces around the outer edge are raw/interference information that can suggest activity beyond normal direct detection.</p><p><strong>Use it:</strong> Treat them as clues rather than confirmed contacts. Report unusual patterns as uncertain information, not certainty.</p>`)}
+            ${controlCard("Nebulae", "SENSOR HAZARD", `<p>Nebulae block long-range sensors. Science cannot see inside or behind them, and a ship inside a nebula cannot see outside with its normal radar.</p><p><strong>Use it:</strong> Tell Captain and Relay exactly where your blind areas are.</p>`, "warning")}
+            ${controlCard("Select contact", "TARGET CONTROL", `<p>Selects the object whose data appears in the right-hand panel.</p><p><strong>How:</strong> Press a contact on the radar, then read the available target fields and use Scan if more information is needed.</p>`)}
+            ${controlCard("Scan", "PRIMARY CONTROL", `<p>Starts the scanning process on the selected target when scanning is available.</p><p><strong>How:</strong> Select the contact, press Scan, then align the scanner controls until the signal locks. A later/deeper scan can reveal more tactical information.</p>`)}
+            ${controlCard("Callsign", "TARGET READOUT", `<p>Shows the selected contact's callsign when known.</p><p><strong>Report:</strong> Use the callsign in bridge communications once identified so everyone is discussing the same contact.</p>`)}
+            ${controlCard("Distance", "TARGET READOUT", `<p>Shows range to the selected contact.</p><p><strong>Report:</strong> Distance matters when judging whether a contact is immediate, approaching or still a long-range concern.</p>`)}
+            ${controlCard("Bearing", "TARGET READOUT", `<p>Shows the selected contact's bearing from the ship.</p><p><strong>Report:</strong> Give Helms/Captain the bearing when directing attention to a contact they may not yet have noticed.</p>`)}
+            ${controlCard("Relative speed", "TARGET READOUT", `<p>Shows how the target's motion compares with your ship.</p><p><strong>Use it:</strong> Help the bridge distinguish a contact that is closing rapidly from one that is drifting away or travelling with you.</p>`)}
+            ${controlCard("Faction", "TARGET READOUT", `<p>Shows faction information once the contact has been identified sufficiently.</p><p><strong>Report:</strong> State whether the contact is friendly, hostile, neutral or otherwise identified as soon as that changes the tactical picture.</p>`)}
+            ${controlCard("Type", "TARGET READOUT", `<p>Shows the identified vessel/object type.</p><p><strong>Use it:</strong> Open the Database when needed to translate the type into likely capabilities, weapons or risks.</p>`)}
+            ${controlCard("Shields", "TARGET READOUT", `<p>Shows target shield information when the scan state provides it.</p><p><strong>Report:</strong> Weapons needs this when deciding whether to keep firing, change tactics or exploit frequency information.</p>`)}
+            ${controlCard("Hull", "TARGET READOUT", `<p>Shows target hull condition when available.</p><p><strong>Use it:</strong> Report major damage or a target near destruction, particularly when the mission calls for capture or disabling instead of destruction.</p>`)}
+            ${controlCard("Probe View", "REMOTE SENSOR CONTROL", `<p>Switches Science to a Relay-linked probe's short-range sensor picture.</p><p><strong>How:</strong> Ask Relay to select an owned probe and Link to Science. Then enable Probe View to inspect and scan contacts in that probe's range.</p>`)}
+            ${controlCard("Radar / Database", "VIEW SELECTOR", `<p>Switches between the live sensor picture and the ship's reference database.</p><p><strong>Use Database:</strong> Look up known ships, weapons and hazards when the crew needs capabilities or navigation information.</p>`)}
+            ${controlCard("Zoom", "RADAR CONTROL", `<p>Changes the displayed radar range.</p><p><strong>Use it:</strong> Zoom in when you need separation between nearby contacts; zoom out when you need the broad sector picture.</p>`)}
+          </div>
         `},
         { id: "sensors", label: "Sensors", content: `
           <div class="reference-grid">
@@ -413,7 +656,31 @@
         `},
         { id: "console", label: "Console Orientation", content: `
           ${screenReference("Relay", "assets/screens/relay.png", "Relay bridge console showing the sector map, communications and hacking controls, waypoints, probe controls, reputation, Flight Commander contact and alert level.")}
-          <div class="orientation-notes"><h3>What you are looking at</h3><p><strong>Left:</strong> Open Comms, Start Hacking, Link to Science, waypoint controls, probe launch, reputation and mission clock. <strong>Centre:</strong> sector map and contacts. <strong>Right:</strong> selected-contact callsign/faction, Call FC and alert level. <strong>Bottom:</strong> ship log.</p></div>
+          ${playFlow("Connect the crew to the sector", [
+            "Keep the sector map on the mission area and watch for contacts, hazards, waypoints and changes in friendly sensor coverage.",
+            "When the crew needs to travel, place a waypoint or route and tell Helms which waypoint to follow. Move or delete waypoints when the plan changes.",
+            "Use probes to look into distant or sensor-blocked areas. After launch, select your probe and Link to Science when Science needs to scan from that position.",
+            "Select ships or stations before opening comms, hacking or reading target information. Relay owns the external conversation: pass useful results back to Captain and the relevant station.",
+            "Use Call FC when the crew needs outside guidance, reinforcement, supply, clarification or extraction rather than allowing the bridge to stall."
+          ])}
+          <div class="control-guide-grid">
+            ${controlCard("Sector map", "PRIMARY DISPLAY", `<p>Shows the wider operational area, including hazards, known objects, waypoints and short-range sensor coverage shared by friendly assets.</p><p><strong>How:</strong> Press an object to select it. Drag the map to pan. Keep the view centred on the area the crew is actually operating in.</p>`)}
+            ${controlCard("Selected callsign", "TARGET READOUT", `<p>Shows the selected object's callsign.</p><p><strong>Use it:</strong> Confirm the selected contact before opening comms or starting a hack.</p>`)}
+            ${controlCard("Selected faction", "TARGET READOUT", `<p>Shows faction information when known.</p><p><strong>Use it:</strong> Check relationship before treating a contact as friendly or hostile. Relay cannot perform scans itself; ask Science when identification is incomplete.</p>`)}
+            ${controlCard("Open Comms", "COMMUNICATION CONTROL", `<p>Opens communications with the selected ship or station when communications are available.</p><p><strong>How:</strong> Select the contact, press Open Comms, handle the exchange, pass any decision or new information to Captain, and sign off before closing the channel.</p>`)}
+            ${controlCard("Start Hacking", "CYBER CONTROL", `<p>Opens the intrusion system for an eligible selected target.</p><p><strong>How:</strong> Select a non-friendly contact that has been identified sufficiently for hacking, press Start Hacking, choose the target system and complete the intrusion puzzle. Tell Captain/crew which system you attacked and whether it succeeded.</p>`)}
+            ${controlCard("Link to Science", "PROBE CONTROL", `<p>Links one of your own selected probes to the Science station.</p><p><strong>How:</strong> Select an owned probe, enable Link to Science, then tell Science the remote sensor point is available. Turn the link off or select a different probe when the task changes.</p>`)}
+            ${controlCard("Place Waypoint", "NAVIGATION CONTROL", `<p>Creates a waypoint that also appears on Helms.</p><p><strong>How:</strong> Press Place Waypoint, then press the desired location on the sector map. Give Helms the waypoint number or purpose so it is unambiguous.</p>`)}
+            ${controlCard("Move Waypoint", "NAVIGATION CONTROL", `<p>Existing waypoints can be repositioned on the sector map.</p><p><strong>How:</strong> Select/drag the waypoint to its new location, then update Helms if the route changed.</p>`)}
+            ${controlCard("Delete Waypoint", "NAVIGATION CONTROL", `<p>Removes the currently selected waypoint.</p><p><strong>How:</strong> Select the waypoint first, then press Delete Waypoint. Remove obsolete route markers so Helms is not following stale information.</p>`)}
+            ${controlCard("Launch Probe", "REMOTE SENSOR CONTROL", `<p>Launches one of the ship's limited probe stock to a point on the map.</p><p><strong>How:</strong> Press Launch Probe, then press the destination on the map. The probe travels there and transmits short-range sensor data for 10 minutes. Probes cannot be recovered and are replenished by docking.</p>`)}
+            ${controlCard("Reputation", "RESOURCE READOUT", `<p>Shows the crew's current reputation resource.</p><p><strong>Use it:</strong> Some station requests for aid, supplies or other support can cost reputation. Tell Captain when a request has a meaningful cost.</p>`)}
+            ${controlCard("Mission clock", "READOUT", `<p>Shows mission/scenario time.</p><p><strong>Use it:</strong> Useful for timed orders, rendezvous, mission deadlines and reconstructing when events occurred.</p>`)}
+            ${controlCard("Call FC", "UFN COMMUNICATION", `<p>Contacts the Flight Commander through the mission interface.</p><p><strong>Use it:</strong> Call when the bridge needs guidance, reinforcement, a supply drop, clarification, extraction or simply cannot determine the next sensible action.</p>`, "gold")}
+            ${controlCard("Alert level", "SHIP STATUS CONTROL", `<p>Sets the ship's alert level through the Relay interface.</p><p><strong>Use it:</strong> Change it when ordered or when your mission procedures call for a different alert posture, and make sure the crew knows the change.</p>`)}
+            ${controlCard("Zoom", "MAP CONTROL", `<p>Changes the sector-map scale.</p><p><strong>Use it:</strong> Zoom in for waypoint placement and local detail; zoom out for route planning and the wider operational picture.</p>`)}
+            ${controlCard("Ship log", "INFORMATION PANEL", `<p>The bottom log records ship and mission messages.</p><p><strong>Use it:</strong> Check it when you missed a message, need to confirm what was sent, or want to reconstruct the recent sequence of events.</p>`)}
+          </div>
         `},
         { id: "map-probes", label: "Map, Probes & Waypoints", content: `
           <div class="reference-grid">
