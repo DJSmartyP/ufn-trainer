@@ -371,6 +371,18 @@ button { color: inherit; }
   place-items: center;
   width: 100%;
   height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.station-icon-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 .station-icon-svg {
   display: block;
@@ -409,34 +421,44 @@ button { color: inherit; }
   padding: 5px;
   border-radius: 50%;
   border-color: rgba(228,175,46,.5);
+  overflow: hidden;
 }
-.nav-code.station-icon-host .station-icon-svg { width: 28px; height: 28px; }
+.nav-code.station-icon-host .station-icon-svg,
+.nav-code.station-icon-host .station-icon-image { width: 28px; height: 28px; }
 
 .station-card-code.station-icon-host {
   padding: 6px;
   color: var(--blue-soft);
   border-color: rgba(228,175,46,.56) !important;
+  overflow: hidden;
 }
-.station-card-code.station-icon-host .station-icon-svg { width: 38px; height: 38px; }
+.station-card-code.station-icon-host .station-icon-svg,
+.station-card-code.station-icon-host .station-icon-image { width: 38px; height: 38px; }
 
 .page-id.station-icon-host {
   padding: 11px;
   color: var(--blue-soft);
+  overflow: hidden;
 }
-.page-id.station-icon-host .station-icon-svg { width: 48px; height: 48px; }
+.page-id.station-icon-host .station-icon-svg,
+.page-id.station-icon-host .station-icon-image { width: 48px; height: 48px; }
 
 .station-monogram.station-icon-host {
   padding: 9px;
   color: var(--blue-soft);
 }
-.station-monogram.station-icon-host .station-icon-svg { width: 54px; height: 54px; }
+.station-monogram.station-icon-host .station-icon-svg,
+.station-monogram.station-icon-host .station-icon-image { width: 54px; height: 54px; }
 
 @media (max-width: 640px) {
   .nav-code.station-icon-host { width: 36px; height: 36px; min-height: 36px; padding: 5px; }
-  .nav-code.station-icon-host .station-icon-svg { width: 26px; height: 26px; }
-  .station-card-code.station-icon-host .station-icon-svg { width: 34px; height: 34px; }
+  .nav-code.station-icon-host .station-icon-svg,
+  .nav-code.station-icon-host .station-icon-image { width: 26px; height: 26px; }
+  .station-card-code.station-icon-host .station-icon-svg,
+  .station-card-code.station-icon-host .station-icon-image { width: 34px; height: 34px; }
   .page-id.station-icon-host { padding: 8px; }
-  .page-id.station-icon-host .station-icon-svg { width: 38px; height: 38px; }
+  .page-id.station-icon-host .station-icon-svg,
+  .page-id.station-icon-host .station-icon-image { width: 38px; height: 38px; }
 }
 
 /* Short landscape optimisation (phones / foldables)
