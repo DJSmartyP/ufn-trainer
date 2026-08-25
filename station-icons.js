@@ -20,7 +20,7 @@
     science: "assets/stations/science.png",
     relay: "assets/stations/relay.png",
     directory: "assets/stations/directory.png",
-    general: "assets/stations/general.png"
+    general: "assets/stations/general-terminal.svg"
   };
 
   function iconMarkup(key) {
