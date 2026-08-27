@@ -127,22 +127,6 @@
       <p>${effect}</p>
     </article>`;
 
-  const rankCard = (name, image, note = "", tier = 1, tierStart = false) => `
-    <article class="rank-card rank-tier-${tier}${tierStart ? " rank-tier-start" : ""}">
-      <div class="rank-insignia-frame"><img src="assets/ranks/${image}" alt="${name} rank insignia" loading="lazy" /></div>
-      <div class="rank-card-copy">
-        <span class="control-type">UFN OFFICER RANK</span>
-        <h3>${name}</h3>
-        ${note ? `<p class="rank-approval">${note}</p>` : `<p class="rank-approval rank-approval-empty" aria-hidden="true">&nbsp;</p>`}
-      </div>
-    </article>`;
-
-  const messTip = (message, person, role) => `
-    <article class="mess-tip">
-      <p>“${message}”</p>
-      <footer><strong>${person}</strong><span>${role}</span></footer>
-    </article>`;
-
   const playFlow = (_title, tips) => `
     <section class="play-flow">
       <span class="micro-label">HOW TO PLAY THIS STATION</span>
@@ -235,44 +219,6 @@
             ${infoCard("Guiding Principle", `<p>Knowledge is the first defence.</p>`, "gold")}
           </div>
         `},
-        { id: "ranks", label: "Ranks", content: `
-          <div class="section-heading"><span class="micro-label">FLEET PERSONNEL // RANK STRUCTURE</span><h2>UFN Officer Ranks</h2><p>The rank insignia below are the recognised officer grades used across the United Federated Navy.</p></div>
-          <div class="promotion-regulation">
-            <span class="classification">PROMOTION AUTHORITY</span>
-            <div>
-              <h3>Rank progression and approval</h3>
-              <p>All new UFN recruits begin service at the rank of <strong>Ensign</strong>. Promotion to <strong>Sub Lieutenant</strong> or <strong>Lieutenant</strong> is at the discretion of your <strong>Flight Controller</strong>.</p>
-              <p>Promotion to <strong>Lieutenant Commander</strong> or <strong>Commander</strong> requires the sign-off of an Admiral.</p>
-              <p>Promotion to <strong>Captain</strong> or any higher rank is subject to <strong>Admiralty sign-off</strong> and a <strong>full review by the Admirals</strong>.</p>
-            </div>
-          </div>
-          <div class="rank-levels" aria-label="Promotion approval levels">
-            <span class="rank-level rank-level-1">Flight Controller progression</span>
-            <span class="rank-level rank-level-2">Admiral approval</span>
-            <span class="rank-level rank-level-3">Admiralty review</span>
-          </div>
-          <div class="rank-grid">
-            ${rankCard("Ensign", "ensign.png", "Starting rank for all new UFN recruits.", 1)}
-            ${rankCard("Sub Lieutenant", "sub-lieutenant.png", "Promotion to this rank is at the discretion of your Flight Controller.", 1)}
-            ${rankCard("Lieutenant", "lieutenant.png", "Promotion to this rank is at the discretion of your Flight Controller.", 1)}
-            ${rankCard("Lieutenant Commander", "lieutenant-commander.png", "Admiral sign-off required for promotion to this rank.", 2, true)}
-            ${rankCard("Commander", "commander.png", "Admiral sign-off required for promotion to this rank.", 2)}
-            ${rankCard("Captain", "captain.png", "Admiralty sign-off and full review by the Admirals required.", 3, true)}
-            ${rankCard("Commodore", "commodore.png", "Admiralty sign-off and full review by the Admirals required.", 3)}
-            ${rankCard("Rear Admiral", "rear-admiral.png", "Admiralty sign-off and full review by the Admirals required.", 3)}
-            ${rankCard("Vice Admiral", "vice-admiral.png", "Admiralty sign-off and full review by the Admirals required.", 3)}
-            ${rankCard("Admiral", "admiral.png", "Admiralty sign-off and full review by the Admirals required.", 3)}
-          </div>
-        `},
-        { id: "medals", label: "Medals of Service", content: `
-          <div class="section-heading"><span class="micro-label">FLEET PERSONNEL // DECORATIONS</span><h2>Medals of Service</h2><p>Official UFN decorations and service awards will be catalogued here.</p></div>
-          <section class="medals-placeholder">
-            <span class="classification">FLEET PERSONNEL ARCHIVE</span>
-            <div class="medals-placeholder-mark" aria-hidden="true">★</div>
-            <h3>Decorations register pending</h3>
-            <p>The Fleet Personnel decorations archive is being synchronised. Medal names, award criteria and recognised insignia will appear here when the service record is released.</p>
-          </section>
-        `},
         { id: "stations", label: "Duty Stations", content: `
           <div class="section-heading"><span class="micro-label">STANDARD BRIDGE COMPLEMENT</span><h2>Shipboard Duty Stations</h2><p>Frontier operations depend on each station understanding its own responsibilities and the information required by the rest of the bridge.</p></div>
           <div class="duty-list">
@@ -361,39 +307,33 @@
         `},
         { id: "protocols", label: "Protocols", content: `
           <div class="section-heading"><span class="micro-label">FLEET PROTOCOL</span><h2>Operational Protocols</h2><p>Quick-reference instructions reproduced from the briefing packet.</p></div>
-          <div class="protocol-manual">
-            <article class="protocol-entry">
-              <header><span>01</span><div><small>COMMUNICATIONS</small><h3>Comms Etiquette</h3></div></header>
-              <div class="protocol-entry-body"><p class="big-rule">Speak clearly. Speak briefly. Speak when it matters.</p><p><strong>Always sign off before closing comms.</strong> Routine communications can be handled by the station officer. Escalate to the Captain when the information changes mission priorities, risk or tactical decisions.</p></div>
-            </article>
-            <article class="protocol-entry">
-              <header><span>02</span><div><small>EMERGENCY SURVIVAL</small><h3>Escape Pod Teleportation</h3></div></header>
-              <div class="protocol-entry-body"><p>In a crisis, crew will automatically teleport to the escape pod. Keep the transport path clear and your identification systems available.</p><div class="protocol-checks"><p><strong>Transport path:</strong> Do not wear transporter-blocking clothing. Avoid hardened anti-teleport features and deactivate dampening fields.</p><p><strong>UFN identification:</strong> Keep your UFN ID card secure and carried so the system can obtain a transporter lock.</p><p><strong>Suit and comms:</strong> Keep your suit ID linked to the teleporter unit and communication devices online.</p></div><p><strong>Stay alert. Escape pod teleportation saves lives.</strong></p></div>
-            </article>
-            <article class="protocol-entry">
-              <header><span>03</span><div><small>FLEET SUPPORT</small><h3>Flight Commander Support</h3></div></header>
-              <div class="protocol-entry-body"><p>The Flight Commander monitors the wider sector picture while the crew operates its own ship. Expect contact when intelligence changes, mission priorities shift or a wider sector development affects the mission.</p><p class="big-rule">You can always call for help.</p><div class="protocol-checks"><p>Call if the crew does not know what to do next.</p><p>Call if combat is becoming uncomfortable.</p><p>Call for reinforcements, supply, clarification, extraction or other external support.</p></div><p>Competent crews will usually be allowed to operate without continuous instruction.</p></div>
-            </article>
+          <div class="protocol-grid">
+            ${infoCard("Comms Etiquette", `<p class="big-rule">Speak clearly.<br>Speak briefly.<br>Speak when it matters.</p><p><strong>Always sign off before closing comms.</strong></p><p>Not every message needs the Captain. Handle routine communications at your station. Call the Captain when it matters.</p>`, "gold")}
+            ${infoCard("Escape Pod Teleportation Awareness", `<p>In a crisis, crew will automatically teleport to the escape pod. The packet directs crew to:</p><ol><li><strong>Do not wear transporter-blocking clothing.</strong> Avoid hardened anti-teleport features and deactivate dampening fields.</li><li><strong>Keep your UFN ID card secure and carried.</strong> It is required to obtain transporter lock.</li><li><strong>Keep your comm-device link and suit ID active.</strong> The suit ID must be linked to the teleporter unit and communication devices must be online.</li></ol><p><strong>Stay alert - escape pod teleportation saves lives.</strong></p><p class="source-gap">The caution line at the bottom of the source page is incomplete; no missing wording has been supplied here.</p>`)}
+            ${infoCard("Flight Commander Support", `<p>The Flight Commander monitors the larger sector picture while crews operate their own ship. Expect contact when intelligence changes, mission priorities shift or a sector development becomes your problem.</p><p class="big-rule">YOU CAN ALWAYS CALL FOR HELP.</p><ul><li>If you do not know what to do next - call.</li><li>If combat is becoming uncomfortable - call.</li><li>If you need reinforcements, a supply drop, clarification, extraction or other support - call.</li></ul><p>Most of the time the Flight Commander will observe rather than continuously instruct a competent crew.</p>`)}
           </div>
         `},
-        { id: "notices", label: "Tips from the Mess", content: `
-          <div class="section-heading"><span class="micro-label">OFF-DUTY WISDOM // CREW MESS</span><h2>Tips from the Mess</h2><p>Unofficial advice passed between UFN personnel. Useful, occasionally opinionated, and almost certainly learned the hard way.</p></div>
-          <div class="mess-board">
-            ${messTip("Scan it before you shoot it. You will save ammunition, paperwork, and at least one very awkward apology.", "Lt. Amina Vale", "Science Officer")}
-            ${messTip("If Helms says the minefield is fine, ask whether they mean ‘fine’ as in safe or ‘fine’ as in interesting.", "Sub Lt. Owen Mercer", "Relay Officer")}
-            ${messTip("The reactor being capable of 200% does not make 200% a lifestyle choice.", "Cmdr. Hana Okafor", "Engineering Officer")}
-            ${messTip("Missiles are finite. Targets are usually not. Pick the one you actually need gone.", "Lt. Mara Chen", "Weapons Officer")}
-            ${messTip("If you are about to close a channel, sign off first. Relay officers remember. Relay officers always remember.", "Sub Lt. Jamie Kaur", "Communications Officer")}
-            ${messTip("Captains: tell us what you want to achieve. We know which controls make it happen.", "Lt. Daniel Price", "Helms Officer")}
-            ${messTip("If something appears on the map that nobody understands, report it before deciding to fly directly at it.", "Cmdr. Sofia Reyes", "Patrol Commander")}
-            ${messTip("Request the supply drop before Engineering starts describing the hull in the past tense.", "Lt. Idris Bennett", "Logistics Officer")}
-            ${messTip("Shields work better when they are on. This concludes today's tactical seminar.", "Lt. Grace Mensah", "Weapons Officer")}
-            ${messTip("When the bridge goes quiet after you ask ‘what could possibly go wrong?’, you have already made a mistake.", "Sub Lt. Alex Novak", "Science Officer")}
+        { id: "notices", label: "Crew Notices", content: `
+          <div class="section-heading"><span class="micro-label">BRIDGE NOTICEBOARD</span><h2>Crew Reference & Operational Reminders</h2></div>
+          <div class="notice-grid">
+            <div class="sticky science-note"><strong>SCIENCE</strong><span>Unknown contacts: scan before engaging.</span><span>Information wins battles.</span></div>
+            <div class="sticky helms-note"><strong>HELM</strong><span>Asteroids + nav markers: fly around them.</span></div>
+            <div class="sticky danger-note"><strong>SECURITY NOTICE</strong><span>If your console starts behaving strangely - report immediately.</span><span>Possible Ghost interference.</span></div>
+            <div class="sticky engineering-note"><strong>ENGINEERING</strong><span>Monitor reactor output carefully.</span><span>Overloading the grid disables systems.</span></div>
+            <div class="sticky weapons-note"><strong>WEAPONS</strong><span>Missiles are limited. Use them wisely.</span></div>
+            <div class="sticky relay-note"><strong>RELAY</strong><span>Always sign off before closing comms.</span></div>
+            <div class="sticky captain-note"><strong>CAPTAIN</strong><span>Trust your crew. They know their stations.</span></div>
+            <div class="sticky tactical-note"><strong>TACTICAL REMINDER</strong><span>If a contact appears suddenly - assume hostile until proven otherwise.</span></div>
+            <div class="sticky danger-note"><strong>EMERGENCY PROCEDURE</strong><span>In case of imminent destruction: remain calm; activate escape pods.</span></div>
+            <div class="sticky cargo-note"><strong>CARGO & SUPPLIES</strong><span>Request drops before the ship is exploding.</span></div>
+            <div class="sticky engineering-note"><strong>ENGINEERING NOTICE</strong><span>Do not place drinks on the tactical console.</span></div>
+            <div class="sticky commander-note"><strong>FROM THE FLIGHT COMMANDER</strong><span>If something strange appears on the map, it is probably intentional.</span><span>If something very strange appears - that was definitely me.</span></div>
           </div>
-          <div class="mess-feature-grid">
-            ${infoCard("Lessons Heard Around the Fleet", `<ul><li>Did anyone remember to scan it?</li><li>Why are we flying directly at the mines?</li><li>Who told the pirates our cargo manifest?</li><li>Why are the shields off?</li><li>Do we still have enough energy for the jump?</li><li>What do you mean you destroyed your ship?!</li><li>Why are we broadcasting on an open channel?!</li><li>Can we talk about this after the crisis? No. Apparently we cannot.</li></ul>`)}
-            ${infoCard("UFN Command Academy", `<p><strong>Flight Controller Training Program</strong></p><p>Create out-of-this-world experiences, tell exciting stories in a fully realised universe, and learn how to guide crews through danger, diplomacy and discovery.</p><p>“Train with the best - graduate as the best.”</p><p><strong>Contact Commodore Smarty for more information.</strong></p>`)}
-            ${infoCard("A Final Word from Flight Command", `<p><strong>The Flight Commander can see everything.</strong></p><p>This is sometimes reassuring. It is sometimes not.</p>`, "gold")}
+          <div class="two-column-cards">
+            ${infoCard("Lessons Learned the Hard Way", `<ul><li>Did anyone remember to scan it?</li><li>Why are we flying directly at the mines?</li><li>Engineering, why is the reactor at 200%?</li><li>Who told the pirates our cargo manifest?</li><li>Why is the Captain negotiating with the hostile fleet?</li><li>Why are the shields off?</li><li>Do we still have fuel for the jump?</li><li>What do you mean you destroyed your ship?!</li><li>Why are we broadcasting on an open channel?!</li><li>Can we talk about this after the crisis? (No. We cannot.)</li></ul>`)}
+            ${infoCard("Colony 2784", `<p><strong>Trade and shore-leave notice:</strong> Colony 2784 advertises frontier-brewed ales, imported luxury foods and cargo trading through the Independent Traders Guild.</p><p><strong>Bridge noticeboard coordinates:</strong> -90300, -88500</p>`)}
+            ${infoCard("UFN Command Academy", `<p>Flight Controller Training Program:</p><ul><li>Create out-of-this-world experiences</li><li>Tell exciting stories in a fully realised universe</li><li>Learn how to run fully immersive missions</li><li>Guide crews through danger, diplomacy and discovery</li></ul><p>“Train with the best - graduate as the best.” Contact Captain Smarty for more information.</p>`)}
+            ${infoCard("Flight Commander Reminder", `<p><strong>The Flight Commander can see everything.</strong></p>` , "gold")}
           </div>
         `}
       ]
