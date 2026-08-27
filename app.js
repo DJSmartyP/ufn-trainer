@@ -123,6 +123,60 @@
     if (route === "science" && tab === "scan-practice") {
       scanController = createScanSimulator(document.getElementById("scan-simulator-root"));
     }
+    if (route === "general" && tab === "medals") {
+      initialiseMedalGallery(document.querySelector('[data-panel="medals"]'));
+    }
+  }
+
+  function initialiseMedalGallery(root) {
+    if (!root) return;
+    const dialog = root.querySelector("#medal-dossier");
+    if (!dialog) return;
+    const image = dialog.querySelector("#medal-dialog-image");
+    const title = dialog.querySelector("#medal-dialog-title");
+    const description = dialog.querySelector("#medal-dialog-description");
+    const classification = dialog.querySelector("#medal-dialog-classification");
+    const close = dialog.querySelector(".medal-dialog-close");
+
+    const openRecord = card => {
+      const art = card.querySelector(".medal-art-frame img");
+      const name = card.querySelector(".medal-card-copy > strong")?.textContent?.trim() || "UFN Decoration";
+      const detail = card.querySelector(".medal-detail-copy")?.textContent?.trim() || "";
+      const restricted = card.dataset.medalRestricted === "true";
+
+      image.src = art?.getAttribute("src") || "";
+      image.alt = art?.getAttribute("alt") || name;
+      title.textContent = name;
+      dialog.classList.toggle("restricted-record", restricted);
+      classification.textContent = restricted ? "UFN INTELLIGENCE // RESTRICTED RECORD" : "FLEET PERSONNEL // DECORATION RECORD";
+      description.replaceChildren();
+
+      if (restricted) {
+        const stamp = document.createElement("div");
+        stamp.className = "redacted-stamp";
+        stamp.textContent = "REDACTED";
+        const notice = document.createElement("p");
+        notice.className = "redacted-notice";
+        notice.textContent = detail;
+        description.append(stamp, notice);
+      } else {
+        const copy = document.createElement("p");
+        copy.textContent = detail;
+        description.append(copy);
+      }
+
+      if (typeof dialog.showModal === "function") dialog.showModal();
+      else dialog.setAttribute("open", "");
+    };
+
+    root.querySelectorAll(".medal-card").forEach(card => card.addEventListener("click", () => openRecord(card)));
+    close?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", event => {
+      if (event.target !== dialog) return;
+      const rect = dialog.getBoundingClientRect();
+      const inside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+      if (!inside) dialog.close();
+    });
   }
 
   /* ------------------------- Relay hacking practice ------------------------- */

@@ -2103,3 +2103,212 @@ h1, h2, h3,
   .briefing-nav-secondary .section-tab { width: 100%; white-space: normal; }
   .rank-levels { grid-template-columns: 1fr; }
 }
+
+
+/* ============================================================
+   MEDALS OF SERVICE // INTERACTIVE FLEET PERSONNEL DOSSIERS
+   ============================================================ */
+.medal-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.medal-card {
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgba(70,151,193,.32);
+  border-radius: 5px;
+  background: linear-gradient(145deg, rgba(5,18,29,.97), rgba(2,10,17,.99));
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+.medal-card:hover,
+.medal-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(90,197,244,.72);
+  background: linear-gradient(145deg, rgba(8,29,45,.98), rgba(3,14,23,.99));
+  outline: none;
+}
+.medal-card:focus-visible { box-shadow: 0 0 0 2px rgba(90,197,244,.24); }
+.medal-art-frame {
+  display: grid;
+  place-items: center;
+  height: 255px;
+  padding: 12px 10px 6px;
+  border-bottom: 1px solid rgba(73,151,191,.20);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(32,93,126,.18), transparent 56%),
+    linear-gradient(180deg, rgba(3,16,27,.98), rgba(2,10,17,.98));
+}
+.medal-art-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.medal-card-copy {
+  display: flex;
+  min-height: 128px;
+  flex-direction: column;
+  padding: 14px 15px 15px;
+}
+.medal-card-copy > strong {
+  display: block;
+  min-height: 3.15em;
+  margin-top: 6px;
+  color: #dff5ff;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .88rem;
+  font-weight: 500;
+  line-height: 1.42;
+  text-transform: uppercase;
+}
+.medal-card-action {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid rgba(74,151,193,.18);
+  color: #62c4ef;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .58rem;
+  font-weight: 600;
+  letter-spacing: .09em;
+}
+.medal-card-restricted {
+  border-color: rgba(175,53,53,.55);
+  background:
+    repeating-linear-gradient(-45deg, rgba(123,25,25,.045) 0 7px, transparent 7px 14px),
+    linear-gradient(145deg, rgba(21,10,15,.97), rgba(6,8,13,.99));
+}
+.medal-card-restricted .medal-card-action { color: #e46d6d; border-top-color: rgba(178,54,54,.28); }
+.medal-card-restricted:hover,
+.medal-card-restricted:focus-visible { border-color: rgba(220,75,75,.82); }
+
+.medal-dialog {
+  width: min(920px, calc(100% - 32px));
+  max-width: 920px;
+  padding: 0;
+  border: 1px solid rgba(89,187,231,.48);
+  border-radius: 7px;
+  background: #030d15;
+  color: var(--text);
+  box-shadow: 0 24px 70px rgba(0,0,0,.55);
+}
+.medal-dialog::backdrop { background: rgba(0,5,10,.78); backdrop-filter: blur(4px); }
+.medal-dialog-shell {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(280px, .86fr) minmax(0, 1.14fr);
+  min-height: 500px;
+}
+.medal-dialog-close {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(103,188,229,.36);
+  border-radius: 4px;
+  background: rgba(3,14,23,.92);
+  color: #dff5ff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.medal-dialog-close:hover,
+.medal-dialog-close:focus-visible { border-color: #5ac5f4; color: #fff; outline: none; }
+.medal-dialog-art {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  padding: 34px 28px;
+  border-right: 1px solid rgba(78,156,195,.20);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(39,111,148,.22), transparent 58%),
+    linear-gradient(155deg, rgba(4,20,32,.98), rgba(1,8,14,.99));
+}
+.medal-dialog-art img {
+  display: block;
+  width: 100%;
+  max-width: 390px;
+  max-height: 430px;
+  object-fit: contain;
+}
+.medal-dialog-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 52px 44px 46px;
+}
+.medal-dialog-copy h3 {
+  margin: 10px 0 20px;
+  color: #e7f8ff;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: clamp(1.25rem, 2.4vw, 2rem);
+  font-weight: 500;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+.medal-dialog-description {
+  padding-top: 18px;
+  border-top: 1px solid rgba(80,160,201,.22);
+}
+.medal-dialog-description p {
+  margin: 0;
+  color: #a9c5d3;
+  font-size: 1rem;
+  line-height: 1.72;
+}
+.medal-dialog.restricted-record { border-color: rgba(207,65,65,.62); }
+.medal-dialog.restricted-record .medal-dialog-copy {
+  background: repeating-linear-gradient(-45deg, rgba(124,25,25,.055) 0 8px, transparent 8px 16px);
+}
+.medal-dialog.restricted-record .medal-dialog-description { border-top-color: rgba(198,58,58,.32); }
+.redacted-stamp {
+  width: fit-content;
+  margin: 6px 0 22px;
+  padding: 8px 18px 7px;
+  transform: rotate(-5deg);
+  border: 5px solid #c93434;
+  color: #e34a4a;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  font-weight: 900;
+  letter-spacing: .11em;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: .94;
+}
+.redacted-notice {
+  max-width: 42rem;
+  color: #d5a1a1 !important;
+}
+
+@media (max-width: 1100px) {
+  .medal-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .medal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .medal-art-frame { height: 220px; }
+  .medal-dialog { width: min(680px, calc(100% - 20px)); }
+  .medal-dialog-shell { grid-template-columns: 1fr; }
+  .medal-dialog-art { min-height: 320px; padding: 28px 24px 16px; border-right: 0; border-bottom: 1px solid rgba(78,156,195,.20); }
+  .medal-dialog-art img { max-height: 310px; }
+  .medal-dialog-copy { padding: 30px 24px 32px; }
+}
+@media (max-width: 430px) {
+  .medal-grid { gap: 8px; }
+  .medal-art-frame { height: 180px; padding: 8px 6px 3px; }
+  .medal-card-copy { min-height: 122px; padding: 12px; }
+  .medal-card-copy > strong { font-size: .76rem; }
+  .medal-card-action { font-size: .52rem; }
+  .medal-dialog-art { min-height: 260px; }
+  .medal-dialog-art img { max-height: 250px; }
+}

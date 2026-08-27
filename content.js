@@ -137,6 +137,17 @@
       </div>
     </article>`;
 
+  const medalCard = (id, name, image, description, restricted = false) => `
+    <button class="medal-card${restricted ? " medal-card-restricted" : ""}" type="button" data-medal-id="${id}" data-medal-restricted="${restricted ? "true" : "false"}">
+      <span class="medal-art-frame"><img src="assets/medals/${image}" alt="${name}" loading="lazy" /></span>
+      <span class="medal-card-copy">
+        <span class="control-type">UFN SERVICE DECORATION</span>
+        <strong>${name}</strong>
+        <span class="medal-card-action">${restricted ? "VIEW RESTRICTED RECORD" : "VIEW CITATION"}</span>
+        <span class="medal-detail-copy" hidden>${description}</span>
+      </span>
+    </button>`;
+
   const messTip = (message, person, role) => `
     <article class="mess-tip">
       <p>“${message}”</p>
@@ -271,13 +282,31 @@
           </div>
         `},
         { id: "medals", label: "Medals of Service", content: `
-          <div class="section-heading"><span class="micro-label">FLEET PERSONNEL // DECORATIONS</span><h2>Medals of Service</h2><p>Official UFN decorations and service awards will be catalogued here.</p></div>
-          <section class="medals-placeholder">
-            <span class="classification">FLEET PERSONNEL ARCHIVE</span>
-            <div class="medals-placeholder-mark" aria-hidden="true">★</div>
-            <h3>Decorations register pending</h3>
-            <p>The Fleet Personnel decorations archive is being synchronised. Medal names, award criteria and recognised insignia will appear here when the service record is released.</p>
-          </section>
+          <div class="section-heading"><span class="micro-label">FLEET PERSONNEL // DECORATIONS</span><h2>Medals of Service</h2><p>Select a decoration to open its Fleet Personnel citation record.</p></div>
+          <div class="medal-grid" aria-label="UFN medals of service">
+            ${medalCard("command", "Star of Command", "star-of-command.png", "Awarded for exceptional leadership under pressure. Presented to officers who demonstrate decisive judgement, inspire confidence in their crew, and maintain effective command when circumstances demand clarity, courage and responsibility.")}
+            ${medalCard("flight", "Citation for Flight Excellence", "flight-excellence.png", "Recognises outstanding helm control and flight performance. Presented for exceptional skill in navigation, manoeuvring and ship handling, particularly where precision, judgement and control have contributed significantly to mission success.")}
+            ${medalCard("gunnery", "Tactical Gunnery Cross", "tactical-gunnery.png", "Awarded for precision, effectiveness and courage in combat. Recognises exceptional weapons performance where disciplined targeting, tactical judgement and decisive action have made a significant contribution to the protection of the crew or successful completion of a mission.")}
+            ${medalCard("engineering", "Engineering Merit Medal", "engineering-merit.png", "Recognises exceptional technical skill and engineering service. Presented to personnel whose management of ship systems, power, damage or repairs has demonstrated outstanding ability and materially contributed to the survival or effectiveness of their vessel.")}
+            ${medalCard("science", "Medal for Scientific Distinction", "scientific-distinction.png", "Awarded for outstanding scientific insight and analysis. Recognises personnel whose scanning, investigation or interpretation of scientific information has uncovered critical intelligence, solved a significant problem or directly contributed to mission success.")}
+            ${medalCard("comms", "Fleet Communications Citation", "fleet-communications.png", "Recognises excellence in relay, coordination and communications support. Presented for exceptional management of information, communications and fleet coordination, ensuring that vital intelligence reaches the right people and that crews remain connected during demanding operations.")}
+            ${medalCard("diplomacy", "Diplomatic Service Citation", "diplomatic-service.png", "Awarded for distinction in negotiation, diplomacy and peaceful resolution. Recognises personnel whose communication, judgement and restraint have strengthened relations, resolved conflict or achieved an operational objective without unnecessary escalation.")}
+            ${medalCard("achievement", "Medal for Superior Achievement", "superior-achievement.png", "Recognises exceptional performance beyond normal duty expectations. Presented to personnel whose initiative, skill or determination has produced an outstanding result and whose contribution represents a particularly notable example of service to the United Federated Navy.")}
+            ${medalCard("smarty", "The Smarty Special Medal", "smarty-special.png", "For a plan that definitely made sense... briefly. Presented to those who committed to a course of action that felt clever in the moment and questionable immediately after. A celebration of optimism over outcomes.")}
+            ${medalCard("light-dark", "Light and Dark Campaign Medal", "light-dark-campaign.png", "Award citation and associated operational record withheld by order of UFN Intelligence. Access to further information requires appropriate security clearance.", true)}
+          </div>
+          <dialog class="medal-dialog" id="medal-dossier" aria-labelledby="medal-dialog-title">
+            <div class="medal-dialog-shell">
+              <button class="medal-dialog-close" type="button" aria-label="Close medal record">×</button>
+              <div class="medal-dialog-art"><img id="medal-dialog-image" src="" alt="" /></div>
+              <div class="medal-dialog-copy">
+                <span class="classification" id="medal-dialog-classification">FLEET PERSONNEL // DECORATION RECORD</span>
+                <span class="micro-label">OFFICIAL SERVICE CITATION</span>
+                <h3 id="medal-dialog-title"></h3>
+                <div id="medal-dialog-description" class="medal-dialog-description"></div>
+              </div>
+            </div>
+          </dialog>
         `},
         { id: "allies", label: "Allied Forces", content: `
           <div class="section-heading"><span class="micro-label">SECTION I</span><h2>Allied Forces</h2><p>Friendly organisations operating across human space and the frontier.</p></div>
