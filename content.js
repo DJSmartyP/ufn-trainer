@@ -423,7 +423,7 @@
     },
 
     captain: {
-      eyebrow: "BRIDGE COMMAND ROLE",
+      eyebrow: "SHIPBOARD DUTY STATION",
       title: "Captain",
       subtitle: "Mission direction, bridge co-ordination and tactical intent. The Captain has no dedicated action console.",
       tabs: [
