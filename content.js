@@ -98,6 +98,16 @@
       ${body}
     </article>`;
 
+  const HIDES_ART = {
+    "DRIVE LOCK": "drive-lock.png",
+    "DRIVE DECAY": "drive-decay.png",
+    "FIRE DECAY": "fire-decay.png",
+    "MISSILE SCRAMBLE": "missile-scramble.png",
+    "SHIELD COLLAPSE": "shield-collapse.png",
+    "HEAT SURGE": "heat-surge.png",
+    "GRID DECAY": "grid-decay.png"
+  };
+
   const hidesCard = (title, station, status, effectLine, summary, cleared, rows, columns) => `
     <details class="hides-incident">
       <summary>
@@ -109,6 +119,7 @@
         <span class="hides-expand">LEVELS I–V</span>
       </summary>
       <div class="hides-incident-body">
+        <div class="hides-visual" aria-hidden="true"><img src="assets/hides/${HIDES_ART[title] || "drive-lock.png"}" alt="" loading="lazy" /></div>
         <div class="hides-effect-copy">${summary}${cleared ? `<div class="hides-cleared"><strong>WHEN CLEARED</strong>${cleared}</div>` : ""}</div>
         <div class="hides-level-table-wrap">
           <table class="hides-level-table">
@@ -141,7 +152,7 @@
     <button class="medal-card${restricted ? " medal-card-restricted" : ""}" type="button" data-medal-id="${id}" data-medal-restricted="${restricted ? "true" : "false"}">
       <span class="medal-art-frame"><img src="assets/medals/${image}" alt="${name}" loading="lazy" /></span>
       <span class="medal-card-copy">
-        <span class="control-type">UFN SERVICE DECORATION</span>
+        <span class="medal-card-kicker">SERVICE DECORATION</span>
         <strong>${name}</strong>
         <span class="medal-card-action">${restricted ? "VIEW RESTRICTED RECORD" : "VIEW CITATION"}</span>
         <span class="medal-detail-copy" hidden>${description}</span>
@@ -359,8 +370,8 @@
           </div>
         `},
         { id: "hides-guide", label: "H.I.D.E.S.", content: `
-          <div class="section-heading"><span class="micro-label">OPERATIONS // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> is the ship's defence against hostile cyber intrusion. Enemy vessels may hack ship systems; H.I.D.E.S. detects the attack, identifies the hack and level, and works to eliminate it.</p></div>
-          <div class="callout-strip"><strong>THE IMPORTANT DISTINCTION:</strong><span>H.I.D.E.S. does not cause these effects. The hostile hacker does. H.I.D.E.S. is the protection system working to detect and clear the intrusion.</span></div>
+          <div class="section-heading"><span class="micro-label">OPERATIONS // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> is the ship's defence against hostile cyber intrusion. Enemy vessels may hack ship systems; H.I.D.E.S. detects the attack, identifies the hack and works to eliminate it.</p></div>
+          <div class="callout-strip"><strong>INTRUSION LEVELS:</strong><span>Hostile hacks may occur at Levels I–V, with higher levels generally producing more severe effects. <strong>H.I.D.E.S. cannot detect which level of hack is being used</strong>, so crews must respond based on the effects they observe.</span></div>
           <div class="hides-incident-stack">
             ${hidesCard(
               "DRIVE LOCK", "HELMS", "HOSTILE HACK", "Movement disabled",
@@ -412,7 +423,7 @@
               ["Level","Initial damage","Ongoing damage"]
             )}
           </div>
-          <div class="callout-strip warning"><strong>CREW RESPONSE:</strong><span>Report the hack name and level. Let H.I.D.E.S. clear the intrusion while the affected station manages the immediate loss of capability and Engineering manages heat or lasting damage.</span></div>
+          <div class="callout-strip warning"><strong>CREW RESPONSE:</strong><span>Report the hack name and the effects you observe. H.I.D.E.S. cannot confirm the active level; let it clear the intrusion while the affected station manages the immediate loss of capability and Engineering manages heat or lasting damage.</span></div>
         `},
         { id: "supply-drops", label: "Fleet Support", content: `
           <div class="section-heading"><span class="micro-label">FLEET SUPPORT // UFN LOGISTICS</span><h2>FC Supply Drops</h2><p>Supply drops are a fleet support service, not a crew station. Crews operating away from a dock can contact any UFN station or the Flight Commander and request a delivery.</p></div>
@@ -558,7 +569,7 @@
             ${controlCard("Jump", "JUMP CONTROL", `<p>Starts the jump sequence. The standard jump takes time to initiate rather than moving the ship immediately.</p><p><strong>How:</strong> Confirm heading, distance and destination, then press Jump. Impulse shuts down during the jump sequence and the ship reappears at the selected distance along its current heading.</p>`, "warning")}
             ${controlCard("Request Dock / Undock", "DOCKING CONTROL", `<p>Docking becomes available near a compatible friendly or neutral station, or some larger ships.</p><p><strong>How:</strong> Approach to within docking range, reduce speed, then use Request Dock when enabled. While docked the ship cannot use engines or weapons. Helms is also responsible for undocking.</p>`)}
             ${controlCard("Combat manoeuvre control", "TACTICAL CONTROL", `<p>Available on equipped vessels. The two-dimensional control provides a forward boost and lateral strafe.</p><p><strong>How:</strong> Vertical input boosts forward speed above normal cruise but heats impulse. Horizontal input strafes sideways and can overheat manoeuvring. The manoeuvre reserve can be exhausted and recharges over time.</p>`)}
-            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>The right-hand panel reports hostile hacks detected by H.I.D.E.S. that are affecting Helms.</p><p><strong>Use it:</strong> Report the hack name and level immediately, then open the <strong>H.I.D.E.S.</strong> section for the effect and expected clearance time.</p>`)}
+            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>The right-hand panel reports hostile hacks detected by H.I.D.E.S. that are affecting Helms.</p><p><strong>Use it:</strong> Report the hack name and the effects you observe immediately, then open the <strong>H.I.D.E.S.</strong> section for reference information on the effect and clearance behaviour.</p>`)}
           </div>
         `},
         { id: "station-training", label: "Station Specific Training", content: `
@@ -604,7 +615,7 @@
           </section>
         `},
         { id: "hides", label: "H.I.D.E.S.", content: `
-          <div class="hides-header"><span class="classification">HELMS // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> protects the ship against hostile cyber attacks. Enemies cause the hacks below; H.I.D.E.S. detects the intrusion, identifies its level and works to remove it.</p></div>
+          <div class="hides-header"><span class="classification">HELMS // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> protects the ship against hostile cyber attacks. Enemies cause the hacks below; H.I.D.E.S. detects the intrusion, identifies the hack and works to remove it. H.I.D.E.S. cannot detect which intrusion level is active.</p></div>
           <div class="hides-incident-stack">
             ${hidesCard(
               "DRIVE LOCK", "HELMS", "HOSTILE HACK", "Movement disabled",
@@ -621,7 +632,7 @@
               ["Level","Ongoing damage"]
             )}
           </div>
-          <div class="callout-strip"><strong>HELMS RESPONSE:</strong><span>Report the hack and level immediately. H.I.D.E.S. handles removal; Helms manages the loss of movement while Engineering deals with any damage left by Drive Decay.</span></div>
+          <div class="callout-strip"><strong>HELMS RESPONSE:</strong><span>Report the hack and the effects you observe immediately. H.I.D.E.S. handles removal; Helms manages the loss of movement while Engineering deals with any damage left by Drive Decay.</span></div>
         `}
       ]
     },
@@ -665,7 +676,7 @@
             ${controlCard("Beam frequency", "BEAM CONTROL", `<p>Sets beam frequency where frequency mechanics are enabled.</p><p><strong>How:</strong> Use shield-frequency intelligence from Science and adjust the beam frequency for a more favourable match. Beam frequency changes immediately.</p>`)}
             ${controlCard("Shields ON / OFF", "DEFENSIVE CONTROL", `<p>Weapons controls whether the ship's shields are raised.</p><p><strong>How:</strong> Raise them when attack is likely or underway; lower them when the tactical situation allows and energy conservation matters.</p>`)}
             ${controlCard("Shield frequency / Calibrate", "DEFENSIVE CONTROL", `<p>Sets the ship's shield frequency where frequency mechanics are enabled.</p><p><strong>How:</strong> Choose the intended frequency and calibrate/remodulate the shields. Unlike beam frequency changes, shield remodulation takes the shields offline for several seconds, so warn Captain before doing it in combat.</p>`, "warning")}
-            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Reports hostile hacks detected by H.I.D.E.S. that are affecting Weapons.</p><p><strong>Use it:</strong> Report the hack name and level immediately, then check the <strong>H.I.D.E.S.</strong> section for the effect, continuing damage or drain, and expected clearance time.</p>`)}
+            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Reports hostile hacks detected by H.I.D.E.S. that are affecting Weapons.</p><p><strong>Use it:</strong> Report the hack name and the effects you observe immediately, then check the <strong>H.I.D.E.S.</strong> section for reference information on continuing damage, drain and clearance behaviour.</p>`)}
           </div>
         `},
         { id: "station-training", label: "Station Specific Training", content: `
@@ -714,7 +725,7 @@
           </section>
         `},
         { id: "hides", label: "H.I.D.E.S.", content: `
-          <div class="hides-header"><span class="classification">WEAPONS // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> protects the ship against hostile cyber attacks. Enemies cause the hacks below; H.I.D.E.S. detects the intrusion, identifies its level and works to remove it.</p></div>
+          <div class="hides-header"><span class="classification">WEAPONS // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> protects the ship against hostile cyber attacks. Enemies cause the hacks below; H.I.D.E.S. detects the intrusion, identifies the hack and works to remove it. H.I.D.E.S. cannot detect which intrusion level is active.</p></div>
           <div class="hides-incident-stack">
             ${hidesCard(
               "FIRE DECAY", "WEAPONS", "HOSTILE HACK", "Weapons damaged",
@@ -738,7 +749,7 @@
               ["Level","Shield drain"]
             )}
           </div>
-          <div class="callout-strip"><strong>WEAPONS RESPONSE:</strong><span>Report the hack and level immediately. H.I.D.E.S. handles removal; Weapons adapts to lost tubes or shields while Engineering repairs any system damage left by Fire Decay.</span></div>
+          <div class="callout-strip"><strong>WEAPONS RESPONSE:</strong><span>Report the hack and the effects you observe immediately. H.I.D.E.S. handles removal; Weapons adapts to lost tubes or shields while Engineering repairs any system damage left by Fire Decay.</span></div>
         `}
       ]
     },
@@ -781,7 +792,7 @@
             ${controlCard("Power slider", "SELECTED-SYSTEM CONTROL", `<p>The large right-hand Power slider controls the currently selected system.</p><p><strong>How:</strong> Select the system row first, then move the Power slider. Use 100% as normal unless the tactical need justifies under- or overpowering.</p>`)}
             ${controlCard("Coolant slider", "SELECTED-SYSTEM CONTROL", `<p>The large right-hand Coolant slider controls coolant for the currently selected system.</p><p><strong>How:</strong> Select a system, add coolant, and confirm the temperature trend begins to stabilise or fall.</p>`)}
             ${controlCard("What power changes", "SYSTEM EFFECT", `<p><strong>Reactor:</strong> more power produces more energy. <strong>Impulse:</strong> more power raises maximum speed. <strong>Shields:</strong> more power improves shield performance and regeneration. Other systems likewise lose effectiveness when underpowered or damaged.</p>`)}
-            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Shows hostile hacks detected by H.I.D.E.S. that are affecting Engineering systems.</p><p><strong>Use it:</strong> Report the hack name and level immediately. For Heat Surge, manage the affected heat load while H.I.D.E.S. clears the intrusion. For Grid Decay, prepare to repair any damage left behind after clearance.</p>`)}
+            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Shows hostile hacks detected by H.I.D.E.S. that are affecting Engineering systems.</p><p><strong>Use it:</strong> Report the hack name and the effects you observe immediately. For Heat Surge, manage the affected heat load while H.I.D.E.S. clears the intrusion. For Grid Decay, prepare to repair any damage left behind after clearance.</p>`)}
           </div>
         `},
         { id: "station-training", label: "Station Specific Training", content: `
@@ -815,7 +826,7 @@
           </section>
         `},
         { id: "hides", label: "H.I.D.E.S.", content: `
-          <div class="hides-header"><span class="classification">ENGINEERING // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> protects the ship against hostile cyber attacks. Enemies cause the hacks below; H.I.D.E.S. detects the intrusion, identifies its level and works to remove it.</p></div>
+          <div class="hides-header"><span class="classification">ENGINEERING // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> protects the ship against hostile cyber attacks. Enemies cause the hacks below; H.I.D.E.S. detects the intrusion, identifies the hack and works to remove it. H.I.D.E.S. cannot detect which intrusion level is active.</p></div>
           <div class="hides-incident-stack">
             ${hidesCard(
               "HEAT SURGE", "ENGINEERING", "HOSTILE HACK", "Heat forced upward",
