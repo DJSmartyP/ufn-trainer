@@ -19,7 +19,7 @@
       ["Short-range radar", 25.0, 5.0, 50.0, 90.0, "Press or drag on the radar to command a heading. Use contacts, waypoints and visible weapon arcs to position the ship for the crew."],
       ["Docking", 1.1, 92.3, 18.0, 5.8, "Request Dock becomes available when a compatible friendly or neutral target is close enough. Helms also controls undocking."],
       ["Combat manoeuvre", 81.0, 74.0, 18.0, 23.0, "If fitted, this control provides forward boost and lateral strafe. It is limited, recharges over time and can generate substantial system heat."],
-      ["H.I.D.E.S. status", 82.6, 12.8, 16.3, 23.0, "Shows the ship's current intrusion state. If a Helms intrusion appears, open the H.I.D.E.S. reference for Drive Lock or Drive Decay clearance information."]
+      ["H.I.D.E.S. status", 82.6, 12.8, 16.3, 23.0, "Shows hostile intrusion activity detected by H.I.D.E.S. If a Helms hack is detected, open the H.I.D.E.S. reference for Drive Lock or Drive Decay effects and clearance information."]
     ],
     weapons: [
       ["Ship readouts", 1.2, 11.3, 15.2, 13.2, "Energy plus front and rear shield strength. Watch shield state while fighting and coordinate power concerns with Engineering."],
@@ -27,7 +27,7 @@
       ["Target radar", 25.0, 5.0, 50.0, 90.0, "Select a target on the short-range radar. Guided missiles use the selected target and beams automatically fire when that target is inside a firing arc."],
       ["Missile aim lock", 61.3, 2.0, 9.0, 6.8, "Use Lock to switch between target-linked missile aiming and manual tube aiming when the tactical situation requires it."],
       ["Beam information", 81.3, 70.0, 17.8, 27.0, "Choose hull or a subsystem as the beam target and set beam frequency when frequency mechanics are active. Science can provide useful frequency data."],
-      ["H.I.D.E.S. status", 82.6, 12.8, 16.3, 23.0, "Shows current intrusion state. Weapons intrusions include Fire Decay, Missile Scramble and Shield Collapse."]
+      ["H.I.D.E.S. status", 82.6, 12.8, 16.3, 23.0, "Shows hostile intrusion activity detected by H.I.D.E.S. Weapons may be targeted by Fire Decay, Missile Scramble or Shield Collapse."]
     ],
     engineering: [
       ["Ship status", 1.2, 11.2, 15.2, 24.0, "Energy trend, hull, shields and total coolant capacity. Use these to judge whether the ship is stable or entering a resource crisis."],
@@ -35,7 +35,7 @@
       ["Internal ship view", 36.0, 2.5, 29.0, 41.0, "Shows system rooms and repair crews. Select or dispatch repair capability to damaged systems using the engineering controls."],
       ["System rows", 17.0, 48.0, 47.5, 49.0, "Each installed system has health, heat, requested power and coolant information. Select a row before using the large power/coolant controls."],
       ["Power and coolant", 65.8, 53.7, 17.0, 43.5, "Allocate power to change system output and coolant to control heat. More than 100% power improves performance but increases heat and, except for the reactor, energy draw."],
-      ["H.I.D.E.S. status", 82.6, 12.8, 16.3, 23.0, "Shows current intrusion state. Engineering intrusions include Heat Surge and Grid Decay."]
+      ["H.I.D.E.S. status", 82.6, 12.8, 16.3, 23.0, "Shows hostile intrusion activity detected by H.I.D.E.S. Engineering may be targeted by Heat Surge or Grid Decay."]
     ],
     science: [
       ["Long-range radar", 13.0, 0.5, 56.0, 98.0, "Your main sensor picture. Track contacts, hazards, nebula blind spots and changes in the sector, then report information that changes the crew's decisions."],
@@ -231,7 +231,7 @@
         { id: "briefing", label: "Briefing", tabs: ["briefing", "notices"] },
         { id: "personnel", label: "Personnel", tabs: ["ranks", "medals"] },
         { id: "intelligence", label: "Fleet Intelligence", tabs: ["allies", "threats", "phenomena"] },
-        { id: "operations", label: "Operations", tabs: ["protocols", "supply-drops"] }
+        { id: "operations", label: "Operations", tabs: ["protocols", "hides-guide", "supply-drops"] }
       ],
       tabs: [
         { id: "briefing", label: "Admiralty Briefing", content: `
@@ -358,6 +358,62 @@
             <article class="phenomenon light"><span class="threat-badge allied-contact">ALLIED CONTACT // NATURE UNKNOWN</span><h3>The Light</h3><p class="intel-status">INTELLIGENCE STATUS: EXTREMELY LIMITED</p><dl><div><dt>Signal source</dt><dd>Unknown</dd></div><div><dt>Origin</dt><dd>Unknown</dd></div><div><dt>Current alignment</dt><dd>Allied</dd></div></dl><p>First detected during encounters involving The Darkness. Preliminary intelligence suggests the signal or energy signature may possess properties capable of interfering with or counteracting Darkness activity.</p><p>Its nature remains unclear. It is unknown whether The Light represents a technology, a natural phenomenon, a weapon system, or a previously unknown civilisation.</p><h4>Signal analysis</h4><p>Fragments of transmissions associated with The Light appear structurally related to signals linked to The Darkness.</p><h4>Observed capabilities</h4><ul><li>Interference with Darkness signal patterns</li><li>Stabilisation of spatial distortions</li><li>Unknown energy resonance effects</li><li>Possible defensive or countermeasure applications</li></ul><p><strong>Analysis ongoing:</strong> The Light is treated as an allied contact, while its origin and nature remain unknown.</p></article>
           </div>
         `},
+        { id: "hides-guide", label: "H.I.D.E.S.", content: `
+          <div class="section-heading"><span class="micro-label">OPERATIONS // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> is the ship's defence against hostile cyber intrusion. Enemy vessels may hack ship systems; H.I.D.E.S. detects the attack, identifies the hack and level, and works to eliminate it.</p></div>
+          <div class="callout-strip"><strong>THE IMPORTANT DISTINCTION:</strong><span>H.I.D.E.S. does not cause these effects. The hostile hacker does. H.I.D.E.S. is the protection system working to detect and clear the intrusion.</span></div>
+          <div class="hides-incident-stack">
+            ${hidesCard(
+              "DRIVE LOCK", "HELMS", "HOSTILE HACK", "Movement disabled",
+              `<p><strong>Enemy effect:</strong> Warp and jump are disabled, impulse is forced to zero and the ship cannot rotate. No system damage is caused.</p><p><strong>What matters:</strong> Clearance time increases with hack level.</p>`,
+              `<p>H.I.D.E.S. removes the lock and restores normal drive controls.</p>`,
+              [["I","10s"],["II","12s"],["III","15s"],["IV","18s"],["V","20s"]],
+              ["Level","H.I.D.E.S. clearance"]
+            )}
+            ${hidesCard(
+              "DRIVE DECAY", "HELMS", "HOSTILE HACK", "Propulsion damage",
+              `<p><strong>Enemy effect:</strong> Impulse, manoeuvring, warp and jump drive each take an immediate 10% damage hit, then continue taking damage once per second. Damage caps at 100%.</p><p><strong>H.I.D.E.S. clearance:</strong> 10 seconds at every level.</p>`,
+              `<p>H.I.D.E.S. stops further decay. Damage already caused remains for Engineering to repair.</p>`,
+              [["I","+1%/sec"],["II","+2%/sec"],["III","+3%/sec"],["IV","+4%/sec"],["V","+5%/sec"]],
+              ["Level","Ongoing damage"]
+            )}
+            ${hidesCard(
+              "FIRE DECAY", "WEAPONS", "HOSTILE HACK", "Weapons damaged",
+              `<p><strong>Enemy effect:</strong> Beam weapons and missile systems each take an immediate 10% damage hit, then continue taking damage once per second. Damage caps at 100%.</p><p><strong>H.I.D.E.S. clearance:</strong> 10 seconds at every level.</p>`,
+              `<p>H.I.D.E.S. stops further decay. Damage already caused remains for Engineering to repair.</p>`,
+              [["I","+1%/sec"],["II","+2%/sec"],["III","+3%/sec"],["IV","+4%/sec"],["V","+5%/sec"]],
+              ["Level","Ongoing damage"]
+            )}
+            ${hidesCard(
+              "MISSILE SCRAMBLE", "WEAPONS", "HOSTILE HACK", "Tubes disabled",
+              `<p><strong>Enemy effect:</strong> All weapon tubes are taken offline and the active tube count is reduced to zero. Stored ordnance is retained and no system damage is caused.</p><p><strong>What matters:</strong> Clearance time increases with hack level.</p>`,
+              `<p>H.I.D.E.S. restores the previous weapon-tube count and standard player tube configuration.</p>`,
+              [["I","10s"],["II","12s"],["III","15s"],["IV","18s"],["V","20s"]],
+              ["Level","H.I.D.E.S. clearance"]
+            )}
+            ${hidesCard(
+              "SHIELD COLLAPSE", "WEAPONS", "HOSTILE HACK", "Shields draining",
+              `<p><strong>Enemy effect:</strong> Front shields and, where fitted, rear shields lose strength once per second. Shields cannot fall below zero.</p><p><strong>H.I.D.E.S. clearance:</strong> 10 seconds at every level.</p>`,
+              `<p>H.I.D.E.S. stops the continuing drain. Shield strength already lost must recover normally.</p>`,
+              [["I","4/sec"],["II","6/sec"],["III","8/sec"],["IV","10/sec"],["V","12/sec"]],
+              ["Level","Shield drain"]
+            )}
+            ${hidesCard(
+              "HEAT SURGE", "ENGINEERING", "HOSTILE HACK", "Heat forced upward",
+              `<p><strong>Enemy effect:</strong> A unique selection of installed systems is forced to the level's starting heat, then gains +2% heat every second. Heat caps at 100%.</p><p><strong>Possible targets:</strong> Reactor, beam weapons, missile systems, manoeuvring, impulse, warp, jump drive, front shield, rear shield and sensors.</p><p><strong>H.I.D.E.S. clearance:</strong> 10 seconds at every level.</p>`,
+              `<p>H.I.D.E.S. stops the forced heat increase. Existing heat remains for Engineering to manage.</p>`,
+              [["I","3 systems","10%"],["II","4 systems","15%"],["III","5 systems","20%"],["IV","6 systems","25%"],["V","7 systems","30%"]],
+              ["Level","Systems affected","Starting heat"]
+            )}
+            ${hidesCard(
+              "GRID DECAY", "ENGINEERING", "HOSTILE HACK", "Grid systems damaged",
+              `<p><strong>Enemy effect:</strong> Reactor, front shield and rear shield systems take immediate damage, then continue taking damage once per second. Damage caps at 100%.</p><p><strong>H.I.D.E.S. clearance:</strong> 10 seconds at every level.</p>`,
+              `<p>H.I.D.E.S. stops further decay. Damage already caused remains for Engineering to repair.</p>`,
+              [["I","10%","+1%/sec"],["II","15%","+1.5%/sec"],["III","20%","+2%/sec"],["IV","25%","+2.5%/sec"],["V","30%","+3%/sec"]],
+              ["Level","Initial damage","Ongoing damage"]
+            )}
+          </div>
+          <div class="callout-strip warning"><strong>CREW RESPONSE:</strong><span>Report the hack name and level. Let H.I.D.E.S. clear the intrusion while the affected station manages the immediate loss of capability and Engineering manages heat or lasting damage.</span></div>
+        `},
         { id: "supply-drops", label: "Fleet Support", content: `
           <div class="section-heading"><span class="micro-label">FLEET SUPPORT // UFN LOGISTICS</span><h2>FC Supply Drops</h2><p>Supply drops are a fleet support service, not a crew station. Crews operating away from a dock can contact any UFN station or the Flight Commander and request a delivery.</p></div>
           <div class="supply-brief">
@@ -387,7 +443,7 @@
           <div class="protocol-manual">
             <article class="protocol-entry">
               <header><span>01</span><div><small>COMMUNICATIONS</small><h3>Comms Etiquette</h3></div></header>
-              <div class="protocol-entry-body"><p class="big-rule">Speak clearly. Speak briefly. Speak when it matters.</p><p><strong>Always sign off before closing comms.</strong> Routine communications can be handled by the station officer. Escalate to the Captain when the information changes mission priorities, risk or tactical decisions.</p></div>
+              <div class="protocol-entry-body"><p class="big-rule">Speak clearly. Speak briefly. Speak when it matters.</p><p><strong>Always sign off before closing comms.</strong> Closing the communications window will also close any active voice communications. Routine communications can be handled by the station officer. Escalate to the Captain when the information changes mission priorities, risk or tactical decisions.</p></div>
             </article>
             <article class="protocol-entry">
               <header><span>02</span><div><small>EMERGENCY SURVIVAL</small><h3>Escape Pod Teleportation</h3></div></header>
@@ -502,7 +558,7 @@
             ${controlCard("Jump", "JUMP CONTROL", `<p>Starts the jump sequence. The standard jump takes time to initiate rather than moving the ship immediately.</p><p><strong>How:</strong> Confirm heading, distance and destination, then press Jump. Impulse shuts down during the jump sequence and the ship reappears at the selected distance along its current heading.</p>`, "warning")}
             ${controlCard("Request Dock / Undock", "DOCKING CONTROL", `<p>Docking becomes available near a compatible friendly or neutral station, or some larger ships.</p><p><strong>How:</strong> Approach to within docking range, reduce speed, then use Request Dock when enabled. While docked the ship cannot use engines or weapons. Helms is also responsible for undocking.</p>`)}
             ${controlCard("Combat manoeuvre control", "TACTICAL CONTROL", `<p>Available on equipped vessels. The two-dimensional control provides a forward boost and lateral strafe.</p><p><strong>How:</strong> Vertical input boosts forward speed above normal cruise but heats impulse. Horizontal input strafes sideways and can overheat manoeuvring. The manoeuvre reserve can be exhausted and recharges over time.</p>`)}
-            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>The right-hand panel reports active hostile intrusion effects affecting Helms.</p><p><strong>Use it:</strong> Report the hack name and level immediately, then open the <strong>H.I.D.E.S.</strong> section for the exact effect and clearance time.</p>`)}
+            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>The right-hand panel reports hostile hacks detected by H.I.D.E.S. that are affecting Helms.</p><p><strong>Use it:</strong> Report the hack name and level immediately, then open the <strong>H.I.D.E.S.</strong> section for the effect and expected clearance time.</p>`)}
           </div>
         `},
         { id: "station-training", label: "Station Specific Training", content: `
@@ -548,24 +604,24 @@
           </section>
         `},
         { id: "hides", label: "H.I.D.E.S.", content: `
-          <div class="hides-header"><span class="classification">HELMS // INTRUSION RESPONSE</span><h2>H.I.D.E.S.</h2><p>Hacking Intrusion Detection and Elimination System. This station reference covers only intrusion types that directly affect Helms.</p></div>
+          <div class="hides-header"><span class="classification">HELMS // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> protects the ship against hostile cyber attacks. Enemies cause the hacks below; H.I.D.E.S. detects the intrusion, identifies its level and works to remove it.</p></div>
           <div class="hides-incident-stack">
             ${hidesCard(
-              "DRIVE LOCK", "HELMS", "LOCK", "Impulse off",
-              `<p><strong>Effect:</strong> Warp and jump are disabled. Impulse speed is forced to zero and the ship cannot rotate. The intrusion causes no system damage.</p><p><strong>Bridge impact:</strong> The ship loses propulsion and steering until the lock is cleared.</p>`,
-              `<p>Warp, jump, impulse speed and rotation are restored to their normal baseline settings.</p>`,
-              [["I","10s","0%"],["II","12s","0%"],["III","15s","0%"],["IV","18s","0%"],["V","20s","0%"]],
-              ["Level","Clear time","Damage"]
+              "DRIVE LOCK", "HELMS", "HOSTILE HACK", "Movement disabled",
+              `<p><strong>Enemy effect:</strong> Warp and jump are disabled, impulse is forced to zero and the ship cannot rotate. Drive Lock causes no system damage.</p><p><strong>What matters:</strong> Clearance time increases with hack level.</p>`,
+              `<p>H.I.D.E.S. removes the lock and restores warp, jump, impulse and rotation to their normal baseline settings.</p>`,
+              [["I","10s"],["II","12s"],["III","15s"],["IV","18s"],["V","20s"]],
+              ["Level","H.I.D.E.S. clearance"]
             )}
             ${hidesCard(
-              "DRIVE DECAY", "HELMS", "DECAY", "Drive degrade",
-              `<p><strong>Affected systems:</strong> Impulse, manoeuvring, warp and jump drive.</p><p><strong>Effect:</strong> All affected systems take an immediate 10% damage hit, followed by continuing damage once per second. Damage cannot exceed 100%.</p>`,
-              `<p>Further decay stops immediately, but any damage already caused remains. Engineering must repair the affected drive systems normally.</p>`,
-              [["I","10%","+1%/sec","10s"],["II","10%","+2%/sec","10s"],["III","10%","+3%/sec","10s"],["IV","10%","+4%/sec","10s"],["V","10%","+5%/sec","10s"]],
-              ["Level","Start damage","Ongoing damage","Clear time"]
+              "DRIVE DECAY", "HELMS", "HOSTILE HACK", "Propulsion damage",
+              `<p><strong>Enemy effect:</strong> Impulse, manoeuvring, warp and jump drive each take an immediate 10% damage hit, then continue taking damage once per second. Damage caps at 100%.</p><p><strong>H.I.D.E.S. clearance:</strong> 10 seconds at every level. The level controls the ongoing damage rate.</p>`,
+              `<p>H.I.D.E.S. stops further decay. Damage already caused remains and must be repaired by Engineering.</p>`,
+              [["I","+1%/sec"],["II","+2%/sec"],["III","+3%/sec"],["IV","+4%/sec"],["V","+5%/sec"]],
+              ["Level","Ongoing damage"]
             )}
           </div>
-          <div class="callout-strip"><strong>HELMS RESPONSE:</strong><span>Call the intrusion and level immediately. A Drive Lock removes movement; Drive Decay continues damaging propulsion until clearance and leaves repair work behind.</span></div>
+          <div class="callout-strip"><strong>HELMS RESPONSE:</strong><span>Report the hack and level immediately. H.I.D.E.S. handles removal; Helms manages the loss of movement while Engineering deals with any damage left by Drive Decay.</span></div>
         `}
       ]
     },
@@ -609,7 +665,7 @@
             ${controlCard("Beam frequency", "BEAM CONTROL", `<p>Sets beam frequency where frequency mechanics are enabled.</p><p><strong>How:</strong> Use shield-frequency intelligence from Science and adjust the beam frequency for a more favourable match. Beam frequency changes immediately.</p>`)}
             ${controlCard("Shields ON / OFF", "DEFENSIVE CONTROL", `<p>Weapons controls whether the ship's shields are raised.</p><p><strong>How:</strong> Raise them when attack is likely or underway; lower them when the tactical situation allows and energy conservation matters.</p>`)}
             ${controlCard("Shield frequency / Calibrate", "DEFENSIVE CONTROL", `<p>Sets the ship's shield frequency where frequency mechanics are enabled.</p><p><strong>How:</strong> Choose the intended frequency and calibrate/remodulate the shields. Unlike beam frequency changes, shield remodulation takes the shields offline for several seconds, so warn Captain before doing it in combat.</p>`, "warning")}
-            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Reports hostile intrusion effects affecting Weapons.</p><p><strong>Use it:</strong> Report the hack name and level immediately, then check the <strong>H.I.D.E.S.</strong> section for the exact effect, continuing damage or drain, and clearance time.</p>`)}
+            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Reports hostile hacks detected by H.I.D.E.S. that are affecting Weapons.</p><p><strong>Use it:</strong> Report the hack name and level immediately, then check the <strong>H.I.D.E.S.</strong> section for the effect, continuing damage or drain, and expected clearance time.</p>`)}
           </div>
         `},
         { id: "station-training", label: "Station Specific Training", content: `
@@ -658,31 +714,31 @@
           </section>
         `},
         { id: "hides", label: "H.I.D.E.S.", content: `
-          <div class="hides-header"><span class="classification">WEAPONS // INTRUSION RESPONSE</span><h2>H.I.D.E.S.</h2><p>This station reference covers only hostile intrusion types that directly affect Weapons systems.</p></div>
+          <div class="hides-header"><span class="classification">WEAPONS // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> protects the ship against hostile cyber attacks. Enemies cause the hacks below; H.I.D.E.S. detects the intrusion, identifies its level and works to remove it.</p></div>
           <div class="hides-incident-stack">
             ${hidesCard(
-              "FIRE DECAY", "WEAPONS", "FIRE DECAY", "Weapons degrade",
-              `<p><strong>Affected systems:</strong> Beam weapons and missile systems.</p><p><strong>Effect:</strong> Both weapon systems take an immediate 10% damage hit and continue taking damage once per second. Damage caps at 100%.</p>`,
-              `<p>Further decay stops, but damage already inflicted remains and must be repaired normally.</p>`,
-              [["I","10%","+1%/sec","10s"],["II","10%","+2%/sec","10s"],["III","10%","+3%/sec","10s"],["IV","10%","+4%/sec","10s"],["V","10%","+5%/sec","10s"]],
-              ["Level","Start damage","Ongoing damage","Clear time"]
+              "FIRE DECAY", "WEAPONS", "HOSTILE HACK", "Weapons damaged",
+              `<p><strong>Enemy effect:</strong> Beam weapons and missile systems each take an immediate 10% damage hit, then continue taking damage once per second. Damage caps at 100%.</p><p><strong>H.I.D.E.S. clearance:</strong> 10 seconds at every level. The level controls the ongoing damage rate.</p>`,
+              `<p>H.I.D.E.S. stops further decay. Damage already caused remains and must be repaired by Engineering.</p>`,
+              [["I","+1%/sec"],["II","+2%/sec"],["III","+3%/sec"],["IV","+4%/sec"],["V","+5%/sec"]],
+              ["Level","Ongoing damage"]
             )}
             ${hidesCard(
-              "MISSILE SCRAMBLE", "WEAPONS", "MISSILE SCRAMBLE", "Tubes off",
-              `<p><strong>Effect:</strong> All weapon tubes are taken offline. The ship retains its stored ordnance, but tube count is temporarily reduced to zero. No system damage is caused.</p>`,
-              `<p>The previous weapon tube count is restored and the standard player tube configuration is re-applied.</p>`,
-              [["I","10s","0%"],["II","12s","0%"],["III","15s","0%"],["IV","18s","0%"],["V","20s","0%"]],
-              ["Level","Clear time","Damage"]
+              "MISSILE SCRAMBLE", "WEAPONS", "HOSTILE HACK", "Tubes disabled",
+              `<p><strong>Enemy effect:</strong> All weapon tubes are taken offline and the active tube count is reduced to zero. Stored ordnance is not lost and no system damage is caused.</p><p><strong>What matters:</strong> Clearance time increases with hack level.</p>`,
+              `<p>H.I.D.E.S. restores the previous weapon-tube count and standard player tube configuration.</p>`,
+              [["I","10s"],["II","12s"],["III","15s"],["IV","18s"],["V","20s"]],
+              ["Level","H.I.D.E.S. clearance"]
             )}
             ${hidesCard(
-              "SHIELD COLLAPSE", "WEAPONS", "SHIELD COLLAPSE", "Shields drain",
-              `<p><strong>Effect:</strong> Shield strength is drained once per second from the front shield and, on ships fitted with one, the rear shield. Shield strength cannot fall below zero.</p>`,
-              `<p>The continuing drain stops. Shield strength already lost is not restored by clearing the intrusion and must recover normally.</p>`,
-              [["I","4/sec","1s","10s"],["II","6/sec","1s","10s"],["III","8/sec","1s","10s"],["IV","10/sec","1s","10s"],["V","12/sec","1s","10s"]],
-              ["Level","Shield drain","Tick rate","Clear time"]
+              "SHIELD COLLAPSE", "WEAPONS", "HOSTILE HACK", "Shields draining",
+              `<p><strong>Enemy effect:</strong> Front shields and, where fitted, rear shields lose strength once per second. Shields cannot fall below zero.</p><p><strong>H.I.D.E.S. clearance:</strong> 10 seconds at every level. The level controls the drain rate.</p>`,
+              `<p>H.I.D.E.S. stops the continuing drain. Shield strength already lost is not restored by clearance and must recover normally.</p>`,
+              [["I","4/sec"],["II","6/sec"],["III","8/sec"],["IV","10/sec"],["V","12/sec"]],
+              ["Level","Shield drain"]
             )}
           </div>
-          <div class="callout-strip"><strong>WEAPONS RESPONSE:</strong><span>Report exactly what has been hit. Fire Decay leaves weapon-system damage, Missile Scramble removes tubes without damage, and Shield Collapse continuously drains defensive strength until cleared.</span></div>
+          <div class="callout-strip"><strong>WEAPONS RESPONSE:</strong><span>Report the hack and level immediately. H.I.D.E.S. handles removal; Weapons adapts to lost tubes or shields while Engineering repairs any system damage left by Fire Decay.</span></div>
         `}
       ]
     },
@@ -725,7 +781,7 @@
             ${controlCard("Power slider", "SELECTED-SYSTEM CONTROL", `<p>The large right-hand Power slider controls the currently selected system.</p><p><strong>How:</strong> Select the system row first, then move the Power slider. Use 100% as normal unless the tactical need justifies under- or overpowering.</p>`)}
             ${controlCard("Coolant slider", "SELECTED-SYSTEM CONTROL", `<p>The large right-hand Coolant slider controls coolant for the currently selected system.</p><p><strong>How:</strong> Select a system, add coolant, and confirm the temperature trend begins to stabilise or fall.</p>`)}
             ${controlCard("What power changes", "SYSTEM EFFECT", `<p><strong>Reactor:</strong> more power produces more energy. <strong>Impulse:</strong> more power raises maximum speed. <strong>Shields:</strong> more power improves shield performance and regeneration. Other systems likewise lose effectiveness when underpowered or damaged.</p>`)}
-            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Shows hostile intrusion effects affecting Engineering systems.</p><p><strong>Use it:</strong> Report the hack name and level immediately. For Heat Surge, start managing the affected heat load while H.I.D.E.S. clearance is underway. For Grid Decay, be ready to repair damage after the intrusion is cleared.</p>`)}
+            ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Shows hostile hacks detected by H.I.D.E.S. that are affecting Engineering systems.</p><p><strong>Use it:</strong> Report the hack name and level immediately. For Heat Surge, manage the affected heat load while H.I.D.E.S. clears the intrusion. For Grid Decay, prepare to repair any damage left behind after clearance.</p>`)}
           </div>
         `},
         { id: "station-training", label: "Station Specific Training", content: `
@@ -759,24 +815,24 @@
           </section>
         `},
         { id: "hides", label: "H.I.D.E.S.", content: `
-          <div class="hides-header"><span class="classification">ENGINEERING // INTRUSION RESPONSE</span><h2>H.I.D.E.S.</h2><p>This station reference covers hostile intrusion types that directly affect Engineering systems.</p></div>
+          <div class="hides-header"><span class="classification">ENGINEERING // CYBER DEFENCE</span><h2>H.I.D.E.S.</h2><p><strong>Hacking Intrusion Detection and Elimination System</strong> protects the ship against hostile cyber attacks. Enemies cause the hacks below; H.I.D.E.S. detects the intrusion, identifies its level and works to remove it.</p></div>
           <div class="hides-incident-stack">
             ${hidesCard(
-              "HEAT SURGE", "ENGINEERING", "HEAT SURGE", "Heat rising",
-              `<p><strong>Possible affected systems:</strong> Reactor, beam weapons, missile systems, manoeuvring, impulse, warp, jump drive, front shield, rear shield and sensors. H.I.D.E.S. selects a unique set according to intrusion level.</p><p><strong>Effect:</strong> Selected systems are immediately forced to the level's starting heat and then gain +2% heat every second. Heat caps at 100%.</p>`,
-              `<p>The forced heat increase stops, but existing heat remains. Engineering must cool and manage those systems normally.</p>`,
-              [["I","3 systems","10%","+2%/sec","10s"],["II","4 systems","15%","+2%/sec","10s"],["III","5 systems","20%","+2%/sec","10s"],["IV","6 systems","25%","+2%/sec","10s"],["V","7 systems","30%","+2%/sec","10s"]],
-              ["Level","Systems affected","Start heat","Ongoing heat","Clear time"]
+              "HEAT SURGE", "ENGINEERING", "HOSTILE HACK", "Heat forced upward",
+              `<p><strong>Enemy effect:</strong> A unique selection of installed systems is forced to the level's starting heat, then gains +2% heat every second. Heat caps at 100%.</p><p><strong>Possible targets:</strong> Reactor, beam weapons, missile systems, manoeuvring, impulse, warp, jump drive, front shield, rear shield and sensors.</p><p><strong>H.I.D.E.S. clearance:</strong> 10 seconds at every level.</p>`,
+              `<p>H.I.D.E.S. stops the forced heat increase. Existing heat remains, so Engineering must cool and manage affected systems normally.</p>`,
+              [["I","3 systems","10%"],["II","4 systems","15%"],["III","5 systems","20%"],["IV","6 systems","25%"],["V","7 systems","30%"]],
+              ["Level","Systems affected","Starting heat"]
             )}
             ${hidesCard(
-              "GRID DECAY", "ENGINEERING", "GRID DECAY", "Grid degrade",
-              `<p><strong>Affected systems:</strong> Reactor, front shield and rear shield.</p><p><strong>Effect:</strong> The affected grid systems take immediate damage and then continue taking damage once per second. Damage caps at 100%.</p>`,
-              `<p>Further decay stops, but damage already caused remains and must be repaired normally.</p>`,
-              [["I","10%","+1%/sec","10s"],["II","15%","+1.5%/sec","10s"],["III","20%","+2%/sec","10s"],["IV","25%","+2.5%/sec","10s"],["V","30%","+3%/sec","10s"]],
-              ["Level","Start damage","Ongoing damage","Clear time"]
+              "GRID DECAY", "ENGINEERING", "HOSTILE HACK", "Grid systems damaged",
+              `<p><strong>Enemy effect:</strong> Reactor, front shield and rear shield systems take immediate damage, then continue taking damage once per second. Damage caps at 100%.</p><p><strong>H.I.D.E.S. clearance:</strong> 10 seconds at every level.</p>`,
+              `<p>H.I.D.E.S. stops further decay. Damage already caused remains and must be repaired normally.</p>`,
+              [["I","10%","+1%/sec"],["II","15%","+1.5%/sec"],["III","20%","+2%/sec"],["IV","25%","+2.5%/sec"],["V","30%","+3%/sec"]],
+              ["Level","Initial damage","Ongoing damage"]
             )}
           </div>
-          <div class="callout-strip warning"><strong>ENGINEERING RESPONSE:</strong><span>Do not wait for clearance before managing the consequences. A Heat Surge needs active coolant/power management; Grid Decay may leave reactor and shield systems requiring repairs after the intrusion ends.</span></div>
+          <div class="callout-strip warning"><strong>ENGINEERING RESPONSE:</strong><span>H.I.D.E.S. removes the hostile intrusion; Engineering manages its consequences. Start cooling during Heat Surge immediately and expect repair work after Grid Decay.</span></div>
         `}
       ]
     },
@@ -895,7 +951,7 @@
             ${controlCard("Sector map", "PRIMARY DISPLAY", `<p>Shows the wider operational area, including hazards, known objects, waypoints and short-range sensor coverage shared by friendly assets.</p><p><strong>How:</strong> Press an object to select it. Drag the map to pan. Keep the view centred on the area the crew is actually operating in.</p>`)}
             ${controlCard("Selected callsign", "TARGET READOUT", `<p>Shows the selected object's callsign.</p><p><strong>Use it:</strong> Confirm the selected contact before opening comms or starting a hack.</p>`)}
             ${controlCard("Selected faction", "TARGET READOUT", `<p>Shows faction information when known.</p><p><strong>Use it:</strong> Check relationship before treating a contact as friendly or hostile. Relay cannot perform scans itself; ask Science when identification is incomplete.</p>`)}
-            ${controlCard("Open Comms", "COMMUNICATION CONTROL", `<p>Opens communications with the selected ship or station when communications are available.</p><p><strong>How:</strong> Select the contact, press Open Comms, handle the exchange, pass any decision or new information to Captain, and sign off before closing the channel.</p>`)}
+            ${controlCard("Open Comms", "COMMUNICATION CONTROL", `<p>Opens communications with the selected ship or station when communications are available.</p><p><strong>How:</strong> Select the contact, press Open Comms, handle the exchange, pass any decision or new information to Captain, and sign off before closing the channel. <strong>Closing the comms window also closes any active voice communications.</strong></p>`)}
             ${controlCard("Start Hacking", "CYBER CONTROL", `<p>Opens the intrusion system for an eligible selected target.</p><p><strong>How:</strong> Select a non-friendly contact that has been identified sufficiently for hacking, press Start Hacking, choose the target system and complete the intrusion puzzle. Tell Captain/crew which system you attacked and whether it succeeded.</p>`)}
             ${controlCard("Link to Science", "PROBE CONTROL", `<p>Links one of your own selected probes to the Science station.</p><p><strong>How:</strong> Select an owned probe, enable Link to Science, then tell Science the remote sensor point is available. Turn the link off or select a different probe when the task changes.</p>`)}
             ${controlCard("Place Waypoint", "NAVIGATION CONTROL", `<p>Creates a waypoint that also appears on Helms.</p><p><strong>How:</strong> Press Place Waypoint, then press the desired location on the sector map. Give Helms the waypoint number or purpose so it is unambiguous.</p>`)}
@@ -935,7 +991,7 @@
             </div>
           <div class="two-column-cards">
             ${infoCard("Communications", `<p>Relay can open communications with stations and other ships. Friendly ships can take orders; friendly stations can dispatch backup and supply ships. While docked, Relay can request missile and mine rearmament. Some requests can cost reputation.</p>`)}
-            ${infoCard("Fleet protocol", `<p class="big-rule">Speak clearly.<br>Speak briefly.<br>Speak when it matters.</p><p><strong>Always sign off before closing comms.</strong></p>` , "gold")}
+            ${infoCard("Fleet protocol", `<p class="big-rule">Speak clearly.<br>Speak briefly.<br>Speak when it matters.</p><p><strong>Always sign off before closing comms.</strong> Closing the communications window will also end any active voice communications.</p>` , "gold")}
           </div>
         
           </section>
