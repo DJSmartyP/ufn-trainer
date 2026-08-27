@@ -2312,3 +2312,16 @@ h1, h2, h3,
   .medal-dialog-art { min-height: 260px; }
   .medal-dialog-art img { max-height: 250px; }
 }
+
+/* Consolidated station-specific training */
+.station-training-topic {
+  margin-top: 28px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(104, 211, 255, 0.18);
+}
+.station-training-topic:first-of-type { margin-top: 18px; }
+.station-training-topic .section-heading.compact { margin-bottom: 14px; }
+.station-training-topic .section-heading.compact h2 { margin-top: 5px; }
+@media (max-width: 640px) {
+  .station-training-topic { margin-top: 22px; padding-top: 20px; }
+}

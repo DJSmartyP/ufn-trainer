@@ -505,20 +505,47 @@
             ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>The right-hand panel reports active hostile intrusion effects affecting Helms.</p><p><strong>Use it:</strong> Report the hack name and level immediately, then open the <strong>H.I.D.E.S.</strong> section for the exact effect and clearance time.</p>`)}
           </div>
         `},
-        { id: "propulsion", label: "Propulsion", content: `
+        { id: "station-training", label: "Station Specific Training", content: `
+          <div class="section-heading">
+            <span class="micro-label">HELMS // CONSOLIDATED REFERENCE</span>
+            <h2>Station Specific Training</h2>
+            <p>Core reference material specific to the Helms station, grouped here to keep the station guide compact and easier to navigate.</p>
+          </div>
+          <section class="station-training-topic" aria-labelledby="helms-propulsion-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">HELMS TRAINING</span>
+              <h2 id="helms-propulsion-heading">Propulsion</h2>
+            </div>
           <div class="reference-grid">
             ${infoCard("Impulse", `<p>The impulse control runs from full reverse through stop to full ahead. It is the ship’s normal manoeuvring drive.</p>`)}
             ${infoCard("Warp", `<p>Where fitted, warp propels the ship straight ahead several times faster than impulse, but drains energy much faster. A ship at warp can still collide with hazards such as asteroids and mines.</p>`)}
             ${infoCard("Jump Drive", `<p>Where fitted, the jump drive teleports the ship the selected distance along its current heading. Impulse shuts down during the jump sequence. Longer jumps consume more energy. The station tutorial specifies a standard 10-second jump initiation, with drive power and damage able to affect preparation.</p>`)}
           </div>
-        `},
-        { id: "manoeuvres", label: "Combat Manoeuvres", content: `
-          <div class="section-heading"><span class="micro-label">EQUIPPED VESSELS</span><h2>Combat Manoeuvres</h2></div>
-          <div class="two-column-cards">
+        
+          </section>
+          <section class="station-training-topic" aria-labelledby="helms-manoeuvres-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">HELMS TRAINING</span>
+              <h2 id="helms-manoeuvres-heading">Combat Manoeuvres</h2>
+            </div>
+<div class="two-column-cards">
             ${infoCard("Boost", `<p>Vertical combat-manoeuvre input rapidly increases forward speed above normal cruising maximum and generates heat in the impulse engines.</p>`)}
             ${infoCard("Strafe", `<p>Horizontal combat-manoeuvre input moves the ship laterally and can rapidly overheat the manoeuvring system.</p>`)}
           </div>
           <p class="reference-note">Combat manoeuvres consume their available charge and recharge over time.</p>
+        
+          </section>
+          <section class="station-training-topic" aria-labelledby="helms-docking-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">HELMS TRAINING</span>
+              <h2 id="helms-docking-heading">Docking & Retrieval</h2>
+            </div>
+<div class="two-column-cards">
+            ${infoCard("Docking", `<p>Helms can dock with a friendly or neutral station - and in some cases a larger ship - when within 1U. While docked, engines and weapons cannot be used. Energy recharges faster, repairs take less time, probes are replenished, and Relay can request missile rearmament.</p>`)}
+            ${infoCard("Retrieving Objects", `<p>Helms is responsible for piloting the ship into supply drops and other retrievable objects to collect them.</p>`)}
+          </div>
+        
+          </section>
         `},
         { id: "hides", label: "H.I.D.E.S.", content: `
           <div class="hides-header"><span class="classification">HELMS // INTRUSION RESPONSE</span><h2>H.I.D.E.S.</h2><p>Hacking Intrusion Detection and Elimination System. This station reference covers only intrusion types that directly affect Helms.</p></div>
@@ -539,13 +566,6 @@
             )}
           </div>
           <div class="callout-strip"><strong>HELMS RESPONSE:</strong><span>Call the intrusion and level immediately. A Drive Lock removes movement; Drive Decay continues damaging propulsion until clearance and leaves repair work behind.</span></div>
-        `},
-        { id: "docking", label: "Docking", content: `
-          <div class="section-heading"><span class="micro-label">CLOSE OPERATIONS</span><h2>Docking & Retrieval</h2></div>
-          <div class="two-column-cards">
-            ${infoCard("Docking", `<p>Helms can dock with a friendly or neutral station - and in some cases a larger ship - when within 1U. While docked, engines and weapons cannot be used. Energy recharges faster, repairs take less time, probes are replenished, and Relay can request missile rearmament.</p>`)}
-            ${infoCard("Retrieving Objects", `<p>Helms is responsible for piloting the ship into supply drops and other retrievable objects to collect them.</p>`)}
-          </div>
         `}
       ]
     },
@@ -592,13 +612,28 @@
             ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Reports hostile intrusion effects affecting Weapons.</p><p><strong>Use it:</strong> Report the hack name and level immediately, then check the <strong>H.I.D.E.S.</strong> section for the exact effect, continuing damage or drain, and clearance time.</p>`)}
           </div>
         `},
-        { id: "targeting", label: "Targeting & Tubes", content: `
+        { id: "station-training", label: "Station Specific Training", content: `
+          <div class="section-heading">
+            <span class="micro-label">WEAPONS // CONSOLIDATED REFERENCE</span>
+            <h2>Station Specific Training</h2>
+            <p>Core reference material specific to the Weapons station, grouped here to keep the station guide compact and easier to navigate.</p>
+          </div>
+          <section class="station-training-topic" aria-labelledby="weapons-targeting-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">WEAPONS TRAINING</span>
+              <h2 id="weapons-targeting-heading">Targeting & Tubes</h2>
+            </div>
           <div class="two-column-cards">
             ${infoCard("Missile Tubes", `<p>Select a missile type, then select a compatible tube to load it. Loading and unloading takes time. Tubes face specific directions, so ship orientation matters.</p><p>Except for HVLIs, missiles home on the selected target. Without a target they are dumb-fired in a straight line from the tube. Tubes can be locked to a target or manually aimed.</p>`)}
             ${infoCard("Subsystem Targeting", `<p>Beam weapons target the hull by default. Weapons can instead select a specific subsystem when the objective is to disable rather than simply destroy a vessel.</p>`)}
           </div>
-        `},
-        { id: "ordnance", label: "Ordnance Reference", content: `
+        
+          </section>
+          <section class="station-training-topic" aria-labelledby="weapons-ordnance-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">WEAPONS TRAINING</span>
+              <h2 id="weapons-ordnance-heading">Ordnance Reference</h2>
+            </div>
           <div class="ordnance-grid">
             ${infoCard("Homing", `<p>A simple, high-speed guided missile with a small warhead.</p>`)}
             ${infoCard("Nuke", `<p>A powerful homing missile that deals tremendous damage to all ships within 1U of detonation.</p>`)}
@@ -607,6 +642,20 @@
             ${infoCard("Mine", `<p>A powerful stationary explosive that detonates when a ship comes within 0.6U. The explosion damages all objects within a 1U radius.</p>`)}
           </div>
           <div class="callout-strip warning"><strong>AMMUNITION:</strong><span>Missiles are limited. Use them wisely.</span></div>
+        
+          </section>
+          <section class="station-training-topic" aria-labelledby="weapons-beams-shields-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">WEAPONS TRAINING</span>
+              <h2 id="weapons-beams-shields-heading">Beams & Shields</h2>
+            </div>
+          <div class="reference-grid">
+            ${infoCard("Beam Weapons", `<p>Red firing arcs show beam locations and ranges. Once a target is selected, beams fire automatically whenever the target is inside an available firing arc. Beam frequency can be changed instantly where frequency mechanics are enabled.</p>`)}
+            ${infoCard("Shield Frequencies", `<p>Science can provide target shield-frequency information. Beam frequency can be adjusted to exploit it. Your own shields can also be modulated, but shield remodulation takes them offline for several seconds.</p>`)}
+            ${infoCard("Shield Discipline", `<p>Weapons is responsible for raising shields. Keeping them active continuously consumes significantly more power, so shield state is an operational choice rather than a free default.</p>`)}
+          </div>
+        
+          </section>
         `},
         { id: "hides", label: "H.I.D.E.S.", content: `
           <div class="hides-header"><span class="classification">WEAPONS // INTRUSION RESPONSE</span><h2>H.I.D.E.S.</h2><p>This station reference covers only hostile intrusion types that directly affect Weapons systems.</p></div>
@@ -634,13 +683,6 @@
             )}
           </div>
           <div class="callout-strip"><strong>WEAPONS RESPONSE:</strong><span>Report exactly what has been hit. Fire Decay leaves weapon-system damage, Missile Scramble removes tubes without damage, and Shield Collapse continuously drains defensive strength until cleared.</span></div>
-        `},
-        { id: "beams-shields", label: "Beams & Shields", content: `
-          <div class="reference-grid">
-            ${infoCard("Beam Weapons", `<p>Red firing arcs show beam locations and ranges. Once a target is selected, beams fire automatically whenever the target is inside an available firing arc. Beam frequency can be changed instantly where frequency mechanics are enabled.</p>`)}
-            ${infoCard("Shield Frequencies", `<p>Science can provide target shield-frequency information. Beam frequency can be adjusted to exploit it. Your own shields can also be modulated, but shield remodulation takes them offline for several seconds.</p>`)}
-            ${infoCard("Shield Discipline", `<p>Weapons is responsible for raising shields. Keeping them active continuously consumes significantly more power, so shield state is an operational choice rather than a free default.</p>`)}
-          </div>
         `}
       ]
     },
@@ -686,20 +728,35 @@
             ${controlCard("H.I.D.E.S. status", "UFN STATUS PANEL", `<p>Shows hostile intrusion effects affecting Engineering systems.</p><p><strong>Use it:</strong> Report the hack name and level immediately. For Heat Surge, start managing the affected heat load while H.I.D.E.S. clearance is underway. For Grid Decay, be ready to repair damage after the intrusion is cleared.</p>`)}
           </div>
         `},
-        { id: "power-heat", label: "Power & Heat", content: `
-          <div class="section-heading"><span class="micro-label">SYSTEM MANAGEMENT</span><h2>Power & Coolant</h2></div>
-          <div class="two-column-cards">
+        { id: "station-training", label: "Station Specific Training", content: `
+          <div class="section-heading">
+            <span class="micro-label">ENGINEERING // CONSOLIDATED REFERENCE</span>
+            <h2>Station Specific Training</h2>
+            <p>Core reference material specific to the Engineering station, grouped here to keep the station guide compact and easier to navigate.</p>
+          </div>
+          <section class="station-training-topic" aria-labelledby="engineering-power-heat-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">ENGINEERING TRAINING</span>
+              <h2 id="engineering-power-heat-heading">Power & Heat</h2>
+            </div>
+<div class="two-column-cards">
             ${infoCard("Power Allocation", `<p>More power increases system output. The station tutorial gives three explicit examples: an overpowered reactor produces more energy; overpowered shields reduce more damage and regenerate faster; overpowered impulse engines increase maximum speed.</p><p>Power above 100% increases heat generation and, except for the reactor, energy draw. Underpowering reduces both heat output and energy draw.</p>`)}
             ${infoCard("Coolant Management", `<p>Adding coolant reduces temperature and helps prevent overheating damage. The ship has an unlimited coolant reserve, but only a finite quantity can be applied across systems at once.</p><p>The temperature column uses white arrows to indicate whether a system is heating or cooling; brighter arrows indicate a stronger trend.</p>`)}
           </div>
           <div class="callout-strip warning"><strong>ENGINEERING NOTICE:</strong><span>Monitor reactor output carefully. Overloading the grid disables systems.</span></div>
-        `},
-        { id: "repairs", label: "Damage & Repairs", content: `
-          <div class="section-heading"><span class="micro-label">DAMAGE CONTROL</span><h2>System Damage</h2></div>
-          <div class="two-column-cards">
+        
+          </section>
+          <section class="station-training-topic" aria-labelledby="engineering-repairs-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">ENGINEERING TRAINING</span>
+              <h2 id="engineering-repairs-heading">Damage & Repairs</h2>
+            </div>
+<div class="two-column-cards">
             ${infoCard("System damage", `<p>Systems can be damaged by weapons fire, collisions with space hazards or overheating. The station tutorial describes system condition from -100% to 100%; below 100% performance is reduced, and at or below 0% the system stops functioning.</p>`)}
             ${infoCard("Repair crews", `<p>Repair a system by sending a repair crew to the room containing it. Hull damage affects the entire ship. Docking can repair hull damage, but hull repair progresses very slowly.</p>`)}
           </div>
+        
+          </section>
         `},
         { id: "hides", label: "H.I.D.E.S.", content: `
           <div class="hides-header"><span class="classification">ENGINEERING // INTRUSION RESPONSE</span><h2>H.I.D.E.S.</h2><p>This station reference covers hostile intrusion types that directly affect Engineering systems.</p></div>
@@ -765,16 +822,30 @@
             ${controlCard("Zoom", "RADAR CONTROL", `<p>Changes the displayed radar range.</p><p><strong>Use it:</strong> Zoom in when you need separation between nearby contacts; zoom out when you need the broad sector picture.</p>`)}
           </div>
         `},
-        { id: "sensors", label: "Sensors", content: `
+        { id: "station-training", label: "Station Specific Training", content: `
+          <div class="section-heading">
+            <span class="micro-label">SCIENCE // CONSOLIDATED REFERENCE</span>
+            <h2>Station Specific Training</h2>
+            <p>Core reference material specific to the Science station, grouped here to keep the station guide compact and easier to navigate.</p>
+          </div>
+          <section class="station-training-topic" aria-labelledby="science-sensors-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">SCIENCE TRAINING</span>
+              <h2 id="science-sensors-heading">Sensors</h2>
+            </div>
           <div class="reference-grid">
             ${infoCard("Long-range radar", `<p>The Science officer’s primary situational-awareness tool. Report the sector’s status and meaningful changes. Interference bands at the edge can hint at activity beyond direct sensor range but require interpretation.</p>`)}
             ${infoCard("Nebulae", `<p>Nebulae block long-range scanning. Science cannot see objects inside or behind them; while the ship is inside a nebula, its radars cannot detect outside it. Report sensor blind spots to Captain and Relay.</p>`)}
             ${infoCard("Probe View", `<p>Relay can link one launched probe to Science. Science can then use the probe’s short-range sensor data and scan contacts in its range, including when the probe is beyond the ship’s long-range sensors or inside a nebula.</p>`)}
           </div>
-        `},
-        { id: "scanning", label: "Scanning Reference", content: `
-          <div class="section-heading"><span class="micro-label">CONTACT ANALYSIS</span><h2>Scan Progression</h2></div>
-          <div class="scan-states">
+        
+          </section>
+          <section class="station-training-topic" aria-labelledby="science-scanning-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">SCIENCE TRAINING</span>
+              <h2 id="science-scanning-heading">Scanning Reference</h2>
+            </div>
+<div class="scan-states">
             <div><span>01</span><strong>Simple Scan</strong><p>Completing the initial scan reveals additional target information used for identification and assessment.</p></div>
             <div><span>02</span><strong>Full Scan</strong><p>A further deep scan reveals the detailed tactical information available from the contact, including data used by other bridge stations.</p></div>
           </div>
@@ -782,11 +853,17 @@
             ${infoCard("Identification colours", `<p>The station tutorial identifies unknown contacts as grey, friendly as green, hostile as red and neutral as blue.</p>`)}
             ${infoCard("Deep-scan value", `<p>A full/deep scan can reveal shield and beam frequency information where those mechanics are enabled. Helms and Weapons can also see firing arcs of fully scanned ships.</p>`)}
           </div>
-        `},
-        { id: "database", label: "Database", content: `
-          <div class="section-heading"><span class="micro-label">REFERENCE SYSTEM</span><h2>Science Database</h2></div>
-          <p class="lead-copy">The station database contains known ships plus information on weapons and space hazards. Use it to assess a scanned ship’s likely capabilities or to check hazards such as black holes, wormholes and other anomalies.</p>
+        
+          </section>
+          <section class="station-training-topic" aria-labelledby="science-database-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">SCIENCE TRAINING</span>
+              <h2 id="science-database-heading">Science Database</h2>
+            </div>
+<p class="lead-copy">The station database contains known ships plus information on weapons and space hazards. Use it to assess a scanned ship’s likely capabilities or to check hazards such as black holes, wormholes and other anomalies.</p>
           <div class="callout-strip"><strong>SCIENCE:</strong><span>Unknown contacts: scan before engaging. Information wins battles.</span></div>
+        
+          </section>
         `},
         { id: "scan-practice", label: "Scan Practice", content: `<div id="scan-simulator-root"></div>`}
       ]
@@ -833,22 +910,41 @@
             ${controlCard("Ship log", "INFORMATION PANEL", `<p>The bottom log records ship and mission messages.</p><p><strong>Use it:</strong> Check it when you missed a message, need to confirm what was sent, or want to reconstruct the recent sequence of events.</p>`)}
           </div>
         `},
-        { id: "map-probes", label: "Map, Probes & Waypoints", content: `
+        { id: "station-training", label: "Station Specific Training", content: `
+          <div class="section-heading">
+            <span class="micro-label">RELAY // CONSOLIDATED REFERENCE</span>
+            <h2>Station Specific Training</h2>
+            <p>Core reference material specific to the Relay station, grouped here to keep the station guide compact and easier to navigate.</p>
+          </div>
+          <section class="station-training-topic" aria-labelledby="relay-map-probes-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">RELAY TRAINING</span>
+              <h2 id="relay-map-probes-heading">Maps, Probes & Waypoints</h2>
+            </div>
           <div class="reference-grid">
             ${infoCard("Sector Map", `<p>Relay can view the sector map, including hazards and ships within short-range sensor range (5U). It can also see short-range sensor data around other friendly ships and stations. Relay cannot perform scans itself.</p>`)}
             ${infoCard("Probes", `<p>Relay can launch up to eight high-speed probes to points in the sector. A probe transmits short-range sensor data for 10 minutes, works inside nebulae and can be linked to Science. Probes cannot be retrieved, can be destroyed, and are replenished only by docking at a station.</p>`)}
             ${infoCard("Waypoints", `<p>Relay can set waypoints around the sector. They appear on Helms and can guide navigation. Waypoints are also required for some requests for aid from friendly stations.</p>`)}
           </div>
-        `},
-        { id: "comms", label: "Communications", content: `
+        
+          </section>
+          <section class="station-training-topic" aria-labelledby="relay-comms-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">RELAY TRAINING</span>
+              <h2 id="relay-comms-heading">Communications</h2>
+            </div>
           <div class="two-column-cards">
             ${infoCard("Communications", `<p>Relay can open communications with stations and other ships. Friendly ships can take orders; friendly stations can dispatch backup and supply ships. While docked, Relay can request missile and mine rearmament. Some requests can cost reputation.</p>`)}
             ${infoCard("Fleet protocol", `<p class="big-rule">Speak clearly.<br>Speak briefly.<br>Speak when it matters.</p><p><strong>Always sign off before closing comms.</strong></p>` , "gold")}
           </div>
-        `},
-        { id: "hacking-reference", label: "Hacking Reference", content: `
-          <div class="section-heading"><span class="micro-label">CYBER OPERATIONS</span><h2>Intrusion Mechanics</h2><p>Reference for the standard hostile-system intrusion package fitted to the Relay station.</p></div>
-          <div class="hack-mechanics-grid">
+        
+          </section>
+          <section class="station-training-topic" aria-labelledby="relay-hacking-reference-heading">
+            <div class="section-heading compact">
+              <span class="micro-label">RELAY TRAINING</span>
+              <h2 id="relay-hacking-reference-heading">Hacking Reference</h2>
+            </div>
+<div class="hack-mechanics-grid">
             ${infoCard("Target eligibility", `<p>A ship must be non-friendly and have friend-or-foe identification before hacking is available. The reactor is excluded from the standard hacking target list.</p>`)}
             ${infoCard("Successful intrusion", `<p>Each successful hacking puzzle adds <strong>50 percentage points</strong> to the selected system’s hacked level, capped at 100%.</p>`)}
             ${infoCard("Effectiveness", `<p>Hacking subtracts up to 75% of the system’s power contribution. At 100% hack and nominal 100% power, the system runs at <strong>25% effectiveness</strong> before other energy, damage or heat modifiers are applied.</p>`)}
@@ -866,6 +962,8 @@
             <div class="system-effect-row" role="row"><strong>Rear Shield</strong><span>Reduces rear-shield recharge and worsens shield damage resistance.</span></div>
           </div>
           <p class="reference-note">Only systems actually present on the target are offered. The exact set therefore depends on the vessel.</p>
+        
+          </section>
         `},
         { id: "hacking-lab", label: "Hacking Lab", content: `<div id="hacking-simulator-root"></div>`}
       ]
