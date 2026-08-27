@@ -216,6 +216,12 @@
       eyebrow: "UFN INTELLIGENCE DIRECTORATE",
       title: "General Sector Briefing",
       subtitle: "Restricted crew briefing for frontier operations. Mission era: Year 2247 - Frontier Expansion Era.",
+      tabGroups: [
+        { id: "briefing", label: "Briefing", tabs: ["briefing", "notices"] },
+        { id: "personnel", label: "Personnel", tabs: ["ranks", "medals"] },
+        { id: "intelligence", label: "Fleet Intelligence", tabs: ["allies", "threats", "phenomena"] },
+        { id: "operations", label: "Operations", tabs: ["protocols", "supply-drops"] }
+      ],
       tabs: [
         { id: "briefing", label: "Admiralty Briefing", content: `
           <div class="document-banner">
@@ -272,18 +278,6 @@
             <h3>Decorations register pending</h3>
             <p>The Fleet Personnel decorations archive is being synchronised. Medal names, award criteria and recognised insignia will appear here when the service record is released.</p>
           </section>
-        `},
-        { id: "stations", label: "Duty Stations", content: `
-          <div class="section-heading"><span class="micro-label">STANDARD BRIDGE COMPLEMENT</span><h2>Shipboard Duty Stations</h2><p>Frontier operations depend on each station understanding its own responsibilities and the information required by the rest of the bridge.</p></div>
-          <div class="duty-list">
-            ${infoCard("Captain", `<p>Directs the ship’s mission, sets priorities, co-ordinates the crew and makes the final tactical decisions in combat. A strong Captain trusts the team to operate their stations and maintains enough understanding of every role to keep the ship acting as one unit.</p>`)}
-            ${infoCard("Helms", `<p>Controls heading, impulse speed, warp or jump travel, docking and undocking, close manoeuvring and - on equipped vessels - combat manoeuvre systems. Helms positions the ship so targets remain inside useful weapons arcs.</p>`)}
-            ${infoCard("Weapons", `<p>Selects targets, manages beam weapons, loads and fires missiles, raises and modulates shields, and can target specific enemy subsystems. Weapons works closely with Helms for firing arcs and Science for target intelligence.</p>`)}
-            ${infoCard("Engineering", `<p>Routes power across ship systems, allocates coolant to control overheating and dispatches repair crews when systems or hull are damaged.</p>`)}
-            ${infoCard("Science", `<p>Maintains long-range situational awareness, interprets interference and anomalies, conducts scans and deep scans, and uses the ship database for intelligence on vessels, weapons and hazards.</p>`)}
-            ${infoCard("Relay", `<p>Manages the sector map, launches probes, sets waypoints and handles communications with ships and stations. Relay can request support, rearmament and other assistance from friendly assets.</p>`)}
-          </div>
-          <div class="callout-strip"><strong>UFN TRAINING PRINCIPLE:</strong><span>A ship fights as a single unit. Captain sets intent. Helms positions. Weapons strikes. Engineering sustains. Science informs. Relay connects.</span></div>
         `},
         { id: "allies", label: "Allied Forces", content: `
           <div class="section-heading"><span class="micro-label">SECTION I</span><h2>Allied Forces</h2><p>Friendly organisations operating across human space and the frontier.</p></div>

@@ -69,10 +69,30 @@
 
     document.querySelectorAll(".nav-item").forEach(btn => btn.classList.toggle("active", btn.dataset.nav === route));
 
-    const tabs = page.tabs.length > 1 ? `
-      <nav class="section-tabs" aria-label="${page.title} sections">
-        ${page.tabs.map(item => `<button class="section-tab ${item.id === validTab ? "active" : ""}" type="button" data-tab="${item.id}">${item.label}</button>`).join("")}
-      </nav>` : "";
+    let tabs = "";
+    if (page.tabs.length > 1) {
+      if (Array.isArray(page.tabGroups) && page.tabGroups.length) {
+        const activeGroup = page.tabGroups.find(group => group.tabs.includes(validTab)) || page.tabGroups[0];
+        const secondaryTabs = page.tabs.filter(item => activeGroup.tabs.includes(item.id));
+        tabs = `
+          <div class="briefing-tab-system">
+            <nav class="briefing-nav-primary" aria-label="${page.title} categories">
+              ${page.tabGroups.map(group => {
+                const targetTab = group.tabs.find(id => page.tabs.some(item => item.id === id)) || page.tabs[0].id;
+                return `<button class="briefing-primary-tab ${group.id === activeGroup.id ? "active" : ""}" type="button" data-tab="${targetTab}">${group.label}</button>`;
+              }).join("")}
+            </nav>
+            <nav class="briefing-nav-secondary" aria-label="${activeGroup.label} sections">
+              ${secondaryTabs.map(item => `<button class="section-tab ${item.id === validTab ? "active" : ""}" type="button" data-tab="${item.id}">${item.label}</button>`).join("")}
+            </nav>
+          </div>`;
+      } else {
+        tabs = `
+          <nav class="section-tabs" aria-label="${page.title} sections">
+            ${page.tabs.map(item => `<button class="section-tab ${item.id === validTab ? "active" : ""}" type="button" data-tab="${item.id}">${item.label}</button>`).join("")}
+          </nav>`;
+      }
+    }
 
     const panel = page.tabs.find(item => item.id === validTab) || page.tabs[0];
     els.content.innerHTML = `
