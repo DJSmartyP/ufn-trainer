@@ -49,3 +49,8 @@ Standard console mechanics were checked against EmptyEpsilon tag `EE-2024.12.08`
 ## Deploy to GitHub Pages
 
 This project has no build step. Push the repository, enable GitHub Pages, and deploy the default branch from `/ (root)`.
+
+
+## Latest update
+- Intelligence tiles now open logo-led dossier popups for Allied Forces and Hostile Entities.
+- Anomalous Contacts use the same dossier layout with a REDACTED visual instead of a faction logo.

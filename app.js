@@ -143,7 +143,31 @@
       const targetId = tile.dataset.intelTarget;
       const record = targetId ? root.querySelector(`#${CSS.escape(targetId)}`) : null;
       if (!record) return;
-      content.innerHTML = record.innerHTML;
+
+      const media = tile.querySelector(".intel-tile-media");
+      const classification = record.querySelector(".classification");
+      const title = record.querySelector("h3");
+      const body = record.querySelector(".intel-record-body");
+      const status = tile.querySelector(".intel-tile-copy small");
+      const tone = tile.classList.contains("hostile") || tile.classList.contains("darkness")
+        ? "hostile"
+        : tile.classList.contains("anomalous")
+          ? "anomalous"
+          : "ally";
+
+      content.innerHTML = `
+        <div class="intel-dialog-hero ${tone}">
+          <div class="intel-dialog-media">${media ? media.innerHTML : ""}</div>
+          <div class="intel-dialog-heading">
+            ${classification ? classification.outerHTML : ""}
+            ${status ? `<span class="intel-dialog-status">${status.textContent.trim()}</span>` : ""}
+            <h3>${title ? title.textContent.trim() : "Intelligence Record"}</h3>
+            <span class="intel-dialog-rule" aria-hidden="true"></span>
+          </div>
+        </div>
+        ${body ? body.outerHTML : ""}
+      `;
+
       if (typeof dialog.showModal === "function") dialog.showModal();
       else dialog.setAttribute("open", "");
     };
