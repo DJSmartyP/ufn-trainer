@@ -46,7 +46,7 @@
     ],
     relay: [
       ["Comms / cyber controls", 1.1, 5.5, 15.8, 32.0, "Select a contact first. From here Relay can open communications, begin an eligible hack, link an owned probe to Science, place waypoints and launch probes."],
-      ["Reputation and clock", 1.1, 38.0, 15.8, 10.0, "Reputation can be spent on some support requests. The mission clock helps track timed orders, deadlines and the sequence of events."],
+      ["Mission clock", 1.1, 40.0, 15.8, 7.0, "Tracks elapsed mission time and helps the crew follow timed orders, deadlines and the sequence of events."],
       ["Sector map", 18.0, 3.0, 63.5, 88.0, "Pan and zoom the strategic map, select contacts, place routes and monitor hazards plus sensor coverage shared by friendly assets."],
       ["Selected contact / Call FC", 82.5, 16.5, 16.0, 18.0, "Shows selected callsign and faction when known. Call FC is available when the crew needs guidance, reinforcement, supply, clarification or extraction."],
       ["Zoom", 1.0, 86.5, 16.0, 7.0, "Changes sector-map scale. Zoom in for precise waypoint placement and local detail; zoom out for route planning."],
@@ -184,7 +184,7 @@
 
   const supportFlow = (title, steps) => `
     <section class="play-flow support-flow">
-      <span class="micro-label">FLEET SUPPORT PROCEDURE</span>
+      <span class="micro-label">SUPPLY DROP PROCEDURE</span>
       <h2>${title}</h2>
       <ol>${steps.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><p>${step}</p></li>`).join("")}</ol>
     </section>`;
@@ -192,21 +192,21 @@
   const stationIntro = (code, title, summary) => `
     <div class="station-intro-card">
       <span class="station-monogram station-icon-host">${stationIcon(code)}</span>
-      <div><span class="micro-label">PRIMARY RESPONSIBILITY</span><h3>${title}</h3><p>${summary}</p></div>
+      <div><span class="micro-label">TRAINING OBJECTIVE</span><h3>${title}</h3><p>${summary}</p></div>
     </div>`;
 
   const content = {
     home: {
-      eyebrow: "UFN FLEET COMMAND",
-      title: "Crew Operations Network",
-      subtitle: "Select your assigned station for console reference, operational procedures and authorised practice systems.",
+      eyebrow: "UNITED FEDERATED NAVY",
+      title: "UFN Training Portal",
+      subtitle: "Authorised crew training, operational reference and practice systems for United Federated Navy personnel.",
       tabs: [{
-        id: "directory", label: "Station Directory", content: `
+        id: "directory", label: "Training Directory", content: `
           <section class="hero-panel">
             <div>
-              <span class="classification">CREW ACCESS // FRONTIER OPERATIONS</span>
-              <h2>SHIPBOARD OPERATIONS TERMINAL</h2>
-              <p>A ship fights as a single unit. Captain sets intent. Helms positions. Weapons strikes. Engineering sustains. Science informs. Relay connects.</p>
+              <span class="classification">UFN TRAINING // CREW ACCESS</span>
+              <h2>CREW TRAINING PORTAL</h2>
+              <p>Build the knowledge and station skills needed to operate as one crew. Captain sets intent. Helms positions. Weapons strikes. Engineering sustains. Science informs. Relay connects.</p>
               <div class="hero-actions">
                 <button class="button primary" type="button" data-nav="general">Open Sector Briefing</button>
                 <a class="button secondary" href="assets/UFN-Sector-Briefing.pdf" target="_blank" rel="noopener">Open Intelligence Packet</a>
@@ -214,7 +214,7 @@
             </div>
             <img src="assets/ufn-logo.jpg" alt="" class="hero-emblem" />
           </section>
-          <section class="station-grid" aria-label="Duty stations">
+          <section class="station-grid" aria-label="Station training modules">
             <button class="station-card captain" type="button" data-nav="captain"><span class="station-card-code station-icon-host">${stationIcon("captain")}</span><strong>Captain</strong><span>Mission direction, priorities and final tactical decisions.</span></button>
             <button class="station-card helms" type="button" data-nav="helms"><span class="station-card-code station-icon-host">${stationIcon("helms")}</span><strong>Helms</strong><span>Movement, positioning, docking and propulsion.</span></button>
             <button class="station-card weapons" type="button" data-nav="weapons"><span class="station-card-code station-icon-host">${stationIcon("weapons")}</span><strong>Weapons</strong><span>Targeting, missiles, beams and shields.</span></button>
@@ -223,7 +223,7 @@
             <button class="station-card relay" type="button" data-nav="relay"><span class="station-card-code station-icon-host">${stationIcon("relay")}</span><strong>Relay</strong><span>Sector map, probes, communications and intrusion.</span></button>
           </section>
           <section class="network-services" aria-label="UFN network services">
-            <div class="section-heading compact"><span class="micro-label">UFN NETWORK SERVICES</span><h2>Fleet Access</h2><p>Authorised crew systems available outside the bridge console.</p></div>
+            <div class="section-heading compact"><span class="micro-label">UFN NETWORK SERVICES</span><h2>Supporting Systems</h2><p>Related UFN systems available outside the Training Portal.</p></div>
             <div class="network-grid">
               <a class="network-card" href="https://terminal.ufn.systems/" target="_blank" rel="noopener noreferrer">
                 <span class="control-type">CREW OPERATIONS</span>
@@ -245,7 +245,7 @@
     },
 
     general: {
-      eyebrow: "UFN INTELLIGENCE DIRECTORATE",
+      eyebrow: "UFN TRAINING // GENERAL BRIEFING",
       title: "General Sector Briefing",
       subtitle: "Restricted crew briefing for frontier operations. Mission era: Year 2247 - Frontier Expansion Era.",
       tabGroups: [
@@ -351,7 +351,7 @@
           </div>
           <div class="intel-record-data" id="intel-ufn" hidden><span class="classification">ALLIED FORCE // UFN INTELLIGENCE</span><h3>United Federated Navy</h3><div class="intel-record-body"><div><h4>Overview</h4><p>The UFN serves as the primary defence force of the United Federated Nations, operating across the core worlds and beyond. Formed from Earth’s major national fleets, it protects human space and UFN interests from external threats and serves as a stabilising presence within established territories.</p><h4>Fleet characteristics</h4><ul><li>Battleships and heavy cruisers</li><li>Warships upgraded for long-duration missions</li><li>Multi-role carrier strike groups</li><li>Armoured forward operating stations</li></ul></div><div><h4>Role in human space</h4><ul><li>Protection of inner colonies and trade routes</li><li>Patrolling and securing the frontier</li><li>Escorting civilian traffic in unstable regions</li><li>Peacekeeping missions as needed</li></ul><h4>Relationships</h4><p>Coordinates closely with the Terran Space Navy, operates alongside Commonwealth United Forces, and co-operates with civilian organisations including the Independent Traders Guild.</p><h4>Current priorities</h4><p>Heightened readiness around outer colonies and trade routes; border patrols; defence of remote stations and outposts; co-ordinated responses to rising pirate and raider activity.</p></div></div></div>
           <div class="intel-record-data" id="intel-tsn" hidden><span class="classification">ALLIED FORCE // UFN INTELLIGENCE</span><h3>Terran Space Navy</h3><div class="intel-record-body"><div><h4>Overview</h4><p>The TSN is the primary defence force for the Earth-Moon system, operating from Earth and lunar bases to protect Earth orbit, lunar colonies and essential near-Earth installations.</p><h4>Fleet characteristics</h4><ul><li>Heavily armed cruisers</li><li>Fast destroyers</li><li>Interceptor corvettes</li><li>Support and AWACS ships</li></ul><p>TSN fleets prioritise defence, rapid interdiction and fleet readiness.</p></div><div><h4>Role in human space</h4><ul><li>Defence of Earth and lunar facilities</li><li>Monitoring incursions into TSN territory</li><li>Interception of unidentified spacecraft</li><li>Rapid response to hostile activity</li></ul><h4>Relationships</h4><p>Coordinates closely with the UFN and CUF within the inner systems. It is a neutral force in broader human affairs but remains vigilant around critical sectors.</p><h4>Current priorities</h4><p>Increased patrol activity throughout the Earth-Moon corridor, expanded sensor coverage and improved rapid-response capability.</p></div></div></div>
-          <div class="intel-record-data" id="intel-cuf" hidden><span class="classification">ALLIED FORCE // UFN INTELLIGENCE</span><h3>Commonwealth United Forces</h3><div class="intel-record-body"><div><h4>Overview</h4><p>The CUF represents a coalition of Earth-based spacefaring nations primarily drawn from African and Asian alliances. It focuses on collective security, economic stability, trade routes and colonial supply lines, with a strong reputation for disciplined escort operations and co-ordinated convoy defence.</p><h4>Fleet characteristics</h4><p>The CUF fleet is optimised for escort and defensive operations.</p></div><div><h4>Role in human space</h4><ul><li>Escorting civilian and commercial convoys</li><li>Securing major trade hubs and orbital stations</li><li>Conducting anti-piracy patrols</li><li>Supporting allied fleets during regional crises</li></ul><h4>Relationships</h4><p>Maintains co-operative relations with the UFN, TSN and ITG.</p><h4>Current priorities</h4><p>Expanded convoy escort programmes and stronger allied co-ordination in response to increased pirate and raider activity on high-traffic routes.</p></div></div></div>
+          <div class="intel-record-data" id="intel-cuf" hidden><span class="classification">ALLIED FORCE // UFN INTELLIGENCE</span><h3>Commonwealth United Forces</h3><div class="intel-record-body"><div><h4>Overview</h4><p>The CUF represents a coalition of Earth-based spacefaring nations primarily drawn from African and Asian alliances. It focuses on collective security, economic stability, trade routes and colonial supply lines, and is widely regarded for disciplined escort operations and co-ordinated convoy defence.</p><h4>Fleet characteristics</h4><p>The CUF fleet is optimised for escort and defensive operations.</p></div><div><h4>Role in human space</h4><ul><li>Escorting civilian and commercial convoys</li><li>Securing major trade hubs and orbital stations</li><li>Conducting anti-piracy patrols</li><li>Supporting allied fleets during regional crises</li></ul><h4>Relationships</h4><p>Maintains co-operative relations with the UFN, TSN and ITG.</p><h4>Current priorities</h4><p>Expanded convoy escort programmes and stronger allied co-ordination in response to increased pirate and raider activity on high-traffic routes.</p></div></div></div>
           <div class="intel-record-data" id="intel-itg" hidden><span class="classification">ALLIED FORCE // UFN INTELLIGENCE</span><h3>Independent Traders Guild</h3><div class="intel-record-body"><div><h4>Overview</h4><p>The ITG is a decentralised association of merchant captains, trade houses and civilian transport operators. Though not a formal government organisation, it plays an essential role in maintaining economic stability across the expanding human colony network.</p><h4>Fleet characteristics</h4><ul><li>Heavy cargo freighters</li><li>Modular trade haulers</li><li>Escort-modified merchant ships</li><li>Long-range exploration transports</li></ul><p>Many Guild vessels use extensive custom modifications for long operations away from major fleet support.</p></div><div><h4>Role in human space</h4><ul><li>Long-range cargo transport</li><li>Supply delivery to remote colonies</li><li>Operation of independent trade stations</li><li>Exploration of new commercial routes</li></ul><p>In many frontier regions, Guild vessels provide the primary logistical support for local populations.</p><h4>Relationships</h4><p>Co-operative relations with UFN, TSN and CUF.</p><h4>Current priorities</h4><p>Rising risks on frontier trade routes, including piracy and navigation disruption, have led to larger convoys and closer communication with nearby patrol forces.</p></div></div></div>
           <dialog class="intel-dialog" aria-label="Faction intelligence record"><button class="intel-dialog-close" type="button" aria-label="Close intelligence record">×</button><div class="intel-dialog-content"></div></dialog>
         `},
@@ -469,7 +469,7 @@
               <div class="protocol-entry-body"><p>In a crisis, crew will automatically teleport to the escape pod. Keep the transport path clear and your identification systems available.</p><div class="protocol-checks"><p><strong>Transport path:</strong> Do not wear transporter-blocking clothing. Avoid hardened anti-teleport features and deactivate dampening fields.</p><p><strong>UFN identification:</strong> Keep your UFN ID card secure and carried so the system can obtain a transporter lock.</p><p><strong>Suit and comms:</strong> Keep your suit ID linked to the teleporter unit and communication devices online.</p></div><p><strong>Stay alert. Escape pod teleportation saves lives.</strong></p></div>
             </article>
             <article class="protocol-entry">
-              <header><span>03</span><div><small>FLEET SUPPORT</small><h3>Flight Commander Support</h3></div></header>
+              <header><span>03</span><div><small>FLIGHT COMMAND</small><h3>Flight Commander Support</h3></div></header>
               <div class="protocol-entry-body"><p>The Flight Commander monitors the wider sector picture while the crew operates its own ship. Expect contact when intelligence changes, mission priorities shift or a wider sector development affects the mission.</p><p class="big-rule">You can always call for help.</p><div class="protocol-checks"><p>Call if the crew does not know what to do next.</p><p>Call if combat is becoming uncomfortable.</p><p>Call for reinforcements, supply, clarification, extraction or other external support.</p></div><p>Competent crews will usually be allowed to operate without continuous instruction.</p></div>
             </article>
           </div>
@@ -498,7 +498,7 @@
     },
 
     captain: {
-      eyebrow: "SHIPBOARD DUTY STATION",
+      eyebrow: "STATION TRAINING MODULE",
       title: "Captain",
       subtitle: "Mission direction, bridge co-ordination and tactical intent. The Captain has no dedicated action console.",
       tabs: [
@@ -551,7 +551,7 @@
     },
 
     helms: {
-      eyebrow: "SHIPBOARD DUTY STATION",
+      eyebrow: "STATION TRAINING MODULE",
       title: "Helms",
       subtitle: "Navigation, propulsion, docking and tactical positioning.",
       tabs: [
@@ -653,7 +653,7 @@
     },
 
     weapons: {
-      eyebrow: "SHIPBOARD DUTY STATION",
+      eyebrow: "STATION TRAINING MODULE",
       title: "Weapons",
       subtitle: "Targeting, ordnance, beam systems and defensive shields.",
       tabs: [
@@ -770,7 +770,7 @@
     },
 
     engineering: {
-      eyebrow: "SHIPBOARD DUTY STATION",
+      eyebrow: "STATION TRAINING MODULE",
       title: "Engineering",
       subtitle: "Power allocation, heat control, coolant and damage recovery.",
       tabs: [
@@ -864,7 +864,7 @@
     },
 
     science: {
-      eyebrow: "SHIPBOARD DUTY STATION",
+      eyebrow: "STATION TRAINING MODULE",
       title: "Science",
       subtitle: "Long-range awareness, sensor analysis and target scanning.",
       tabs: [
@@ -952,7 +952,7 @@
     },
 
     relay: {
-      eyebrow: "SHIPBOARD DUTY STATION",
+      eyebrow: "STATION TRAINING MODULE",
       title: "Relay",
       subtitle: "Sector communications, probes, waypoints and cyber intrusion.",
       tabs: [
@@ -965,7 +965,7 @@
           </div>
         `},
         { id: "console", label: "Console Orientation", content: `
-          ${screenReference("Relay", "assets/screens/relay.png", "Relay bridge console showing the sector map, communications and hacking controls, waypoints, probe controls, reputation, Flight Commander contact and alert level.")}
+          ${screenReference("Relay", "assets/screens/relay.png", "Relay bridge console showing the sector map, communications and hacking controls, waypoints, probe controls, mission clock, Flight Commander contact and alert level.")}
           ${playFlow("Connect the crew to the sector", [
             "Keep the sector map on the mission area and watch for contacts, hazards, waypoints and changes in friendly sensor coverage.",
             "When the crew needs to travel, place a waypoint or route and tell Helms which waypoint to follow. Move or delete waypoints when the plan changes.",
@@ -984,7 +984,6 @@
             ${controlCard("Move Waypoint", "NAVIGATION CONTROL", `<p>Existing waypoints can be repositioned on the sector map.</p><p><strong>How:</strong> Select/drag the waypoint to its new location, then update Helms if the route changed.</p>`)}
             ${controlCard("Delete Waypoint", "NAVIGATION CONTROL", `<p>Removes the currently selected waypoint.</p><p><strong>How:</strong> Select the waypoint first, then press Delete Waypoint. Remove obsolete route markers so Helms is not following stale information.</p>`)}
             ${controlCard("Launch Probe", "REMOTE SENSOR CONTROL", `<p>Launches one of the ship's limited probe stock to a point on the map.</p><p><strong>How:</strong> Press Launch Probe, then press the destination on the map. The probe travels there and transmits short-range sensor data for 10 minutes. Probes cannot be recovered and are replenished by docking.</p>`)}
-            ${controlCard("Reputation", "RESOURCE READOUT", `<p>Shows the crew's current reputation resource.</p><p><strong>Use it:</strong> Some station requests for aid, supplies or other support can cost reputation. Tell Captain when a request has a meaningful cost.</p>`)}
             ${controlCard("Mission clock", "READOUT", `<p>Shows mission/scenario time.</p><p><strong>Use it:</strong> Useful for timed orders, rendezvous, mission deadlines and reconstructing when events occurred.</p>`)}
             ${controlCard("Call FC", "UFN COMMUNICATION", `<p>Contacts the Flight Commander through the mission interface.</p><p><strong>Use it:</strong> Call when the bridge needs guidance, reinforcement, a supply drop, clarification, extraction or simply cannot determine the next sensible action.</p>`, "gold")}
             ${controlCard("Alert level", "SHIP STATUS CONTROL", `<p>Sets the ship's alert level through the Relay interface.</p><p><strong>Use it:</strong> Change it when ordered or when your mission procedures call for a different alert posture, and make sure the crew knows the change.</p>`)}
@@ -1016,7 +1015,7 @@
               <h2 id="relay-comms-heading">Communications</h2>
             </div>
           <div class="two-column-cards">
-            ${infoCard("Communications", `<p>Relay can open communications with stations and other ships. Friendly ships can take orders; friendly stations can dispatch backup and supply ships. While docked, Relay can request missile and mine rearmament. Some requests can cost reputation.</p>`)}
+            ${infoCard("Communications", `<p>Relay can open communications with stations and other ships. Friendly ships can take orders; friendly stations can dispatch backup and supply ships. While docked, Relay can request missile and mine rearmament.</p>`)}
             ${infoCard("Fleet protocol", `<p class="big-rule">Speak clearly.<br>Speak briefly.<br>Speak when it matters.</p><p><strong>Always sign off before closing comms.</strong> Closing the communications window will also end any active voice communications.</p>` , "gold")}
           </div>
         
