@@ -126,6 +126,44 @@
     if (route === "general" && tab === "medals") {
       initialiseMedalGallery(document.querySelector('[data-panel="medals"]'));
     }
+    if (route === "general" && ["allies", "threats", "phenomena"].includes(tab)) {
+      initialiseIntelTiles(document.querySelector(`[data-panel="${tab}"]`));
+    }
+  }
+
+
+  function initialiseIntelTiles(root) {
+    if (!root) return;
+    const dialog = root.querySelector(".intel-dialog");
+    const content = dialog?.querySelector(".intel-dialog-content");
+    const close = dialog?.querySelector(".intel-dialog-close");
+    if (!dialog || !content) return;
+
+    const openRecord = tile => {
+      const targetId = tile.dataset.intelTarget;
+      const record = targetId ? root.querySelector(`#${CSS.escape(targetId)}`) : null;
+      if (!record) return;
+      content.innerHTML = record.innerHTML;
+      if (typeof dialog.showModal === "function") dialog.showModal();
+      else dialog.setAttribute("open", "");
+    };
+
+    root.querySelectorAll(".intel-tile").forEach(tile => {
+      tile.addEventListener("click", () => openRecord(tile));
+    });
+    close?.addEventListener("click", () => {
+      if (typeof dialog.close === "function") dialog.close();
+      else dialog.removeAttribute("open");
+    });
+    dialog.addEventListener("click", event => {
+      if (event.target !== dialog) return;
+      const rect = dialog.getBoundingClientRect();
+      const inside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+      if (!inside) {
+        if (typeof dialog.close === "function") dialog.close();
+        else dialog.removeAttribute("open");
+      }
+    });
   }
 
   function initialiseMedalGallery(root) {
