@@ -901,15 +901,42 @@ button { color: inherit; }
 }
 .payload-card {
   min-width: 0;
-  min-height: 155px;
-  padding: 19px;
+  min-height: 168px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: minmax(92px, 34%) minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
   border: 1px solid var(--line);
   border-radius: 11px;
   background: linear-gradient(145deg, rgba(9,27,54,.9), rgba(3,12,28,.92));
 }
-.payload-card h3 { margin: 7px 0 9px; font-size: 1.12rem; color: var(--text); }
-.payload-card > strong { display: block; color: var(--gold-bright); line-height: 1.45; }
-.payload-card p { margin: 10px 0 0; color: var(--muted); line-height: 1.55; font-size: .88rem; }
+.payload-visual {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid rgba(99,184,230,.22);
+  background: #01070c;
+}
+.payload-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.payload-card-copy { min-width: 0; }
+.payload-card h3 { margin: 5px 0 7px; font-size: 1.08rem; color: var(--text); }
+.payload-contents {
+  display: block;
+  padding: 7px 9px;
+  border-left: 2px solid var(--gold-bright);
+  background: rgba(228,175,46,.065);
+  color: var(--gold-bright);
+  line-height: 1.4;
+  font-size: .88rem;
+}
+.payload-card p { margin: 8px 0 0; color: var(--muted); line-height: 1.45; font-size: .82rem; }
 
 /* Station-specific H.I.D.E.S. incident reference */
 .hides-incident-stack { display: grid; gap: 12px; margin-top: 16px; }
@@ -1072,10 +1099,10 @@ button { color: inherit; }
   height: var(--h);
   z-index: 4;
   padding: 0;
-  border: 1px solid rgba(105,186,255,.18);
-  border-radius: 7px;
-  background: rgba(54,153,235,.025);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.015);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   cursor: help;
   pointer-events: auto;
 }
@@ -1084,9 +1111,9 @@ button { color: inherit; }
 .screen-hotspot:focus {
   z-index: 12;
   outline: none;
-  border-color: rgba(105,186,255,.82);
-  background: rgba(47,141,219,.12);
-  box-shadow: 0 0 0 2px rgba(105,186,255,.12), inset 0 0 26px rgba(105,186,255,.07);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .screen-hotspot-popover {
   position: absolute;
@@ -1123,7 +1150,7 @@ button { color: inherit; }
 .console-reference figcaption small { color: var(--muted); font-size: .72rem; }
 
 @media (hover: none) {
-  .screen-hotspot { border-color: rgba(105,186,255,.28); background: rgba(47,141,219,.04); }
+  .screen-hotspot { border: 0; background: transparent; }
 }
 @media (max-width: 640px) {
   .screen-hotspot-popover { width: min(250px, 70vw); }
@@ -1599,14 +1626,16 @@ h1, h2, h3,
   font-weight: 500;
 }
 .screen-hotspot {
-  border-radius: 3px;
-  border-color: rgba(82, 172, 219, .16);
+  border-radius: 0;
+  border: 0;
+  background: transparent;
 }
 .screen-hotspot:hover,
 .screen-hotspot:focus-visible,
 .screen-hotspot:focus {
-  border-color: rgba(89, 192, 243, .82);
-  background: rgba(52, 151, 204, .10);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .screen-hotspot-popover {
   border-radius: 4px;
@@ -2410,4 +2439,12 @@ h1, h2, h3,
   .hides-level-table-wrap { grid-column: auto; }
   .medal-art-frame { height: 190px; }
   .medal-art-frame img { max-width: 170px; max-height: 170px; }
+}
+
+
+/* Supply module visual reference + invisible console hit targets */
+@media (max-width: 520px) {
+  .payload-card { grid-template-columns: 84px minmax(0, 1fr); gap: 11px; }
+  .payload-card p { font-size: .78rem; }
+  .payload-contents { font-size: .82rem; }
 }

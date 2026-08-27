@@ -63,14 +63,21 @@
         <div class="console-image-stage interactive-console-frame">
           <img src="${src}" alt="${alt}" loading="lazy" />
           <div class="screen-hotspots" aria-label="Interactive ${station} console guide">
-            ${hotspots.map(([label,x,y,w,h,text]) => `
-              <button class="screen-hotspot ${y > 67 ? "popover-above" : ""} ${x > 72 ? "popover-left" : ""}" type="button" style="--x:${x}%;--y:${y}%;--w:${w}%;--h:${h}%;" aria-label="${label}: ${text}">
+            ${hotspots.map(([label,x,y,w,h,text]) => {
+              const pad = 2.25;
+              const hitX = Math.max(0, x - pad);
+              const hitY = Math.max(0, y - pad);
+              const hitW = Math.min(100 - hitX, w + (pad * 2));
+              const hitH = Math.min(100 - hitY, h + (pad * 2));
+              return `
+              <button class="screen-hotspot ${y > 67 ? "popover-above" : ""} ${x > 72 ? "popover-left" : ""}" type="button" style="--x:${hitX}%;--y:${hitY}%;--w:${hitW}%;--h:${hitH}%;" aria-label="${label}: ${text}">
                 <span class="screen-hotspot-popover"><strong>${label}</strong><span>${text}</span></span>
-              </button>`).join("")}
+              </button>`;
+            }).join("")}
           </div>
         </div>
       </div>
-      <figcaption><span><span class="micro-label">LIVE BRIDGE REFERENCE</span><small>Hover, focus or tap highlighted areas for instructions.</small></span><strong>${station.toUpperCase()} CONSOLE</strong></figcaption>
+      <figcaption><span><span class="micro-label">LIVE BRIDGE REFERENCE</span><small>Hover, focus or tap console areas for instructions.</small></span><strong>${station.toUpperCase()} CONSOLE</strong></figcaption>
     </figure>`;
   };
 
@@ -130,12 +137,15 @@
       </div>
     </details>`;
 
-  const payloadCard = (name, contents, effect) => `
+  const payloadCard = (name, contents, effect, image) => `
     <article class="payload-card">
-      <span class="control-type">SUPPLY MODULE</span>
-      <h3>${name}</h3>
-      <strong>${contents}</strong>
-      <p>${effect}</p>
+      <div class="payload-visual"><img src="assets/supplies/${image}" alt="${name} supply module" loading="lazy" /></div>
+      <div class="payload-card-copy">
+        <span class="control-type">SUPPLY MODULE</span>
+        <h3>${name}</h3>
+        <strong class="payload-contents">${contents}</strong>
+        <p>${effect}</p>
+      </div>
     </article>`;
 
   const rankCard = (name, image, note = "", tier = 1, tierStart = false) => `
@@ -425,20 +435,20 @@
           </div>
           <div class="callout-strip warning"><strong>CREW RESPONSE:</strong><span>Report the hack name and the effects you observe. H.I.D.E.S. cannot confirm the active level; let it clear the intrusion while the affected station manages the immediate loss of capability and Engineering manages heat or lasting damage.</span></div>
         `},
-        { id: "supply-drops", label: "Fleet Support", content: `
-          <div class="section-heading"><span class="micro-label">FLEET SUPPORT // UFN LOGISTICS</span><h2>FC Supply Drops</h2><p>Supply drops are a fleet support service, not a crew station. Crews operating away from a dock can contact any UFN station or the Flight Commander and request a delivery.</p></div>
+        { id: "supply-drops", label: "Supply Drops", content: `
+          <div class="section-heading"><span class="micro-label">UFN LOGISTICS // SUPPLY DROPS</span><h2>Supply Drops</h2><p>Supply drops are a fleet support service, not a crew station. Crews operating away from a dock can contact any UFN station or the Flight Commander and request a delivery.</p></div>
           <div class="supply-brief">
             <span class="classification">STANDARD FRONTIER SUPPORT</span>
             <h3>Request the payload you need</h3>
             <p>Most standard supply drops can carry <strong>up to three payload categories at once</strong>. Tell the station or Flight Commander which modules the crew requires. A UFN support craft will travel to your ship, then eject a self-propelled supply package which flies the final distance under its own power.</p>
           </div>
           <div class="payload-grid">
-            ${payloadCard("Weapons", "2 Nukes • 4 EMPs • 4 Mines • 10 HVLI • 6 Homing", "Added directly to the ship's weapon storage when the payload is collected.")}
-            ${payloadCard("Energy", "500 energy", "Added to the ship's current energy reserve on pickup.")}
-            ${payloadCard("Repair", "50% hull repair", "Restores hull integrity by up to 50% of the ship's maximum hull.")}
-            ${payloadCard("Probes", "3 scan probes", "Adds three probes to the ship's available scan-probe stock.")}
-            ${payloadCard("Drone", "1 repair drone", "Adds +1 to the ship's repair crew / repair drone capacity.")}
-            ${payloadCard("Coolant", "+2 coolant capacity", "Adds +2 to the ship's maximum simultaneous coolant capacity.")}
+            ${payloadCard("Weapons", "2 Nukes • 4 EMPs • 4 Mines • 10 HVLI • 6 Homing", "Added directly to the ship's weapon storage when the payload is collected.", "weapons.png")}
+            ${payloadCard("Energy", "500 energy", "Added to the ship's current energy reserve on pickup.", "energy.png")}
+            ${payloadCard("Repair", "50% hull repair", "Restores hull integrity by up to 50% of the ship's maximum hull.", "repair.png")}
+            ${payloadCard("Probes", "3 scan probes", "Adds three probes to the ship's available scan-probe stock.", "probes.png")}
+            ${payloadCard("Repair Drone", "1 repair drone", "Adds +1 to the ship's repair crew / repair drone capacity.", "repair-drone.png")}
+            ${payloadCard("Coolant", "+2 coolant capacity", "Adds +2 to the ship's maximum simultaneous coolant capacity.", "coolant.png")}
           </div>
           ${supportFlow("Requesting a supply drop", [
             "Relay opens communications with any UFN station or contacts the Flight Commander and requests a supply drop.",
