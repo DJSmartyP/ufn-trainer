@@ -1,7 +1,6 @@
 /* UFN station colour language
-   Derived from the station-status display: each station gets one restrained
-   operational accent while retaining the shared navy/gold UFN shell.
-   Captain uses command gold; Engineering uses hazard orange. */
+   Captain = command gold; Helms = blue; Weapons = red;
+   Engineering = hazard orange; Science = green; Relay = purple. */
 body[data-route="captain"]     { --station-accent: #e4af2e; --station-accent-rgb: 228, 175, 46; }
 body[data-route="helms"]       { --station-accent: #4b9bd1; --station-accent-rgb: 75, 155, 209; }
 body[data-route="weapons"]     { --station-accent: #c94b4f; --station-accent-rgb: 201, 75, 79; }
@@ -9,13 +8,19 @@ body[data-route="engineering"] { --station-accent: #f29a45; --station-accent-rgb
 body[data-route="science"]     { --station-accent: #58ae62; --station-accent-rgb: 88, 174, 98; }
 body[data-route="relay"]       { --station-accent: #8e67ba; --station-accent-rgb: 142, 103, 186; }
 
-/* Permanent, low-key station recognition in the navigation. */
-.nav-item[data-nav="captain"] .nav-code { color: #ffd96e; border-color: rgba(228,175,46,.48); }
-.nav-item[data-nav="helms"] .nav-code { color: #63afe0; border-color: rgba(99,175,224,.46); }
-.nav-item[data-nav="weapons"] .nav-code { color: #df666a; border-color: rgba(223,102,106,.46); }
-.nav-item[data-nav="engineering"] .nav-code { color: #ffad66; border-color: rgba(242,154,69,.48); }
-.nav-item[data-nav="science"] .nav-code { color: #6ec176; border-color: rgba(110,193,118,.46); }
-.nav-item[data-nav="relay"] .nav-code { color: #a77cd1; border-color: rgba(167,124,209,.46); }
+.nav-item[data-nav="captain"] .nav-code { color: #ffd96e; border-color: rgba(228,175,46,.58); }
+.nav-item[data-nav="helms"] .nav-code { color: #63afe0; border-color: rgba(99,175,224,.56); }
+.nav-item[data-nav="weapons"] .nav-code { color: #df666a; border-color: rgba(223,102,106,.56); }
+.nav-item[data-nav="engineering"] .nav-code { color: #ffad66; border-color: rgba(242,154,69,.60); }
+.nav-item[data-nav="science"] .nav-code { color: #6ec176; border-color: rgba(110,193,118,.56); }
+.nav-item[data-nav="relay"] .nav-code { color: #a77cd1; border-color: rgba(167,124,209,.56); }
+
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .content {
+  background:
+    radial-gradient(circle at 97% 2%, rgba(var(--station-accent-rgb), .16), transparent 27rem),
+    radial-gradient(circle at 6% 22%, rgba(var(--station-accent-rgb), .07), transparent 24rem),
+    linear-gradient(180deg, rgba(var(--station-accent-rgb), .05), transparent 18rem);
+}
 
 :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-head {
   position: relative;
@@ -28,49 +33,90 @@ body[data-route="relay"]       { --station-accent: #8e67ba; --station-accent-rgb
   left: 0;
   right: 0;
   bottom: 0;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(var(--station-accent-rgb), .78), rgba(var(--station-accent-rgb), .16) 38%, transparent 78%);
+  height: 2px;
+  background: linear-gradient(90deg, rgba(var(--station-accent-rgb), .98), rgba(var(--station-accent-rgb), .38) 52%, transparent 88%);
+  box-shadow: 0 0 18px rgba(var(--station-accent-rgb), .24);
 }
 
 :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-head .eyebrow,
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .station-intro-card .micro-label {
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .station-intro-card .micro-label,
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .section-heading .micro-label,
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .play-flow > .micro-label {
   color: var(--station-accent);
 }
 
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-head h1 {
+  text-shadow: 0 0 30px rgba(var(--station-accent-rgb), .18);
+}
+
+/* Scale the station identity emblem with the available desktop/landscape space.
+   This deliberately overrides the old fixed 72px/42px page-id sizes. */
 :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-id.station-icon-host {
+  width: clamp(88px, 7vw, 118px);
+  flex: 0 0 clamp(88px, 7vw, 118px);
+  padding: clamp(10px, 1vw, 14px);
   color: var(--station-accent);
-  border-color: rgba(var(--station-accent-rgb), .62);
-  background: radial-gradient(circle, rgba(var(--station-accent-rgb), .14), transparent 68%);
-  box-shadow: inset 0 0 22px rgba(var(--station-accent-rgb), .05), 0 0 24px rgba(var(--station-accent-rgb), .07);
+  border-color: rgba(var(--station-accent-rgb), .88);
+  background: radial-gradient(circle, rgba(var(--station-accent-rgb), .25), rgba(var(--station-accent-rgb), .055) 62%, transparent 73%);
+  box-shadow: inset 0 0 30px rgba(var(--station-accent-rgb), .12), 0 0 34px rgba(var(--station-accent-rgb), .18);
+}
+
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-id.station-icon-host .station-icon-svg,
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-id.station-icon-host .station-icon-image {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 88px;
+  max-height: 88px;
 }
 
 :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .nav-item.active {
-  border-color: rgba(var(--station-accent-rgb), .54);
-  background: linear-gradient(120deg, rgba(var(--station-accent-rgb), .115), rgba(11,29,58,.72));
-  box-shadow: inset 3px 0 0 rgba(var(--station-accent-rgb), .86);
+  border-color: rgba(var(--station-accent-rgb), .78);
+  background: linear-gradient(120deg, rgba(var(--station-accent-rgb), .23), rgba(11,29,58,.78));
+  box-shadow: inset 4px 0 0 rgba(var(--station-accent-rgb), 1), 0 0 20px rgba(var(--station-accent-rgb), .10);
 }
 
 :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .section-tab.active {
   color: var(--text);
-  border-color: rgba(var(--station-accent-rgb), .72);
-  background: linear-gradient(180deg, rgba(var(--station-accent-rgb), .26), rgba(var(--station-accent-rgb), .12));
-  box-shadow: inset 0 -2px 0 rgba(var(--station-accent-rgb), .92), 0 0 18px rgba(var(--station-accent-rgb), .07);
+  border-color: rgba(var(--station-accent-rgb), .94);
+  background: linear-gradient(180deg, rgba(var(--station-accent-rgb), .42), rgba(var(--station-accent-rgb), .18));
+  box-shadow: inset 0 -3px 0 rgba(var(--station-accent-rgb), 1), 0 0 24px rgba(var(--station-accent-rgb), .14);
 }
 
 :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .station-intro-card {
-  border-color: rgba(var(--station-accent-rgb), .30);
+  border-color: rgba(var(--station-accent-rgb), .56);
   background:
-    radial-gradient(circle at 8% 50%, rgba(var(--station-accent-rgb), .10), transparent 16rem),
+    radial-gradient(circle at 8% 50%, rgba(var(--station-accent-rgb), .22), transparent 18rem),
     linear-gradient(135deg, rgba(14,36,73,.97), rgba(4,13,29,.95) 56%, rgba(31,41,55,.78));
-  box-shadow: inset 3px 0 0 rgba(var(--station-accent-rgb), .66), var(--shadow);
+  box-shadow: inset 4px 0 0 rgba(var(--station-accent-rgb), .94), 0 20px 68px rgba(0,0,0,.38);
 }
 
 :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .station-monogram.station-icon-host {
   color: var(--station-accent);
-  border-color: rgba(var(--station-accent-rgb), .52);
+  border-color: rgba(var(--station-accent-rgb), .68);
+  box-shadow: 0 0 22px rgba(var(--station-accent-rgb), .10);
 }
 
-/* Directory cards carry the same accents without becoming multicoloured panels. */
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) :is(.info-card, .control-guide-card, .play-flow, .console-reference, .captain-command-view) {
+  border-color: rgba(var(--station-accent-rgb), .31);
+}
+
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) :is(.info-card, .control-guide-card) {
+  box-shadow: inset 0 2px 0 rgba(var(--station-accent-rgb), .20);
+}
+
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .console-reference {
+  box-shadow: inset 0 3px 0 rgba(var(--station-accent-rgb), .32), var(--shadow);
+}
+
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .console-reference figcaption strong {
+  color: var(--station-accent);
+}
+
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .play-flow {
+  box-shadow: inset 0 3px 0 rgba(var(--station-accent-rgb), .22);
+}
+
+/* Directory cards. */
 .station-card.captain { --card-station-rgb: 228, 175, 46; }
 .station-card.helms { --card-station-rgb: 75, 155, 209; }
 .station-card.weapons { --card-station-rgb: 201, 75, 79; }
@@ -79,93 +125,17 @@ body[data-route="relay"]       { --station-accent: #8e67ba; --station-accent-rgb
 .station-card.relay { --card-station-rgb: 142, 103, 186; }
 
 .station-card:is(.captain,.helms,.weapons,.engineering,.science,.relay) {
-  border-color: rgba(var(--card-station-rgb), .22);
-  box-shadow: inset 3px 0 0 rgba(var(--card-station-rgb), .44);
+  border-color: rgba(var(--card-station-rgb), .30);
+  box-shadow: inset 4px 0 0 rgba(var(--card-station-rgb), .58);
 }
 .station-card:is(.captain,.helms,.weapons,.engineering,.science,.relay):hover,
 .station-card:is(.captain,.helms,.weapons,.engineering,.science,.relay):focus-visible {
-  border-color: rgba(var(--card-station-rgb), .55);
-  box-shadow: inset 3px 0 0 rgba(var(--card-station-rgb), .82), 0 16px 42px rgba(0,0,0,.26);
+  border-color: rgba(var(--card-station-rgb), .65);
+  box-shadow: inset 4px 0 0 rgba(var(--card-station-rgb), .90), 0 16px 42px rgba(0,0,0,.26);
 }
 
-/* The H.I.D.E.S. system remains blue/gold, but station pages get a tiny route cue. */
 :is(body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"]) .station-hides-expanded-view .hides-brand-titlebar {
-  box-shadow: inset 3px 0 0 rgba(var(--station-accent-rgb), .72), inset 0 1px 0 rgba(142,218,255,.08), 0 18px 48px rgba(0,0,0,.22);
-}
-
-@media (max-width: 640px) {
-  :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-head {
-    padding-bottom: 10px;
-  }
-}
-
-/* Stronger station identity pass — still navy-first, but the active station
-   colour is now visible throughout the working area rather than only in tabs. */
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .content {
-  background:
-    radial-gradient(circle at 96% 3%, rgba(var(--station-accent-rgb), .115), transparent 25rem),
-    linear-gradient(180deg, rgba(var(--station-accent-rgb), .035), transparent 17rem);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-head h1 {
-  text-shadow: 0 0 28px rgba(var(--station-accent-rgb), .15);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-head::after {
-  height: 2px;
-  background: linear-gradient(90deg, rgba(var(--station-accent-rgb), .96), rgba(var(--station-accent-rgb), .32) 48%, transparent 86%);
-  box-shadow: 0 0 16px rgba(var(--station-accent-rgb), .20);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-id.station-icon-host {
-  border-color: rgba(var(--station-accent-rgb), .82);
-  background: radial-gradient(circle, rgba(var(--station-accent-rgb), .22), rgba(var(--station-accent-rgb), .045) 62%, transparent 72%);
-  box-shadow: inset 0 0 28px rgba(var(--station-accent-rgb), .10), 0 0 30px rgba(var(--station-accent-rgb), .15);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .nav-item.active {
-  border-color: rgba(var(--station-accent-rgb), .72);
-  background: linear-gradient(120deg, rgba(var(--station-accent-rgb), .20), rgba(11,29,58,.76));
-  box-shadow: inset 4px 0 0 rgba(var(--station-accent-rgb), .98), 0 0 18px rgba(var(--station-accent-rgb), .08);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .section-tab.active {
-  border-color: rgba(var(--station-accent-rgb), .92);
-  background: linear-gradient(180deg, rgba(var(--station-accent-rgb), .38), rgba(var(--station-accent-rgb), .16));
-  box-shadow: inset 0 -3px 0 rgba(var(--station-accent-rgb), 1), 0 0 22px rgba(var(--station-accent-rgb), .12);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .section-heading .micro-label,
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .play-flow > .micro-label {
-  color: var(--station-accent);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .station-intro-card {
-  border-color: rgba(var(--station-accent-rgb), .48);
-  background:
-    radial-gradient(circle at 8% 50%, rgba(var(--station-accent-rgb), .18), transparent 18rem),
-    linear-gradient(135deg, rgba(14,36,73,.97), rgba(4,13,29,.95) 56%, rgba(31,41,55,.78));
-  box-shadow: inset 4px 0 0 rgba(var(--station-accent-rgb), .88), 0 20px 68px rgba(0,0,0,.38);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) :is(.info-card, .control-guide-card, .play-flow, .console-reference, .captain-command-view) {
-  border-color: rgba(var(--station-accent-rgb), .26);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) :is(.info-card, .control-guide-card) {
-  box-shadow: inset 0 2px 0 rgba(var(--station-accent-rgb), .15);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .console-reference {
-  box-shadow: inset 0 3px 0 rgba(var(--station-accent-rgb), .24), var(--shadow);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .console-reference figcaption strong {
-  color: var(--station-accent);
-}
-
-:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .play-flow {
-  box-shadow: inset 0 3px 0 rgba(var(--station-accent-rgb), .18);
+  box-shadow: inset 3px 0 0 rgba(var(--station-accent-rgb), .76), inset 0 1px 0 rgba(142,218,255,.08), 0 18px 48px rgba(0,0,0,.22);
 }
 
 /* Permanent station palette in the sidebar, matching the crew assignment UI. */
@@ -175,3 +145,33 @@ body[data-route="relay"]       { --station-accent: #8e67ba; --station-accent-rgb
 .nav-item[data-nav="engineering"] > span:last-child { color: #ff9f50; }
 .nav-item[data-nav="science"] > span:last-child { color: #70d990; }
 .nav-item[data-nav="relay"] > span:last-child { color: #aa7bdd; }
+
+/* Short-landscape used to crush the page identity icon to 42px.
+   Keep it compact, but still clearly visible. */
+@media (orientation: landscape) and (max-height: 650px) and (min-width: 560px) {
+  :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-id.station-icon-host {
+    width: clamp(64px, 6.2vw, 82px);
+    flex-basis: clamp(64px, 6.2vw, 82px);
+    padding: 7px;
+  }
+
+  :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-id.station-icon-host .station-icon-svg,
+  :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-id.station-icon-host .station-icon-image {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none;
+    max-height: none;
+  }
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+  :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-head {
+    padding-bottom: 10px;
+  }
+
+  :is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"]) .page-id.station-icon-host {
+    width: 48px;
+    flex-basis: 48px;
+    padding: 7px;
+  }
+}
