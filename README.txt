@@ -1,28 +1,33 @@
-UFN TRAINING PORTAL — CUMULATIVE H.I.D.E.S. BRANDING UPDATE
-29 August 2026
+UFN TRAINING PORTAL — PROTOCOL LAYOUT + STATION COLOUR UPDATE
+30 August 2026
 
 UPLOAD
 ------
-Upload the contents of this ZIP over the root of DJSmartyP/ufn-trainer,
-preserving the assets/ folders.
+Upload the contents of this ZIP over the root of DJSmartyP/ufn-trainer.
+This is a small cumulative patch layer and does not replace core content.js,
+app.js or styles.css.
 
-THIS BUILD INCLUDES
--------------------
-• Available Deployments mission records and 16:9 art tiles.
-• Continuum automatic NEW marker (28-day window).
-• Station screenshot containment fix.
-• Tooltip-only top-layer station orientation popovers.
-• Operational Protocol icon/layout patch from the current cumulative build.
-• Station H.I.D.E.S. records displayed fully open rather than as pull-down cards.
-• Basic Training > Operations > H.I.D.E.S. retains the pull-down incident records.
-• Grouped navigation opens the first item in the selected menu group.
-• New authorised H.I.D.E.S. emblem displayed in the H.I.D.E.S. title bar on:
-  - Helms H.I.D.E.S.
-  - Weapons H.I.D.E.S.
-  - Engineering H.I.D.E.S.
-  - Basic Training > Operations > H.I.D.E.S.
+CHANGES
+-------
+• Operational Protocol numbers removed.
+• Protocol technology icons enlarged substantially.
+• Protocol title area reframed so long titles wrap inside their own panel and
+  cannot overflow into the record copy.
+• Three protocol records retain all existing content.
+• Comms Etiquette keeps the expanded guidance from the previous build.
+• Protocols use restrained individual accents: violet / orange / teal.
+• Added a uniform station colour language derived from the UFN station-status
+  display:
+    Captain     — steel blue
+    Helms       — blue
+    Weapons     — red
+    Engineering — amber
+    Science     — green
+    Relay       — purple
+• Station colour is used subtly in navigation, title rules, station icon rings,
+  active section tabs, station intro panels and directory-card accents.
+• H.I.D.E.S. retains its own blue/gold identity; station H.I.D.E.S. pages only
+  receive a small station-colour edge cue.
 
-H.I.D.E.S. remains:
-Hacking Intrusion Detection and Elimination System
-
-No core content.js or app.js replacement is included in this patch.
+This patch preserves the current deployment, tooltip, H.I.D.E.S. and grouped-
+navigation scripts already linked by the cumulative index.html.

@@ -10,25 +10,28 @@
       category: "COMMUNICATIONS",
       title: "Comms Etiquette",
       icon: "assets/protocols/comms-etiquette.svg",
-      alt: "Communications protocol icon"
+      alt: "Communications protocol icon",
+      tone: "comms"
     },
     "02": {
       category: "EMERGENCY SURVIVAL",
       title: "Escape Pod Teleportation",
       icon: "assets/protocols/escape-teleport.svg",
-      alt: "Emergency teleportation protocol icon"
+      alt: "Emergency teleportation protocol icon",
+      tone: "escape"
     },
     "03": {
       category: "FLIGHT COMMAND",
       title: "Flight Commander Support",
       icon: "assets/protocols/flight-command.svg",
-      alt: "Flight command support protocol icon"
+      alt: "Flight command support protocol icon",
+      tone: "command"
     }
   };
 
   Object.entries(headers).forEach(([number, item]) => {
     const original = `<header><span>${number}</span><div><small>${item.category}</small><h3>${item.title}</h3></div></header>`;
-    const replacement = `<header class="protocol-entry-head"><span class="protocol-index">${number}</span><span class="protocol-icon-frame"><img class="protocol-icon" src="${item.icon}" alt="${item.alt}" loading="eager" decoding="async" /></span><div class="protocol-entry-title"><small>${item.category}</small><h3>${item.title}</h3></div></header>`;
+    const replacement = `<header class="protocol-entry-head protocol-${item.tone}"><span class="protocol-icon-frame"><img class="protocol-icon" src="${item.icon}" alt="${item.alt}" loading="eager" decoding="async" /></span><div class="protocol-entry-title"><small>${item.category}</small><h3>${item.title}</h3></div></header>`;
     protocols.content = protocols.content.replace(original, replacement);
   });
 
