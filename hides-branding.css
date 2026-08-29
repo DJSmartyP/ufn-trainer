@@ -1,0 +1,99 @@
+/* H.I.D.E.S. title branding
+   Uses the authorised H.I.D.E.S. system emblem on both station H.I.D.E.S.
+   pages and Basic Training > Operations > H.I.D.E.S. */
+.hides-brand-titlebar {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(92px, 10vw, 132px) minmax(0, 1fr);
+  gap: clamp(18px, 2.6vw, 30px);
+  align-items: center;
+  padding: clamp(18px, 2.6vw, 28px);
+  overflow: hidden;
+  border: 1px solid rgba(93, 190, 238, .42);
+  border-radius: 7px;
+  background:
+    radial-gradient(circle at 10% 50%, rgba(49, 155, 255, .15), transparent 16rem),
+    linear-gradient(108deg, rgba(7, 31, 49, .98), rgba(2, 12, 21, .985) 64%, rgba(7, 26, 42, .96));
+  box-shadow: inset 0 1px 0 rgba(142, 218, 255, .08), 0 18px 48px rgba(0, 0, 0, .22);
+}
+.hides-brand-titlebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(228, 175, 46, .9), rgba(228, 175, 46, 0)) top left / 30% 2px no-repeat,
+    linear-gradient(90deg, rgba(93, 190, 238, .5), transparent 55%) bottom left / 60% 1px no-repeat;
+}
+.hides-brand-emblem {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  margin: 0;
+}
+.hides-brand-emblem img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px rgba(47, 170, 255, .2));
+}
+.hides-brand-copy {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+.hides-brand-copy .classification,
+.hides-brand-copy .micro-label {
+  margin-bottom: 7px;
+}
+.hides-brand-copy h2 {
+  margin: 4px 0 8px;
+  color: var(--text);
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: clamp(1.65rem, 3.2vw, 2.9rem);
+  line-height: 1;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+.hides-brand-copy p {
+  max-width: 920px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.56;
+}
+
+/* The station version becomes the visual header for the continuous open record. */
+.station-hides-expanded-view .hides-header.hides-brand-titlebar {
+  margin-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Main Operations H.I.D.E.S. keeps its expandable incident records below. */
+.hides-main-titlebar {
+  margin: 8px 0 16px;
+}
+.hides-main-titlebar + .callout-strip {
+  margin-top: 0;
+}
+
+@media (max-width: 700px) {
+  .hides-brand-titlebar {
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 14px;
+    padding: 16px;
+  }
+  .hides-brand-copy h2 { font-size: clamp(1.4rem, 7vw, 2rem); }
+}
+
+@media (max-width: 480px) {
+  .hides-brand-titlebar {
+    grid-template-columns: 68px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .hides-brand-copy p { font-size: .88rem; }
+}
