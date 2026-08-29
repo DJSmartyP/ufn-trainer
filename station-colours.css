@@ -1,18 +1,19 @@
 /* UFN station colour language
    Derived from the station-status display: each station gets one restrained
-   operational accent while retaining the shared navy/gold UFN shell. */
-body[data-route="captain"]     { --station-accent: #6586a1; --station-accent-rgb: 101, 134, 161; }
+   operational accent while retaining the shared navy/gold UFN shell.
+   Captain uses command gold; Engineering uses hazard orange. */
+body[data-route="captain"]     { --station-accent: #e4af2e; --station-accent-rgb: 228, 175, 46; }
 body[data-route="helms"]       { --station-accent: #4b9bd1; --station-accent-rgb: 75, 155, 209; }
 body[data-route="weapons"]     { --station-accent: #c94b4f; --station-accent-rgb: 201, 75, 79; }
-body[data-route="engineering"] { --station-accent: #d0a23b; --station-accent-rgb: 208, 162, 59; }
+body[data-route="engineering"] { --station-accent: #f29a45; --station-accent-rgb: 242, 154, 69; }
 body[data-route="science"]     { --station-accent: #58ae62; --station-accent-rgb: 88, 174, 98; }
 body[data-route="relay"]       { --station-accent: #8e67ba; --station-accent-rgb: 142, 103, 186; }
 
 /* Permanent, low-key station recognition in the navigation. */
-.nav-item[data-nav="captain"] .nav-code { color: #7899b3; border-color: rgba(120,153,179,.42); }
+.nav-item[data-nav="captain"] .nav-code { color: #ffd96e; border-color: rgba(228,175,46,.48); }
 .nav-item[data-nav="helms"] .nav-code { color: #63afe0; border-color: rgba(99,175,224,.46); }
 .nav-item[data-nav="weapons"] .nav-code { color: #df666a; border-color: rgba(223,102,106,.46); }
-.nav-item[data-nav="engineering"] .nav-code { color: #ddb65a; border-color: rgba(221,182,90,.46); }
+.nav-item[data-nav="engineering"] .nav-code { color: #ffad66; border-color: rgba(242,154,69,.48); }
 .nav-item[data-nav="science"] .nav-code { color: #6ec176; border-color: rgba(110,193,118,.46); }
 .nav-item[data-nav="relay"] .nav-code { color: #a77cd1; border-color: rgba(167,124,209,.46); }
 
@@ -70,10 +71,10 @@ body[data-route="relay"]       { --station-accent: #8e67ba; --station-accent-rgb
 }
 
 /* Directory cards carry the same accents without becoming multicoloured panels. */
-.station-card.captain { --card-station-rgb: 101, 134, 161; }
+.station-card.captain { --card-station-rgb: 228, 175, 46; }
 .station-card.helms { --card-station-rgb: 75, 155, 209; }
 .station-card.weapons { --card-station-rgb: 201, 75, 79; }
-.station-card.engineering { --card-station-rgb: 208, 162, 59; }
+.station-card.engineering { --card-station-rgb: 242, 154, 69; }
 .station-card.science { --card-station-rgb: 88, 174, 98; }
 .station-card.relay { --card-station-rgb: 142, 103, 186; }
 
