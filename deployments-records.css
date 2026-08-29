@@ -1,0 +1,607 @@
+/* ============================================================
+   AVAILABLE DEPLOYMENTS // UFN FLEET COMMAND RECORDS
+   Image-led deployment tiles with modal mission dossiers.
+   ============================================================ */
+
+.deployment-register-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 20px;
+  padding: clamp(22px, 3vw, 34px);
+  border: 1px solid rgba(88,178,226,.34);
+  border-radius: 6px;
+  background:
+    linear-gradient(130deg, rgba(6,22,36,.96), rgba(2,9,15,.97)),
+    repeating-linear-gradient(90deg, transparent 0 64px, rgba(88,178,226,.025) 64px 65px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+.deployment-register-head h2 {
+  margin: 7px 0 8px;
+  color: #f1fbff;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: .035em;
+}
+.deployment-register-head p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.deployment-register-counts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  border-left: 1px solid rgba(88,178,226,.24);
+}
+.deployment-register-counts > div {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 18px;
+}
+.deployment-register-counts > div + div { border-left: 1px solid rgba(88,178,226,.18); }
+.deployment-register-counts strong {
+  color: var(--gold-bright);
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: clamp(2.1rem, 4vw, 3.7rem);
+  line-height: .9;
+  font-weight: 600;
+}
+.deployment-register-counts span {
+  color: var(--blue-soft);
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .54rem;
+  line-height: 1.45;
+  letter-spacing: .12em;
+}
+
+.deployment-register-section { margin-top: 24px; }
+.deployment-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(88,178,226,.2);
+}
+.deployment-section-heading h3 {
+  margin: 4px 0 0;
+  color: #eaf8ff;
+  font-size: 1.15rem;
+  letter-spacing: .035em;
+}
+.deployment-section-heading h3 span {
+  margin-left: 7px;
+  color: var(--gold-bright);
+  font-size: .72rem;
+  vertical-align: middle;
+}
+
+.deployment-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.deployment-tile {
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(88,178,226,.27);
+  border-radius: 5px;
+  background: #02070d;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0,0,0,.22);
+  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+.deployment-tile:hover,
+.deployment-tile:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(99,203,255,.72);
+  box-shadow: 0 16px 34px rgba(0,0,0,.34), 0 0 0 1px rgba(88,178,226,.12);
+  outline: none;
+}
+.deployment-tile-art {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #010408;
+}
+.deployment-tile-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 220ms ease, filter 220ms ease;
+}
+.deployment-tile:hover img,
+.deployment-tile:focus-visible img { transform: scale(1.025); filter: contrast(1.045) brightness(1.02); }
+.deployment-tile-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 34%, rgba(0,5,10,.18) 53%, rgba(0,5,10,.93) 100%),
+    linear-gradient(90deg, rgba(0,8,16,.24), transparent 32%, transparent 72%, rgba(0,8,16,.12));
+  pointer-events: none;
+}
+.deployment-tile-copy {
+  position: absolute;
+  z-index: 3;
+  left: 15px;
+  right: 15px;
+  bottom: 13px;
+  display: grid;
+  gap: 3px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.9);
+}
+.deployment-tile-code {
+  color: #79d6ff;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .58rem;
+  font-weight: 600;
+  letter-spacing: .13em;
+}
+.deployment-tile-copy strong {
+  color: #fff;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: clamp(.92rem, 1.35vw, 1.23rem);
+  line-height: 1.12;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+.deployment-tile-type {
+  color: var(--gold-bright);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+}
+
+.deployment-campaign-section { margin-top: 30px; }
+.deployment-campaign-tile { grid-column: 1 / -1; border-color: rgba(255,99,119,.38); }
+.deployment-campaign-tile .deployment-tile-art {
+  aspect-ratio: 3 / 1;
+  min-height: 230px;
+}
+.deployment-campaign-tile .deployment-tile-shade {
+  background:
+    linear-gradient(90deg, rgba(1,4,8,.15) 0%, rgba(1,4,8,.28) 45%, rgba(20,2,8,.25) 100%),
+    linear-gradient(180deg, transparent 30%, rgba(0,3,7,.2) 52%, rgba(0,3,7,.94) 100%);
+}
+.deployment-campaign-grid {
+  position: absolute;
+  inset: 0;
+  opacity: .08;
+  background-image:
+    linear-gradient(rgba(255,85,105,.24) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,85,105,.24) 1px, transparent 1px);
+  background-size: 46px 46px;
+  pointer-events: none;
+}
+.deployment-campaign-tile .deployment-tile-copy strong {
+  font-size: clamp(1.35rem, 3vw, 2.55rem);
+}
+.deployment-restricted-label { color: #ff8c9a; text-transform: uppercase; letter-spacing: .09em; }
+.deployment-redacted-stamp {
+  position: absolute;
+  z-index: 4;
+  top: 18px;
+  right: 18px;
+  padding: 7px 10px 6px;
+  border: 2px solid rgba(255,87,105,.78);
+  color: #ff7181;
+  background: rgba(20,3,8,.42);
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  transform: rotate(-2deg);
+}
+
+/* Mission record dialog */
+.deployment-record-dialog {
+  width: min(1120px, calc(100vw - 28px));
+  max-width: 1120px;
+  max-height: calc(100dvh - 28px);
+  padding: 0;
+  overflow: auto;
+  border: 1px solid rgba(88,178,226,.55);
+  border-radius: 7px;
+  background: #02070d;
+  color: var(--text);
+  box-shadow: 0 28px 90px rgba(0,0,0,.72), 0 0 0 1px rgba(88,178,226,.08);
+}
+.deployment-record-dialog::backdrop {
+  background: rgba(0,3,7,.82);
+  backdrop-filter: blur(9px);
+}
+.deployment-record-shell { min-width: 0; }
+.deployment-record-toolbar {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 8px;
+  align-items: center;
+  min-height: 48px;
+  padding: 7px 9px;
+  border-bottom: 1px solid rgba(88,178,226,.26);
+  background: rgba(2,8,14,.96);
+  backdrop-filter: blur(12px);
+}
+.deployment-record-nav,
+.deployment-record-close {
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid rgba(88,178,226,.22);
+  border-radius: 4px;
+  background: rgba(7,23,37,.7);
+  color: var(--blue-soft);
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .58rem;
+  letter-spacing: .09em;
+  cursor: pointer;
+}
+.deployment-record-nav:hover,
+.deployment-record-nav:focus-visible { border-color: rgba(88,178,226,.62); color: #fff; outline: none; }
+.deployment-record-close {
+  width: 36px;
+  padding: 0;
+  color: #eaf8ff;
+  font-size: 1.2rem;
+}
+.deployment-record-position {
+  justify-self: center;
+  color: #718fa0;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .55rem;
+  letter-spacing: .11em;
+}
+
+.deployment-record { background: #02070d; }
+.deployment-record-art {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 500px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(88,178,226,.3);
+  background: #010408;
+}
+.deployment-record-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.deployment-record-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 42%, rgba(0,4,8,.2) 67%, rgba(0,4,8,.88) 100%),
+    linear-gradient(90deg, rgba(0,8,16,.18), transparent 25%, transparent 75%, rgba(0,8,16,.16));
+  pointer-events: none;
+}
+.deployment-record-art-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: .07;
+  background-image:
+    linear-gradient(rgba(83,184,232,.24) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(83,184,232,.24) 1px, transparent 1px);
+  background-size: 72px 72px;
+  pointer-events: none;
+}
+.deployment-record-art-copy {
+  position: absolute;
+  z-index: 4;
+  left: 22px;
+  right: 22px;
+  bottom: 18px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  text-shadow: 0 2px 9px #000;
+}
+.deployment-record-art-copy span { color: #a8dff8; font-size: .57rem; letter-spacing: .12em; }
+.deployment-record-art-copy strong { color: #fff; font-size: 1rem; letter-spacing: .12em; }
+.deployment-record-art-stamp {
+  position: absolute;
+  z-index: 5;
+  top: 24px;
+  right: 24px;
+  padding: 8px 12px;
+  border: 2px solid rgba(255,86,105,.82);
+  color: #ff7181;
+  background: rgba(20,3,8,.42);
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .17em;
+  transform: rotate(-3deg);
+}
+
+.deployment-record-document {
+  position: relative;
+  padding: clamp(22px, 3vw, 38px);
+  background:
+    radial-gradient(circle at 87% 12%, rgba(88,178,226,.055), transparent 22rem),
+    linear-gradient(145deg, rgba(5,18,29,.98), rgba(2,8,14,.99));
+}
+.deployment-record-document::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  height: 118px;
+  background: linear-gradient(180deg, var(--gold-bright), #5ec8f4 72%, transparent);
+}
+.deployment-record-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 22px;
+  align-items: start;
+}
+.deployment-record-heading .classification { display: inline-flex; margin-bottom: 10px; }
+.deployment-record-heading .micro-label { display: block; }
+.deployment-record-heading h3 {
+  margin: 7px 0 0;
+  color: #f2fbff;
+  font-size: clamp(1.7rem, 3.5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+.deployment-record-stamp {
+  align-self: center;
+  padding: 10px 12px 9px;
+  border: 2px solid rgba(114,240,189,.46);
+  color: var(--success);
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  transform: rotate(-2deg);
+}
+.deployment-record-stamp.restricted { border-color: rgba(255,86,105,.7); color: #ff7181; }
+
+.deployment-record-meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 22px 0;
+}
+.deployment-record-meta-cell {
+  min-width: 0;
+  padding: 10px 11px;
+  border: 1px solid rgba(88,178,226,.18);
+  background: rgba(4,15,25,.74);
+}
+.deployment-record-meta-cell span {
+  display: block;
+  color: #6d91a5;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .48rem;
+  letter-spacing: .12em;
+}
+.deployment-record-meta-cell strong {
+  display: block;
+  margin-top: 4px;
+  color: #dff4ff;
+  font-size: .76rem;
+  letter-spacing: .035em;
+  overflow-wrap: anywhere;
+}
+
+.deployment-record-briefing {
+  position: relative;
+  padding: clamp(18px, 2.4vw, 28px);
+  border: 1px solid rgba(88,178,226,.23);
+  background:
+    linear-gradient(90deg, rgba(8,30,48,.42), transparent 2px),
+    rgba(2,10,17,.64);
+}
+.deployment-record-briefing::before,
+.deployment-record-briefing::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: rgba(213,174,77,.54);
+  pointer-events: none;
+}
+.deployment-record-briefing::before { top: 8px; left: 8px; border-top: 1px solid; border-left: 1px solid; }
+.deployment-record-briefing::after { right: 8px; bottom: 8px; border-right: 1px solid; border-bottom: 1px solid; }
+.deployment-record-section-title {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(88,178,226,.17);
+}
+.deployment-record-section-title h4 {
+  margin: 0;
+  color: #e9f7ff;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: 1rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.deployment-record-briefing > p {
+  max-width: 990px;
+  margin: 0;
+  color: #c1d3dd;
+  font-size: clamp(.98rem, 1.45vw, 1.08rem);
+  line-height: 1.7;
+}
+
+.deployment-record-footer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+.deployment-record-footer > div {
+  padding: 10px 12px;
+  border-top: 1px solid rgba(88,178,226,.18);
+}
+.deployment-record-footer strong {
+  display: block;
+  margin-top: 4px;
+  color: #7896a6;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .52rem;
+  letter-spacing: .08em;
+}
+
+.deployment-record-campaign .deployment-record-art-grid { opacity: .09; background-image: linear-gradient(rgba(255,83,103,.26) 1px, transparent 1px), linear-gradient(90deg, rgba(255,83,103,.26) 1px, transparent 1px); }
+.deployment-record-campaign .deployment-record-document::before { background: linear-gradient(180deg, #ff5f70, rgba(255,95,112,.45), transparent); }
+.deployment-record-redacted { border-color: rgba(255,86,105,.24); }
+.deployment-redaction-block { display: grid; gap: 10px; margin: 18px 0; }
+.deployment-redaction-block span {
+  display: block;
+  width: 100%;
+  height: 14px;
+  background: linear-gradient(90deg, #030405 0 78%, transparent 78%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.015);
+}
+.deployment-redaction-block span.short { width: 62%; }
+.deployment-redaction-block span.medium { width: 84%; }
+.deployment-classified-notice {
+  margin-top: 18px;
+  padding: 15px 16px;
+  border: 1px solid rgba(255,86,105,.27);
+  background: rgba(85,10,22,.12);
+}
+.deployment-classified-notice strong {
+  display: block;
+  color: #ff7c8b;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .72rem;
+  letter-spacing: .14em;
+}
+.deployment-classified-notice p { margin: 7px 0 0; color: #9fadb5; line-height: 1.55; }
+
+@media (max-width: 980px) and (orientation: portrait) {
+  .deployment-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .deployment-register-head { grid-template-columns: 1fr; }
+  .deployment-register-counts { border-left: 0; border-top: 1px solid rgba(88,178,226,.2); padding-top: 12px; }
+}
+
+/* Explicitly preserve three mission tiles across normal landscape layouts. */
+@media (orientation: landscape) and (min-width: 680px) {
+  .deployment-tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 680px) {
+  .deployment-tile-grid { grid-template-columns: 1fr; }
+  .deployment-register-counts { grid-template-columns: 1fr 1fr; }
+  .deployment-register-counts > div { grid-template-columns: auto 1fr; padding: 8px 10px; }
+  .deployment-register-counts strong { font-size: 2.2rem; }
+  .deployment-campaign-tile .deployment-tile-art { aspect-ratio: 16 / 9; min-height: 0; }
+  .deployment-redacted-stamp { top: 10px; right: 10px; font-size: .56rem; }
+  .deployment-record-dialog { width: calc(100vw - 12px); max-height: calc(100dvh - 12px); }
+  .deployment-record-toolbar { grid-template-columns: auto 1fr auto auto; padding: 5px; }
+  .deployment-record-nav { padding: 5px 7px; font-size: .5rem; }
+  .deployment-record-position { font-size: .46rem; }
+  .deployment-record-heading { grid-template-columns: 1fr; }
+  .deployment-record-stamp { justify-self: start; }
+  .deployment-record-meta { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .deployment-record-footer { grid-template-columns: 1fr; }
+  .deployment-record-art-copy { left: 14px; right: 14px; bottom: 12px; }
+  .deployment-record-art-copy span { font-size: .48rem; }
+}
+
+@media (orientation: landscape) and (max-height: 650px) {
+  .deployment-register-head { padding: 16px 18px; }
+  .deployment-register-head h2 { font-size: 1.8rem; }
+  .deployment-register-head p { display: none; }
+  .deployment-tile-copy { left: 10px; right: 10px; bottom: 9px; }
+  .deployment-tile-copy strong { font-size: .82rem; }
+  .deployment-tile-type { font-size: .58rem; }
+  .deployment-record-dialog { max-height: calc(100dvh - 10px); }
+  .deployment-record-art { max-height: 58vh; }
+  .deployment-record-document { padding: 18px; }
+}
+
+/* New deployment marker: active for 28 days from a mission's `added` date. */
+.deployment-tile-new {
+  border-color: rgba(102, 224, 255, .9);
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.28),
+    0 0 0 1px rgba(102,224,255,.18),
+    0 0 24px rgba(69,190,238,.14);
+}
+.deployment-tile-new:hover,
+.deployment-tile-new:focus-visible {
+  border-color: #9ceaff;
+  box-shadow:
+    0 16px 36px rgba(0,0,0,.38),
+    0 0 0 1px rgba(122,224,255,.34),
+    0 0 30px rgba(69,190,238,.22);
+}
+.deployment-new-badge {
+  position: absolute;
+  z-index: 5;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 25px;
+  padding: 4px 8px 3px;
+  border: 1px solid rgba(151,236,255,.88);
+  border-radius: 3px;
+  background: rgba(2,18,29,.9);
+  color: #dff9ff;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .56rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-shadow: 0 0 10px rgba(104,220,255,.7);
+  box-shadow: inset 0 0 16px rgba(70,200,255,.08), 0 0 15px rgba(64,193,241,.13);
+}
+.deployment-record-title-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+.deployment-record-title-line h3 { margin-right: 0; }
+.deployment-record-new-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 27px;
+  padding: 5px 8px 4px;
+  border: 1px solid rgba(151,236,255,.7);
+  border-radius: 3px;
+  background: rgba(8,42,58,.52);
+  color: #c8f5ff;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .54rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  white-space: nowrap;
+}
+
+@media (max-width: 680px) {
+  .deployment-new-badge { top: 7px; right: 7px; font-size: .5rem; min-height: 22px; }
+  .deployment-record-new-badge { font-size: .5rem; }
+}
