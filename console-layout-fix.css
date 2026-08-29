@@ -1,17 +1,39 @@
-/* Station console containment fix
-   Keep the 16:9 screenshot and its interactive hotspot layer inside the
-   same rendered stage. The previous 1.04 image scale could bleed into the
-   caption area and also offset hotspots from the visible controls. */
+/* Station console containment + hotspot layering fix
+   The bridge screenshot itself stays locked to the 16:9 stage, but interactive
+   instruction popovers must be able to escape that stage and sit above the
+   caption and surrounding page sections. */
+.console-reference {
+  position: relative;
+  overflow: visible !important;
+  z-index: 1;
+}
+
+/* Promote the whole reference card while a hotspot is active so later page
+   sections cannot paint over the instruction panel. */
+.console-reference:has(.screen-hotspot:hover),
+.console-reference:has(.screen-hotspot:focus),
+.console-reference:has(.screen-hotspot:focus-visible) {
+  z-index: 120;
+}
+
 .console-image-frame {
-  overflow: hidden;
+  position: relative;
+  overflow: visible !important;
+  z-index: 3;
 }
 
 .console-image-stage {
-  overflow: hidden;
-  isolation: isolate;
+  position: relative;
+  overflow: visible !important;
+  isolation: auto !important;
+  z-index: 4;
 }
 
+/* Contain the actual screenshot without scaling it beyond the interactive
+   coordinate system. Rounded top corners replace the clipping previously
+   supplied by overflow:hidden on the parent. */
 .console-image-stage > img {
+  display: block;
   width: 100%;
   height: 100%;
   max-width: 100%;
@@ -19,8 +41,41 @@
   object-fit: contain;
   object-position: center;
   transform: none !important;
+  border-radius: 13px 13px 0 0;
 }
 
 .console-image-stage > .screen-hotspots {
   inset: 0;
+  z-index: 20;
+}
+
+.screen-hotspot {
+  z-index: 21;
+}
+
+.screen-hotspot:hover,
+.screen-hotspot:focus,
+.screen-hotspot:focus-visible {
+  z-index: 200;
+}
+
+.screen-hotspot-popover {
+  z-index: 9999;
+  max-width: min(310px, calc(100vw - 32px));
+  pointer-events: none;
+}
+
+/* Keep the caption visually below an open hotspot even though it follows the
+   image in document order. */
+.console-reference figcaption {
+  position: relative;
+  z-index: 2;
+  background: rgba(2, 10, 18, .98);
+  border-radius: 0 0 13px 13px;
+}
+
+/* Fallback for browsers without :has(): focused/hovered hotspots themselves
+   still carry a high stacking order and the parent no longer clips them. */
+@supports not selector(:has(*)) {
+  .console-reference { z-index: 20; }
 }

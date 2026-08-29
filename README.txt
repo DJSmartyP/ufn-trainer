@@ -1,39 +1,42 @@
-UFN TRAINING PORTAL — AVAILABLE DEPLOYMENTS RECORD UPDATE
-=========================================================
+UFN TRAINING PORTAL — AVAILABLE DEPLOYMENTS + OPERATIONAL PROTOCOL ICON PASS
+============================================================================
 
 Upload these files/folders over the current GitHub Pages repository:
 
 - index.html
 - deployments-records.js
 - deployments-records.css
-- assets/deployments/ (all supplied mission artwork, including campaign-light-dark.webp)
+- console-layout-fix.css
+- protocol-tidy.js
+- protocol-icons.css
+- assets/deployments/ (all mission artwork)
+- assets/protocols/ (3 new protocol SVG icon assets)
 
-WHAT THIS UPDATE DOES
+WHAT THIS UPDATE INCLUDES
+-------------------------
+- All previous Available Deployments functionality and artwork.
+- 12 standalone missions plus the redacted 6-mission Light and Dark campaign record.
+- NEW mission marker with Operation: Continuum set to expire automatically after 28 days.
+- Station console overflow / hotspot alignment fix.
+- Operational Protocols visual update:
+  * Comms Etiquette icon
+  * Escape Pod Teleportation icon
+  * Flight Commander Support icon
+  * More balanced protocol headers and record sizing
+  * Expanded Comms Etiquette guidance using existing Relay communications guidance
+
+COMMUNICATIONS UPDATE
 ---------------------
-- Adds Basic Training > Briefing > Available Deployments.
-- Shows 12 standalone missions as compact 16:9 art tiles.
-- Uses three mission tiles per row on normal landscape layouts.
-- Keeps mission briefing text hidden until a tile is opened.
-- Opens an in-world UFN Fleet Command mission record with large art, briefing, record metadata and document styling.
-- Adds Previous / Next navigation in the open record, plus left/right arrow-key navigation.
-- Shows the Light and Dark campaign as one full-width campaign record representing 6 linked campaign missions.
-- Uses the supplied Light and Dark artwork and keeps campaign details redacted.
-- Does not include an admin editor or JSON data workflow.
+The Comms Etiquette record now includes three quick checks already reflected elsewhere in the training portal:
+- confirm the selected callsign before opening communications;
+- pass decisions/new operational information to the Captain when relevant;
+- sign off before closing the communications window, which also ends active voice communications.
 
-CONTENT CHECK
--------------
-- OP01–OP12 briefing copy is unchanged from the supplied copy.
-- All 12 standalone briefings remain 140 words each.
-- No campaign mission names/details have been invented; the campaign remains deliberately redacted.
+ASSET NOTE
+----------
+The protocol icons are scalable SVG interface graphics designed specifically for this portal. They use the existing UFN cyan/gold technical visual language and remain sharp at phone, tablet and desktop sizes.
 
-NOTE
-----
-No separate mission map artwork was supplied for these records, so the detail view uses the supplied mission art only. Map panels can be added later if map assets are provided.
-
-NEW DEPLOYMENT MARKER
----------------------
-- A standalone mission can include an `added: "YYYY-MM-DD"` field in deployments-records.js.
-- The portal automatically displays a cyan NEW badge and highlighted tile border for 28 days from that date.
-- The marker disappears automatically after the 28-day window; no follow-up edit is required.
-- Operation: Continuum is currently marked with added date 2026-08-29, so its NEW state expires automatically on 2026-09-26.
-- Future missions can use the same `added` field when they are added.
+ADDITIONAL FIX — STATION ORIENTATION POPOVERS
+- Hotspot help panels are no longer clipped by the 16:9 screenshot frame.
+- Active hotspot records are promoted above captions and following sections.
+- The screenshot itself remains contained and unscaled, preserving hotspot alignment.
