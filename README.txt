@@ -40,3 +40,9 @@ ADDITIONAL FIX — STATION ORIENTATION POPOVERS
 - Hotspot help panels are no longer clipped by the 16:9 screenshot frame.
 - Active hotspot records are promoted above captions and following sections.
 - The screenshot itself remains contained and unscaled, preserving hotspot alignment.
+
+HOTSPOT TOOLTIP LAYER FIX
+- Station screenshots remain in their normal document/stacking layer at all times.
+- Only hotspot instruction popovers are rendered into a viewport-level tooltip portal.
+- Prevents bridge screenshots jumping over headers/tabs/other content on a partially scrolled page.
+- Tooltip follows its hotspot on scroll/resize and supports hover, keyboard focus and tap.
