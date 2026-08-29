@@ -1,14 +1,18 @@
-UFN TRAINING PORTAL - NAVIGATION NAME CLEANUP
+UFN TRAINING PORTAL — AVAILABLE DEPLOYMENTS UPDATE
 
-Upload these files to the repository root:
-- index.html (replace existing)
-- navigation-tidy.js (new file)
+UPLOAD ALL CONTENTS OF THIS ZIP TO THE ROOT OF THE EXISTING ufn-trainer REPOSITORY, preserving folders.
 
-Visible naming is standardised as:
-- Training Directory -> Home
-- General Briefing / General Sector Briefing -> Basic Training
-- Station pages remain grouped under STATION TRAINING
-- Home call-to-action now reads Open Basic Training
+This update adds:
+- Basic Training > Briefing > Available Deployments.
+- OP01–OP12 with the supplied mission artwork and authorised 140-word briefing copy.
+- Every mission image locked to the same 16:9 frame using centre crop (no stretching).
+- A full-width Campaign Deployment: Light and Dark tile with details redacted.
+- No admin page and no JSON data file. Future deployments can be added by updating deployments-art.js and adding the supplied artwork.
 
-Internal route names such as `home` and `general` are intentionally unchanged so existing links and application logic continue to work.
-Specific in-world references such as the Admiralty Briefing and the sector briefing dossier/intelligence packet are retained because they describe actual content rather than the navigation area.
+Files included:
+- index.html
+- deployments-art.js
+- deployments-art.css
+- assets/deployments/*.webp
+
+The existing portal files (content.js, app.js, hacking-tweaks.js, navigation-tidy.js, styles.css, etc.) remain in place and are not replaced by this patch.
