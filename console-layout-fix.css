@@ -1,0 +1,26 @@
+/* Station console containment fix
+   Keep the 16:9 screenshot and its interactive hotspot layer inside the
+   same rendered stage. The previous 1.04 image scale could bleed into the
+   caption area and also offset hotspots from the visible controls. */
+.console-image-frame {
+  overflow: hidden;
+}
+
+.console-image-stage {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.console-image-stage > img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: none !important;
+}
+
+.console-image-stage > .screen-hotspots {
+  inset: 0;
+}
