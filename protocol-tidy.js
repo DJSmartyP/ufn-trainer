@@ -9,21 +9,21 @@
     "01": {
       category: "COMMUNICATIONS",
       title: "Comms Etiquette",
-      icon: "assets/protocols/comms-etiquette.svg",
+      icon: "assets/protocols/comms-etiquette.png",
       alt: "Communications protocol icon",
       tone: "comms"
     },
     "02": {
       category: "EMERGENCY SURVIVAL",
       title: "Escape Pod Teleportation",
-      icon: "assets/protocols/escape-teleport.svg",
+      icon: "assets/protocols/escape-teleport.png",
       alt: "Emergency teleportation protocol icon",
       tone: "escape"
     },
     "03": {
       category: "FLIGHT COMMAND",
       title: "Flight Commander Support",
-      icon: "assets/protocols/flight-command.svg",
+      icon: "assets/protocols/flight-command.png",
       alt: "Flight command support protocol icon",
       tone: "command"
     }

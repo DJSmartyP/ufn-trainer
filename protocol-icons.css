@@ -1,6 +1,6 @@
-/* UFN Operational Protocols — layout pass
-   Large technology icon + title on the left, full record on the right.
-   Protocol numbers have deliberately been removed from the visual design. */
+/* UFN Operational Protocols — technology icon layout
+   Approved PNG artwork, no protocol numbers. Each protocol keeps a distinct
+   operational accent while sharing one consistent frame/layout language. */
 .protocol-manual {
   display: grid;
   gap: 14px;
@@ -9,74 +9,73 @@
 .protocol-entry {
   --protocol-accent: 88, 199, 244;
   display: grid;
-  grid-template-columns: minmax(365px, 42%) minmax(0, 1fr);
-  min-height: 300px;
+  grid-template-columns: minmax(430px, 44%) minmax(0, 1fr);
+  min-height: 310px;
   align-items: stretch;
   overflow: hidden;
 }
 
-.protocol-entry:nth-child(1) { --protocol-accent: 184, 82, 255; }
-.protocol-entry:nth-child(2) { --protocol-accent: 255, 157, 55; }
-.protocol-entry:nth-child(3) { --protocol-accent: 69, 221, 184; }
+.protocol-entry:nth-child(1) { --protocol-accent: 184, 82, 255; } /* Comms: purple */
+.protocol-entry:nth-child(2) { --protocol-accent: 255, 145, 47; } /* Escape: orange */
+.protocol-entry:nth-child(3) { --protocol-accent: 72, 224, 125; } /* Flight Command: green */
 
 .protocol-entry > header.protocol-entry-head {
   position: relative;
   display: grid;
-  grid-template-columns: clamp(128px, 12vw, 164px) minmax(0, 1fr);
-  gap: clamp(20px, 2.2vw, 30px);
+  grid-template-columns: clamp(158px, 14vw, 196px) minmax(0, 1fr);
+  gap: clamp(22px, 2.5vw, 34px);
   align-items: center;
   align-content: center;
   min-width: 0;
   min-height: 100%;
   padding: clamp(24px, 3vw, 38px);
   overflow: hidden;
-  border-right: 1px solid rgba(var(--protocol-accent), .20);
+  border-right: 1px solid rgba(var(--protocol-accent), .28);
   background:
-    radial-gradient(circle at 22% 50%, rgba(var(--protocol-accent), .14), transparent 11rem),
-    linear-gradient(145deg, rgba(7,25,39,.94), rgba(3,14,24,.91));
+    radial-gradient(circle at 22% 50%, rgba(var(--protocol-accent), .20), transparent 13rem),
+    linear-gradient(145deg, rgba(7,25,39,.97), rgba(3,14,24,.94));
 }
 
 .protocol-entry > header.protocol-entry-head::before {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
-  width: 3px;
-  background: linear-gradient(180deg, transparent, rgba(var(--protocol-accent), .9) 22%, rgba(var(--protocol-accent), .9) 78%, transparent);
-  box-shadow: 0 0 18px rgba(var(--protocol-accent), .26);
+  width: 4px;
+  background: linear-gradient(180deg, transparent, rgba(var(--protocol-accent), .98) 18%, rgba(var(--protocol-accent), .98) 82%, transparent);
+  box-shadow: 0 0 24px rgba(var(--protocol-accent), .38);
 }
 
+.protocol-entry > header.protocol-entry-head::after {
+  content: "";
+  position: absolute;
+  left: 38%;
+  right: 8%;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(var(--protocol-accent), .50), transparent);
+}
+
+/* The PNG already contains the designed technology frame. Do not put a second
+   box around it; let the artwork be the visual anchor. */
 .protocol-icon-frame {
   position: relative;
   display: grid;
   place-items: center;
-  width: clamp(128px, 12vw, 164px);
+  width: clamp(158px, 14vw, 196px);
   aspect-ratio: 1;
-  padding: clamp(15px, 1.6vw, 22px);
-  border: 1px solid rgba(var(--protocol-accent), .48);
-  border-radius: 18px;
-  background:
-    radial-gradient(circle at 50% 48%, rgba(var(--protocol-accent), .17), transparent 66%),
-    linear-gradient(145deg, rgba(4,17,30,.95), rgba(1,8,15,.96));
-  box-shadow:
-    inset 0 0 32px rgba(var(--protocol-accent), .07),
-    0 0 28px rgba(var(--protocol-accent), .08);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  filter: drop-shadow(0 14px 24px rgba(0,0,0,.30));
 }
-
-.protocol-icon-frame::after {
-  content: "";
-  position: absolute;
-  inset: 8px;
-  pointer-events: none;
-  border: 1px solid rgba(var(--protocol-accent), .12);
-  border-radius: 12px;
-}
+.protocol-icon-frame::after { content: none; }
 
 .protocol-icon {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 0 12px rgba(var(--protocol-accent), .32));
+  filter: drop-shadow(0 0 18px rgba(var(--protocol-accent), .28));
 }
 
 .protocol-entry-title {
@@ -86,13 +85,14 @@
 
 .protocol-entry-title small {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 9px;
   color: rgb(var(--protocol-accent));
   font-family: "Orbitron", "Rajdhani", sans-serif;
-  font-size: clamp(.64rem, .8vw, .74rem);
-  font-weight: 650;
+  font-size: clamp(.65rem, .8vw, .76rem);
+  font-weight: 700;
   line-height: 1.25;
-  letter-spacing: .14em;
+  letter-spacing: .15em;
+  text-shadow: 0 0 16px rgba(var(--protocol-accent), .22);
 }
 
 .protocol-entry-title h3 {
@@ -100,14 +100,15 @@
   margin: 0;
   color: var(--text);
   font-family: "Orbitron", "Rajdhani", sans-serif;
-  font-size: clamp(1.38rem, 2.15vw, 2.05rem);
+  font-size: clamp(1.32rem, 1.8vw, 1.92rem);
   font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: .005em;
+  line-height: 1.06;
+  letter-spacing: .002em;
   white-space: normal;
   overflow-wrap: normal;
   word-break: normal;
   hyphens: none;
+  text-wrap: balance;
 }
 
 .protocol-entry-body {
@@ -117,6 +118,7 @@
   min-width: 0;
   min-height: 100%;
   padding: clamp(26px, 3vw, 40px);
+  background: linear-gradient(90deg, rgba(var(--protocol-accent), .025), transparent 35%);
 }
 
 .protocol-entry-body > p,
@@ -139,53 +141,54 @@
   min-width: 0;
   margin: 0;
   padding: 11px 12px;
-  border: 1px solid rgba(var(--protocol-accent), .17);
-  border-left: 2px solid rgba(var(--protocol-accent), .66);
+  border: 1px solid rgba(var(--protocol-accent), .21);
+  border-left: 2px solid rgba(var(--protocol-accent), .78);
   border-radius: 5px;
-  background: rgba(var(--protocol-accent), .045);
+  background: rgba(var(--protocol-accent), .055);
   overflow-wrap: break-word;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1260px) {
   .protocol-entry {
-    grid-template-columns: minmax(330px, 40%) minmax(0, 1fr);
+    grid-template-columns: minmax(360px, 41%) minmax(0, 1fr);
   }
   .protocol-entry > header.protocol-entry-head {
-    grid-template-columns: 118px minmax(0, 1fr);
+    grid-template-columns: 132px minmax(0, 1fr);
     gap: 20px;
     padding: 24px;
   }
-  .protocol-icon-frame { width: 118px; }
-  .protocol-entry-title h3 { font-size: clamp(1.25rem, 2vw, 1.65rem); }
+  .protocol-icon-frame { width: 132px; }
+  .protocol-entry-title h3 { font-size: clamp(1.2rem, 1.85vw, 1.6rem); }
   .protocol-entry-body .protocol-checks { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 820px) {
+@media (max-width: 860px) {
   .protocol-entry {
     grid-template-columns: 1fr;
     min-height: 0;
   }
   .protocol-entry > header.protocol-entry-head {
-    grid-template-columns: 108px minmax(0, 1fr);
-    min-height: 154px;
+    grid-template-columns: 124px minmax(0, 1fr);
+    min-height: 168px;
     padding: 20px 22px;
     border-right: 0;
-    border-bottom: 1px solid rgba(var(--protocol-accent), .20);
+    border-bottom: 1px solid rgba(var(--protocol-accent), .28);
   }
-  .protocol-icon-frame { width: 108px; border-radius: 15px; }
-  .protocol-entry-title h3 { font-size: clamp(1.35rem, 4.4vw, 1.8rem); }
+  .protocol-entry > header.protocol-entry-head::after { left: 20%; right: 5%; }
+  .protocol-icon-frame { width: 124px; }
+  .protocol-entry-title h3 { font-size: clamp(1.35rem, 4.2vw, 1.85rem); }
   .protocol-entry-body { min-height: 0; padding: 22px; }
 }
 
 @media (max-width: 520px) {
   .protocol-entry > header.protocol-entry-head {
-    grid-template-columns: 88px minmax(0, 1fr);
-    gap: 16px;
-    min-height: 128px;
+    grid-template-columns: 100px minmax(0, 1fr);
+    gap: 15px;
+    min-height: 142px;
     padding: 16px;
   }
-  .protocol-icon-frame { width: 88px; padding: 12px; border-radius: 13px; }
+  .protocol-icon-frame { width: 100px; }
   .protocol-entry-title small { font-size: .58rem; }
-  .protocol-entry-title h3 { font-size: clamp(1.12rem, 6vw, 1.55rem); }
+  .protocol-entry-title h3 { font-size: clamp(1.08rem, 5.6vw, 1.48rem); }
   .protocol-entry-body { padding: 18px 16px; }
 }
