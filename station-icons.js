@@ -13,14 +13,14 @@
   };
 
   const icons = {
-    captain: "assets/stations/captain.png",
-    helms: "assets/stations/helms.png",
-    weapons: "assets/stations/weapons.png",
-    engineering: "assets/stations/engineering.png",
-    science: "assets/stations/science.png",
-    relay: "assets/stations/relay.png",
-    directory: "assets/stations/directory.png",
-    general: "assets/stations/general.png"
+    captain: "assets/stations/captain.webp",
+    helms: "assets/stations/helms.webp",
+    weapons: "assets/stations/weapons.webp",
+    engineering: "assets/stations/engineering.webp",
+    science: "assets/stations/science.webp",
+    relay: "assets/stations/relay.webp",
+    directory: "assets/stations/directory.webp",
+    general: "assets/stations/general.webp"
   };
 
   function iconMarkup(key) {

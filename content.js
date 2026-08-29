@@ -106,13 +106,13 @@
     </article>`;
 
   const HIDES_ART = {
-    "DRIVE LOCK": "drive-lock.png",
-    "DRIVE DECAY": "drive-decay.png",
-    "FIRE DECAY": "fire-decay.png",
-    "MISSILE SCRAMBLE": "missile-scramble.png",
-    "SHIELD COLLAPSE": "shield-collapse.png",
-    "HEAT SURGE": "heat-surge.png",
-    "GRID DECAY": "grid-decay.png"
+    "DRIVE LOCK": "drive-lock.webp",
+    "DRIVE DECAY": "drive-decay.webp",
+    "FIRE DECAY": "fire-decay.webp",
+    "MISSILE SCRAMBLE": "missile-scramble.webp",
+    "SHIELD COLLAPSE": "shield-collapse.webp",
+    "HEAT SURGE": "heat-surge.webp",
+    "GRID DECAY": "grid-decay.webp"
   };
 
   const hidesCard = (title, station, status, effectLine, summary, cleared, rows, columns) => `
@@ -126,7 +126,7 @@
         <span class="hides-expand">LEVELS I–V</span>
       </summary>
       <div class="hides-incident-body">
-        <div class="hides-visual" aria-hidden="true"><img src="assets/hides/${HIDES_ART[title] || "drive-lock.png"}" alt="" loading="eager" decoding="async" /></div>
+        <div class="hides-visual" aria-hidden="true"><img src="assets/hides/${HIDES_ART[title] || "drive-lock.webp"}" alt="" loading="eager" decoding="async" /></div>
         <div class="hides-effect-copy">${summary}${cleared ? `<div class="hides-cleared"><strong>WHEN CLEARED</strong>${cleared}</div>` : ""}</div>
         <div class="hides-level-table-wrap">
           <table class="hides-level-table">
@@ -212,7 +212,7 @@
                 <a class="button secondary" href="assets/UFN-Sector-Briefing.pdf" target="_blank" rel="noopener">Open Intelligence Packet</a>
               </div>
             </div>
-            <img src="assets/ufn-logo.jpg" alt="" class="hero-emblem" />
+            <img src="assets/ufn-logo.webp" alt="" class="hero-emblem" />
           </section>
           <section class="station-grid" aria-label="Station training modules">
             <button class="station-card captain" type="button" data-nav="captain"><span class="station-card-code station-icon-host">${stationIcon("captain")}</span><strong>Captain</strong><span>Mission direction, priorities and final tactical decisions.</span></button>
@@ -290,31 +290,31 @@
             <span class="rank-level rank-level-3">Admiralty review</span>
           </div>
           <div class="rank-grid">
-            ${rankCard("Ensign", "ensign.png", "Starting rank for all new UFN recruits.", 1)}
-            ${rankCard("Sub Lieutenant", "sub-lieutenant.png", "Promotion to this rank is at the discretion of your Flight Controller.", 1)}
-            ${rankCard("Lieutenant", "lieutenant.png", "Promotion to this rank is at the discretion of your Flight Controller.", 1)}
-            ${rankCard("Lieutenant Commander", "lieutenant-commander.png", "Admiral sign-off required for promotion to this rank.", 2, true)}
-            ${rankCard("Commander", "commander.png", "Admiral sign-off required for promotion to this rank.", 2)}
-            ${rankCard("Captain", "captain.png", "Admiralty sign-off and full review by the Admirals required.", 3, true)}
-            ${rankCard("Commodore", "commodore.png", "Admiralty sign-off and full review by the Admirals required.", 3)}
-            ${rankCard("Rear Admiral", "rear-admiral.png", "Admiralty sign-off and full review by the Admirals required.", 3)}
-            ${rankCard("Vice Admiral", "vice-admiral.png", "Admiralty sign-off and full review by the Admirals required.", 3)}
-            ${rankCard("Admiral", "admiral.png", "Admiralty sign-off and full review by the Admirals required.", 3)}
+            ${rankCard("Ensign", "ensign.webp", "Starting rank for all new UFN recruits.", 1)}
+            ${rankCard("Sub Lieutenant", "sub-lieutenant.webp", "Promotion to this rank is at the discretion of your Flight Controller.", 1)}
+            ${rankCard("Lieutenant", "lieutenant.webp", "Promotion to this rank is at the discretion of your Flight Controller.", 1)}
+            ${rankCard("Lieutenant Commander", "lieutenant-commander.webp", "Admiral sign-off required for promotion to this rank.", 2, true)}
+            ${rankCard("Commander", "commander.webp", "Admiral sign-off required for promotion to this rank.", 2)}
+            ${rankCard("Captain", "captain.webp", "Admiralty sign-off and full review by the Admirals required.", 3, true)}
+            ${rankCard("Commodore", "commodore.webp", "Admiralty sign-off and full review by the Admirals required.", 3)}
+            ${rankCard("Rear Admiral", "rear-admiral.webp", "Admiralty sign-off and full review by the Admirals required.", 3)}
+            ${rankCard("Vice Admiral", "vice-admiral.webp", "Admiralty sign-off and full review by the Admirals required.", 3)}
+            ${rankCard("Admiral", "admiral.webp", "Admiralty sign-off and full review by the Admirals required.", 3)}
           </div>
         `},
         { id: "medals", label: "Medals of Service", content: `
           <div class="section-heading"><span class="micro-label">FLEET PERSONNEL // DECORATIONS</span><h2>Medals of Service</h2><p>Select a decoration to open its Fleet Personnel citation record.</p></div>
           <div class="medal-grid" aria-label="UFN medals of service">
-            ${medalCard("command", "Star of Command", "star-of-command.png", "Awarded for exceptional leadership under pressure. Presented to officers who demonstrate decisive judgement, inspire confidence in their crew, and maintain effective command when circumstances demand clarity, courage and responsibility.")}
-            ${medalCard("flight", "Citation for Flight Excellence", "flight-excellence.png", "Recognises outstanding helm control and flight performance. Presented for exceptional skill in navigation, manoeuvring and ship handling, particularly where precision, judgement and control have contributed significantly to mission success.")}
-            ${medalCard("gunnery", "Tactical Gunnery Cross", "tactical-gunnery.png", "Awarded for precision, effectiveness and courage in combat. Recognises exceptional weapons performance where disciplined targeting, tactical judgement and decisive action have made a significant contribution to the protection of the crew or successful completion of a mission.")}
-            ${medalCard("engineering", "Engineering Merit Medal", "engineering-merit.png", "Recognises exceptional technical skill and engineering service. Presented to personnel whose management of ship systems, power, damage or repairs has demonstrated outstanding ability and materially contributed to the survival or effectiveness of their vessel.")}
-            ${medalCard("science", "Medal for Scientific Distinction", "scientific-distinction.png", "Awarded for outstanding scientific insight and analysis. Recognises personnel whose scanning, investigation or interpretation of scientific information has uncovered critical intelligence, solved a significant problem or directly contributed to mission success.")}
-            ${medalCard("comms", "Fleet Communications Citation", "fleet-communications.png", "Recognises excellence in relay, coordination and communications support. Presented for exceptional management of information, communications and fleet coordination, ensuring that vital intelligence reaches the right people and that crews remain connected during demanding operations.")}
-            ${medalCard("diplomacy", "Diplomatic Service Citation", "diplomatic-service.png", "Awarded for distinction in negotiation, diplomacy and peaceful resolution. Recognises personnel whose communication, judgement and restraint have strengthened relations, resolved conflict or achieved an operational objective without unnecessary escalation.")}
-            ${medalCard("achievement", "Medal for Superior Achievement", "superior-achievement.png", "Recognises exceptional performance beyond normal duty expectations. Presented to personnel whose initiative, skill or determination has produced an outstanding result and whose contribution represents a particularly notable example of service to the United Federated Navy.")}
-            ${medalCard("smarty", "The Smarty Special Medal", "smarty-special.png", "For a plan that definitely made sense... briefly. Presented to those who committed to a course of action that felt clever in the moment and questionable immediately after. A celebration of optimism over outcomes.")}
-            ${medalCard("light-dark", "Light and Dark Campaign Medal", "light-dark-campaign.png", "Award citation and associated operational record withheld by order of UFN Intelligence. Access to further information requires appropriate security clearance.", true)}
+            ${medalCard("command", "Star of Command", "star-of-command.webp", "Awarded for exceptional leadership under pressure. Presented to officers who demonstrate decisive judgement, inspire confidence in their crew, and maintain effective command when circumstances demand clarity, courage and responsibility.")}
+            ${medalCard("flight", "Citation for Flight Excellence", "flight-excellence.webp", "Recognises outstanding helm control and flight performance. Presented for exceptional skill in navigation, manoeuvring and ship handling, particularly where precision, judgement and control have contributed significantly to mission success.")}
+            ${medalCard("gunnery", "Tactical Gunnery Cross", "tactical-gunnery.webp", "Awarded for precision, effectiveness and courage in combat. Recognises exceptional weapons performance where disciplined targeting, tactical judgement and decisive action have made a significant contribution to the protection of the crew or successful completion of a mission.")}
+            ${medalCard("engineering", "Engineering Merit Medal", "engineering-merit.webp", "Recognises exceptional technical skill and engineering service. Presented to personnel whose management of ship systems, power, damage or repairs has demonstrated outstanding ability and materially contributed to the survival or effectiveness of their vessel.")}
+            ${medalCard("science", "Medal for Scientific Distinction", "scientific-distinction.webp", "Awarded for outstanding scientific insight and analysis. Recognises personnel whose scanning, investigation or interpretation of scientific information has uncovered critical intelligence, solved a significant problem or directly contributed to mission success.")}
+            ${medalCard("comms", "Fleet Communications Citation", "fleet-communications.webp", "Recognises excellence in relay, coordination and communications support. Presented for exceptional management of information, communications and fleet coordination, ensuring that vital intelligence reaches the right people and that crews remain connected during demanding operations.")}
+            ${medalCard("diplomacy", "Diplomatic Service Citation", "diplomatic-service.webp", "Awarded for distinction in negotiation, diplomacy and peaceful resolution. Recognises personnel whose communication, judgement and restraint have strengthened relations, resolved conflict or achieved an operational objective without unnecessary escalation.")}
+            ${medalCard("achievement", "Medal for Superior Achievement", "superior-achievement.webp", "Recognises exceptional performance beyond normal duty expectations. Presented to personnel whose initiative, skill or determination has produced an outstanding result and whose contribution represents a particularly notable example of service to the United Federated Navy.")}
+            ${medalCard("smarty", "The Smarty Special Medal", "smarty-special.webp", "For a plan that definitely made sense... briefly. Presented to those who committed to a course of action that felt clever in the moment and questionable immediately after. A celebration of optimism over outcomes.")}
+            ${medalCard("light-dark", "Light and Dark Campaign Medal", "light-dark-campaign.webp", "Award citation and associated operational record withheld by order of UFN Intelligence. Access to further information requires appropriate security clearance.", true)}
           </div>
           <dialog class="medal-dialog" id="medal-dossier" aria-labelledby="medal-dialog-title">
             <div class="medal-dialog-shell">
@@ -333,19 +333,19 @@
           <div class="section-heading"><span class="micro-label">SECTION I</span><h2>Allied Forces</h2><p>Friendly organisations operating across human space and the frontier. Select a faction tile to open its intelligence record.</p></div>
           <div class="intel-tile-grid" aria-label="Allied faction intelligence">
             <button class="intel-tile ally" type="button" data-intel-target="intel-ufn" aria-haspopup="dialog">
-              <span class="intel-tile-media"><img src="assets/factions/ufn-allied.png" alt="United Federated Navy emblem" loading="eager" decoding="async" /></span>
+              <span class="intel-tile-media"><img src="assets/factions/ufn-allied.webp" alt="United Federated Navy emblem" loading="eager" decoding="async" /></span>
               <span class="intel-tile-copy"><strong>United Federated Navy</strong><small>Primary human military power</small><span>OPEN INTELLIGENCE RECORD</span></span>
             </button>
             <button class="intel-tile ally" type="button" data-intel-target="intel-tsn" aria-haspopup="dialog">
-              <span class="intel-tile-media"><img src="assets/factions/tsn.png" alt="Terran Space Navy emblem" loading="eager" decoding="async" /></span>
+              <span class="intel-tile-media"><img src="assets/factions/tsn.webp" alt="Terran Space Navy emblem" loading="eager" decoding="async" /></span>
               <span class="intel-tile-copy"><strong>Terran Space Navy</strong><small>Earth-Moon defence force</small><span>OPEN INTELLIGENCE RECORD</span></span>
             </button>
             <button class="intel-tile ally" type="button" data-intel-target="intel-cuf" aria-haspopup="dialog">
-              <span class="intel-tile-media"><img src="assets/factions/cuf.png" alt="Commonwealth United Forces emblem" loading="eager" decoding="async" /></span>
+              <span class="intel-tile-media"><img src="assets/factions/cuf.webp" alt="Commonwealth United Forces emblem" loading="eager" decoding="async" /></span>
               <span class="intel-tile-copy"><strong>Commonwealth United Forces</strong><small>Coalition security and convoy defence</small><span>OPEN INTELLIGENCE RECORD</span></span>
             </button>
             <button class="intel-tile ally" type="button" data-intel-target="intel-itg" aria-haspopup="dialog">
-              <span class="intel-tile-media"><img src="assets/factions/itg.png" alt="Independent Traders Guild emblem" loading="eager" decoding="async" /></span>
+              <span class="intel-tile-media"><img src="assets/factions/itg.webp" alt="Independent Traders Guild emblem" loading="eager" decoding="async" /></span>
               <span class="intel-tile-copy"><strong>Independent Traders Guild</strong><small>Civilian trade organisation</small><span>OPEN INTELLIGENCE RECORD</span></span>
             </button>
           </div>
@@ -358,9 +358,9 @@
         { id: "threats", label: "Hostile Entities", content: `
           <div class="section-heading"><span class="micro-label danger-text">SECTION II</span><h2>Hostile Entities</h2><p>Threat ratings and assessments reflect the restricted sector briefing packet. Select a faction tile to open its intelligence record.</p></div>
           <div class="intel-tile-grid hostile-grid" aria-label="Hostile faction intelligence">
-            <button class="intel-tile hostile" type="button" data-intel-target="intel-umbra" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/umbra.png" alt="Umbra Corp emblem" loading="eager" decoding="async" /></span><span class="intel-tile-copy"><strong>Umbra Corp</strong><small>Threat level: Minor</small><span>OPEN THREAT RECORD</span></span></button>
-            <button class="intel-tile hostile ghost" type="button" data-intel-target="intel-ghosts" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/ghosts.png" alt="Ghosts emblem" loading="eager" decoding="async" /></span><span class="intel-tile-copy"><strong>Ghosts</strong><small>Threat level: Minor</small><span>OPEN THREAT RECORD</span></span></button>
-            <button class="intel-tile hostile axis" type="button" data-intel-target="intel-axis" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/axis.png" alt="AXIS Project emblem" loading="eager" decoding="async" /></span><span class="intel-tile-copy"><strong>AXIS Project</strong><small>Threat level: Major</small><span>OPEN THREAT RECORD</span></span></button>
+            <button class="intel-tile hostile" type="button" data-intel-target="intel-umbra" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/umbra.webp" alt="Umbra Corp emblem" loading="eager" decoding="async" /></span><span class="intel-tile-copy"><strong>Umbra Corp</strong><small>Threat level: Minor</small><span>OPEN THREAT RECORD</span></span></button>
+            <button class="intel-tile hostile ghost" type="button" data-intel-target="intel-ghosts" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/ghosts.webp" alt="Ghosts emblem" loading="eager" decoding="async" /></span><span class="intel-tile-copy"><strong>Ghosts</strong><small>Threat level: Minor</small><span>OPEN THREAT RECORD</span></span></button>
+            <button class="intel-tile hostile axis" type="button" data-intel-target="intel-axis" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/axis.webp" alt="AXIS Project emblem" loading="eager" decoding="async" /></span><span class="intel-tile-copy"><strong>AXIS Project</strong><small>Threat level: Major</small><span>OPEN THREAT RECORD</span></span></button>
           </div>
           <div class="intel-record-data" id="intel-umbra" hidden><span class="classification danger-text">HOSTILE ENTITY // THREAT: MINOR</span><h3>Umbra Corp</h3><div class="intel-record-body"><div><h4>Overview</h4><p>Umbra Corporation is a powerful private megacorporation with significant commercial influence across human space. Alongside industrial development, resource extraction and infrastructure construction, it maintains one of the largest privately controlled security fleets operating beyond core systems.</p><h4>Corporate structure</h4><ul><li>Resource extraction operations</li><li>Weapons and security technology development</li><li>Private security fleet operations</li><li>Experimental research divisions</li></ul></div><div><h4>Private fleet capabilities</h4><ul><li>Heavily armed corporate patrol ships</li><li>Rapid-response escort frigates</li><li>Industrial defence platforms</li><li>Contracted private military task groups</li></ul><h4>Strategic interests</h4><p>Long-term focus on profitable industrial expansion. Intelligence reports identify advanced artificial-intelligence experimentation; classified research is believed to have contributed to the groundwork that eventually resulted in the AXIS Project.</p><h4>Current priorities</h4><p>Monitor security-fleet expansion, AI experimentation programmes and corporate activity near developing frontier colonies.</p></div></div></div>
           <div class="intel-record-data" id="intel-ghosts" hidden><span class="classification danger-text">HOSTILE ENTITY // THREAT: MINOR</span><h3>Ghosts</h3><div class="intel-record-body"><div><h4>Overview</h4><p>The Ghosts are a loosely organised pirate network operating throughout frontier space. Unlike traditional pirate groups, they rely heavily on electronic warfare and cyber intrusion to disable or compromise target vessels before attacking. Decentralised cells operate independently while sharing information through encrypted channels.</p><h4>Operational methods</h4><ul><li>Remote system intrusion and hacking</li><li>Disabling ship propulsion and weapons systems</li><li>Ambush attacks against isolated vessels</li><li>Rapid raids on lightly defended cargo convoys</li></ul></div><div><h4>Fleet characteristics</h4><ul><li>Heavily modified civilian ships</li><li>Captured military vessels</li><li>Stolen or salvaged equipment</li><li>Improvised electronic-warfare platforms</li></ul><h4>Threat assessment</h4><p>A persistent threat to commercial shipping and frontier settlements. Their cyber-intrusion capability allows small cells to challenge vessels far larger than their own.</p><h4>Current priorities</h4><p>Increased Ghost activity has been identified along trade routes supplying frontier colonies; joint patrol operations have been expanded.</p></div></div></div>
@@ -441,12 +441,12 @@
             <p>Most standard supply drops can carry <strong>up to three payload categories at once</strong>. Tell the station or Flight Commander which modules the crew requires. A UFN support craft will travel to your ship, then eject a self-propelled supply package which flies the final distance under its own power.</p>
           </div>
           <div class="payload-grid">
-            ${payloadCard("Weapons", "2 Nukes • 4 EMPs • 4 Mines • 10 HVLI • 6 Homing", "Added directly to the ship's weapon storage when the payload is collected.", "weapons.png")}
-            ${payloadCard("Energy", "500 energy", "Added to the ship's current energy reserve on pickup.", "energy.png")}
-            ${payloadCard("Repair", "50% hull repair", "Restores hull integrity by up to 50% of the ship's maximum hull.", "repair.png")}
-            ${payloadCard("Probes", "3 scan probes", "Adds three probes to the ship's available scan-probe stock.", "probes.png")}
-            ${payloadCard("Repair Drone", "1 repair drone", "Adds +1 to the ship's repair crew / repair drone capacity.", "repair-drone.png")}
-            ${payloadCard("Coolant", "+2 coolant capacity", "Adds +2 to the ship's maximum simultaneous coolant capacity.", "coolant.png")}
+            ${payloadCard("Weapons", "2 Nukes • 4 EMPs • 4 Mines • 10 HVLI • 6 Homing", "Added directly to the ship's weapon storage when the payload is collected.", "weapons.webp")}
+            ${payloadCard("Energy", "500 energy", "Added to the ship's current energy reserve on pickup.", "energy.webp")}
+            ${payloadCard("Repair", "50% hull repair", "Restores hull integrity by up to 50% of the ship's maximum hull.", "repair.webp")}
+            ${payloadCard("Probes", "3 scan probes", "Adds three probes to the ship's available scan-probe stock.", "probes.webp")}
+            ${payloadCard("Repair Drone", "1 repair drone", "Adds +1 to the ship's repair crew / repair drone capacity.", "repair-drone.webp")}
+            ${payloadCard("Coolant", "+2 coolant capacity", "Adds +2 to the ship's maximum simultaneous coolant capacity.", "coolant.webp")}
           </div>
           ${supportFlow("Requesting a supply drop", [
             "Relay opens communications with any UFN station or contacts the Flight Commander and requests a supply drop.",
@@ -564,7 +564,7 @@
           </div>
         `},
         { id: "console", label: "Console Orientation", content: `
-          ${screenReference("Helms", "assets/screens/helms.png", "Helms bridge console showing energy, heading and speed readouts; impulse, warp and jump controls; short-range radar; docking and combat manoeuvre controls.")}
+          ${screenReference("Helms", "assets/screens/helms.webp", "Helms bridge console showing energy, heading and speed readouts; impulse, warp and jump controls; short-range radar; docking and combat manoeuvre controls.")}
           ${playFlow("From order to movement", [
             "Identify where the Captain wants the ship to go. Use Relay waypoints when provided; otherwise use the radar and the requested bearing or contact.",
             "Set the heading by pressing or dragging on the short-range radar. Watch the Heading readout to confirm the ship is turning to the intended course.",
@@ -666,7 +666,7 @@
           </div>
         `},
         { id: "console", label: "Console Orientation", content: `
-          ${screenReference("Weapons", "assets/screens/weapons.png", "Weapons bridge console showing energy and shields, missile inventory and tubes, short-range radar, target lock, beam information, frequency and shield controls.")}
+          ${screenReference("Weapons", "assets/screens/weapons.webp", "Weapons bridge console showing energy and shields, missile inventory and tubes, short-range radar, target lock, beam information, frequency and shield controls.")}
           ${playFlow("From target to firing solution", [
             "Select the contact the Captain wants engaged on the short-range radar. Confirm you are attacking the correct contact before loading or firing anything destructive.",
             "For missiles, choose the required ordnance, load a compatible tube and wait for loading to complete. Tell Helms if the tube needs the ship turned to create a clean firing direction.",
@@ -783,7 +783,7 @@
           </div>
         `},
         { id: "console", label: "Console Orientation", content: `
-          ${screenReference("Engineering", "assets/screens/engineering.png", "Engineering bridge console showing ship status, damage-control deck plan, system power rows, heat and coolant controls, and H.I.D.E.S. status.")}
+          ${screenReference("Engineering", "assets/screens/engineering.webp", "Engineering bridge console showing ship status, damage-control deck plan, system power rows, heat and coolant controls, and H.I.D.E.S. status.")}
           ${playFlow("Keep the ship effective", [
             "Start by reading the energy trend, hull, shields and system rows. Identify the one problem that will matter most to the crew right now.",
             "Select the system that needs help and adjust power. Use 100% as the normal baseline; overpower only when the extra output is worth the additional heat and energy cost.",
@@ -877,7 +877,7 @@
           </div>
         `},
         { id: "console", label: "Console Orientation", content: `
-          ${screenReference("Science", "assets/screens/science.png", "Science bridge console showing long-range radar, contacts, target scan information, Probe View, Radar and Database controls, and radar zoom.")}
+          ${screenReference("Science", "assets/screens/science.webp", "Science bridge console showing long-range radar, contacts, target scan information, Probe View, Radar and Database controls, and radar zoom.")}
           ${playFlow("Turn contacts into useful information", [
             "Continuously read the long-range radar and report meaningful changes: new contacts, disappearing contacts, hazards, nebula blind spots or activity near the ship's route.",
             "Select an unknown contact on the radar. Before scanning, give Captain a quick location report if the contact is relevant: bearing, distance and whether it is closing or moving away.",
@@ -965,7 +965,7 @@
           </div>
         `},
         { id: "console", label: "Console Orientation", content: `
-          ${screenReference("Relay", "assets/screens/relay.png", "Relay bridge console showing the sector map, communications and hacking controls, waypoints, probe controls, mission clock, Flight Commander contact and alert level.")}
+          ${screenReference("Relay", "assets/screens/relay.webp", "Relay bridge console showing the sector map, communications and hacking controls, waypoints, probe controls, mission clock, Flight Commander contact and alert level.")}
           ${playFlow("Connect the crew to the sector", [
             "Keep the sector map on the mission area and watch for contacts, hazards, waypoints and changes in friendly sensor coverage.",
             "When the crew needs to travel, place a waypoint or route and tell Helms which waypoint to follow. Move or delete waypoints when the plan changes.",

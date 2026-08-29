@@ -60,3 +60,10 @@ This project has no build step. Push the repository, enable GitHub Pages, and de
 - Portal artwork now loads eagerly rather than relying on browser lazy-loading.
 - Portrait/landscape changes trigger a recovery check for any image that did not complete loading.
 - No visual layout or asset changes were made.
+
+
+## Asset performance pass — 29 Aug 2026
+- Converted display artwork to WebP and resized oversized sources to realistic high-DPI display dimensions.
+- Preserved full 1920×1080 console screenshot dimensions with high-quality WebP compression.
+- Retained eager loading and orientation recovery.
+- Removed superseded PNG/JPG copies from the deployment package.
