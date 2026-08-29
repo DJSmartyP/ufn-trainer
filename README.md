@@ -54,3 +54,9 @@ This project has no build step. Push the repository, enable GitHub Pages, and de
 ## Latest update
 - Intelligence tiles now open logo-led dossier popups for Allied Forces and Hostile Entities.
 - Anomalous Contacts use the same dossier layout with a REDACTED visual instead of a faction logo.
+
+
+## 2026-08-29 orientation image fix
+- Portal artwork now loads eagerly rather than relying on browser lazy-loading.
+- Portrait/landscape changes trigger a recovery check for any image that did not complete loading.
+- No visual layout or asset changes were made.

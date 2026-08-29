@@ -61,7 +61,7 @@
     <figure class="console-reference">
       <div class="console-image-frame">
         <div class="console-image-stage interactive-console-frame">
-          <img src="${src}" alt="${alt}" loading="lazy" />
+          <img src="${src}" alt="${alt}" loading="eager" decoding="async" />
           <div class="screen-hotspots" aria-label="Interactive ${station} console guide">
             ${hotspots.map(([label,x,y,w,h,text]) => {
               const pad = 2.25;
@@ -81,7 +81,7 @@
     </figure>`;
   };
 
-  const factionMark = (src, alt, variant = "") => `<span class="faction-mark ${variant}"><img src="${src}" alt="${alt}" loading="lazy" /></span>`;
+  const factionMark = (src, alt, variant = "") => `<span class="faction-mark ${variant}"><img src="${src}" alt="${alt}" loading="eager" decoding="async" /></span>`;
 
   const infoCard = (title, body, tone = "") => `
     <article class="info-card ${tone}">
@@ -126,7 +126,7 @@
         <span class="hides-expand">LEVELS I–V</span>
       </summary>
       <div class="hides-incident-body">
-        <div class="hides-visual" aria-hidden="true"><img src="assets/hides/${HIDES_ART[title] || "drive-lock.png"}" alt="" loading="lazy" /></div>
+        <div class="hides-visual" aria-hidden="true"><img src="assets/hides/${HIDES_ART[title] || "drive-lock.png"}" alt="" loading="eager" decoding="async" /></div>
         <div class="hides-effect-copy">${summary}${cleared ? `<div class="hides-cleared"><strong>WHEN CLEARED</strong>${cleared}</div>` : ""}</div>
         <div class="hides-level-table-wrap">
           <table class="hides-level-table">
@@ -139,7 +139,7 @@
 
   const payloadCard = (name, contents, effect, image) => `
     <article class="payload-card">
-      <div class="payload-visual"><img src="assets/supplies/${image}" alt="${name} supply module" loading="lazy" /></div>
+      <div class="payload-visual"><img src="assets/supplies/${image}" alt="${name} supply module" loading="eager" decoding="async" /></div>
       <div class="payload-card-copy">
         <span class="control-type">SUPPLY MODULE</span>
         <h3>${name}</h3>
@@ -150,7 +150,7 @@
 
   const rankCard = (name, image, note = "", tier = 1, tierStart = false) => `
     <article class="rank-card rank-tier-${tier}${tierStart ? " rank-tier-start" : ""}">
-      <div class="rank-insignia-frame"><img src="assets/ranks/${image}" alt="${name} rank insignia" loading="lazy" /></div>
+      <div class="rank-insignia-frame"><img src="assets/ranks/${image}" alt="${name} rank insignia" loading="eager" decoding="async" /></div>
       <div class="rank-card-copy">
         <span class="control-type">UFN OFFICER RANK</span>
         <h3>${name}</h3>
@@ -160,7 +160,7 @@
 
   const medalCard = (id, name, image, description, restricted = false) => `
     <button class="medal-card${restricted ? " medal-card-restricted" : ""}" type="button" data-medal-id="${id}" data-medal-restricted="${restricted ? "true" : "false"}">
-      <span class="medal-art-frame"><img src="assets/medals/${image}" alt="${name}" loading="lazy" /></span>
+      <span class="medal-art-frame"><img src="assets/medals/${image}" alt="${name}" loading="eager" decoding="async" /></span>
       <span class="medal-card-copy">
         <span class="medal-card-kicker">SERVICE DECORATION</span>
         <strong>${name}</strong>
@@ -333,19 +333,19 @@
           <div class="section-heading"><span class="micro-label">SECTION I</span><h2>Allied Forces</h2><p>Friendly organisations operating across human space and the frontier. Select a faction tile to open its intelligence record.</p></div>
           <div class="intel-tile-grid" aria-label="Allied faction intelligence">
             <button class="intel-tile ally" type="button" data-intel-target="intel-ufn" aria-haspopup="dialog">
-              <span class="intel-tile-media"><img src="assets/factions/ufn-allied.png" alt="United Federated Navy emblem" loading="lazy" /></span>
+              <span class="intel-tile-media"><img src="assets/factions/ufn-allied.png" alt="United Federated Navy emblem" loading="eager" decoding="async" /></span>
               <span class="intel-tile-copy"><strong>United Federated Navy</strong><small>Primary human military power</small><span>OPEN INTELLIGENCE RECORD</span></span>
             </button>
             <button class="intel-tile ally" type="button" data-intel-target="intel-tsn" aria-haspopup="dialog">
-              <span class="intel-tile-media"><img src="assets/factions/tsn.png" alt="Terran Space Navy emblem" loading="lazy" /></span>
+              <span class="intel-tile-media"><img src="assets/factions/tsn.png" alt="Terran Space Navy emblem" loading="eager" decoding="async" /></span>
               <span class="intel-tile-copy"><strong>Terran Space Navy</strong><small>Earth-Moon defence force</small><span>OPEN INTELLIGENCE RECORD</span></span>
             </button>
             <button class="intel-tile ally" type="button" data-intel-target="intel-cuf" aria-haspopup="dialog">
-              <span class="intel-tile-media"><img src="assets/factions/cuf.png" alt="Commonwealth United Forces emblem" loading="lazy" /></span>
+              <span class="intel-tile-media"><img src="assets/factions/cuf.png" alt="Commonwealth United Forces emblem" loading="eager" decoding="async" /></span>
               <span class="intel-tile-copy"><strong>Commonwealth United Forces</strong><small>Coalition security and convoy defence</small><span>OPEN INTELLIGENCE RECORD</span></span>
             </button>
             <button class="intel-tile ally" type="button" data-intel-target="intel-itg" aria-haspopup="dialog">
-              <span class="intel-tile-media"><img src="assets/factions/itg.png" alt="Independent Traders Guild emblem" loading="lazy" /></span>
+              <span class="intel-tile-media"><img src="assets/factions/itg.png" alt="Independent Traders Guild emblem" loading="eager" decoding="async" /></span>
               <span class="intel-tile-copy"><strong>Independent Traders Guild</strong><small>Civilian trade organisation</small><span>OPEN INTELLIGENCE RECORD</span></span>
             </button>
           </div>
@@ -358,9 +358,9 @@
         { id: "threats", label: "Hostile Entities", content: `
           <div class="section-heading"><span class="micro-label danger-text">SECTION II</span><h2>Hostile Entities</h2><p>Threat ratings and assessments reflect the restricted sector briefing packet. Select a faction tile to open its intelligence record.</p></div>
           <div class="intel-tile-grid hostile-grid" aria-label="Hostile faction intelligence">
-            <button class="intel-tile hostile" type="button" data-intel-target="intel-umbra" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/umbra.png" alt="Umbra Corp emblem" loading="lazy" /></span><span class="intel-tile-copy"><strong>Umbra Corp</strong><small>Threat level: Minor</small><span>OPEN THREAT RECORD</span></span></button>
-            <button class="intel-tile hostile ghost" type="button" data-intel-target="intel-ghosts" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/ghosts.png" alt="Ghosts emblem" loading="lazy" /></span><span class="intel-tile-copy"><strong>Ghosts</strong><small>Threat level: Minor</small><span>OPEN THREAT RECORD</span></span></button>
-            <button class="intel-tile hostile axis" type="button" data-intel-target="intel-axis" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/axis.png" alt="AXIS Project emblem" loading="lazy" /></span><span class="intel-tile-copy"><strong>AXIS Project</strong><small>Threat level: Major</small><span>OPEN THREAT RECORD</span></span></button>
+            <button class="intel-tile hostile" type="button" data-intel-target="intel-umbra" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/umbra.png" alt="Umbra Corp emblem" loading="eager" decoding="async" /></span><span class="intel-tile-copy"><strong>Umbra Corp</strong><small>Threat level: Minor</small><span>OPEN THREAT RECORD</span></span></button>
+            <button class="intel-tile hostile ghost" type="button" data-intel-target="intel-ghosts" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/ghosts.png" alt="Ghosts emblem" loading="eager" decoding="async" /></span><span class="intel-tile-copy"><strong>Ghosts</strong><small>Threat level: Minor</small><span>OPEN THREAT RECORD</span></span></button>
+            <button class="intel-tile hostile axis" type="button" data-intel-target="intel-axis" aria-haspopup="dialog"><span class="intel-tile-media"><img src="assets/factions/axis.png" alt="AXIS Project emblem" loading="eager" decoding="async" /></span><span class="intel-tile-copy"><strong>AXIS Project</strong><small>Threat level: Major</small><span>OPEN THREAT RECORD</span></span></button>
           </div>
           <div class="intel-record-data" id="intel-umbra" hidden><span class="classification danger-text">HOSTILE ENTITY // THREAT: MINOR</span><h3>Umbra Corp</h3><div class="intel-record-body"><div><h4>Overview</h4><p>Umbra Corporation is a powerful private megacorporation with significant commercial influence across human space. Alongside industrial development, resource extraction and infrastructure construction, it maintains one of the largest privately controlled security fleets operating beyond core systems.</p><h4>Corporate structure</h4><ul><li>Resource extraction operations</li><li>Weapons and security technology development</li><li>Private security fleet operations</li><li>Experimental research divisions</li></ul></div><div><h4>Private fleet capabilities</h4><ul><li>Heavily armed corporate patrol ships</li><li>Rapid-response escort frigates</li><li>Industrial defence platforms</li><li>Contracted private military task groups</li></ul><h4>Strategic interests</h4><p>Long-term focus on profitable industrial expansion. Intelligence reports identify advanced artificial-intelligence experimentation; classified research is believed to have contributed to the groundwork that eventually resulted in the AXIS Project.</p><h4>Current priorities</h4><p>Monitor security-fleet expansion, AI experimentation programmes and corporate activity near developing frontier colonies.</p></div></div></div>
           <div class="intel-record-data" id="intel-ghosts" hidden><span class="classification danger-text">HOSTILE ENTITY // THREAT: MINOR</span><h3>Ghosts</h3><div class="intel-record-body"><div><h4>Overview</h4><p>The Ghosts are a loosely organised pirate network operating throughout frontier space. Unlike traditional pirate groups, they rely heavily on electronic warfare and cyber intrusion to disable or compromise target vessels before attacking. Decentralised cells operate independently while sharing information through encrypted channels.</p><h4>Operational methods</h4><ul><li>Remote system intrusion and hacking</li><li>Disabling ship propulsion and weapons systems</li><li>Ambush attacks against isolated vessels</li><li>Rapid raids on lightly defended cargo convoys</li></ul></div><div><h4>Fleet characteristics</h4><ul><li>Heavily modified civilian ships</li><li>Captured military vessels</li><li>Stolen or salvaged equipment</li><li>Improvised electronic-warfare platforms</li></ul><h4>Threat assessment</h4><p>A persistent threat to commercial shipping and frontier settlements. Their cyber-intrusion capability allows small cells to challenge vessels far larger than their own.</p><h4>Current priorities</h4><p>Increased Ghost activity has been identified along trade routes supplying frontier colonies; joint patrol operations have been expanded.</p></div></div></div>

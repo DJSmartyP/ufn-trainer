@@ -16,6 +16,37 @@
   let hackingController = null;
   let scanController = null;
 
+  function preparePortalImages(root = document) {
+    root.querySelectorAll("img").forEach(img => {
+      img.loading = "eager";
+      img.decoding = "async";
+    });
+  }
+
+  let lastViewportOrientation = window.innerWidth >= window.innerHeight ? "landscape" : "portrait";
+  let imageRecoveryTimer = null;
+
+  function recoverImagesAfterOrientationChange() {
+    window.clearTimeout(imageRecoveryTimer);
+    imageRecoveryTimer = window.setTimeout(() => {
+      preparePortalImages(document);
+      document.querySelectorAll("img").forEach(img => {
+        if (img.complete && img.naturalWidth > 0) return;
+        const source = img.getAttribute("src");
+        if (!source) return;
+        img.removeAttribute("src");
+        requestAnimationFrame(() => img.setAttribute("src", source));
+      });
+    }, 180);
+  }
+
+  function checkViewportOrientation() {
+    const nextOrientation = window.innerWidth >= window.innerHeight ? "landscape" : "portrait";
+    if (nextOrientation === lastViewportOrientation) return;
+    lastViewportOrientation = nextOrientation;
+    recoverImagesAfterOrientationChange();
+  }
+
   function parseHash() {
     const raw = location.hash.replace(/^#\/?/, "");
     if (!raw) return { route: "home", tab: null };
@@ -104,6 +135,7 @@
       <section class="tab-panel" data-panel="${panel.id}">${panel.content}</section>
     `;
 
+    preparePortalImages(els.content);
     bindTabs(page);
     initialisePanel(route, validTab);
     els.content.focus({ preventScroll: true });
@@ -540,6 +572,13 @@
   document.addEventListener("click", navHandler);
   els.menu.addEventListener("click", () => els.sidebar.classList.contains("open") ? closeNav() : openNav());
   els.scrim.addEventListener("click", closeNav);
+  window.addEventListener("resize", checkViewportOrientation, { passive: true });
+  window.addEventListener("orientationchange", recoverImagesAfterOrientationChange, { passive: true });
+  if (window.screen?.orientation?.addEventListener) {
+    window.screen.orientation.addEventListener("change", recoverImagesAfterOrientationChange);
+  }
+  preparePortalImages(document);
+
   window.addEventListener("hashchange", renderFromHash);
   if (!location.hash) history.replaceState(null, "", "#/home");
   renderFromHash();
