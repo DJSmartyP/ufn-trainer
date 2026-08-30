@@ -1,0 +1,215 @@
+/* UFN station/header alignment pass
+   Keeps Captain's unique command content, but gives all six station pages the
+   same outer geometry and tab treatment. Also extends the enlarged page icon
+   system to Home and Basic Training. */
+
+:root {
+  --ufn-page-icon-min: 88px;
+  --ufn-page-icon-fluid: 7vw;
+  --ufn-page-icon-max: 118px;
+}
+
+/* ---------- Common page-header geometry ---------- */
+:is(
+  body[data-route="home"],
+  body[data-route="general"],
+  body[data-route="captain"],
+  body[data-route="helms"],
+  body[data-route="weapons"],
+  body[data-route="engineering"],
+  body[data-route="science"],
+  body[data-route="relay"]
+) .page-head {
+  align-items: center;
+}
+
+:is(
+  body[data-route="home"],
+  body[data-route="general"],
+  body[data-route="captain"],
+  body[data-route="helms"],
+  body[data-route="weapons"],
+  body[data-route="engineering"],
+  body[data-route="science"],
+  body[data-route="relay"]
+) .page-head > div:first-child {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/* Same physical identity-icon frame on Home, Basic Training and stations. */
+:is(
+  body[data-route="home"],
+  body[data-route="general"],
+  body[data-route="captain"],
+  body[data-route="helms"],
+  body[data-route="weapons"],
+  body[data-route="engineering"],
+  body[data-route="science"],
+  body[data-route="relay"]
+) .page-id.station-icon-host {
+  width: clamp(var(--ufn-page-icon-min), var(--ufn-page-icon-fluid), var(--ufn-page-icon-max)) !important;
+  height: auto !important;
+  flex: 0 0 clamp(var(--ufn-page-icon-min), var(--ufn-page-icon-fluid), var(--ufn-page-icon-max)) !important;
+  aspect-ratio: 1 / 1;
+  padding: clamp(9px, .9vw, 13px) !important;
+  overflow: hidden;
+}
+
+:is(
+  body[data-route="home"],
+  body[data-route="general"],
+  body[data-route="captain"],
+  body[data-route="helms"],
+  body[data-route="weapons"],
+  body[data-route="engineering"],
+  body[data-route="science"],
+  body[data-route="relay"]
+) .page-id.station-icon-host .station-icon,
+:is(
+  body[data-route="home"],
+  body[data-route="general"],
+  body[data-route="captain"],
+  body[data-route="helms"],
+  body[data-route="weapons"],
+  body[data-route="engineering"],
+  body[data-route="science"],
+  body[data-route="relay"]
+) .page-id.station-icon-host .station-icon-image {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+/* Home / Basic Training use the portal's blue-gold language rather than a
+   station colour, but now have the same scale/presence as station emblems. */
+body[data-route="home"] .page-id.station-icon-host,
+body[data-route="general"] .page-id.station-icon-host {
+  border-color: rgba(105,186,255,.66);
+  background:
+    radial-gradient(circle, rgba(105,186,255,.18), rgba(228,175,46,.045) 60%, transparent 74%);
+  box-shadow:
+    inset 0 0 28px rgba(105,186,255,.10),
+    0 0 30px rgba(105,186,255,.12);
+}
+
+/* Captain and Weapons artwork have more internal breathing room in their
+   source images than the four visually aligned station emblems. A small,
+   page-header-only optical scale brings their visible mark into the same
+   apparent size without changing sidebar/directory artwork. */
+body[data-route="captain"] .page-id.station-icon-host .station-icon-image {
+  transform: scale(1.10);
+  transform-origin: center;
+}
+
+body[data-route="weapons"] .page-id.station-icon-host .station-icon-image {
+  transform: scale(1.10);
+  transform-origin: center;
+}
+
+/* ---------- Standard station tab rail ---------- */
+:is(
+  body[data-route="captain"],
+  body[data-route="helms"],
+  body[data-route="weapons"],
+  body[data-route="engineering"],
+  body[data-route="science"],
+  body[data-route="relay"]
+) .section-tabs {
+  display: grid;
+  grid-template-columns: repeat(var(--station-tab-count, 4), minmax(0, 1fr));
+  gap: 8px;
+  overflow: visible;
+  width: 100%;
+  padding: 5px 0 14px;
+}
+
+:is(
+  body[data-route="captain"],
+  body[data-route="helms"],
+  body[data-route="weapons"],
+  body[data-route="engineering"],
+  body[data-route="science"],
+  body[data-route="relay"]
+) .section-tabs .section-tab {
+  width: 100%;
+  min-width: 0;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.18;
+}
+
+/* Captain's content remains command-specific, but the second and third
+   sections now occupy the same physical menu slots as station orientation and
+   station-specific training on the crew consoles. */
+body[data-route="captain"] .captain-command-view {
+  margin-top: 0;
+}
+
+/* ---------- Responsive parity ---------- */
+@media (orientation: landscape) and (max-height: 650px) and (min-width: 560px) {
+  :is(
+    body[data-route="home"],
+    body[data-route="general"],
+    body[data-route="captain"],
+    body[data-route="helms"],
+    body[data-route="weapons"],
+    body[data-route="engineering"],
+    body[data-route="science"],
+    body[data-route="relay"]
+  ) .page-id.station-icon-host {
+    width: clamp(64px, 6.2vw, 82px) !important;
+    flex-basis: clamp(64px, 6.2vw, 82px) !important;
+    padding: 6px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  /* Preserve touch-friendly horizontal navigation on smaller screens rather
+     than forcing long station labels into narrow equal-width cells. */
+  :is(
+    body[data-route="captain"],
+    body[data-route="helms"],
+    body[data-route="weapons"],
+    body[data-route="engineering"],
+    body[data-route="science"],
+    body[data-route="relay"]
+  ) .section-tabs {
+    display: flex;
+    gap: 7px;
+    overflow-x: auto;
+  }
+
+  :is(
+    body[data-route="captain"],
+    body[data-route="helms"],
+    body[data-route="weapons"],
+    body[data-route="engineering"],
+    body[data-route="science"],
+    body[data-route="relay"]
+  ) .section-tabs .section-tab {
+    width: auto;
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+  :is(
+    body[data-route="home"],
+    body[data-route="general"],
+    body[data-route="captain"],
+    body[data-route="helms"],
+    body[data-route="weapons"],
+    body[data-route="engineering"],
+    body[data-route="science"],
+    body[data-route="relay"]
+  ) .page-id.station-icon-host {
+    width: 52px !important;
+    flex-basis: 52px !important;
+    padding: 6px !important;
+  }
+}
