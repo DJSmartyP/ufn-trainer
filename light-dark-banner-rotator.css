@@ -57,7 +57,7 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  z-index: 1;
+  z-index: 2;
   transform: translate(-50%, -50%) rotate(-11deg);
   transform-origin: center center;
   display: inline-flex;
@@ -113,10 +113,6 @@
   width: min(88%, 720px);
 }
 
-[data-light-dark-banner] > *:not(.ld-banner-stage):not(.ld-banner-fallback):not(.ld-classified-stamp) {
-  position: relative;
-  z-index: 2;
-}
 
 .deployment-record-art[data-light-dark-banner]::after {
   z-index: 1;

@@ -1,21 +1,20 @@
-UFN TRAINING PORTAL // LANDSCAPE NAV FIT V5
+UFN TRAINING PORTAL // CAMPAIGN BANNER TEXT FIX
 
-Upload these files to the repo root, replacing matching files:
+Upload these two files to the repo root, replacing matching files:
 - index.html
-- mobile-menu-layer-fix.css
+- light-dark-banner-rotator.css
 
-Landscape navigation now:
-- permanent navigation bar
-- all 9 destinations visible at once
-- no horizontal scrolling
-- no picky swipe/scroll behaviour
-- uses the full viewport width
-- longer labels can wrap neatly instead of widening the bar
-- automatically uses smaller icons/type on short landscape screens
+What was wrong:
+The Light & Dark overlay CSS was accidentally changing the existing campaign
+title/copy layer from absolute positioning into normal page flow. That pushed
+the title to the top edge and clipped the small CAMPAIGN // 06 MISSIONS line.
 
-Portrait navigation is unchanged:
-- hamburger button
-- slide-out drawer
+Fix:
+- Restores the campaign tile's original text positioning.
+- Keeps the existing banner height; no unnecessary resize needed.
+- Keeps DETAILS CLASSIFIED centred over the artwork.
+- Keeps the stronger high-contrast stamp styling.
+- Keeps the 4-second hold / 1-second transition.
+- Keeps the latest full-width landscape navigation patch.
 
-All current Light & Dark artwork/stamp/rotation changes remain untouched.
 Hard refresh after GitHub Pages deploys.
