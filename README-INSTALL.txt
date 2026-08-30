@@ -1,27 +1,24 @@
-UFN TRAINING PORTAL // RESTORE LANDSCAPE NAV BAR
+
+UFN TRAINING PORTAL // LIGHT & DARK STAMP VISIBILITY TWEAK
 
 Upload ALL files in this ZIP to the repo root, replacing matching files.
 
-RESPONSIVE NAVIGATION IS RESTORED TO:
+Changes:
+- Keeps the restored responsive navigation model:
+  Portrait = hamburger drawer
+  Landscape = permanent horizontal nav bar
+- Keeps Light & Dark on a 4 second hold with a 1 second crossfade.
+- Removes the red RESTRICTED tag from the Light & Dark campaign banner.
+- Makes the white DETAILS CLASSIFIED stamp more readable on bright and dark artwork:
+  - stronger white border
+  - dark backing plate
+  - black outline / text stroke
+  - stronger contrast shadow
+  - no blend mode washout
 
-  PORTRAIT
-  - Hamburger button
-  - Slide-out navigation drawer
-  - Page dimming scrim
-
-  LANDSCAPE
-  - No hamburger
-  - Permanent single-row navigation bar directly under the header
-  - No drawer
-  - No large reserved blank area
-  - Horizontal overflow only as a fallback on unusually narrow landscape screens
-
-This package also retains:
-- Light & Dark: 4-second image hold
-- Light & Dark: 1-second crossfade
-- Large white DETAILS CLASSIFIED stamp
-- Station-colour hover pulse
-- Button/tap activation flash
-- Correct menu stacking on portrait
+Files changed:
+- index.html
+- light-dark-banner-rotator.css
+- light-dark-banner-rotator.js
 
 Hard refresh after GitHub Pages deploys.

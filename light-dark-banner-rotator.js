@@ -31,11 +31,24 @@
     return Array.from(root.children).find(child => child.tagName === "IMG") || null;
   }
 
+
+function hideRestrictedTag(root) {
+  if (!root) return;
+  const descendants = Array.from(root.querySelectorAll('*'));
+  descendants.forEach(node => {
+    const text = (node.textContent || '').replace(/\s+/g, ' ').trim().toUpperCase();
+    if (text === 'RESTRICTED') {
+      node.style.setProperty('display', 'none', 'important');
+    }
+  });
+}
+
   function createState(root) {
     if (!root || root.dataset.ldBannerReady === "true") return null;
 
     root.dataset.ldBannerReady = "true";
     root.setAttribute("data-light-dark-banner", "");
+    hideRestrictedTag(root);
 
     const fallback = directImage(root);
     if (fallback) fallback.classList.add("ld-banner-fallback");
