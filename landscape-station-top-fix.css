@@ -1,0 +1,26 @@
+/* UFN Training Portal // station initial-position fix
+   Prevent browser scroll anchoring from preserving a mid-page visual position
+   while lazy assets / short-landscape layout settle. */
+
+html,
+body,
+#content {
+  overflow-anchor: none;
+}
+
+/* The first visible station panel should always be fully laid out. Do not let
+   content-visibility estimate the height of station-route content. */
+body[data-route="captain"] .tab-panel,
+body[data-route="helms"] .tab-panel,
+body[data-route="weapons"] .tab-panel,
+body[data-route="engineering"] .tab-panel,
+body[data-route="science"] .tab-panel,
+body[data-route="relay"] .tab-panel,
+body[data-route="captain"] .tab-panel *,
+body[data-route="helms"] .tab-panel *,
+body[data-route="weapons"] .tab-panel *,
+body[data-route="engineering"] .tab-panel *,
+body[data-route="science"] .tab-panel *,
+body[data-route="relay"] .tab-panel * {
+  content-visibility: visible;
+}
