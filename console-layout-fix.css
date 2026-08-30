@@ -63,8 +63,13 @@
 }
 
 /* Viewport-level copy of the active hotspot help panel. This is the only
-   station-orientation element deliberately forced above the application UI. */
+   station-orientation element deliberately forced above the application UI.
+
+   The portal is a child of <body>, so it inherits --station-accent-rgb from
+   station-colours.css. This keeps the same popup design while giving each
+   station its own operational colour. */
 .ufn-hotspot-tooltip-portal {
+  --tooltip-accent-rgb: var(--station-accent-rgb, 105, 186, 255);
   position: fixed;
   left: 0;
   top: 0;
@@ -72,32 +77,60 @@
   display: none;
   width: min(310px, calc(100vw - 24px));
   max-width: calc(100vw - 24px);
-  padding: 11px 12px;
-  border: 1px solid rgba(105,186,255,.62);
+  padding: 12px 13px 13px;
+  overflow: hidden;
+  border: 1px solid rgba(var(--tooltip-accent-rgb), .78);
   border-radius: 8px;
-  background: rgba(2,10,23,.985);
+  background:
+    linear-gradient(135deg, rgba(var(--tooltip-accent-rgb), .13), transparent 42%),
+    rgba(2,10,23,.985);
   color: var(--muted);
   text-align: left;
-  box-shadow: 0 18px 48px rgba(0,0,0,.68), 0 0 0 1px rgba(3,21,37,.7);
+  box-shadow:
+    inset 3px 0 0 rgba(var(--tooltip-accent-rgb), .88),
+    0 18px 48px rgba(0,0,0,.68),
+    0 0 22px rgba(var(--tooltip-accent-rgb), .14),
+    0 0 0 1px rgba(3,21,37,.7);
   backdrop-filter: blur(10px);
   pointer-events: none;
   opacity: 0;
   transform: translateY(2px);
   transition: opacity 80ms linear, transform 80ms linear;
 }
+
+.ufn-hotspot-tooltip-portal::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(var(--tooltip-accent-rgb), .96),
+    rgba(var(--tooltip-accent-rgb), .28) 62%,
+    transparent
+  );
+  box-shadow: 0 0 12px rgba(var(--tooltip-accent-rgb), .28);
+}
+
 .ufn-hotspot-tooltip-portal.visible {
   display: block;
   opacity: 1;
   transform: none;
 }
+
 .ufn-hotspot-tooltip-portal strong {
   display: block;
   margin-bottom: 5px;
-  color: var(--text);
+  color: rgb(var(--tooltip-accent-rgb));
   font-size: .8rem;
+  text-shadow: 0 0 12px rgba(var(--tooltip-accent-rgb), .20);
 }
+
 .ufn-hotspot-tooltip-portal span {
   display: block;
+  color: var(--muted);
   font-size: .72rem;
   line-height: 1.45;
 }
