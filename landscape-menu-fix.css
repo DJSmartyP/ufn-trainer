@@ -1,0 +1,123 @@
+/* UFN Training Portal — short-landscape navigation fit
+   Converts the slide-out drawer to a compact two-column menu so all primary
+   destinations fit without a vertical scrollbar on phones and foldables. */
+
+@media (orientation: landscape) and (max-height: 650px) and (min-width: 560px) and (max-width: 1180px) {
+  .sidebar {
+    width: min(430px, 92vw);
+    padding: 9px 10px 10px;
+    gap: 8px;
+    overflow-y: hidden;
+    overscroll-behavior: contain;
+  }
+
+  .sidebar .side-section {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 6px;
+  }
+
+  .sidebar .side-label {
+    grid-column: 1 / -1;
+    padding: 0 6px 2px;
+    font-size: .55rem;
+    line-height: 1.1;
+    letter-spacing: .13em;
+  }
+
+  .sidebar .nav-item {
+    min-width: 0;
+    min-height: 36px;
+    grid-template-columns: 31px minmax(0, 1fr);
+    gap: 6px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    font-size: .78rem;
+    line-height: 1.05;
+  }
+
+  .sidebar .nav-code,
+  .sidebar .nav-code.station-icon-host,
+  .sidebar .connected-nav-code {
+    width: 30px;
+    height: 30px;
+    min-height: 30px;
+    padding: 4px !important;
+    border-radius: 50%;
+  }
+
+  .sidebar .nav-code.station-icon-host .station-icon-svg,
+  .sidebar .nav-code.station-icon-host .station-icon-image {
+    width: 22px;
+    height: 22px;
+  }
+
+  .sidebar .connected-nav-code svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .sidebar .connected-system-sidebar-link > span:last-child {
+    min-width: 0;
+    gap: 0;
+  }
+
+  .sidebar .connected-system-sidebar-link > span:last-child small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: .51rem;
+    line-height: 1.05;
+  }
+
+  /* Access status is already visible in the top bar; hiding this duplicate
+     block in short landscape buys enough vertical room for every menu item. */
+  .sidebar .sidebar-footer {
+    display: none;
+  }
+}
+
+/* Extra-tight landscape devices: keep every link visible without scrolling. */
+@media (orientation: landscape) and (max-height: 430px) and (min-width: 560px) {
+  .sidebar {
+    top: 60px;
+    padding: 5px 8px 6px;
+    gap: 4px;
+  }
+
+  .sidebar .side-section {
+    gap: 2px 5px;
+  }
+
+  .sidebar .side-label {
+    padding-bottom: 0;
+    font-size: .5rem;
+  }
+
+  .sidebar .nav-item {
+    min-height: 31px;
+    grid-template-columns: 27px minmax(0, 1fr);
+    padding: 1px 5px;
+    font-size: .72rem;
+  }
+
+  .sidebar .nav-code,
+  .sidebar .nav-code.station-icon-host,
+  .sidebar .connected-nav-code {
+    width: 26px;
+    height: 26px;
+    min-height: 26px;
+    padding: 3px !important;
+  }
+
+  .sidebar .nav-code.station-icon-host .station-icon-svg,
+  .sidebar .nav-code.station-icon-host .station-icon-image,
+  .sidebar .connected-nav-code svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .sidebar .connected-system-sidebar-link > span:last-child small {
+    display: none;
+  }
+}
