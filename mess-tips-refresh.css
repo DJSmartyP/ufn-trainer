@@ -1,0 +1,34 @@
+/* Tips from the Mess refresh
+   One continuous officer-advice board; no separate feature boxes underneath. */
+
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-board {
+  align-items: stretch;
+}
+
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip {
+  height: 100%;
+}
+
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip-command {
+  border-color: rgba(105, 186, 255, .42);
+  box-shadow: inset 0 3px 0 rgba(105, 186, 255, .30);
+}
+
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip-command footer strong {
+  color: var(--blue-soft);
+}
+
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip-admiralty {
+  border-color: rgba(228, 175, 46, .48);
+  box-shadow: inset 0 3px 0 rgba(228, 175, 46, .34);
+}
+
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip-admiralty footer strong {
+  color: var(--gold-bright);
+}
+
+/* Defensive: the refresh script removes this, but keep it hidden if old
+   markup briefly appears during a rerender. */
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-feature-grid {
+  display: none !important;
+}

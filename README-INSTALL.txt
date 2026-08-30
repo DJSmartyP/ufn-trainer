@@ -1,14 +1,25 @@
-UFN TRAINING PORTAL // STATION SPECIFIC TRAINING TITLE TWEAK
+UFN TRAINING PORTAL // TIPS FROM THE MESS REFRESH
 
-Replace station-colours.css in the repo root with this version.
+Upload these files to the repo root, replacing index.html:
+- index.html
+- mess-tips-refresh.js
+- mess-tips-refresh.css
 
 Changes:
-- Removes the repeated per-topic "CAPTAIN TRAINING", "HELMS TRAINING", etc line
-  inside Station Specific Training.
-- Keeps the main Station Specific Training page heading and consolidated
-  reference label.
-- Colours each topic heading using the existing station accent:
-  Captain gold, Helms blue, Weapons red, Engineering orange,
-  Science green, Relay purple.
+- Changes Lt. Amina Vale to Lt. Priya Shah.
+- Keeps the existing officer-tip board.
+- Removes the entire old bottom feature grid:
+  * Lessons Heard Around the Fleet
+  * UFN Command Academy
+  * A Final Word from Flight Command
+- Converts the useful lessons into additional attributed officer tips.
+- Adds Commodore Smarty:
+  "Remember: your Flight Controller can always hear you. Yes, even when you
+   think you are talking quietly."
+- Adds Admiral Artemis Winstanley:
+  "Self-destruct is not a troubleshooting tool. Do not start thinking about it
+   unless every less dramatic option has genuinely failed."
+- Commodore and Admiral tips get subtle command/admiralty highlighting while
+  remaining part of the same tip list.
 
-Hard refresh after GitHub Pages deploys.
+Hard refresh once GitHub Pages deploys.
