@@ -1,17 +1,20 @@
-UFN TRAINING PORTAL // ADMIRALTY ADDRESS REFRESH
+UFN TRAINING PORTAL // ADMIRALTY ADDRESS REFRESH V2
 
-Upload all three files to the repo root:
-- index.html
+Replace:
 - admiralty-address-refresh.css
-- admiralty-address-refresh.js
 
-Changes to Basic Training > Admiralty Briefing:
-- Removes the three boxes beneath the Admiral's address.
-- Reframes the address as a single official Admiralty transmission.
-- Adds Admiralty routing/authentication strips, gold framing and UFN watermark.
-- Keeps the existing address text and original briefing PDF link.
-- Adds a portrait placeholder for Admiral Artemis Winstanley.
-- Placeholder explicitly says: COMMISSIONED PORTRAIT COMING SOON.
-- Responsive portrait/landscape layout included.
+The existing admiralty-address-refresh.js and index.html from the previous patch
+remain valid.
 
-No portrait image is required yet; the placeholder is CSS-based and lightweight.
+Changes:
+- Admiral's message is more ceremonial / official:
+  * stronger Admiralty framing
+  * double-rule routing strip
+  * BY ORDER OF THE ADMIRALTY marker
+  * vertical dispatch rule
+  * larger faint UFN seal watermark
+  * formal closing-reminder treatment
+  * authenticated / verified transmission strip
+- Portrait placeholder is now a true 4x6 portrait ratio (2:3).
+- Portrait remains labelled COMMISSIONED PORTRAIT COMING SOON.
+- Ratio is preserved on desktop, portrait, foldable and short-landscape layouts.
