@@ -1,43 +1,25 @@
+UFN TRAINING PORTAL // HOME ICON AS WEB APP ICON
 
-LIGHT & DARK ANIMATED BANNER PATCH
+Upload the ZIP contents to the repo root, preserving folders.
 
-This patch adds a lightweight animated banner that cycles through all six Light & Dark artworks.
+Files:
+- index.html
+- manifest.webmanifest
+- assets/app-icons/favicon-32.png
+- assets/app-icons/apple-touch-icon.png
+- assets/app-icons/home-192.png
+- assets/app-icons/home-512.png
+- assets/app-icons/home-maskable-512.png
 
-What it does:
-- Uses all 6 campaign artworks in a slow crossfade rotation.
-- Loads the first image immediately.
-- Defers the other 5 images until after the page is usable.
-- Uses only 2 image elements in the banner at any time.
-- Pauses when the tab is not visible.
-- Falls back safely to the first image if JavaScript is unavailable.
-- Respects prefers-reduced-motion and stays static for those users.
+What changes:
+- The Home portal artwork becomes the browser favicon.
+- The same Home artwork becomes the icon when the site is added to a phone/tablet home screen.
+- Adds a proper web-app manifest for Android/Chrome installation.
+- Adds Apple touch icon support for iPhone/iPad.
+- Installed app opens directly on #/home.
+- Adds a mask-safe icon so Android circular/squircle icon crops do not cut off the artwork.
+- Does NOT add a service worker or alter caching/performance behaviour.
 
-Install:
-1) Upload the whole assets/campaigns/light-dark folder into your repo.
-2) Upload:
-   - light-dark-banner-rotator.css
-   - light-dark-banner-rotator.js
-3) Add these to the relevant page/template:
-   <link rel="stylesheet" href="light-dark-banner-rotator.css">
-   <script src="light-dark-banner-rotator.js" defer></script>
-4) On the existing Light & Dark hero/banner container, add:
-   data-light-dark-banner
-
-Notes:
-- You do NOT need to place all six images in the HTML.
-- The script injects the rotating image layers automatically.
-- The overlay scrim is included so text remains readable.
-- If the current banner has its own static image element or hard-coded background artwork,
-  remove that old single-image layer first so the new animation is the only background.
-
-Included helper file:
-- light-dark-banner-snippet.html
-  A small example showing the expected banner root markup.
-
-Optimised assets:
-    - 01-battlefront.webp: 1536x1024, 284.7 KB
-    - 02-phoenix.webp: 1536x1024, 263.1 KB
-    - 03-convoy-dock.webp: 1536x1024, 171.5 KB
-    - 04-twin-pines.webp: 1536x1024, 247.5 KB
-    - 05-wormhole.webp: 1536x1024, 147.5 KB
-    - 06-patchwork.webp: 1536x1024, 288.8 KB
+Note:
+If the site was already saved to a device home screen, the old icon may be cached.
+Remove the existing saved shortcut/app and add/install it again after the GitHub Pages update.
