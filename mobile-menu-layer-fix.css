@@ -384,10 +384,15 @@
   .sidebar {
     display: grid !important;
     grid-template-columns:
+      minmax(0, .72fr)
+      minmax(0, 1.16fr)
       minmax(0, .88fr)
-      minmax(0, 1.18fr)
-      repeat(6, minmax(0, .94fr))
-      minmax(0, 1.28fr) !important;
+      minmax(0, .84fr)
+      minmax(0, .96fr)
+      minmax(0, 1.16fr)
+      minmax(0, .88fr)
+      minmax(0, .82fr)
+      minmax(0, 1.18fr) !important;
     align-items: stretch !important;
     justify-items: stretch !important;
     gap: 4px !important;
@@ -425,10 +430,10 @@
     min-height: 42px !important;
 
     display: grid !important;
-    grid-template-columns: 24px minmax(0, 1fr) !important;
+    grid-template-columns: 22px minmax(0, 1fr) !important;
     align-items: center !important;
     justify-items: center !important;
-    gap: 4px !important;
+    gap: 3px !important;
 
     padding: 4px 5px !important;
     border-radius: 7px !important;
@@ -455,16 +460,16 @@
   .sidebar .nav-code,
   .sidebar .nav-code.station-icon-host,
   .sidebar .other-resources-code {
-    width: 24px !important;
-    height: 24px !important;
-    min-height: 24px !important;
+    width: 22px !important;
+    height: 22px !important;
+    min-height: 22px !important;
     padding: 2px !important;
     border-radius: 6px !important;
   }
 
   .sidebar .nav-code.station-icon-host .station-icon-image {
-    width: 19px !important;
-    height: 19px !important;
+    width: 18px !important;
+    height: 18px !important;
   }
 
   .sidebar .other-resources-code {
@@ -501,5 +506,15 @@
   .sidebar .nav-code.station-icon-host .station-icon-image {
     width: 17px !important;
     height: 17px !important;
+  }
+}
+
+
+/* Engineering is the widest single-word station label.
+   Give it a tiny type safeguard on narrower landscape screens. */
+@media (orientation: landscape) and (max-width: 1500px) {
+  .sidebar .nav-item[data-nav="engineering"] {
+    font-size: clamp(.56rem, .72vw, .70rem) !important;
+    letter-spacing: .01em !important;
   }
 }
