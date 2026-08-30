@@ -1,16 +1,17 @@
-UFN TRAINING PORTAL // TIPS FROM THE MESS RANK COLOURS
+UFN TRAINING PORTAL // ADMIRALTY ADDRESS REFRESH
 
-Upload these two files to the repo root, replacing the previous versions:
-- mess-tips-refresh.js
-- mess-tips-refresh.css
+Upload all three files to the repo root:
+- index.html
+- admiralty-address-refresh.css
+- admiralty-address-refresh.js
 
-All tip cards now have equal layout, size and visual weight.
-The only hierarchy is rank colour:
-- Sub Lieutenant: steel blue
-- Lieutenant: cyan
-- Commander: violet
-- Commodore: amber
-- Admiral: UFN gold
+Changes to Basic Training > Admiralty Briefing:
+- Removes the three boxes beneath the Admiral's address.
+- Reframes the address as a single official Admiralty transmission.
+- Adds Admiralty routing/authentication strips, gold framing and UFN watermark.
+- Keeps the existing address text and original briefing PDF link.
+- Adds a portrait placeholder for Admiral Artemis Winstanley.
+- Placeholder explicitly says: COMMISSIONED PORTRAIT COMING SOON.
+- Responsive portrait/landscape layout included.
 
-The script automatically reads the officer rank from the displayed name, so
-existing and newly-added tips receive the appropriate styling.
+No portrait image is required yet; the placeholder is CSS-based and lightweight.
