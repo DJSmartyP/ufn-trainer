@@ -1,0 +1,37 @@
+/* UFN Training Portal // rendering-performance pass
+   Native lazy-loading handles network fetches. content-visibility prevents
+   large off-screen galleries from doing unnecessary layout/paint work. */
+
+.deployment-register-section,
+.rank-grid,
+.medal-grid,
+.intel-tile-grid,
+.hides-incident-stack,
+.station-hides-expanded-list,
+.protocol-grid,
+.payload-grid,
+.network-services,
+.station-grid {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 620px;
+}
+
+/* Individual large/repeated cards can also skip off-screen painting. */
+.deployment-tile,
+.rank-card,
+.medal-card,
+.intel-tile,
+.hides-incident,
+.station-hides-record,
+.payload-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 180px;
+}
+
+/* Avoid expensive loading animation/filter work from any stale class left in
+   browser cache or old markup. The old asset-loading JS/CSS is no longer
+   loaded by index.html. */
+img.ufn-asset-loading,
+img.ufn-asset-error {
+  animation: none !important;
+}
