@@ -600,3 +600,176 @@
     font-size: clamp(.46rem, .64vw, .61rem) !important;
   }
 }
+
+
+/* ============================================================
+   V8 // LANDSCAPE NAV VISUAL POLISH
+   Cosmetic only. No responsive/layout-mode changes.
+   ============================================================ */
+
+@media (orientation: landscape) {
+  .sidebar {
+    background:
+      linear-gradient(180deg, rgba(5, 18, 32, .985), rgba(2, 10, 20, .985)) !important;
+    border-top: 1px solid rgba(91, 184, 235, .14) !important;
+    border-bottom: 1px solid rgba(91, 184, 235, .34) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.018),
+      inset 0 -1px 0 rgba(91,184,235,.055),
+      0 8px 22px rgba(0,0,0,.18) !important;
+  }
+
+  .sidebar .nav-item,
+  .sidebar .other-resources-nav {
+    position: relative !important;
+    border: 1px solid transparent !important;
+    background: rgba(5, 18, 32, .20) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.012);
+    transition:
+      background 150ms ease,
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      color 150ms ease,
+      filter 150ms ease !important;
+  }
+
+  .sidebar .nav-item > span:last-child,
+  .sidebar .other-resources-nav > span:last-child {
+    font-weight: 600 !important;
+    text-wrap: balance;
+    opacity: .88;
+    transition: opacity 150ms ease, text-shadow 150ms ease !important;
+  }
+
+  .sidebar .nav-code,
+  .sidebar .nav-code.station-icon-host,
+  .sidebar .other-resources-code {
+    display: grid !important;
+    place-items: center !important;
+    align-self: center !important;
+    justify-self: center !important;
+    background: rgba(3, 12, 24, .46) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.025),
+      0 3px 9px rgba(0,0,0,.16);
+    transition:
+      transform 150ms ease,
+      filter 150ms ease,
+      border-color 150ms ease,
+      box-shadow 150ms ease !important;
+  }
+
+  .sidebar .nav-code.station-icon-host .station-icon-image {
+    object-position: center !important;
+    transform: translateZ(0);
+  }
+
+  /* Generic active state for Home / Basic Training / Other Resources. */
+  .sidebar .nav-item.active,
+  .sidebar .other-resources-nav.active {
+    border-color: rgba(105, 194, 242, .56) !important;
+    background:
+      linear-gradient(180deg, rgba(19, 68, 101, .42), rgba(8, 31, 51, .34)) !important;
+    box-shadow:
+      inset 0 0 0 1px rgba(105, 194, 242, .08),
+      inset 0 -2px 0 rgba(105, 194, 242, .72),
+      0 0 16px rgba(75, 171, 226, .10) !important;
+  }
+
+  .sidebar .nav-item.active > span:last-child,
+  .sidebar .other-resources-nav.active > span:last-child {
+    opacity: 1 !important;
+    color: #edf9ff !important;
+    text-shadow: 0 0 10px rgba(91, 190, 240, .18);
+  }
+
+  /* Station active states inherit the station RGB variables already used
+     by the hover-pulse system. */
+  .sidebar .nav-item.active[data-nav="captain"],
+  .sidebar .nav-item.active[data-nav="helms"],
+  .sidebar .nav-item.active[data-nav="weapons"],
+  .sidebar .nav-item.active[data-nav="engineering"],
+  .sidebar .nav-item.active[data-nav="science"],
+  .sidebar .nav-item.active[data-nav="relay"] {
+    border-color: rgba(var(--ufn-station-rgb), .58) !important;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(var(--ufn-station-rgb), .16),
+        rgba(var(--ufn-station-rgb), .07)
+      ) !important;
+    box-shadow:
+      inset 0 0 0 1px rgba(var(--ufn-station-rgb), .08),
+      inset 0 -2px 0 rgba(var(--ufn-station-rgb), .82),
+      0 0 17px rgba(var(--ufn-station-rgb), .12) !important;
+  }
+
+  .sidebar .nav-item.active[data-nav="captain"] > span:last-child,
+  .sidebar .nav-item.active[data-nav="helms"] > span:last-child,
+  .sidebar .nav-item.active[data-nav="weapons"] > span:last-child,
+  .sidebar .nav-item.active[data-nav="engineering"] > span:last-child,
+  .sidebar .nav-item.active[data-nav="science"] > span:last-child,
+  .sidebar .nav-item.active[data-nav="relay"] > span:last-child {
+    opacity: 1 !important;
+    color: rgb(var(--ufn-station-rgb)) !important;
+    text-shadow: 0 0 10px rgba(var(--ufn-station-rgb), .24);
+  }
+
+  .sidebar .nav-item.active[data-nav="captain"] .nav-code,
+  .sidebar .nav-item.active[data-nav="helms"] .nav-code,
+  .sidebar .nav-item.active[data-nav="weapons"] .nav-code,
+  .sidebar .nav-item.active[data-nav="engineering"] .nav-code,
+  .sidebar .nav-item.active[data-nav="science"] .nav-code,
+  .sidebar .nav-item.active[data-nav="relay"] .nav-code {
+    border-color: rgba(var(--ufn-station-rgb), .68) !important;
+    box-shadow:
+      inset 0 0 0 1px rgba(var(--ufn-station-rgb), .12),
+      0 0 10px rgba(var(--ufn-station-rgb), .18) !important;
+  }
+
+  /* Portal-level items get complementary accents rather than station colours. */
+  .sidebar .nav-item.active[data-nav="home"] {
+    border-color: rgba(92, 190, 241, .58) !important;
+  }
+
+  .sidebar .nav-item.active[data-nav="general"] {
+    border-color: rgba(222, 176, 70, .62) !important;
+    background:
+      linear-gradient(180deg, rgba(222,176,70,.14), rgba(96,70,20,.06)) !important;
+    box-shadow:
+      inset 0 -2px 0 rgba(222,176,70,.78),
+      0 0 15px rgba(222,176,70,.08) !important;
+  }
+
+  .sidebar .nav-item.active[data-nav="general"] > span:last-child {
+    color: #f2d27a !important;
+    text-shadow: 0 0 10px rgba(222,176,70,.18);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .sidebar .nav-item:hover,
+    .sidebar .other-resources-nav:hover {
+      background: rgba(18, 55, 80, .28) !important;
+      border-color: rgba(112, 188, 228, .28) !important;
+    }
+
+    .sidebar .nav-item:hover > span:last-child,
+    .sidebar .other-resources-nav:hover > span:last-child {
+      opacity: 1;
+    }
+
+    .sidebar .nav-item:hover .nav-code,
+    .sidebar .other-resources-nav:hover .nav-code {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar .nav-item,
+  .sidebar .nav-code,
+  .sidebar .nav-item > span:last-child {
+    transition: none !important;
+  }
+}
