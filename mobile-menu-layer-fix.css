@@ -66,3 +66,60 @@
     }
   }
 }
+
+
+/* ============================================================
+   V2 // SHORT-LANDSCAPE DRAWER FIT
+   landscape-menu-fix.css deliberately used overflow-y:hidden to avoid
+   scrolling. On some foldables/phones that clips the later menu sections
+   and also creates a horizontal scrollbar. Prefer a safe vertical fallback.
+   ============================================================ */
+
+@media (orientation: landscape) and (max-height: 650px) and (min-width: 560px) and (max-width: 1180px) {
+  .sidebar {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+    touch-action: pan-y;
+  }
+
+  .sidebar.open {
+    transform: translateX(0) !important;
+  }
+
+  /* Keep the compact two-column layout, but make every section shrink
+     naturally rather than letting the first section consume the drawer. */
+  .sidebar .side-section {
+    min-width: 0;
+    flex: 0 0 auto;
+  }
+
+  .sidebar .nav-item {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .sidebar .nav-item > span:last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* The footer duplicates information already visible in the topbar and
+     should not steal vertical room in short landscape. */
+  .sidebar .sidebar-footer {
+    display: none !important;
+  }
+}
+
+/* Extra-tight devices get a slightly denser drawer, but remain vertically
+   scrollable as a last-resort safety net. */
+@media (orientation: landscape) and (max-height: 430px) and (min-width: 560px) and (max-width: 1180px) {
+  .sidebar {
+    gap: 4px !important;
+    padding-top: 5px !important;
+    padding-bottom: 6px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+}

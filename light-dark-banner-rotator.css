@@ -1,37 +1,34 @@
-/* Light & Dark animated banner
-   Usage: add data-light-dark-banner to the existing campaign hero/banner container.
-   The script injects two rotating image layers behind the banner content.
-*/
+/* ============================================================
+   LIGHT & DARK CAMPAIGN // ANIMATED ART ROTATOR
+   Auto-attaches to the existing campaign tile and campaign dossier.
+   ============================================================ */
 
 [data-light-dark-banner] {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  background:
-    radial-gradient(circle at 50% 20%, rgba(130, 96, 255, .14), transparent 38%),
-    linear-gradient(180deg, rgba(2, 8, 18, .92), rgba(3, 8, 16, .96));
-}
-
-[data-light-dark-banner] .ld-banner-stage,
-[data-light-dark-banner] .ld-banner-scrim {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+  background: #010408;
 }
 
 [data-light-dark-banner] .ld-banner-stage {
+  position: absolute;
+  inset: 0;
   z-index: 0;
+  pointer-events: none;
 }
 
 [data-light-dark-banner] .ld-banner-image {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
   object-fit: cover;
   object-position: center center;
   opacity: 0;
-  transition: opacity 1000ms ease-in-out;
+  transition: opacity 650ms ease-in-out;
   transform: translateZ(0);
   will-change: opacity;
 }
@@ -40,36 +37,29 @@
   opacity: 1;
 }
 
-[data-light-dark-banner] .ld-banner-scrim {
-  z-index: 1;
-  background:
-    linear-gradient(90deg, rgba(2, 7, 16, .84) 0%, rgba(2, 7, 16, .48) 32%, rgba(2, 7, 16, .58) 68%, rgba(2, 7, 16, .84) 100%),
-    linear-gradient(180deg, rgba(2, 7, 16, .22) 0%, rgba(2, 7, 16, .44) 100%);
+[data-light-dark-banner] > .ld-banner-fallback {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  opacity: 1;
 }
 
-/* Keep existing banner content above the rotating artwork */
-[data-light-dark-banner] > *:not(.ld-banner-stage):not(.ld-banner-scrim) {
+[data-light-dark-banner].ld-banner-ready > .ld-banner-fallback {
+  opacity: 0;
+}
+
+/* Existing campaign labels, overlays, grid and stamps remain above the art. */
+[data-light-dark-banner] > *:not(.ld-banner-stage):not(.ld-banner-fallback) {
   position: relative;
   z-index: 2;
 }
 
-/* Optional flavour polish */
-[data-light-dark-banner]::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(149, 112, 255, .6), rgba(105, 186, 255, .55), transparent);
-  z-index: 2;
-  pointer-events: none;
-}
-
-@media (max-width: 720px) {
-  [data-light-dark-banner] .ld-banner-scrim {
-    background:
-      linear-gradient(180deg, rgba(2, 7, 16, .54) 0%, rgba(2, 7, 16, .66) 100%),
-      linear-gradient(90deg, rgba(2, 7, 16, .68) 0%, rgba(2, 7, 16, .26) 50%, rgba(2, 7, 16, .7) 100%);
-  }
+/* Preserve the dossier's existing lower readability gradient. */
+.deployment-record-art[data-light-dark-banner]::after {
+  z-index: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

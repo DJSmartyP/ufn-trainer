@@ -1,0 +1,119 @@
+/* ============================================================
+   UFN MICRO EFFECTS
+   Station-colour hover pulse + button activation flash
+   ============================================================ */
+
+.nav-item[data-nav="captain"],
+.station-card.captain {
+  --ufn-station-rgb: 255, 217, 110;
+}
+.nav-item[data-nav="helms"],
+.station-card.helms {
+  --ufn-station-rgb: 105, 186, 255;
+}
+.nav-item[data-nav="weapons"],
+.station-card.weapons {
+  --ufn-station-rgb: 255, 99, 119;
+}
+.nav-item[data-nav="engineering"],
+.station-card.engineering {
+  --ufn-station-rgb: 255, 151, 65;
+}
+.nav-item[data-nav="science"],
+.station-card.science {
+  --ufn-station-rgb: 116, 238, 124;
+}
+.nav-item[data-nav="relay"],
+.station-card.relay {
+  --ufn-station-rgb: 207, 156, 255;
+}
+
+@keyframes ufnStationPulse {
+  from {
+    box-shadow:
+      0 0 0 1px rgba(var(--ufn-station-rgb), .16),
+      0 0 8px rgba(var(--ufn-station-rgb), .06);
+  }
+  to {
+    box-shadow:
+      0 0 0 1px rgba(var(--ufn-station-rgb), .44),
+      0 0 18px rgba(var(--ufn-station-rgb), .22);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-item[data-nav="captain"]:hover,
+  .nav-item[data-nav="helms"]:hover,
+  .nav-item[data-nav="weapons"]:hover,
+  .nav-item[data-nav="engineering"]:hover,
+  .nav-item[data-nav="science"]:hover,
+  .nav-item[data-nav="relay"]:hover,
+  .station-card.captain:hover,
+  .station-card.helms:hover,
+  .station-card.weapons:hover,
+  .station-card.engineering:hover,
+  .station-card.science:hover,
+  .station-card.relay:hover {
+    border-color: rgba(var(--ufn-station-rgb), .64);
+    animation: ufnStationPulse 900ms ease-in-out infinite alternate;
+  }
+
+  .nav-item[data-nav="captain"]:hover .station-icon-image,
+  .nav-item[data-nav="helms"]:hover .station-icon-image,
+  .nav-item[data-nav="weapons"]:hover .station-icon-image,
+  .nav-item[data-nav="engineering"]:hover .station-icon-image,
+  .nav-item[data-nav="science"]:hover .station-icon-image,
+  .nav-item[data-nav="relay"]:hover .station-icon-image,
+  .station-card.captain:hover .station-icon-image,
+  .station-card.helms:hover .station-icon-image,
+  .station-card.weapons:hover .station-icon-image,
+  .station-card.engineering:hover .station-icon-image,
+  .station-card.science:hover .station-icon-image,
+  .station-card.relay:hover .station-icon-image {
+    filter:
+      brightness(1.12)
+      drop-shadow(0 0 7px rgba(var(--ufn-station-rgb), .78));
+  }
+}
+
+.nav-item[data-nav="captain"]:focus-visible,
+.nav-item[data-nav="helms"]:focus-visible,
+.nav-item[data-nav="weapons"]:focus-visible,
+.nav-item[data-nav="engineering"]:focus-visible,
+.nav-item[data-nav="science"]:focus-visible,
+.nav-item[data-nav="relay"]:focus-visible,
+.station-card.captain:focus-visible,
+.station-card.helms:focus-visible,
+.station-card.weapons:focus-visible,
+.station-card.engineering:focus-visible,
+.station-card.science:focus-visible,
+.station-card.relay:focus-visible {
+  border-color: rgba(var(--ufn-station-rgb), .7);
+  box-shadow:
+    0 0 0 1px rgba(var(--ufn-station-rgb), .38),
+    0 0 16px rgba(var(--ufn-station-rgb), .18);
+}
+
+/* Short brightness pulse on actual activation. It deliberately avoids
+   pseudo-elements so it cannot collide with existing button artwork. */
+@keyframes ufnActivationFlash {
+  0%   { filter: brightness(1) saturate(1); }
+  38%  { filter: brightness(1.42) saturate(1.18); }
+  100% { filter: brightness(1) saturate(1); }
+}
+
+.ufn-activation-flash {
+  animation: ufnActivationFlash 190ms ease-out !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-item[data-nav],
+  .station-card,
+  .ufn-activation-flash {
+    animation: none !important;
+  }
+
+  .ufn-activation-flash {
+    filter: brightness(1.16);
+  }
+}
