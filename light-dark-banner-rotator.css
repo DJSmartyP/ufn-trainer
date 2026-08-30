@@ -28,7 +28,7 @@
   object-fit: cover;
   object-position: center center;
   opacity: 0;
-  transition: opacity 650ms ease-in-out;
+  transition: opacity 1000ms ease-in-out;
   transform: translateZ(0);
   will-change: opacity;
 }
@@ -51,8 +51,8 @@
   opacity: 0;
 }
 
-/* Existing campaign labels, overlays, grid and stamps remain above the art. */
-[data-light-dark-banner] > *:not(.ld-banner-stage):not(.ld-banner-fallback) {
+/* Existing campaign labels and overlays remain above the art. */
+[data-light-dark-banner] > *:not(.ld-banner-stage):not(.ld-banner-fallback):not(.ld-classified-stamp) {
   position: relative;
   z-index: 2;
 }
