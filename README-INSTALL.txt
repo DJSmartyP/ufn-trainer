@@ -1,23 +1,26 @@
-UFN TRAINING PORTAL — LOADING + LANDSCAPE MENU FIX
+UFN TRAINING PORTAL // PERFORMANCE FIX
 
-This patch fixes two issues in the current live repository:
+Upload all files in this folder to the ROOT of the ufn-trainer repository.
+Replace index.html when prompted.
 
-1. PORTRAIT / HOME PAGE LOADING HANG
-The site was loading two separate Connected Systems implementations.
-The older connected-systems.js rewrites its own Home cards inside a MutationObserver,
-which immediately triggers another rewrite. The replacement index.html removes that
-script and its duplicate CSS, keeping connected-systems-enhancements.js only.
+FILES
+- index.html
+- performance-optimisation.js
+- connected-systems-placeholders.css
 
-2. LANDSCAPE MENU SCROLLBAR
-Short-landscape navigation now uses a compact two-column drawer. Portal, Station
-Training and Connected Systems remain visible without needing a vertical scrollbar.
-The duplicate access-status footer is hidden only in short landscape.
+WHAT THIS CHANGES
+- Stops the portal forcing every image to eager-load.
+- Uses native lazy loading for non-critical artwork.
+- Keeps the top UFN logo / Home hero emblem eager.
+- Disables the old orientation routine that removed and re-added image src values.
+- Removes the universal animated ASSET LOADING observer/treatment from the page.
+- Temporarily removes the large Terminal/Intranet icon enhancement.
+- Uses simple T / I placeholders until proper PNG icons are designed.
+- Keeps the existing short-landscape menu fix in place.
 
-INSTALL
-- Upload index.html to the repository root and replace the existing file.
-- Upload landscape-menu-fix.css to the repository root.
-- Commit/push and wait for GitHub Pages to deploy.
-- Hard refresh once after deployment.
-
-The existing connected-systems.js and connected-systems.css files can remain in the
-repository; they are no longer loaded by index.html.
+TEST
+1. Open the site in a fresh tab in portrait.
+2. Visit Home, Basic Training, Deployments and a station page.
+3. Rotate portrait -> landscape -> portrait.
+4. Confirm already-loaded artwork does not visibly reload after rotation.
+5. Confirm below-fold artwork loads as it approaches the viewport.

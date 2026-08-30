@@ -1,0 +1,52 @@
+/* Temporary Connected Systems treatment.
+   Proper PNG artwork will replace these placeholders in the next visual pass. */
+
+.connected-system-sidebar-link {
+  text-decoration: none;
+}
+
+.connected-system-sidebar-link > span:last-child {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.connected-system-sidebar-link > span:last-child small {
+  color: var(--muted, #9cacc0);
+  font-size: .62rem;
+  letter-spacing: .04em;
+}
+
+.connected-nav-code {
+  display: grid;
+  place-items: center;
+  padding: 0 !important;
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-weight: 700;
+  color: var(--blue-soft, #9bd5ff) !important;
+}
+
+.connected-nav-code[data-connected-icon="terminal"]::before {
+  content: "T";
+}
+
+.connected-nav-code[data-connected-icon="intranet"]::before {
+  content: "I";
+  color: var(--gold-bright, #ffd96e);
+}
+
+/* Return Home network links to compact supporting-system cards while the
+   final PNG icon artwork is being designed. */
+.network-services {
+  margin-top: 18px;
+}
+
+.network-services .network-card {
+  min-height: 118px;
+}
+
+@media (orientation: landscape) and (max-height: 650px) {
+  .network-services .network-card {
+    min-height: 92px;
+  }
+}
