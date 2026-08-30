@@ -146,3 +146,230 @@
     padding-bottom: 6px !important;
   }
 }
+
+
+/* ============================================================
+   V4 // RESTORE ORIGINAL RESPONSIVE NAV MODEL
+   Portrait = hamburger drawer.
+   Landscape = permanent horizontal nav bar.
+   This deliberately overrides the generic mobile drawer rules above.
+   ============================================================ */
+
+@media (orientation: landscape) {
+  /* Header returns to the clean landscape layout: brand left, status right. */
+  .topbar {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+  }
+
+  .menu-button {
+    display: none !important;
+  }
+
+  /* The app becomes a simple vertical stack:
+     header -> horizontal navigation -> page content. */
+  .app-layout {
+    display: block !important;
+    grid-template-columns: none !important;
+    min-height: 0 !important;
+  }
+
+  .sidebar {
+    position: sticky !important;
+    top: var(--ufn-topbar-height, 84px) !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+
+    z-index: 10010 !important;
+
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    gap: 5px !important;
+    padding: 6px 10px !important;
+
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-gutter: auto;
+
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(126, 190, 245, .28) !important;
+
+    background: rgba(2, 11, 24, .975) !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .22) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    transition: none !important;
+  }
+
+  .sidebar.open {
+    transform: none !important;
+  }
+
+  .sidebar .side-section {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 4px !important;
+    min-width: max-content !important;
+  }
+
+  .sidebar .side-label,
+  .sidebar .sidebar-footer {
+    display: none !important;
+  }
+
+  .sidebar .nav-item {
+    display: grid !important;
+    grid-template-columns: 28px auto !important;
+    align-items: center !important;
+    gap: 6px !important;
+
+    width: auto !important;
+    min-width: max-content !important;
+    max-width: none !important;
+    min-height: 38px !important;
+
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+
+    font-size: clamp(.68rem, 1.15vw, .82rem) !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  .sidebar .nav-code,
+  .sidebar .nav-code.station-icon-host,
+  .sidebar .other-resources-code {
+    width: 28px !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    padding: 3px !important;
+    border-radius: 7px !important;
+  }
+
+  .sidebar .nav-code.station-icon-host .station-icon-image {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .sidebar .other-resources-sidebar .other-resources-nav {
+    grid-column: auto !important;
+  }
+
+  .nav-scrim {
+    display: none !important;
+  }
+
+  .content {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  body.ufn-nav-open .content {
+    pointer-events: auto !important;
+  }
+}
+
+/* Compact the permanent nav slightly on short landscape devices
+   without changing it back into a drawer. */
+@media (orientation: landscape) and (max-height: 650px) {
+  .sidebar {
+    padding: 4px 8px !important;
+    gap: 3px !important;
+  }
+
+  .sidebar .side-section {
+    gap: 3px !important;
+  }
+
+  .sidebar .nav-item {
+    grid-template-columns: 25px auto !important;
+    gap: 5px !important;
+    min-height: 34px !important;
+    padding: 3px 6px !important;
+    font-size: .72rem !important;
+  }
+
+  .sidebar .nav-code,
+  .sidebar .nav-code.station-icon-host,
+  .sidebar .other-resources-code {
+    width: 25px !important;
+    height: 25px !important;
+    min-height: 25px !important;
+    padding: 2px !important;
+  }
+
+  .sidebar .nav-code.station-icon-host .station-icon-image {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+/* Portrait explicitly retains the hamburger/drawer interaction. */
+@media (orientation: portrait) and (max-width: 900px) {
+  .menu-button {
+    display: grid !important;
+    place-items: center !important;
+  }
+
+  .sidebar {
+    position: fixed !important;
+    top: var(--ufn-topbar-height, 82px) !important;
+    left: 0 !important;
+    bottom: 0 !important;
+
+    width: min(310px, 86vw) !important;
+    max-width: min(310px, 86vw) !important;
+
+    height: auto !important;
+    max-height: calc(100dvh - var(--ufn-topbar-height, 82px)) !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    transform: translateX(-103%) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .sidebar.open {
+    transform: translateX(0) !important;
+  }
+
+  .sidebar .side-section {
+    display: grid !important;
+    min-width: 0 !important;
+  }
+
+  .sidebar .side-label {
+    display: block !important;
+  }
+
+  .nav-scrim:not([hidden]) {
+    display: block !important;
+  }
+}

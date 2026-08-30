@@ -1,37 +1,27 @@
-UFN TRAINING PORTAL // LANDSCAPE MENU + LIGHT & DARK FINAL TWEAK
+UFN TRAINING PORTAL // RESTORE LANDSCAPE NAV BAR
 
-Upload ALL files in this ZIP to the repo root, replacing matching files:
+Upload ALL files in this ZIP to the repo root, replacing matching files.
 
-- index.html
-- mobile-menu-layer-fix.css
-- mobile-menu-layer-fix.js
-- light-dark-banner-rotator.css
-- light-dark-banner-rotator.js
-- visual-effects.css
-- visual-effects.js
+RESPONSIVE NAVIGATION IS RESTORED TO:
 
-What this fixes:
+  PORTRAIT
+  - Hamburger button
+  - Slide-out navigation drawer
+  - Page dimming scrim
 
-1) LANDSCAPE MENU BAR / DRAWER
-- On phone/foldable landscape, the sidebar is now forced into a true off-canvas drawer.
-- It will no longer sit in the page as a weird shallow horizontal strip.
-- The drawer stays below the measured topbar and above page content.
-- It remains scrollable vertically on short landscape screens if needed.
+  LANDSCAPE
+  - No hamburger
+  - Permanent single-row navigation bar directly under the header
+  - No drawer
+  - No large reserved blank area
+  - Horizontal overflow only as a fallback on unusually narrow landscape screens
 
-2) LIGHT & DARK ROTATION
-- The Light & Dark artwork now stays visible for 4 seconds.
-- Crossfade transition now lasts 1 second.
-- Total image cadence is 5 seconds.
-- The rotator still auto-attaches to the existing campaign tile and campaign dossier artwork.
-- Reduced-motion users still get a static image.
+This package also retains:
+- Light & Dark: 4-second image hold
+- Light & Dark: 1-second crossfade
+- Large white DETAILS CLASSIFIED stamp
+- Station-colour hover pulse
+- Button/tap activation flash
+- Correct menu stacking on portrait
 
-3) DETAILS CLASSIFIED STAMP
-- Adds a large white "DETAILS CLASSIFIED" stamp across the middle of the rotating artwork.
-- Sits above the images and behind normal content overlays.
-
-4) MICRO EFFECTS
-- Keeps the station-colour hover pulse.
-- Keeps the button/tap activation flash.
-
-The Light & Dark image assets already in assets/campaigns/light-dark do not need re-uploading.
 Hard refresh after GitHub Pages deploys.
