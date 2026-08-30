@@ -1,17 +1,16 @@
-UFN TRAINING PORTAL // LANDSCAPE ENGINEERING LABEL FIT
 
-Upload these two files to the repo root:
+UFN TRAINING PORTAL // LANDSCAPE NAV NO-CUT FIX
+
+Replace these two files in the repo root:
 - index.html
 - mobile-menu-layer-fix.css
 
-Changes:
-- Rebalances the 9 landscape navigation columns.
-- Engineering gets more horizontal space.
-- Home / Helms / Relay give up a small amount of unused width.
-- Icon column and gap are slightly tighter.
-- Engineering gets a tiny font-size safeguard on landscape screens up to 1500px.
-- No horizontal scrolling.
+What changed:
+- On landscape phones/tablets, each nav tile now stacks the icon ABOVE the label.
+- This gives every label the full tile width, so nothing gets cut off.
+- Weapons and Engineering are specifically protected, but the rule applies to all items.
+- Basic Training and Other Resources can wrap cleanly over two lines when needed.
 - Portrait hamburger behaviour is unchanged.
-- Light & Dark red DETAILS CLASSIFIED stamp and animation are unchanged.
+- Light & Dark banner / red DETAILS CLASSIFIED stamp are unchanged.
 
 Hard refresh after GitHub Pages deploys.
