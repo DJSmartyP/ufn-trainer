@@ -116,6 +116,22 @@ body[data-route="relay"]       { --station-accent: #8e67ba; --station-accent-rgb
   box-shadow: inset 0 3px 0 rgba(var(--station-accent-rgb), .22);
 }
 
+/* Station Specific Training:
+   the repeated "CAPTAIN/HELMS/... TRAINING" kicker adds no information.
+   Keep the page-level heading, but remove the repeated per-topic line and use
+   the station accent as the topic title colour instead. */
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"])
+.tab-panel[data-panel="station-training"] .station-training-topic > .section-heading.compact > .micro-label {
+  display: none;
+}
+
+:is(body[data-route="captain"], body[data-route="helms"], body[data-route="weapons"], body[data-route="engineering"], body[data-route="science"], body[data-route="relay"])
+.tab-panel[data-panel="station-training"] .station-training-topic > .section-heading.compact > h2 {
+  margin-top: 0;
+  color: var(--station-accent);
+  text-shadow: 0 0 20px rgba(var(--station-accent-rgb), .14);
+}
+
 /* Directory cards. */
 .station-card.captain { --card-station-rgb: 228, 175, 46; }
 .station-card.helms { --card-station-rgb: 75, 155, 209; }

@@ -1,25 +1,14 @@
-UFN TRAINING PORTAL // PORTAL ICON SET PATCH
+UFN TRAINING PORTAL // STATION SPECIFIC TRAINING TITLE TWEAK
 
-Upload the contents of this folder into the root of the ufn-trainer repository,
-replacing matching files.
+Replace station-colours.css in the repo root with this version.
 
 Changes:
-- Home now uses the approved command-nexus icon.
-- Basic Training now uses the approved training-dossier icon.
-- Terminal and Intranet cards on Home now use the approved matching artwork.
-- Web versions are 512px transparent WebPs to protect loading performance.
-- Mobile/tablet top bar is slightly thicker.
-- Hamburger target is larger.
-- Short-landscape top bar is increased from the previous 60px treatment to 68px.
+- Removes the repeated per-topic "CAPTAIN TRAINING", "HELMS TRAINING", etc line
+  inside Station Specific Training.
+- Keeps the main Station Specific Training page heading and consolidated
+  reference label.
+- Colours each topic heading using the existing station accent:
+  Captain gold, Helms blue, Weapons red, Engineering orange,
+  Science green, Relay purple.
 
-Files:
-- station-icons.js
-- other-resources-nav.js
-- other-resources.css
-- assets/portal-icons/home.webp
-- assets/portal-icons/basic-training.webp
-- assets/portal-icons/terminal.webp
-- assets/portal-icons/intranet.webp
-
-No index.html change is required because the existing site already loads the
-three updated JS/CSS files.
+Hard refresh after GitHub Pages deploys.
