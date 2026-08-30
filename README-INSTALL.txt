@@ -1,22 +1,21 @@
-UFN TRAINING PORTAL — BASIC TRAINING TITLE ICON PATCH
-30 August 2026
+UFN TRAINING PORTAL // BASIC TITLE ICONS + H.I.D.E.S. PATCH
 
-TARGET
-DJSmartyP/ufn-trainer, main branch.
+Upload these files into the root of the ufn-trainer repository, replacing any existing files with the same names.
 
-CHANGES
-- Replaces the generic Basic Training title-bar image with a unique icon per page.
-- Adds icons for Admiralty Briefing, Available Deployments, Tips from the Mess,
-  Ranks, Medals of Service, Allied Forces, Threats, Phenomena, Supply Drops and
-  Operational Protocols.
-- H.I.D.E.S. deliberately remains unchanged and retains its dedicated branding.
-- Existing responsive title-bar CSS is untouched.
-- index.html bumps only the basic-training-ui.js cache key so the updated script
-  is pulled immediately after GitHub Pages deploys it.
+Included:
+- index.html (updated to load the new patch assets)
+- basic-training-ui.js (page-specific Basic Training title icons)
+- hides-page-enhancements.css
+- hides-page-enhancements.js
+- assets/basic-training-icons/*.webp
 
-INSTALL
+What this patch does:
+1. Gives each Basic Training page its own title-bar icon.
+2. Keeps H.I.D.E.S. on its dedicated branded screen, but gives its Basic Training header the same square icon-box sizing feel as the other Basic Training pages.
+3. On station H.I.D.E.S. pages, inserts a note below the title bar saying the station is vulnerable to the following hacks, then lists the relevant hack names automatically from the page content.
+
+Install:
 1. Unzip this package.
-2. Upload the CONTENTS of the folder to the ROOT of the ufn-trainer repository.
-3. Replace the existing index.html and basic-training-ui.js files.
-4. Add the new assets/basic-training-icons/ folder and all 10 .webp files.
-5. Commit to main. There is no build step.
+2. Copy the contents into the root of the GitHub repo.
+3. Commit/push.
+4. Hard refresh the browser after GitHub Pages updates.
