@@ -1,82 +1,51 @@
-/* H.I.D.E.S. consistency patch
-   - Gives the Basic Training H.I.D.E.S. screen a square emblem box matching the other basic title icons.
-   - Adds a clear station vulnerability notice on station H.I.D.E.S. pages. */
+/* H.I.D.E.S. consistency patch */
 
+/* Basic Training > Operations > H.I.D.E.S. uses the same titlebar geometry
+   and EXACT square emblem treatment as the other Basic Training screens. */
 body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar,
 body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar.hides-unified-titlebar {
-  position: relative;
-  display: grid;
-  grid-template-columns: clamp(92px, 9vw, 124px) minmax(0, 1fr);
-  gap: clamp(18px, 2.4vw, 28px);
-  align-items: center;
-  margin: 8px 0 16px;
-  padding: clamp(18px, 2.5vw, 28px);
-  overflow: hidden;
-  border: 1px solid rgba(93,190,238,.42);
-  border-radius: 7px;
-  background:
-    radial-gradient(circle at 9% 50%, rgba(49,155,255,.15), transparent 16rem),
-    linear-gradient(108deg, rgba(7,31,49,.98), rgba(2,12,21,.985) 64%, rgba(7,26,42,.96));
-  box-shadow:
-    inset 0 1px 0 rgba(142,218,255,.08),
-    0 18px 48px rgba(0,0,0,.22);
+  grid-template-columns: clamp(92px, 9vw, 124px) minmax(0, 1fr) !important;
+  gap: clamp(18px, 2.4vw, 28px) !important;
+  margin: 8px 0 16px !important;
+  padding: clamp(18px, 2.5vw, 28px) !important;
 }
 
-body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(90deg, rgba(228,175,46,.90), rgba(228,175,46,0)) top left / 30% 2px no-repeat,
-    linear-gradient(90deg, rgba(93,190,238,.52), transparent 55%) bottom left / 60% 1px no-repeat;
-}
-
-body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar > :is(.hides-main-emblem, .hides-title-emblem, .hides-emblem, .system-emblem, .basic-training-title-emblem, figure),
-body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar > [class*="emblem"] {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 100%;
-  aspect-ratio: 1;
-  margin: 0;
-  padding: 7px;
-  border: 1px solid rgba(93,190,238,.20);
-  border-radius: 10px;
+body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar > .hides-brand-emblem {
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  margin: 0 !important;
+  padding: 7px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(93,190,238,.20) !important;
+  border-radius: 10px !important;
   background:
     radial-gradient(circle, rgba(79,174,229,.12), transparent 70%),
-    rgba(1,9,17,.42);
+    rgba(1,9,17,.42) !important;
 }
 
-body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar > :is(.hides-main-emblem, .hides-title-emblem, .hides-emblem, .system-emblem, .basic-training-title-emblem, figure) img,
-body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar > :is(.hides-main-emblem, .hides-title-emblem, .hides-emblem, .system-emblem, .basic-training-title-emblem, figure) svg,
-body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar > [class*="emblem"] img,
-body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar > [class*="emblem"] svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 0 18px rgba(47,170,255,.18));
+body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar > .hides-brand-emblem img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 0 18px rgba(47,170,255,.18)) !important;
 }
 
-body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar > :not([class*="emblem"]):not(figure) {
-  position: relative;
-  z-index: 1;
-  min-width: 0;
-}
-
+/* Station H.I.D.E.S. vulnerability statement */
 .hides-vulnerability-banner {
-  margin: -4px 0 18px;
+  margin: 0 0 16px;
   padding: 14px 16px 16px;
-  border: 1px solid rgba(100,190,240,.24);
-  border-left: 3px solid rgba(228,175,46,.72);
-  border-radius: 8px;
+  border: 1px solid rgba(100,190,240,.26);
+  border-top: 0;
+  border-left: 3px solid rgba(228,175,46,.78);
+  border-radius: 0 0 8px 8px;
   background:
     linear-gradient(90deg, rgba(228,175,46,.08), transparent 35%),
-    rgba(3,13,26,.72);
+    rgba(3,13,26,.80);
   box-shadow: inset 0 1px 0 rgba(125,211,250,.04);
 }
 
@@ -106,7 +75,7 @@ body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-ti
   align-items: center;
   min-height: 32px;
   padding: 6px 11px;
-  border: 1px solid rgba(94,190,235,.28);
+  border: 1px solid rgba(94,190,235,.32);
   border-radius: 999px;
   color: #e9f9ff;
   background:
@@ -121,16 +90,16 @@ body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-ti
 
 @media (max-width: 760px) {
   body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar {
-    grid-template-columns: 82px minmax(0, 1fr);
-    gap: 14px;
-    padding: 16px;
+    grid-template-columns: 82px minmax(0, 1fr) !important;
+    gap: 14px !important;
+    padding: 16px !important;
   }
 }
 
 @media (max-width: 480px) {
   body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar {
-    grid-template-columns: 68px minmax(0, 1fr);
-    gap: 12px;
+    grid-template-columns: 68px minmax(0, 1fr) !important;
+    gap: 12px !important;
   }
 
   .hides-vulnerability-chip {
@@ -140,14 +109,14 @@ body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-ti
 
 @media (orientation: landscape) and (max-height: 650px) {
   body[data-route="general"] .tab-panel[data-panel="hides-guide"] > .hides-main-titlebar {
-    grid-template-columns: 70px minmax(0, 1fr);
-    gap: 12px;
-    margin: 3px 0 10px;
-    padding: 10px 13px;
+    grid-template-columns: 70px minmax(0, 1fr) !important;
+    gap: 12px !important;
+    margin: 3px 0 10px !important;
+    padding: 10px 13px !important;
   }
 
   .hides-vulnerability-banner {
-    margin: -2px 0 10px;
+    margin-bottom: 10px;
     padding: 10px 12px 12px;
   }
 

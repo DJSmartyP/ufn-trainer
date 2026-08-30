@@ -21,7 +21,9 @@
   <link rel="stylesheet" href="intel-portrait-fix.css?v=20260830-stationalign1" />
   <link rel="stylesheet" href="basic-training-ui.css?v=20260830-stationalign1" />
   <link rel="stylesheet" href="station-page-alignment.css?v=20260830-stationalign1" />
-  <link rel="stylesheet" href="hides-page-enhancements.css?v=20260830-hidesbrief1" />
+  <link rel="stylesheet" href="hides-page-enhancements.css?v=20260830-hidesbrief2" />
+  <link rel="stylesheet" href="connected-systems-enhancements.css?v=20260830-connectedsystems1" />
+  <link rel="stylesheet" href="connected-systems.css?v=20260830-connect1" />
 </head>
 <body>
   <div class="app-shell">
@@ -53,6 +55,17 @@
           <button class="nav-item" type="button" data-nav="science"><span class="nav-code" data-station-icon="science" aria-hidden="true"></span><span>Science</span></button>
           <button class="nav-item" type="button" data-nav="relay"><span class="nav-code" data-station-icon="relay" aria-hidden="true"></span><span>Relay</span></button>
         </div>
+        <div class="side-section connected-systems-sidebar">
+          <span class="side-label">CONNECTED SYSTEMS</span>
+          <a class="nav-item connected-system-sidebar-link" data-connected-system="terminal" href="https://terminal.ufn.systems/" target="_blank" rel="noopener noreferrer">
+            <span class="nav-code connected-nav-code" data-connected-icon="terminal" aria-hidden="true"></span>
+            <span>UFN Terminal<small>Crew operations ↗</small></span>
+          </a>
+          <a class="nav-item connected-system-sidebar-link" data-connected-system="intranet" href="https://ufn.systems/" target="_blank" rel="noopener noreferrer">
+            <span class="nav-code connected-nav-code" data-connected-icon="intranet" aria-hidden="true"></span>
+            <span>UFN Intranet<small>Fleet intelligence ↗</small></span>
+          </a>
+        </div>
         <div class="sidebar-footer">
           <span class="micro-label">TRAINING ACCESS</span>
           <strong>CREW AUTHORISED</strong>
@@ -82,7 +95,9 @@
   <script src="basic-training-ui.js?v=20260830-basicicons1"></script>
   <script src="station-page-alignment.js?v=20260830-stationalign1"></script>
   <script src="hacking-tweaks.js?v=20260830-stationalign1"></script>
-  <script src="hides-page-enhancements.js?v=20260830-hidesbrief1"></script>
+  <script src="hides-page-enhancements.js?v=20260830-hidesbrief2"></script>
+  <script src="connected-systems-enhancements.js?v=20260830-connectedsystems1"></script>
+  <script src="connected-systems.js?v=20260830-connect1"></script>
   <script src="asset-loading.js?v=20260830-stationalign1"></script>
 </body>
 </html>

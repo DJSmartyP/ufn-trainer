@@ -1,0 +1,185 @@
+/* Connected UFN Systems — Home showcase + persistent sidebar access */
+
+.connected-systems-showcase {
+  margin-top: 22px;
+  padding: clamp(16px, 2.2vw, 24px);
+  border: 1px solid rgba(93,190,238,.24);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(54,162,232,.08), transparent 18rem),
+    rgba(2,11,22,.56);
+}
+
+.connected-systems-showcase > .section-heading {
+  margin-top: 0;
+}
+
+.connected-systems-showcase .network-grid {
+  gap: 12px;
+}
+
+.connected-systems-showcase .network-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(86px, 9vw, 116px) minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  column-gap: clamp(16px, 2vw, 24px);
+  row-gap: 10px;
+  align-items: center;
+  min-height: 176px;
+  padding: clamp(16px, 2vw, 22px);
+  overflow: hidden;
+  border-color: rgba(93,190,238,.32);
+  background:
+    linear-gradient(135deg, rgba(8,30,49,.96), rgba(2,12,22,.98));
+}
+
+.connected-systems-showcase .network-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(228,175,46,.82), transparent 35%) top left / 55% 2px no-repeat,
+    radial-gradient(circle at 12% 50%, rgba(62,181,236,.10), transparent 12rem);
+}
+
+.connected-systems-showcase .network-card:hover,
+.connected-systems-showcase .network-card:focus-visible {
+  border-color: rgba(228,175,46,.72);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.26);
+}
+
+.connected-system-card-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 16%;
+  border: 1px solid rgba(93,190,238,.26);
+  border-radius: 10px;
+  color: #7edcff;
+  background:
+    radial-gradient(circle, rgba(79,174,229,.13), transparent 68%),
+    rgba(1,9,17,.54);
+}
+
+.connected-system-card-icon svg,
+.connected-nav-code svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+.network-card[data-connected-system="terminal"] .connected-system-card-icon {
+  color: #7edcff;
+}
+
+.network-card[data-connected-system="intranet"] .connected-system-card-icon {
+  color: #f1c85a;
+}
+
+.connected-system-card-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: .35rem;
+  align-content: center;
+}
+
+.connected-system-card-copy > strong {
+  font-size: clamp(1.35rem, 2.3vw, 1.9rem) !important;
+}
+
+.connected-system-card-copy .network-action {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 6px;
+  color: var(--blue-soft, #9bd5ff);
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .72rem;
+  letter-spacing: .08em;
+}
+
+.connected-system-status {
+  position: relative;
+  z-index: 1;
+  grid-column: 1 / -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  width: fit-content;
+  color: var(--success, #72f0bd);
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .62rem;
+  font-weight: 650;
+  letter-spacing: .09em;
+}
+
+.connected-system-status > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 10px currentColor;
+}
+
+/* Sidebar persistent links */
+.connected-system-sidebar-link {
+  text-decoration: none;
+}
+
+.connected-nav-code {
+  display: grid;
+  place-items: center;
+  min-height: 31px;
+  padding: 6px !important;
+  color: #7edcff !important;
+}
+
+.connected-system-sidebar-link[data-connected-system="intranet"] .connected-nav-code {
+  color: #f1c85a !important;
+}
+
+.connected-system-sidebar-link > span:last-child {
+  display: grid;
+  gap: 1px;
+}
+
+.connected-system-sidebar-link > span:last-child small {
+  color: var(--muted, #9cacc0);
+  font-size: .62rem;
+  letter-spacing: .04em;
+}
+
+@media (max-width: 680px) {
+  .connected-systems-showcase .network-card {
+    grid-template-columns: 82px minmax(0, 1fr);
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 430px) {
+  .connected-systems-showcase {
+    padding: 12px;
+  }
+
+  .connected-systems-showcase .network-card {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .connected-system-card-copy p {
+    font-size: .86rem;
+  }
+}

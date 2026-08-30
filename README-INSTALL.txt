@@ -1,21 +1,35 @@
-UFN TRAINING PORTAL // BASIC TITLE ICONS + H.I.D.E.S. PATCH
+UFN TRAINING PORTAL // BASIC TRAINING + H.I.D.E.S. + CONNECTED SYSTEMS PATCH
 
-Upload these files into the root of the ufn-trainer repository, replacing any existing files with the same names.
+This is the replacement patch package. Upload its CONTENTS to the root of the ufn-trainer repository, replacing matching files.
 
-Included:
-- index.html (updated to load the new patch assets)
-- basic-training-ui.js (page-specific Basic Training title icons)
+INCLUDED
+- index.html
+- basic-training-ui.js
 - hides-page-enhancements.css
 - hides-page-enhancements.js
+- connected-systems-enhancements.css
+- connected-systems-enhancements.js
 - assets/basic-training-icons/*.webp
 
-What this patch does:
-1. Gives each Basic Training page its own title-bar icon.
-2. Keeps H.I.D.E.S. on its dedicated branded screen, but gives its Basic Training header the same square icon-box sizing feel as the other Basic Training pages.
-3. On station H.I.D.E.S. pages, inserts a note below the title bar saying the station is vulnerable to the following hacks, then lists the relevant hack names automatically from the page content.
+CHANGES
+1. Basic Training page-specific title icons remain installed.
+2. Basic Training H.I.D.E.S. retains the authorised H.I.D.E.S. artwork but now forces the emblem into the same square box, padding and responsive sizing used by the other Basic Training title icons.
+3. Station H.I.D.E.S. pages now show a security note immediately under the title bar:
+   - Helms: Drive Lock, Drive Decay
+   - Weapons: Fire Decay, Missile Scramble, Shield Collapse
+   - Engineering: Heat Surge, Grid Decay
+   This list is route-driven and does not depend on the H.I.D.E.S. record markup, so it remains present after the page expands its hack records.
+4. Home > Supporting Systems is upgraded into a two-card CONNECTED UFN SYSTEMS showcase for the UFN Terminal and UFN Intranet.
+5. Persistent CONNECTED SYSTEMS links for Terminal and Intranet are added to the sidebar.
 
-Install:
-1. Unzip this package.
-2. Copy the contents into the root of the GitHub repo.
-3. Commit/push.
-4. Hard refresh the browser after GitHub Pages updates.
+LINKS
+- UFN Terminal: https://terminal.ufn.systems/
+- UFN Intranet: https://ufn.systems/
+
+INSTALL
+1. Unzip.
+2. Open the ufn-training-basic-title-icons-patch folder.
+3. Upload everything inside that folder into the repository root.
+4. Replace matching files when prompted.
+5. Commit/push and wait for GitHub Pages to redeploy.
+6. Hard refresh once after deployment.
