@@ -4,7 +4,7 @@
 
 @media (orientation: landscape) and (max-height: 650px) and (min-width: 560px) and (max-width: 1180px) {
   .sidebar {
-    width: min(430px, 92vw);
+    width: min(360px, 84vw);
     padding: 9px 10px 10px;
     gap: 8px;
     overflow-y: hidden;
@@ -119,5 +119,13 @@
 
   .sidebar .connected-system-sidebar-link > span:last-child small {
     display: none;
+  }
+}
+
+
+/* One compact resources jump replaces the two external system links. */
+@media (orientation: landscape) and (max-height: 650px) and (min-width: 560px) and (max-width: 1180px) {
+  .sidebar .other-resources-sidebar .other-resources-nav {
+    grid-column: 1 / -1;
   }
 }

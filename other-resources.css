@@ -1,0 +1,31 @@
+/* Compact internal jump to the Terminal / Intranet cards on Home. */
+.other-resources-nav {
+  width: 100%;
+}
+
+.other-resources-code {
+  font-family: "Orbitron", "Rajdhani", sans-serif;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  color: var(--gold-bright, #ffd96e);
+}
+
+/* Keep the Home resource cards compact until their final PNG artwork is ready. */
+.network-services {
+  margin-top: 18px;
+  scroll-margin-top: 96px;
+}
+
+.network-services .network-card {
+  min-height: 118px;
+}
+
+@media (orientation: landscape) and (max-height: 650px) {
+  .network-services {
+    scroll-margin-top: 70px;
+  }
+
+  .network-services .network-card {
+    min-height: 92px;
+  }
+}

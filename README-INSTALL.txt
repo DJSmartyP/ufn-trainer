@@ -1,21 +1,12 @@
-UFN TRAINING PORTAL // CLEAN PERFORMANCE + LANDSCAPE STATION TOP FIX
+UFN TRAINING PORTAL // PERFORMANCE + STATION TOP + OTHER RESOURCES PATCH
 
-This package supersedes the previous clean performance patch.
+Upload all files in this folder into the root of the ufn-trainer repository, replacing files with the same names.
 
-Upload all files in this folder to the root of the ufn-trainer repo, replacing matching files.
+This package keeps the clean performance fixes and station-landscape top-position fix, then simplifies Connected Systems navigation:
+- UFN Terminal and UFN Intranet are no longer separate sidebar/menu items.
+- One compact "Other Resources" button replaces them.
+- Pressing it opens Home (if needed) and jumps directly to the Terminal / Intranet cards near the bottom of the Home page.
+- The short-landscape drawer is narrowed from 430px to 360px and still avoids a vertical scrollbar.
+- Terminal / Intranet cards remain lightweight placeholders until final PNG icons are designed.
 
-New in this version:
-- Prevents first station pages in short landscape from jumping to a mid-page position.
-- Disables scroll anchoring for the portal content.
-- Keeps visible station tab content fully laid out rather than estimated by content-visibility.
-- Re-pins newly opened Captain/Helms/Weapons/Engineering/Science/Relay routes to the top after layout settles.
-
-It retains the previous clean performance work:
-- lazy/low-priority non-critical assets
-- high-priority UFN logo/hero
-- verified PNG -> WebP preference where an equivalent exists
-- no legacy orientation src reset
-- no global animated asset-loading observer
-- simple Terminal/Intranet placeholders
-
-After GitHub Pages updates, test in a fresh/incognito tab.
+After GitHub Pages deploys, hard refresh once before testing.
