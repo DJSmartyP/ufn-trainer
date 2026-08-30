@@ -19,8 +19,8 @@
     engineering: "assets/stations/engineering.webp",
     science: "assets/stations/science.webp",
     relay: "assets/stations/relay.webp",
-    directory: "assets/stations/directory.webp",
-    general: "assets/stations/general.webp"
+    directory: "assets/portal-icons/home.webp",
+    general: "assets/portal-icons/basic-training.webp"
   };
 
   function iconMarkup(key) {

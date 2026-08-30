@@ -1,12 +1,25 @@
-UFN TRAINING PORTAL // PERFORMANCE + STATION TOP + OTHER RESOURCES PATCH
+UFN TRAINING PORTAL // PORTAL ICON SET PATCH
 
-Upload all files in this folder into the root of the ufn-trainer repository, replacing files with the same names.
+Upload the contents of this folder into the root of the ufn-trainer repository,
+replacing matching files.
 
-This package keeps the clean performance fixes and station-landscape top-position fix, then simplifies Connected Systems navigation:
-- UFN Terminal and UFN Intranet are no longer separate sidebar/menu items.
-- One compact "Other Resources" button replaces them.
-- Pressing it opens Home (if needed) and jumps directly to the Terminal / Intranet cards near the bottom of the Home page.
-- The short-landscape drawer is narrowed from 430px to 360px and still avoids a vertical scrollbar.
-- Terminal / Intranet cards remain lightweight placeholders until final PNG icons are designed.
+Changes:
+- Home now uses the approved command-nexus icon.
+- Basic Training now uses the approved training-dossier icon.
+- Terminal and Intranet cards on Home now use the approved matching artwork.
+- Web versions are 512px transparent WebPs to protect loading performance.
+- Mobile/tablet top bar is slightly thicker.
+- Hamburger target is larger.
+- Short-landscape top bar is increased from the previous 60px treatment to 68px.
 
-After GitHub Pages deploys, hard refresh once before testing.
+Files:
+- station-icons.js
+- other-resources-nav.js
+- other-resources.css
+- assets/portal-icons/home.webp
+- assets/portal-icons/basic-training.webp
+- assets/portal-icons/terminal.webp
+- assets/portal-icons/intranet.webp
+
+No index.html change is required because the existing site already loads the
+three updated JS/CSS files.
