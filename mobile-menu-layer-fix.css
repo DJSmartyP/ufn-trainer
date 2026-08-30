@@ -373,3 +373,133 @@
     display: block !important;
   }
 }
+
+
+/* ============================================================
+   V5 // FULL-WIDTH LANDSCAPE NAV GRID
+   Every destination is always visible. No horizontal scrolling.
+   ============================================================ */
+
+@media (orientation: landscape) {
+  .sidebar {
+    display: grid !important;
+    grid-template-columns:
+      minmax(0, .88fr)
+      minmax(0, 1.18fr)
+      repeat(6, minmax(0, .94fr))
+      minmax(0, 1.28fr) !important;
+    align-items: stretch !important;
+    justify-items: stretch !important;
+    gap: 4px !important;
+
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+
+    padding: 5px 8px !important;
+    overflow: hidden !important;
+    scrollbar-width: none !important;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* Flatten the visual groups so all nine buttons participate in the
+     same width-aware grid. */
+  .sidebar .side-section,
+  .sidebar .other-resources-sidebar {
+    display: contents !important;
+  }
+
+  .sidebar .side-label,
+  .sidebar .sidebar-footer {
+    display: none !important;
+  }
+
+  .sidebar .nav-item,
+  .sidebar .other-resources-nav {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 42px !important;
+
+    display: grid !important;
+    grid-template-columns: 24px minmax(0, 1fr) !important;
+    align-items: center !important;
+    justify-items: center !important;
+    gap: 4px !important;
+
+    padding: 4px 5px !important;
+    border-radius: 7px !important;
+
+    font-size: clamp(.58rem, .82vw, .78rem) !important;
+    line-height: 1.04 !important;
+    text-align: center !important;
+    white-space: normal !important;
+    overflow: hidden !important;
+  }
+
+  .sidebar .nav-item > span:last-child,
+  .sidebar .other-resources-nav > span:last-child {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+
+  .sidebar .nav-code,
+  .sidebar .nav-code.station-icon-host,
+  .sidebar .other-resources-code {
+    width: 24px !important;
+    height: 24px !important;
+    min-height: 24px !important;
+    padding: 2px !important;
+    border-radius: 6px !important;
+  }
+
+  .sidebar .nav-code.station-icon-host .station-icon-image {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .sidebar .other-resources-code {
+    font-size: .58rem !important;
+    letter-spacing: 0 !important;
+  }
+}
+
+/* Short landscape: tighten the same full-width grid rather than introducing
+   any scrolling or changing navigation mode. */
+@media (orientation: landscape) and (max-height: 650px) {
+  .sidebar {
+    gap: 2px !important;
+    padding: 3px 5px !important;
+  }
+
+  .sidebar .nav-item,
+  .sidebar .other-resources-nav {
+    grid-template-columns: 21px minmax(0, 1fr) !important;
+    gap: 3px !important;
+    min-height: 36px !important;
+    padding: 2px 3px !important;
+    font-size: clamp(.54rem, .74vw, .69rem) !important;
+  }
+
+  .sidebar .nav-code,
+  .sidebar .nav-code.station-icon-host,
+  .sidebar .other-resources-code {
+    width: 21px !important;
+    height: 21px !important;
+    min-height: 21px !important;
+  }
+
+  .sidebar .nav-code.station-icon-host .station-icon-image {
+    width: 17px !important;
+    height: 17px !important;
+  }
+}

@@ -1,24 +1,21 @@
+UFN TRAINING PORTAL // LANDSCAPE NAV FIT V5
 
-UFN TRAINING PORTAL // LIGHT & DARK STAMP VISIBILITY TWEAK
-
-Upload ALL files in this ZIP to the repo root, replacing matching files.
-
-Changes:
-- Keeps the restored responsive navigation model:
-  Portrait = hamburger drawer
-  Landscape = permanent horizontal nav bar
-- Keeps Light & Dark on a 4 second hold with a 1 second crossfade.
-- Removes the red RESTRICTED tag from the Light & Dark campaign banner.
-- Makes the white DETAILS CLASSIFIED stamp more readable on bright and dark artwork:
-  - stronger white border
-  - dark backing plate
-  - black outline / text stroke
-  - stronger contrast shadow
-  - no blend mode washout
-
-Files changed:
+Upload these files to the repo root, replacing matching files:
 - index.html
-- light-dark-banner-rotator.css
-- light-dark-banner-rotator.js
+- mobile-menu-layer-fix.css
 
+Landscape navigation now:
+- permanent navigation bar
+- all 9 destinations visible at once
+- no horizontal scrolling
+- no picky swipe/scroll behaviour
+- uses the full viewport width
+- longer labels can wrap neatly instead of widening the bar
+- automatically uses smaller icons/type on short landscape screens
+
+Portrait navigation is unchanged:
+- hamburger button
+- slide-out drawer
+
+All current Light & Dark artwork/stamp/rotation changes remain untouched.
 Hard refresh after GitHub Pages deploys.
