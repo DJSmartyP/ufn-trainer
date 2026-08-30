@@ -27,8 +27,21 @@
     return GROUPS.find(group => group.label === label) || null;
   }
 
+  /* IMPORTANT:
+     The visible secondary menu order comes from basicTraining.tabs because
+     app.js filters that array for the active group. Use that same order when
+     deciding which child page a primary category should open.
+
+     This means Operations currently resolves to:
+     H.I.D.E.S. -> Supply Drops -> Protocols
+     and therefore opens H.I.D.E.S. */
+  function orderedTabsForGroup(group) {
+    if (!group) return [];
+    return (basicTraining.tabs || []).filter(tab => group.tabs.includes(tab.id));
+  }
+
   function firstValidTab(group) {
-    return group?.tabs?.find(id => tabsById.has(id)) || basicTraining.tabs?.[0]?.id || null;
+    return orderedTabsForGroup(group)[0]?.id || basicTraining.tabs?.[0]?.id || null;
   }
 
   function makeBasicIcon() {
@@ -145,9 +158,9 @@
     brandPanel(panel, tabId, group);
   }
 
-  /* Primary category buttons always open their first child page.
-     Capture phase prevents the generic tab click handler from retaining a
-     previously selected child page. */
+  /* Primary category buttons always open the first child in the SAME order
+     shown in the secondary row. Capture phase prevents the generic app tab
+     handler from choosing the group's internal ID order instead. */
   document.addEventListener("click", event => {
     const button = event.target.closest?.("#content .briefing-primary-tab");
     if (!button) return;

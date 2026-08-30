@@ -1,27 +1,9 @@
-UFN Training Portal — Basic Training UI pass
+UFN Training Portal — Basic Training first-visible-child fix
 
-Upload/replace these files in the repository root:
+Upload/replace:
+- basic-training-ui.js
 - index.html
-- basic-training-ui.css (new)
-- basic-training-ui.js (new)
 
-Changes:
-1. Every Basic Training primary category now explicitly opens its first child page.
-   Briefing -> Admiralty Briefing
-   Personnel -> Ranks
-   Fleet Intelligence -> Allied Forces
-   Operations -> Protocols
-
-2. The primary category row and secondary page row now have visibly different
-   hierarchy. The child row is nested under the selected category and labelled
-   'SELECTED GROUP // ...'.
-
-3. Standard H.I.D.E.S.-inspired title rows are applied across ALL Basic Training
-   pages, including Admiralty Briefing and Available Deployments.
-   H.I.D.E.S. keeps its own dedicated system emblem/title treatment.
-
-4. Existing page content is preserved. This is a UI/layout layer only.
-
-This patch is based on the current tooltipcolour1 live build and preserves the
-portrait intelligence fix, asset loading treatment, station colours and
-station-orientation popup colours.
+Primary Basic Training category buttons now open the first child page in the same order shown in the secondary row.
+Operations therefore opens H.I.D.E.S., because the displayed order is H.I.D.E.S. -> Supply Drops -> Protocols.
+The rule is generic and applies automatically if child-page display order changes later.
