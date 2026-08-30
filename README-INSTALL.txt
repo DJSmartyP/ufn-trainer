@@ -1,14 +1,20 @@
-UFN TRAINING PORTAL // OPERATIONAL PROTOCOL READABILITY TWEAK
+UFN TRAINING PORTAL // ADMIRAL ARTEMIS PORTRAIT
 
-Replace protocol-icons.css in the repo root.
+Upload these files into the repo, preserving paths:
 
-Changes:
-- Desktop artwork column reduced from ~48% to ~39%.
-- Protocol icons reduced from up to 315px to a maximum of 240px.
-- Main explanatory text increased.
-- Key rule text increased.
-- Three instruction boxes use larger text and slightly more padding.
-- Tablet/foldable/phone icon sizes also reduced proportionally.
-- Existing protocol colours and artwork are unchanged.
+- admiralty-address-refresh.js
+- assets/admiralty/admiral-artemis.webp
 
-No index.html change required.
+No index.html or CSS change is required.
+
+Portrait preparation:
+- Source: 1229x1536
+- Final site asset: 800x1200 WebP
+- True 4x6 portrait ratio (2:3)
+- No stretching or distortion
+- No crop from the top or bottom was required
+- A small centred crop was taken from the left/right edges only to fit the 4x6 frame
+- Existing "commissioned portrait coming soon" placeholder is removed
+- The live portrait keeps the existing Admiralty frame and a subtle name/rank strip
+
+Hard refresh after GitHub Pages deploys.
