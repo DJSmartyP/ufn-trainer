@@ -87,23 +87,61 @@
 
     const aside = document.createElement("aside");
     aside.className = "admiral-portrait-placeholder";
-    aside.setAttribute("aria-label", "Official portrait of Admiral Artemis Winstanley");
+    aside.setAttribute("aria-label", "Official portrait of Admiral Evelyn Artemis Calloway");
     aside.innerHTML = `
       <div class="admiral-portrait-frame admiral-portrait-live">
         <img
           class="admiral-portrait-image"
           src="assets/admiralty/admiral-artemis.webp"
-          alt="Official portrait of Admiral Artemis Winstanley"
+          alt="Official portrait of Admiral Evelyn Artemis Calloway"
           loading="lazy"
           decoding="async"
         />
         <div class="admiral-portrait-status">
-          <span>ADMIRAL OF THE FLEET</span>
-          <strong>ARTEMIS WINSTANLEY</strong>
+          <span>ADMIRAL</span>
+          <strong>EVELYN ARTEMIS CALLOWAY</strong>
         </div>
       </div>
     `;
     return aside;
+  }
+
+  function normaliseAdmiralIdentity(root = document) {
+    const replacements = [
+      ["Admiral of the Fleet Artemis Winstanley", "Admiral Evelyn Artemis Calloway"],
+      ["Admiral Artemis Winstanley", "Admiral Evelyn Artemis Calloway"],
+      ["Artemis Winstanley", "Evelyn Artemis Calloway"],
+      ["ARTEMIS WINSTANLEY", "EVELYN ARTEMIS CALLOWAY"],
+      ["ADMIRAL OF THE FLEET", "ADMIRAL"],
+      ["Admiral of the Fleet", "Admiral"]
+    ];
+
+    const walker = document.createTreeWalker(
+      root,
+      NodeFilter.SHOW_TEXT
+    );
+
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach(node => {
+      let value = node.nodeValue;
+      replacements.forEach(([from, to]) => {
+        value = value.split(from).join(to);
+      });
+      if (value !== node.nodeValue) node.nodeValue = value;
+    });
+
+    root.querySelectorAll?.("[aria-label], [alt], [title]").forEach(element => {
+      ["aria-label", "alt", "title"].forEach(attribute => {
+        if (!element.hasAttribute(attribute)) return;
+        let value = element.getAttribute(attribute);
+        replacements.forEach(([from, to]) => {
+          value = value.split(from).join(to);
+        });
+        element.setAttribute(attribute, value);
+      });
+    });
   }
 
   function enhanceAdmiraltyBriefing() {
@@ -164,7 +202,9 @@
     scheduled = true;
     requestAnimationFrame(() => {
       scheduled = false;
+      normaliseAdmiralIdentity(document);
       enhanceAdmiraltyBriefing();
+      normaliseAdmiralIdentity(document);
     });
   }
 

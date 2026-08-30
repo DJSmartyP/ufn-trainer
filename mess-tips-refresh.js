@@ -42,7 +42,7 @@
     },
     {
       message: "Self-destruct is not a troubleshooting tool. Do not start thinking about it unless every less dramatic option has genuinely failed.",
-      person: "Admiral Artemis Winstanley",
+      person: "Admiral Evelyn Artemis Calloway",
       role: "Admiralty"
     }
   ];

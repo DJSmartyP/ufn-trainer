@@ -1,20 +1,24 @@
-UFN TRAINING PORTAL // ADMIRAL ARTEMIS PORTRAIT
+UFN TRAINING PORTAL // ADMIRAL IDENTITY CONSISTENCY
 
-Upload these files into the repo, preserving paths:
-
+Replace these two files in the repo root:
 - admiralty-address-refresh.js
-- assets/admiralty/admiral-artemis.webp
+- mess-tips-refresh.js
 
-No index.html or CSS change is required.
+Canonical identity now used throughout the rendered site:
+- Name: Admiral Evelyn Artemis Calloway
+- Rank: Admiral
 
-Portrait preparation:
-- Source: 1229x1536
-- Final site asset: 800x1200 WebP
-- True 4x6 portrait ratio (2:3)
-- No stretching or distortion
-- No crop from the top or bottom was required
-- A small centred crop was taken from the left/right edges only to fit the 4x6 frame
-- Existing "commissioned portrait coming soon" placeholder is removed
-- The live portrait keeps the existing Admiralty frame and a subtle name/rank strip
+Changes include:
+- Admiralty address/signature wording is normalised when rendered.
+- Official portrait aria/alt text updated.
+- Portrait title now reads ADMIRAL only.
+- Portrait name now reads EVELYN ARTEMIS CALLOWAY.
+- Tips from the Mess entry updated.
+- A lightweight global text/attribute normaliser removes any remaining:
+  * Admiral of the Fleet
+  * Admiral of the Fleet Artemis Winstanley
+  * Admiral Artemis Winstanley
+  * Artemis Winstanley
 
+No image, CSS or index.html changes are required.
 Hard refresh after GitHub Pages deploys.
