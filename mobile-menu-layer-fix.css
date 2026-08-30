@@ -38,7 +38,6 @@
     -webkit-backdrop-filter: blur(2px);
   }
 
-  /* Keep page-level stacking contexts underneath the open drawer. */
   .app-layout,
   .content,
   .tab-panel,
@@ -67,29 +66,55 @@
   }
 }
 
-
 /* ============================================================
-   V2 // SHORT-LANDSCAPE DRAWER FIT
-   landscape-menu-fix.css deliberately used overflow-y:hidden to avoid
-   scrolling. On some foldables/phones that clips the later menu sections
-   and also creates a horizontal scrollbar. Prefer a safe vertical fallback.
+   V3 // SHORT-LANDSCAPE DRAWER BEHAVIOUR
+   On phone/foldable landscape, force the sidebar into a true off-canvas
+   drawer so it never appears as a shallow horizontal strip in the layout.
    ============================================================ */
 
 @media (orientation: landscape) and (max-height: 650px) and (min-width: 560px) and (max-width: 1180px) {
+  .app-layout {
+    display: block !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .content {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
   .sidebar {
+    width: min(370px, 88vw) !important;
+    min-width: 0 !important;
+    max-width: min(370px, 88vw) !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
     scrollbar-width: thin;
     scrollbar-gutter: stable;
     touch-action: pan-y;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    transform: translateX(calc(-100% - 18px)) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition:
+      transform 240ms ease,
+      opacity 180ms ease,
+      visibility 0s linear 240ms !important;
   }
 
   .sidebar.open {
     transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transition:
+      transform 240ms ease,
+      opacity 180ms ease !important;
   }
 
-  /* Keep the compact two-column layout, but make every section shrink
-     naturally rather than letting the first section consume the drawer. */
   .sidebar .side-section {
     min-width: 0;
     flex: 0 0 auto;
@@ -105,21 +130,19 @@
     overflow-wrap: anywhere;
   }
 
-  /* The footer duplicates information already visible in the topbar and
-     should not steal vertical room in short landscape. */
   .sidebar .sidebar-footer {
+    display: none !important;
+  }
+
+  .nav-scrim[hidden] {
     display: none !important;
   }
 }
 
-/* Extra-tight devices get a slightly denser drawer, but remain vertically
-   scrollable as a last-resort safety net. */
 @media (orientation: landscape) and (max-height: 430px) and (min-width: 560px) and (max-width: 1180px) {
   .sidebar {
     gap: 4px !important;
     padding-top: 5px !important;
     padding-bottom: 6px !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
   }
 }

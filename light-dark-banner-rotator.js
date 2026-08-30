@@ -16,12 +16,14 @@
     "[data-light-dark-banner]"
   ].join(",");
 
-  const CYCLE_MS = 2500;
+  const HOLD_MS = 4000;
+  const TRANSITION_MS = 1000;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   let states = [];
   let currentIndex = 0;
-  let timer = null;
+  let startTimeout = null;
+  let loopTimer = null;
   let scanQueued = false;
   let preloadStarted = false;
 
@@ -57,6 +59,14 @@
 
     stage.append(imgA, imgB);
     root.prepend(stage);
+
+    if (!root.querySelector(".ld-classified-stamp")) {
+      const stamp = document.createElement("div");
+      stamp.className = "ld-classified-stamp";
+      stamp.setAttribute("aria-hidden", "true");
+      stamp.textContent = "DETAILS CLASSIFIED";
+      root.appendChild(stamp);
+    }
 
     const state = {
       root,
@@ -149,15 +159,24 @@
     states.forEach(state => swapState(state, currentIndex));
   }
 
-  function startTimer() {
-    if (reduceMotion || timer || !states.length) return;
-    timer = window.setInterval(advance, CYCLE_MS);
+  function stopTimer() {
+    if (startTimeout) {
+      window.clearTimeout(startTimeout);
+      startTimeout = null;
+    }
+    if (loopTimer) {
+      window.clearInterval(loopTimer);
+      loopTimer = null;
+    }
   }
 
-  function stopTimer() {
-    if (!timer) return;
-    window.clearInterval(timer);
-    timer = null;
+  function startTimer() {
+    if (reduceMotion || startTimeout || loopTimer || !states.length) return;
+    startTimeout = window.setTimeout(() => {
+      startTimeout = null;
+      advance();
+      loopTimer = window.setInterval(advance, HOLD_MS + TRANSITION_MS);
+    }, HOLD_MS);
   }
 
   function scan() {

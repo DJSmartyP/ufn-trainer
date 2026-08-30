@@ -1,4 +1,4 @@
-UFN TRAINING PORTAL // LIGHT & DARK CLASSIFIED STAMP + SLOWER ROTATION
+UFN TRAINING PORTAL // LANDSCAPE MENU + LIGHT & DARK FINAL TWEAK
 
 Upload ALL files in this ZIP to the repo root, replacing matching files:
 
@@ -10,26 +10,28 @@ Upload ALL files in this ZIP to the repo root, replacing matching files:
 - visual-effects.css
 - visual-effects.js
 
-Changes:
-1. LANDSCAPE MENU
-- Keeps the fixed landscape/mobile drawer behaviour from the previous patch.
+What this fixes:
 
-2. LIGHT & DARK ROTATOR
-- Auto-detects the existing Light & Dark campaign tile and the campaign dossier artwork.
-- Each artwork now remains visible for 4 seconds.
+1) LANDSCAPE MENU BAR / DRAWER
+- On phone/foldable landscape, the sidebar is now forced into a true off-canvas drawer.
+- It will no longer sit in the page as a weird shallow horizontal strip.
+- The drawer stays below the measured topbar and above page content.
+- It remains scrollable vertically on short landscape screens if needed.
+
+2) LIGHT & DARK ROTATION
+- The Light & Dark artwork now stays visible for 4 seconds.
 - Crossfade transition now lasts 1 second.
-- Total cycle per image = 5 seconds.
-- Pauses when the browser tab is hidden.
-- Reduced-motion users still get a static banner.
+- Total image cadence is 5 seconds.
+- The rotator still auto-attaches to the existing campaign tile and campaign dossier artwork.
+- Reduced-motion users still get a static image.
 
-3. DETAILS CLASSIFIED STAMP
-- Adds a large white 'DETAILS CLASSIFIED' stamp across the middle of the rotating artwork.
-- Sits above the images and below the normal content overlays.
-- Present on the Light & Dark campaign art wherever the rotator attaches.
+3) DETAILS CLASSIFIED STAMP
+- Adds a large white "DETAILS CLASSIFIED" stamp across the middle of the rotating artwork.
+- Sits above the images and behind normal content overlays.
 
-4. MICRO EFFECTS
-- Includes the station-colour hover pulse.
-- Includes the button/tap activation flash.
+4) MICRO EFFECTS
+- Keeps the station-colour hover pulse.
+- Keeps the button/tap activation flash.
 
-No campaign images need uploading again.
+The Light & Dark image assets already in assets/campaigns/light-dark do not need re-uploading.
 Hard refresh after GitHub Pages deploys.

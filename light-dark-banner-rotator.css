@@ -51,13 +51,55 @@
   opacity: 0;
 }
 
-/* Existing campaign labels and overlays remain above the art. */
+/* Large classified stamp across the artwork. */
+[data-light-dark-banner] .ld-classified-stamp {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%) rotate(-11deg);
+  transform-origin: center center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(82%, 920px);
+  padding: 0.36em 0.72em 0.34em;
+  border: 0.12em solid rgba(255, 255, 255, 0.95);
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.14) inset,
+    0 0 26px rgba(255, 255, 255, 0.08);
+  font-family: Orbitron, Rajdhani, sans-serif;
+  font-size: clamp(22px, 4.8vw, 60px);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+  opacity: 0.9;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  mix-blend-mode: screen;
+}
+
+.deployment-record-art[data-light-dark-banner] .ld-classified-stamp {
+  width: min(88%, 980px);
+  font-size: clamp(20px, 3.8vw, 58px);
+}
+
+.deployment-tile-art[data-light-dark-banner] .ld-classified-stamp {
+  font-size: clamp(18px, 3.2vw, 42px);
+  width: min(88%, 720px);
+}
+
 [data-light-dark-banner] > *:not(.ld-banner-stage):not(.ld-banner-fallback):not(.ld-classified-stamp) {
   position: relative;
   z-index: 2;
 }
 
-/* Preserve the dossier's existing lower readability gradient. */
 .deployment-record-art[data-light-dark-banner]::after {
   z-index: 1;
 }
@@ -65,5 +107,11 @@
 @media (prefers-reduced-motion: reduce) {
   [data-light-dark-banner] .ld-banner-image {
     transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  [data-light-dark-banner] .ld-classified-stamp {
+    letter-spacing: 0.14em;
   }
 }
