@@ -9,6 +9,22 @@
   const GROUPS = Array.isArray(basicTraining.tabGroups) ? basicTraining.tabGroups : [];
   const tabsById = new Map((basicTraining.tabs || []).map(tab => [tab.id, tab]));
 
+  /* BASIC TRAINING // title-bar icon set
+     Each Basic Training page gets its own UFN pictogram. H.I.D.E.S. retains
+     its dedicated authorised system branding and is deliberately excluded. */
+  const PAGE_ICONS = Object.freeze({
+    briefing: "assets/basic-training-icons/admiralty-briefing.webp",
+    deployments: "assets/basic-training-icons/available-deployments.webp",
+    notices: "assets/basic-training-icons/tips-from-the-mess.webp",
+    ranks: "assets/basic-training-icons/ranks.webp",
+    medals: "assets/basic-training-icons/medals-of-service.webp",
+    allies: "assets/basic-training-icons/allied-forces.webp",
+    threats: "assets/basic-training-icons/threats.webp",
+    phenomena: "assets/basic-training-icons/phenomena.webp",
+    "supply-drops": "assets/basic-training-icons/supply-drops.webp",
+    protocols: "assets/basic-training-icons/operational-protocols.webp"
+  });
+
   function currentTabId() {
     const raw = location.hash.replace(/^#\/?/, "");
     const [route, tab] = raw.split("/");
@@ -44,11 +60,13 @@
     return orderedTabsForGroup(group)[0]?.id || basicTraining.tabs?.[0]?.id || null;
   }
 
-  function makeBasicIcon() {
+  function makeBasicIcon(tabId) {
     const figure = document.createElement("figure");
     figure.className = "basic-training-title-emblem";
+    figure.dataset.basicIcon = tabId || "general";
+
     const img = document.createElement("img");
-    img.src = "assets/stations/general.webp";
+    img.src = PAGE_ICONS[tabId] || "assets/stations/general.webp";
     img.alt = "";
     img.loading = "eager";
     img.decoding = "async";
@@ -88,7 +106,7 @@
     title.textContent = tab?.label || "Basic Training";
 
     copy.append(small, title);
-    header.append(makeBasicIcon(), copy);
+    header.append(makeBasicIcon(tab?.id), copy);
     panel.prepend(header);
   }
 
@@ -118,14 +136,14 @@
 
     if (candidate.classList.contains("section-heading")) {
       wrapCopy(candidate);
-      candidate.prepend(makeBasicIcon());
+      candidate.prepend(makeBasicIcon(tabId));
     } else if (candidate.classList.contains("document-banner")) {
       wrapCopy(candidate, ":scope > div");
-      candidate.prepend(makeBasicIcon());
+      candidate.prepend(makeBasicIcon(tabId));
       candidate.classList.add("basic-training-titlebar-action");
     } else if (candidate.classList.contains("deployment-register-head")) {
       wrapCopy(candidate, ":scope > div");
-      candidate.prepend(makeBasicIcon());
+      candidate.prepend(makeBasicIcon(tabId));
       candidate.classList.add("basic-training-titlebar-metrics");
     }
 
