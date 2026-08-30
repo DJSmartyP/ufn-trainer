@@ -1,25 +1,20 @@
-UFN TRAINING PORTAL // HOME ICON AS WEB APP ICON
+UFN TRAINING PORTAL // MOBILE MENU LAYER FIX
 
-Upload the ZIP contents to the repo root, preserving folders.
-
-Files:
+Upload all three files to the repo root:
 - index.html
-- manifest.webmanifest
-- assets/app-icons/favicon-32.png
-- assets/app-icons/apple-touch-icon.png
-- assets/app-icons/home-192.png
-- assets/app-icons/home-512.png
-- assets/app-icons/home-maskable-512.png
+- mobile-menu-layer-fix.css
+- mobile-menu-layer-fix.js
 
-What changes:
-- The Home portal artwork becomes the browser favicon.
-- The same Home artwork becomes the icon when the site is added to a phone/tablet home screen.
-- Adds a proper web-app manifest for Android/Chrome installation.
-- Adds Apple touch icon support for iPhone/iPad.
-- Installed app opens directly on #/home.
-- Adds a mask-safe icon so Android circular/squircle icon crops do not cut off the artwork.
-- Does NOT add a service worker or alter caching/performance behaviour.
+Fixes:
+- Mobile menu now sits above all page cards/banners/content.
+- Menu starts below the ACTUAL rendered topbar rather than relying on a guessed 80/82px offset.
+- Scrim also starts below the measured header.
+- Works after font loading, orientation changes and viewport resizing.
+- Topbar remains above the drawer.
+- Page content is non-interactive while the drawer is open.
+- No changes to navigation behaviour or menu contents.
 
-Note:
-If the site was already saved to a device home screen, the old icon may be cached.
-Remove the existing saved shortcut/app and add/install it again after the GitHub Pages update.
+This specifically addresses the phone screenshot where the first menu row was being
+covered by the topbar / competing page layers.
+
+Hard refresh after GitHub Pages deploys.
