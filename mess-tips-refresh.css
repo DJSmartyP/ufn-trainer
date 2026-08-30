@@ -1,30 +1,51 @@
-/* Tips from the Mess refresh
-   One continuous officer-advice board; no separate feature boxes underneath. */
+/* Tips from the Mess
+   Every tip is structurally equal. Rank is expressed only through the
+   accent colour used on the card edge and officer name. */
 
 body[data-route="general"] .tab-panel[data-panel="notices"] .mess-board {
   align-items: stretch;
 }
 
 body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip {
+  --tip-rank: 139, 181, 211;
+  --tip-rank-colour: #8bb5d3;
   height: 100%;
+  border-color: rgba(var(--tip-rank), .34);
+  box-shadow: inset 0 3px 0 rgba(var(--tip-rank), .28);
 }
 
-body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip-command {
-  border-color: rgba(105, 186, 255, .42);
-  box-shadow: inset 0 3px 0 rgba(105, 186, 255, .30);
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip footer strong {
+  color: var(--tip-rank-colour);
 }
 
-body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip-command footer strong {
-  color: var(--blue-soft);
+/* Junior officer */
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip[data-rank="sub-lieutenant"] {
+  --tip-rank: 110, 159, 199;
+  --tip-rank-colour: #7fb7df;
 }
 
-body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip-admiralty {
-  border-color: rgba(228, 175, 46, .48);
-  box-shadow: inset 0 3px 0 rgba(228, 175, 46, .34);
+/* Lieutenant */
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip[data-rank="lieutenant"] {
+  --tip-rank: 112, 232, 255;
+  --tip-rank-colour: #70e8ff;
 }
 
-body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip-admiralty footer strong {
-  color: var(--gold-bright);
+/* Command officer */
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip[data-rank="commander"] {
+  --tip-rank: 167, 124, 209;
+  --tip-rank-colour: #b58bdf;
+}
+
+/* Senior fleet command */
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip[data-rank="commodore"] {
+  --tip-rank: 238, 179, 66;
+  --tip-rank-colour: #eeb342;
+}
+
+/* Admiralty */
+body[data-route="general"] .tab-panel[data-panel="notices"] .mess-tip[data-rank="admiral"] {
+  --tip-rank: 255, 217, 110;
+  --tip-rank-colour: #ffd96e;
 }
 
 /* Defensive: the refresh script removes this, but keep it hidden if old

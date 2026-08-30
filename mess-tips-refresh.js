@@ -38,20 +38,33 @@
     {
       message: "Remember: your Flight Controller can always hear you. Yes, even when you think you are talking quietly.",
       person: "Commodore Smarty",
-      role: "Fleet Command",
-      className: "mess-tip-command"
+      role: "Fleet Command"
     },
     {
       message: "Self-destruct is not a troubleshooting tool. Do not start thinking about it unless every less dramatic option has genuinely failed.",
       person: "Admiral Artemis Winstanley",
-      role: "Admiralty",
-      className: "mess-tip-admiralty"
+      role: "Admiralty"
     }
   ];
 
-  function createTip({ message, person, role, className = "" }) {
+  function rankFromName(name = "") {
+    const value = String(name).trim().toLowerCase();
+    if (value.startsWith("admiral ")) return "admiral";
+    if (value.startsWith("commodore ")) return "commodore";
+    if (value.startsWith("cmdr.") || value.startsWith("commander ")) return "commander";
+    if (value.startsWith("sub lt.") || value.startsWith("sub lieutenant ")) return "sub-lieutenant";
+    if (value.startsWith("lt.") || value.startsWith("lieutenant ")) return "lieutenant";
+    return "officer";
+  }
+
+  function applyRankColour(article) {
+    const name = article?.querySelector("footer strong")?.textContent || "";
+    article.dataset.rank = rankFromName(name);
+  }
+
+  function createTip({ message, person, role }) {
     const article = document.createElement("article");
-    article.className = `mess-tip ${className}`.trim();
+    article.className = "mess-tip";
 
     const quote = document.createElement("p");
     quote.textContent = `“${message}”`;
@@ -64,6 +77,7 @@
 
     footer.append(strong, span);
     article.append(quote, footer);
+    applyRankColour(article);
     return article;
   }
 
@@ -84,6 +98,10 @@
         name.textContent = "Lt. Priya Shah";
       }
     });
+
+    // Rank is the only visual hierarchy on the board. Every tip keeps the
+    // same layout and weight; border/name colour changes with officer rank.
+    board.querySelectorAll(".mess-tip").forEach(applyRankColour);
 
     // The old feature grid contained Lessons Heard Around the Fleet,
     // the Academy advert and the separate FC final word. Those are now

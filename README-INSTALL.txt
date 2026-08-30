@@ -1,25 +1,16 @@
-UFN TRAINING PORTAL // TIPS FROM THE MESS REFRESH
+UFN TRAINING PORTAL // TIPS FROM THE MESS RANK COLOURS
 
-Upload these files to the repo root, replacing index.html:
-- index.html
+Upload these two files to the repo root, replacing the previous versions:
 - mess-tips-refresh.js
 - mess-tips-refresh.css
 
-Changes:
-- Changes Lt. Amina Vale to Lt. Priya Shah.
-- Keeps the existing officer-tip board.
-- Removes the entire old bottom feature grid:
-  * Lessons Heard Around the Fleet
-  * UFN Command Academy
-  * A Final Word from Flight Command
-- Converts the useful lessons into additional attributed officer tips.
-- Adds Commodore Smarty:
-  "Remember: your Flight Controller can always hear you. Yes, even when you
-   think you are talking quietly."
-- Adds Admiral Artemis Winstanley:
-  "Self-destruct is not a troubleshooting tool. Do not start thinking about it
-   unless every less dramatic option has genuinely failed."
-- Commodore and Admiral tips get subtle command/admiralty highlighting while
-  remaining part of the same tip list.
+All tip cards now have equal layout, size and visual weight.
+The only hierarchy is rank colour:
+- Sub Lieutenant: steel blue
+- Lieutenant: cyan
+- Commander: violet
+- Commodore: amber
+- Admiral: UFN gold
 
-Hard refresh once GitHub Pages deploys.
+The script automatically reads the officer rank from the displayed name, so
+existing and newly-added tips receive the appropriate styling.
