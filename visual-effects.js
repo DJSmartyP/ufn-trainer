@@ -97,6 +97,12 @@
         white-space: nowrap;
       }
 
+      .deployment-record-stamp.columbo-coming-soon {
+        border-color: rgba(255, 157, 63, .78);
+        color: #ffad57;
+        background: rgba(74, 32, 3, .38);
+      }
+
       @media (max-width: 680px) {
         .deployment-coming-soon-badge {
           top: 7px;
@@ -233,7 +239,7 @@
                 <span class="deployment-record-coming-soon-badge">COMING SOON</span>
               </div>
             </div>
-            <div class="deployment-record-stamp" aria-hidden="true">AUTHORISED</div>
+            <div class="deployment-record-stamp columbo-coming-soon" aria-hidden="true">COMING SOON</div>
           </div>
 
           <div class="deployment-record-meta">

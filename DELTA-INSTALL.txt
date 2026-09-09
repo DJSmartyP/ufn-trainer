@@ -7,10 +7,10 @@ DJSmartyP/ufn-trainer
 This delta:
 - Adds OP13 - Operation: Columbo to Available Deployments.
 - Uses the approved Columbo intelligence-dossier artwork.
-- Adds an orange COMING SOON badge to the Columbo mission tile and record.
+- Adds orange COMING SOON status treatment to the Columbo mission tile and record.
 - Removes the NEW badge from Operation: Continuum.
 - Updates the standalone mission count from 12 to 13.
-- Keeps the Columbo tile clickable so the authorised crew briefing can be read.
+- Keeps the Columbo tile clickable so the crew briefing can be read.
 
 INSTALL
 1. Extract this ZIP.
