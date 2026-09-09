@@ -132,11 +132,38 @@
         <span class="deployment-tile-copy">
           <span class="deployment-tile-code">${COLUMBO.code}</span>
           <strong>${COLUMBO.title}</strong>
-          <span class="deployment-tile-type">Standalone Deployment</span>
+          <span class="deployment-tile-type">Follow the evidence...</span>
         </span>
       </span>
     `;
     return tile;
+  }
+
+  const MISSION_HOOKS = {
+    OP01: "Escort under pressure...",
+    OP02: "Blend in, survive...",
+    OP03: "Something feels wrong...",
+    OP04: "Protect the future...",
+    OP05: "Keep the peace...",
+    OP06: "Trust the unlikely...",
+    OP07: "Verify every identity...",
+    OP08: "Respond to crisis...",
+    OP09: "Intelligence is changing...",
+    OP10: "Bring her home...",
+    OP11: "Investigate dangerous technology...",
+    OP12: "Protect the timeline...",
+    OP13: "Follow the evidence..."
+  };
+
+  function updateMissionHooks(root) {
+    if (!root) return;
+    root.querySelectorAll(".deployment-tile").forEach(tile => {
+      const code = tile.querySelector(".deployment-tile-code")?.textContent?.trim();
+      const hook = MISSION_HOOKS[code];
+      if (!hook) return;
+      const subtitle = tile.querySelector(".deployment-tile-type");
+      if (subtitle) subtitle.textContent = hook;
+    });
   }
 
   function removeContinuumNew(root) {
@@ -189,6 +216,7 @@
     removeContinuumNew(template.content);
     updateStandaloneCounts(template.content);
     addColumboTile(template.content);
+    updateMissionHooks(template.content);
 
     deploymentTab.content = template.innerHTML;
   }
@@ -199,6 +227,7 @@
     removeContinuumNew(live);
     updateStandaloneCounts(live);
     addColumboTile(live);
+    updateMissionHooks(live);
   }
 
   function showRecordNavigation(show) {
