@@ -1,0 +1,26 @@
+UFN TRAINING PORTAL - OP13 COLUMBO DELTA
+=========================================
+
+Target repository:
+DJSmartyP/ufn-trainer
+
+This delta:
+- Adds OP13 - Operation: Columbo to Available Deployments.
+- Uses the approved Columbo intelligence-dossier artwork.
+- Adds an orange COMING SOON badge to the Columbo mission tile and record.
+- Removes the NEW badge from Operation: Continuum.
+- Updates the standalone mission count from 12 to 13.
+- Keeps the Columbo tile clickable so the authorised crew briefing can be read.
+
+INSTALL
+1. Extract this ZIP.
+2. Copy visual-effects.js to the ROOT of the ufn-trainer repository and replace the existing file.
+3. Copy assets/deployments/op13-columbo.webp into assets/deployments/.
+4. Commit/push the two changed paths to GitHub.
+5. Hard refresh the Training Portal if the old JavaScript is still cached.
+
+Files changed/added:
+- visual-effects.js                      REPLACE
+- assets/deployments/op13-columbo.webp   ADD
+
+No other portal files need to be replaced for this delta.
