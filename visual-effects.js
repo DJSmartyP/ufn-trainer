@@ -39,7 +39,7 @@
    OP13 // OPERATION: COLUMBO
    Delta upgrade added 2026-09-10.
    - Adds OP13 to Available Deployments
-   - Marks OP13 COMING SOON in orange
+   - Marks OP13 NEW and AVAILABLE NOW
    - Removes the NEW marker from OP12 Continuum
    - Updates standalone mission count 12 -> 13
    ============================================================ */
@@ -58,61 +58,8 @@
     const style = document.createElement("style");
     style.id = styleId;
     style.textContent = `
-      .deployment-coming-soon-badge {
-        position: absolute;
-        z-index: 5;
-        top: 10px;
-        right: 10px;
-        display: inline-flex;
-        align-items: center;
-        min-height: 24px;
-        padding: 4px 8px 3px;
-        border: 1px solid rgba(255, 157, 63, .82);
-        border-radius: 3px;
-        background: rgba(74, 32, 3, .90);
-        color: #ffad57;
-        box-shadow: 0 5px 18px rgba(0, 0, 0, .34), 0 0 18px rgba(255, 137, 33, .15);
-        font-family: "Orbitron", "Rajdhani", sans-serif;
-        font-size: .54rem;
-        font-weight: 700;
-        letter-spacing: .12em;
-        line-height: 1;
-        white-space: nowrap;
-      }
-
-      .deployment-record-coming-soon-badge {
-        display: inline-flex;
-        align-items: center;
-        min-height: 25px;
-        padding: 5px 9px 4px;
-        border: 1px solid rgba(255, 157, 63, .78);
-        border-radius: 3px;
-        background: rgba(74, 32, 3, .72);
-        color: #ffad57;
-        font-family: "Orbitron", "Rajdhani", sans-serif;
-        font-size: .56rem;
-        font-weight: 700;
-        letter-spacing: .12em;
-        line-height: 1;
-        white-space: nowrap;
-      }
-
-      .deployment-record-stamp.columbo-coming-soon {
-        border-color: rgba(255, 157, 63, .78);
-        color: #ffad57;
-        background: rgba(74, 32, 3, .38);
-      }
 
       @media (max-width: 680px) {
-        .deployment-coming-soon-badge {
-          top: 7px;
-          right: 7px;
-          min-height: 22px;
-          font-size: .48rem;
-        }
-        .deployment-record-coming-soon-badge {
-          font-size: .49rem;
-        }
       }
     `;
     document.head.appendChild(style);
@@ -120,15 +67,15 @@
 
   function buildColumboTile() {
     const tile = document.createElement("button");
-    tile.className = "deployment-tile deployment-tile-coming-soon";
+    tile.className = "deployment-tile deployment-tile-new";
     tile.type = "button";
     tile.dataset.columboDeployment = "true";
-    tile.setAttribute("aria-label", "Open Operation: Columbo mission record, coming soon");
+    tile.setAttribute("aria-label", "Open Operation: Columbo mission record, new deployment");
     tile.innerHTML = `
       <span class="deployment-tile-art">
         <img src="${COLUMBO.image}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
         <span class="deployment-tile-shade" aria-hidden="true"></span>
-        <span class="deployment-coming-soon-badge">COMING SOON</span>
+        <span class="deployment-new-badge">NEW</span>
         <span class="deployment-tile-copy">
           <span class="deployment-tile-code">${COLUMBO.code}</span>
           <strong>${COLUMBO.title}</strong>
@@ -261,20 +208,20 @@
         <div class="deployment-record-document">
           <div class="deployment-record-heading">
             <div>
-              <span class="classification">UFN FLEET COMMAND // PRE-RELEASE BRIEFING</span>
-              <span class="micro-label">STANDALONE DEPLOYMENT</span>
+              <span class="classification">UFN FLEET COMMAND // ACTIVE BRIEFING</span>
+              <span class="micro-label">AVAILABLE DEPLOYMENT</span>
               <div class="deployment-record-title-line">
                 <h3 id="deployment-record-title">${COLUMBO.title}</h3>
-                <span class="deployment-record-coming-soon-badge">COMING SOON</span>
+                <span class="deployment-record-new-badge">NEW DEPLOYMENT</span>
               </div>
             </div>
-            <div class="deployment-record-stamp columbo-coming-soon" aria-hidden="true">COMING SOON</div>
+            <div class="deployment-record-stamp" aria-hidden="true">AVAILABLE NOW</div>
           </div>
 
           <div class="deployment-record-meta">
             <div class="deployment-record-meta-cell"><span>RECORD</span><strong>${COLUMBO.code}</strong></div>
             <div class="deployment-record-meta-cell"><span>DEPLOYMENT</span><strong>STANDALONE</strong></div>
-            <div class="deployment-record-meta-cell"><span>STATUS</span><strong>COMING SOON</strong></div>
+            <div class="deployment-record-meta-cell"><span>STATUS</span><strong>AVAILABLE NOW</strong></div>
             <div class="deployment-record-meta-cell"><span>ACCESS</span><strong>CREW AUTHORISED</strong></div>
           </div>
 
@@ -293,7 +240,7 @@
             </div>
             <div>
               <span class="micro-label">DOCUMENT CONTROL</span>
-              <strong>${COLUMBO.code} // COMING SOON</strong>
+              <strong>${COLUMBO.code} // REVIEW BEFORE DEPLOYMENT</strong>
             </div>
           </footer>
         </div>
