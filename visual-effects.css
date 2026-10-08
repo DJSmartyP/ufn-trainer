@@ -106,6 +106,18 @@
   animation: ufnActivationFlash 190ms ease-out !important;
 }
 
+.deployment-tile-coming-soon .deployment-tile-type {
+  color: #ffc86a;
+  letter-spacing: .12em;
+}
+
+.deployment-record-stamp.coming-soon {
+  border-color: rgba(255, 190, 73, .8);
+  color: #ffc86a;
+  background: rgba(88, 51, 7, .26);
+  box-shadow: 0 0 18px rgba(255, 169, 35, .13);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nav-item[data-nav],
   .station-card,
