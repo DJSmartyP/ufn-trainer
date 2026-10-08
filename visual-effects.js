@@ -36,12 +36,7 @@
 })();
 
 /* ============================================================
-   OP13 // OPERATION: COLUMBO
-   Delta upgrade added 2026-09-10.
-   - Adds OP13 to Available Deployments
-   - Marks OP13 NEW and AVAILABLE NOW
-   - Removes the NEW marker from OP12 Continuum
-   - Updates standalone mission count 12 -> 13
+   OP13 / OP14 deployment records
    ============================================================ */
 (() => {
   "use strict";
@@ -52,34 +47,29 @@
     image: "assets/deployments/op13-columbo.webp",
     briefing: "Your crew has been assigned to escort a convoy carrying highly classified cargo through UFN space. The nature of the cargo, its origin, and its final purpose are restricted on a need-to-know basis. Fleet Command has authorised only the information required to complete the assignment: the convoy must reach its destination intact, its movements must remain discreet, and unnecessary contact with other vessels should be avoided. This is not a routine freight escort. Communications concerning the convoy are restricted, detailed manifests are unavailable, and UFN Intelligence has requested unusually tight operational security throughout the deployment. Maintain close watch over the cargo vessels, challenge unexpected contacts, and report anything that does not match the information you have been given. Your initial orders are simple: collect the convoy, protect it, and keep its presence quiet."
   };
+  const SPECIAL_DELIVERY = {
+    code: "OP14",
+    title: "Operation: Special Delivery",
+    image: "assets/deployments/op14-special-delivery.webp",
+    comingSoon: true
+  };
 
-  const styleId = "op13-columbo-delta-style";
-  if (!document.getElementById(styleId)) {
-    const style = document.createElement("style");
-    style.id = styleId;
-    style.textContent = `
-
-      @media (max-width: 680px) {
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  function buildColumboTile() {
+  function buildAddedTile(mission) {
+    const isNew = Boolean(mission.comingSoon);
     const tile = document.createElement("button");
-    tile.className = "deployment-tile deployment-tile-new";
+    tile.className = `deployment-tile${isNew ? " deployment-tile-new deployment-tile-coming-soon" : ""}`;
     tile.type = "button";
-    tile.dataset.columboDeployment = "true";
-    tile.setAttribute("aria-label", "Open Operation: Columbo mission record, new deployment");
+    tile.dataset.addedDeployment = mission.code;
+    tile.setAttribute("aria-label", `Open ${mission.title} mission record${isNew ? ", new deployment, coming soon" : ""}`);
     tile.innerHTML = `
       <span class="deployment-tile-art">
-        <img src="${COLUMBO.image}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
+        <img src="${mission.image}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
         <span class="deployment-tile-shade" aria-hidden="true"></span>
-        <span class="deployment-new-badge">NEW</span>
+        ${isNew ? '<span class="deployment-new-badge">NEW</span>' : ""}
         <span class="deployment-tile-copy">
-          <span class="deployment-tile-code">${COLUMBO.code}</span>
-          <strong>${COLUMBO.title}</strong>
-          <span class="deployment-tile-type">Follow the evidence...</span>
+          <span class="deployment-tile-code">${mission.code}</span>
+          <strong>${mission.title}</strong>
+          <span class="deployment-tile-type">${isNew ? "COMING SOON" : "Follow the evidence..."}</span>
         </span>
       </span>
     `;
@@ -99,7 +89,8 @@
     OP10: "Bring her home...",
     OP11: "Investigate dangerous technology...",
     OP12: "Protect the timeline...",
-    OP13: "Follow the evidence..."
+    OP13: "Follow the evidence...",
+    OP14: "COMING SOON"
   };
 
   function updateMissionHooks(root) {
@@ -131,24 +122,28 @@
 
     const counts = root.querySelector(".deployment-register-counts");
     if (counts) {
-      counts.setAttribute("aria-label", "13 standalone missions and 6 campaign missions");
+      counts.setAttribute("aria-label", "14 standalone missions and 6 campaign missions");
       const firstCount = counts.querySelector("div:first-child strong");
-      if (firstCount) firstCount.textContent = "13";
+      if (firstCount) firstCount.textContent = "14";
     }
 
     const standaloneSection = Array.from(root.querySelectorAll(".deployment-register-section"))
       .find(section => !section.classList.contains("deployment-campaign-section"));
     const headingCount = standaloneSection?.querySelector(".deployment-section-heading h3 span");
-    if (headingCount) headingCount.textContent = "13";
+    if (headingCount) headingCount.textContent = "14";
   }
 
-  function addColumboTile(root) {
-    if (!root || root.querySelector("[data-columbo-deployment='true']")) return;
-
+  function addDeploymentTiles(root) {
+    if (!root) return;
     const standaloneSection = Array.from(root.querySelectorAll(".deployment-register-section"))
       .find(section => !section.classList.contains("deployment-campaign-section"));
     const grid = standaloneSection?.querySelector(".deployment-tile-grid");
-    if (grid) grid.appendChild(buildColumboTile());
+    if (!grid) return;
+    [COLUMBO, SPECIAL_DELIVERY].forEach(mission => {
+      if (!grid.querySelector(`[data-added-deployment='${mission.code}']`)) {
+        grid.appendChild(buildAddedTile(mission));
+      }
+    });
   }
 
   function patchMarkupString() {
@@ -162,7 +157,7 @@
 
     removeContinuumNew(template.content);
     updateStandaloneCounts(template.content);
-    addColumboTile(template.content);
+    addDeploymentTiles(template.content);
     updateMissionHooks(template.content);
 
     deploymentTab.content = template.innerHTML;
@@ -173,7 +168,7 @@
     if (!live?.querySelector(".deployment-register-head")) return;
     removeContinuumNew(live);
     updateStandaloneCounts(live);
-    addColumboTile(live);
+    addDeploymentTiles(live);
     updateMissionHooks(live);
   }
 
@@ -184,53 +179,53 @@
       .forEach(button => { button.hidden = !show; });
   }
 
-  function renderColumboRecord() {
+  function renderAddedRecord(mission) {
     const dialog = document.getElementById("deployment-record-dialog");
     const target = document.getElementById("deployment-record-content");
     const position = document.getElementById("deployment-record-position");
     if (!dialog || !target || !position) return;
 
-    dialog.dataset.columbo = "true";
+    dialog.dataset.addedDeployment = mission.code;
     showRecordNavigation(false);
-    position.textContent = "13 / 13";
+    position.textContent = `${mission.code.slice(2)} / 14`;
 
     target.innerHTML = `
       <article class="deployment-record">
         <div class="deployment-record-art">
-          <img src="${COLUMBO.image}" alt="Mission artwork for ${COLUMBO.title}" />
+          <img src="${mission.image}" alt="Mission artwork for ${mission.title}" />
           <div class="deployment-record-art-grid" aria-hidden="true"></div>
           <div class="deployment-record-art-copy">
             <span>UFN FLEET COMMAND // MISSION RECORD</span>
-            <strong>${COLUMBO.code}</strong>
+            <strong>${mission.code}</strong>
           </div>
         </div>
 
         <div class="deployment-record-document">
           <div class="deployment-record-heading">
             <div>
-              <span class="classification">UFN FLEET COMMAND // ACTIVE BRIEFING</span>
-              <span class="micro-label">AVAILABLE DEPLOYMENT</span>
+              <span class="classification">UFN FLEET COMMAND // ${mission.comingSoon ? "PENDING BRIEFING" : "ACTIVE BRIEFING"}</span>
+              <span class="micro-label">${mission.comingSoon ? "UPCOMING DEPLOYMENT" : "AVAILABLE DEPLOYMENT"}</span>
               <div class="deployment-record-title-line">
-                <h3 id="deployment-record-title">${COLUMBO.title}</h3>
-                <span class="deployment-record-new-badge">NEW DEPLOYMENT</span>
+                <h3 id="deployment-record-title">${mission.title}</h3>
+                ${mission.comingSoon ? '<span class="deployment-record-new-badge">NEW DEPLOYMENT</span>' : ""}
               </div>
             </div>
-            <div class="deployment-record-stamp" aria-hidden="true">AVAILABLE NOW</div>
+            <div class="deployment-record-stamp${mission.comingSoon ? " coming-soon" : ""}" aria-hidden="true">${mission.comingSoon ? "COMING SOON" : "AUTHORISED"}</div>
           </div>
 
           <div class="deployment-record-meta">
-            <div class="deployment-record-meta-cell"><span>RECORD</span><strong>${COLUMBO.code}</strong></div>
+            <div class="deployment-record-meta-cell"><span>RECORD</span><strong>${mission.code}</strong></div>
             <div class="deployment-record-meta-cell"><span>DEPLOYMENT</span><strong>STANDALONE</strong></div>
-            <div class="deployment-record-meta-cell"><span>STATUS</span><strong>AVAILABLE NOW</strong></div>
-            <div class="deployment-record-meta-cell"><span>ACCESS</span><strong>CREW AUTHORISED</strong></div>
+            <div class="deployment-record-meta-cell"><span>STATUS</span><strong>${mission.comingSoon ? "COMING SOON" : "AVAILABLE NOW"}</strong></div>
+            <div class="deployment-record-meta-cell"><span>ACCESS</span><strong>${mission.comingSoon ? "BRIEFING PENDING" : "CREW AUTHORISED"}</strong></div>
           </div>
 
           <section class="deployment-record-briefing">
             <div class="deployment-record-section-title">
-              <span class="micro-label">AUTHORISED CREW BRIEFING</span>
+              <span class="micro-label">${mission.comingSoon ? "FLEET COMMAND NOTICE" : "AUTHORISED CREW BRIEFING"}</span>
               <h4>Mission Briefing</h4>
             </div>
-            <p>${COLUMBO.briefing}</p>
+            <p>${mission.comingSoon ? "Fleet Command will release the mission briefing when this deployment is authorised." : mission.briefing}</p>
           </section>
 
           <footer class="deployment-record-footer">
@@ -240,7 +235,7 @@
             </div>
             <div>
               <span class="micro-label">DOCUMENT CONTROL</span>
-              <strong>${COLUMBO.code} // REVIEW BEFORE DEPLOYMENT</strong>
+              <strong>${mission.code} // ${mission.comingSoon ? "BRIEFING PENDING" : "REVIEW BEFORE DEPLOYMENT"}</strong>
             </div>
           </footer>
         </div>
@@ -261,17 +256,18 @@
   patchLivePage();
 
   document.addEventListener("click", event => {
-    const columboTile = event.target.closest("[data-columbo-deployment='true']");
-    if (columboTile) {
+    const addedTile = event.target.closest("[data-added-deployment]");
+    if (addedTile) {
       event.preventDefault();
-      renderColumboRecord();
+      const mission = addedTile.dataset.addedDeployment === SPECIAL_DELIVERY.code ? SPECIAL_DELIVERY : COLUMBO;
+      renderAddedRecord(mission);
       return;
     }
 
     const normalTile = event.target.closest("[data-deployment-index]");
     if (normalTile) {
       const dialog = document.getElementById("deployment-record-dialog");
-      if (dialog) delete dialog.dataset.columbo;
+      if (dialog) delete dialog.dataset.addedDeployment;
       showRecordNavigation(true);
       queueMicrotask(stripContinuumRecordBadge);
       return;
@@ -280,7 +276,7 @@
     const action = event.target.closest("[data-record-action]")?.dataset.recordAction;
     const dialog = document.getElementById("deployment-record-dialog");
 
-    if (dialog?.dataset.columbo === "true" && (action === "previous" || action === "next")) {
+    if (dialog?.dataset.addedDeployment && (action === "previous" || action === "next")) {
       event.preventDefault();
       event.stopImmediatePropagation();
       return;
@@ -293,7 +289,7 @@
 
   document.addEventListener("keydown", event => {
     const dialog = document.getElementById("deployment-record-dialog");
-    if (dialog?.open && dialog.dataset.columbo === "true" &&
+    if (dialog?.open && dialog.dataset.addedDeployment &&
         (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
       event.preventDefault();
       event.stopImmediatePropagation();
