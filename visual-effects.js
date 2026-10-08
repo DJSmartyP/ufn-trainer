@@ -51,7 +51,12 @@
     code: "OP14",
     title: "Operation: Special Delivery",
     image: "assets/deployments/op14-special-delivery.webp",
-    comingSoon: true
+    comingSoon: true,
+    briefing: [
+      "You have been given a quiet but vital transfer assignment - a sealed consignment of sensitive cargo must be carried to a designated UFNI contact for secure handover. The route is not being broadcast, and the nature of the shipment is restricted to those with an operational need to know.",
+      "Maintain a low profile throughout the journey. Choose your approach, watch for unusual traffic, and avoid drawing attention to the cargo or your destination. Flight Control will provide updates as the situation develops, but the crew should be ready to adapt without compromising the assignment.",
+      "Vanguard is also carrying an advanced directional beam system for field testing. Weapons officers should familiarise themselves with its controls and report its performance under conditions. Successful delivery depends on sound navigation, disciplined communications, and discretion from every station aboard."
+    ]
   };
 
   function buildAddedTile(mission) {
@@ -69,7 +74,7 @@
         <span class="deployment-tile-copy">
           <span class="deployment-tile-code">${mission.code}</span>
           <strong>${mission.title}</strong>
-          <span class="deployment-tile-type">${isNew ? "COMING SOON" : "Follow the evidence..."}</span>
+          <span class="deployment-tile-type">${isNew ? "Deliver the package..." : "Follow the evidence..."}</span>
         </span>
       </span>
     `;
@@ -90,7 +95,7 @@
     OP11: "Investigate dangerous technology...",
     OP12: "Protect the timeline...",
     OP13: "Follow the evidence...",
-    OP14: "COMING SOON"
+    OP14: "Deliver the package..."
   };
 
   function updateMissionHooks(root) {
@@ -188,6 +193,7 @@
     dialog.dataset.addedDeployment = mission.code;
     showRecordNavigation(false);
     position.textContent = `${mission.code.slice(2)} / 14`;
+    const briefingParagraphs = Array.isArray(mission.briefing) ? mission.briefing : [mission.briefing];
 
     target.innerHTML = `
       <article class="deployment-record">
@@ -203,7 +209,7 @@
         <div class="deployment-record-document">
           <div class="deployment-record-heading">
             <div>
-              <span class="classification">UFN FLEET COMMAND // ${mission.comingSoon ? "PENDING BRIEFING" : "ACTIVE BRIEFING"}</span>
+              <span class="classification">UFN FLEET COMMAND // ${mission.comingSoon ? "ADVANCE BRIEFING" : "ACTIVE BRIEFING"}</span>
               <span class="micro-label">${mission.comingSoon ? "UPCOMING DEPLOYMENT" : "AVAILABLE DEPLOYMENT"}</span>
               <div class="deployment-record-title-line">
                 <h3 id="deployment-record-title">${mission.title}</h3>
@@ -217,15 +223,15 @@
             <div class="deployment-record-meta-cell"><span>RECORD</span><strong>${mission.code}</strong></div>
             <div class="deployment-record-meta-cell"><span>DEPLOYMENT</span><strong>STANDALONE</strong></div>
             <div class="deployment-record-meta-cell"><span>STATUS</span><strong>${mission.comingSoon ? "COMING SOON" : "AVAILABLE NOW"}</strong></div>
-            <div class="deployment-record-meta-cell"><span>ACCESS</span><strong>${mission.comingSoon ? "BRIEFING PENDING" : "CREW AUTHORISED"}</strong></div>
+            <div class="deployment-record-meta-cell"><span>ACCESS</span><strong>${mission.comingSoon ? "CREW BRIEFING" : "CREW AUTHORISED"}</strong></div>
           </div>
 
           <section class="deployment-record-briefing">
             <div class="deployment-record-section-title">
-              <span class="micro-label">${mission.comingSoon ? "FLEET COMMAND NOTICE" : "AUTHORISED CREW BRIEFING"}</span>
+              <span class="micro-label">${mission.comingSoon ? "ADVANCE CREW BRIEFING" : "AUTHORISED CREW BRIEFING"}</span>
               <h4>Mission Briefing</h4>
             </div>
-            <p>${mission.comingSoon ? "Fleet Command will release the mission briefing when this deployment is authorised." : mission.briefing}</p>
+            ${briefingParagraphs.map(paragraph => `<p>${paragraph}</p>`).join("")}
           </section>
 
           <footer class="deployment-record-footer">
@@ -235,7 +241,7 @@
             </div>
             <div>
               <span class="micro-label">DOCUMENT CONTROL</span>
-              <strong>${mission.code} // ${mission.comingSoon ? "BRIEFING PENDING" : "REVIEW BEFORE DEPLOYMENT"}</strong>
+              <strong>${mission.code} // REVIEW BEFORE DEPLOYMENT</strong>
             </div>
           </footer>
         </div>
