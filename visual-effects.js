@@ -53,11 +53,7 @@
     image: "assets/deployments/op14-special-delivery.webp",
     availableFrom: "2026-10-09T13:30:00+01:00",
     newDays: 14,
-    briefing: [
-      "You have been given a quiet but vital transfer assignment - a sealed consignment of sensitive cargo must be carried to a designated UFNI contact for secure handover. The route is not being broadcast, and the nature of the shipment is restricted to those with an operational need to know.",
-      "Maintain a low profile throughout the journey. Choose your approach, watch for unusual traffic, and avoid drawing attention to the cargo or your destination. Flight Control will provide updates as the situation develops, but the crew should be ready to adapt without compromising the assignment.",
-      "Vanguard is also carrying an advanced directional beam system for field testing. Weapons officers should familiarise themselves with its controls and report its performance under conditions. Successful delivery depends on sound navigation, disciplined communications, and discretion from every station aboard."
-    ]
+    briefing: "You have been given a quiet but vital transfer assignment - a sealed consignment of sensitive cargo must be carried to a designated UFNI contact for secure handover. The route is not being broadcast, and the nature of the shipment is restricted to those with an operational need to know. Maintain a low profile throughout the journey. Choose your approach, watch for unusual traffic, and avoid drawing attention to the cargo or your destination. Flight Control will provide updates as the situation develops, but the crew should be ready to adapt without compromising the assignment. Vanguard is also carrying an advanced directional beam system for field testing. Weapons officers should familiarise themselves with its controls and report its performance under conditions. Successful delivery depends on sound navigation, disciplined communications, and discretion from every station aboard."
   };
 
   const specialDeliveryNewUntil = Date.parse(SPECIAL_DELIVERY.availableFrom) +
