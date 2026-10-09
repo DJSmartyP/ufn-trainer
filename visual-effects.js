@@ -51,7 +51,8 @@
     code: "OP14",
     title: "Operation: Special Delivery",
     image: "assets/deployments/op14-special-delivery.webp",
-    comingSoon: true,
+    availableFrom: "2026-10-09T13:30:00+01:00",
+    newDays: 14,
     briefing: [
       "You have been given a quiet but vital transfer assignment - a sealed consignment of sensitive cargo must be carried to a designated UFNI contact for secure handover. The route is not being broadcast, and the nature of the shipment is restricted to those with an operational need to know.",
       "Maintain a low profile throughout the journey. Choose your approach, watch for unusual traffic, and avoid drawing attention to the cargo or your destination. Flight Control will provide updates as the situation develops, but the crew should be ready to adapt without compromising the assignment.",
@@ -59,22 +60,30 @@
     ]
   };
 
+  const specialDeliveryNewUntil = Date.parse(SPECIAL_DELIVERY.availableFrom) +
+    SPECIAL_DELIVERY.newDays * 24 * 60 * 60 * 1000;
+  const isNewSpecialDelivery = () => Date.now() >= Date.parse(SPECIAL_DELIVERY.availableFrom) &&
+    Date.now() < specialDeliveryNewUntil;
+  const newUntilLabel = new Date(specialDeliveryNewUntil).toLocaleDateString("en-GB", {
+    day: "numeric", month: "short", year: "numeric", timeZone: "Europe/London"
+  });
+
   function buildAddedTile(mission) {
-    const isNew = Boolean(mission.comingSoon);
+    const isNew = mission.code === SPECIAL_DELIVERY.code && isNewSpecialDelivery();
     const tile = document.createElement("button");
-    tile.className = `deployment-tile${isNew ? " deployment-tile-new deployment-tile-coming-soon" : ""}`;
+    tile.className = `deployment-tile${isNew ? " deployment-tile-new" : ""}`;
     tile.type = "button";
     tile.dataset.addedDeployment = mission.code;
-    tile.setAttribute("aria-label", `Open ${mission.title} mission record${isNew ? ", new deployment, coming soon" : ""}`);
+    tile.setAttribute("aria-label", `Open ${mission.title} mission record${isNew ? ", new deployment, now available" : ""}`);
     tile.innerHTML = `
       <span class="deployment-tile-art">
         <img src="${mission.image}" alt="" loading="lazy" decoding="async" fetchpriority="low" />
         <span class="deployment-tile-shade" aria-hidden="true"></span>
-        ${isNew ? '<span class="deployment-new-badge">NEW</span>' : ""}
+        ${isNew ? `<span class="deployment-new-badge" title="New deployment until ${newUntilLabel}">NEW</span>` : ""}
         <span class="deployment-tile-copy">
           <span class="deployment-tile-code">${mission.code}</span>
           <strong>${mission.title}</strong>
-          <span class="deployment-tile-type">${isNew ? "Deliver the package..." : "Follow the evidence..."}</span>
+          <span class="deployment-tile-type">${mission.code === SPECIAL_DELIVERY.code ? "Deliver the package..." : "Follow the evidence..."}</span>
         </span>
       </span>
     `;
@@ -145,7 +154,11 @@
     const grid = standaloneSection?.querySelector(".deployment-tile-grid");
     if (!grid) return;
     [COLUMBO, SPECIAL_DELIVERY].forEach(mission => {
-      if (!grid.querySelector(`[data-added-deployment='${mission.code}']`)) {
+      const existing = grid.querySelector(`[data-added-deployment='${mission.code}']`);
+      const shouldBeNew = mission.code === SPECIAL_DELIVERY.code && isNewSpecialDelivery();
+      if (existing && existing.classList.contains("deployment-tile-new") !== shouldBeNew) {
+        existing.replaceWith(buildAddedTile(mission));
+      } else if (!existing) {
         grid.appendChild(buildAddedTile(mission));
       }
     });
@@ -194,6 +207,7 @@
     showRecordNavigation(false);
     position.textContent = `${mission.code.slice(2)} / 14`;
     const briefingParagraphs = Array.isArray(mission.briefing) ? mission.briefing : [mission.briefing];
+    const isNew = mission.code === SPECIAL_DELIVERY.code && isNewSpecialDelivery();
 
     target.innerHTML = `
       <article class="deployment-record">
@@ -209,26 +223,26 @@
         <div class="deployment-record-document">
           <div class="deployment-record-heading">
             <div>
-              <span class="classification">UFN FLEET COMMAND // ${mission.comingSoon ? "ADVANCE BRIEFING" : "ACTIVE BRIEFING"}</span>
-              <span class="micro-label">${mission.comingSoon ? "UPCOMING DEPLOYMENT" : "AVAILABLE DEPLOYMENT"}</span>
+              <span class="classification">UFN FLEET COMMAND // ACTIVE BRIEFING</span>
+              <span class="micro-label">AVAILABLE DEPLOYMENT</span>
               <div class="deployment-record-title-line">
                 <h3 id="deployment-record-title">${mission.title}</h3>
-                ${mission.comingSoon ? '<span class="deployment-record-new-badge">NEW DEPLOYMENT</span>' : ""}
+                ${isNew ? `<span class="deployment-record-new-badge" title="New deployment until ${newUntilLabel}">NEW DEPLOYMENT</span>` : ""}
               </div>
             </div>
-            <div class="deployment-record-stamp${mission.comingSoon ? " coming-soon" : ""}" aria-hidden="true">${mission.comingSoon ? "COMING SOON" : "AUTHORISED"}</div>
+            <div class="deployment-record-stamp${isNew ? " new-available" : ""}" aria-hidden="true">${isNew ? "NOW AVAILABLE" : "AUTHORISED"}</div>
           </div>
 
           <div class="deployment-record-meta">
             <div class="deployment-record-meta-cell"><span>RECORD</span><strong>${mission.code}</strong></div>
             <div class="deployment-record-meta-cell"><span>DEPLOYMENT</span><strong>STANDALONE</strong></div>
-            <div class="deployment-record-meta-cell"><span>STATUS</span><strong>${mission.comingSoon ? "COMING SOON" : "AVAILABLE NOW"}</strong></div>
-            <div class="deployment-record-meta-cell"><span>ACCESS</span><strong>${mission.comingSoon ? "CREW BRIEFING" : "CREW AUTHORISED"}</strong></div>
+            <div class="deployment-record-meta-cell"><span>STATUS</span><strong>${isNew ? "NOW AVAILABLE" : "AVAILABLE NOW"}</strong></div>
+            <div class="deployment-record-meta-cell"><span>ACCESS</span><strong>CREW AUTHORISED</strong></div>
           </div>
 
           <section class="deployment-record-briefing">
             <div class="deployment-record-section-title">
-              <span class="micro-label">${mission.comingSoon ? "ADVANCE CREW BRIEFING" : "AUTHORISED CREW BRIEFING"}</span>
+              <span class="micro-label">AUTHORISED CREW BRIEFING</span>
               <h4>Mission Briefing</h4>
             </div>
             ${briefingParagraphs.map(paragraph => `<p>${paragraph}</p>`).join("")}
@@ -260,6 +274,23 @@
 
   patchMarkupString();
   patchLivePage();
+
+  function refreshSpecialDeliveryStatus() {
+    patchMarkupString();
+    patchLivePage();
+    const dialog = document.getElementById("deployment-record-dialog");
+    if (dialog?.open && dialog.dataset.addedDeployment === SPECIAL_DELIVERY.code) {
+      renderAddedRecord(SPECIAL_DELIVERY);
+    }
+  }
+
+  const timeUntilExpiry = specialDeliveryNewUntil - Date.now();
+  if (timeUntilExpiry > 0) {
+    window.setTimeout(refreshSpecialDeliveryStatus, timeUntilExpiry + 1000);
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) refreshSpecialDeliveryStatus();
+  });
 
   document.addEventListener("click", event => {
     const addedTile = event.target.closest("[data-added-deployment]");

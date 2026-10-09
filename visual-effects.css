@@ -113,6 +113,13 @@
   box-shadow: 0 0 18px rgba(255, 169, 35, .13);
 }
 
+.deployment-record-stamp.new-available {
+  border-color: rgba(102, 224, 255, .8);
+  color: #a9eeff;
+  background: rgba(18, 75, 99, .28);
+  box-shadow: 0 0 18px rgba(69, 190, 238, .2);
+}
+
 .deployment-record-briefing > p + p {
   margin-top: 1em;
 }
