@@ -5,6 +5,7 @@
   const basicTraining = content?.general;
   if (!basicTraining) return;
 
+  // Add standalone deployments here: cards, counts, and record navigation share this order.
   const missions = [
   {
     "code": "OP01",
@@ -78,6 +79,22 @@
     "image": "assets/deployments/op12-continuum.webp",
     "added": "2026-08-29",
     "briefing": "UFN Science Corps has detected a temporal distortion wave moving toward Twin Pines, with estimated arrival in approximately thirty minutes. Analysis suggests the wave may represent a change to history propagating forward through spacetime. If it reaches the region, the present may be rewritten. Current databases cannot be trusted after impact, so UFN Science maintains a protected historical archive outside normal chronology: UFN History. Intelligence has authorised emergency use of temporal drive technology to retrieve that record and compare it against the present. ALF will assist with temporal navigation and anomaly analysis. Leave the area before the wave arrives, or you may lose all memory of the original timeline. Interfere with past events only where necessary to repair history. This operation is classified at the highest level. History is the objective, and restraint may be the only way home intact."
+  },
+  {
+    code: "OP13",
+    title: "Operation: Columbo",
+    image: "assets/deployments/op13-columbo.webp",
+    hook: "Follow the evidence...",
+    briefing: "Your crew has been assigned to escort a convoy carrying highly classified cargo through UFN space. The nature of the cargo, its origin, and its final purpose are restricted on a need-to-know basis. Fleet Command has authorised only the information required to complete the assignment: the convoy must reach its destination intact, its movements must remain discreet, and unnecessary contact with other vessels should be avoided. This is not a routine freight escort. Communications concerning the convoy are restricted, detailed manifests are unavailable, and UFN Intelligence has requested unusually tight operational security throughout the deployment. Maintain close watch over the cargo vessels, challenge unexpected contacts, and report anything that does not match the information you have been given. Your initial orders are simple: collect the convoy, protect it, and keep its presence quiet."
+  },
+  {
+    code: "OP14",
+    title: "Operation: Special Delivery",
+    image: "assets/deployments/op14-special-delivery.webp",
+    hook: "Deliver the package...",
+    availableFrom: "2026-10-09T13:30:00+01:00",
+    newDays: 14,
+    briefing: "You have been given a quiet but vital transfer assignment - a sealed consignment of sensitive cargo must be carried to a designated UFNI contact for secure handover. The route is not being broadcast, and the nature of the shipment is restricted to those with an operational need to know. Maintain a low profile throughout the journey. Choose your approach, watch for unusual traffic, and avoid drawing attention to the cargo or your destination. Flight Control will provide updates as the situation develops, but the crew should be ready to adapt without compromising the assignment. Vanguard is also carrying an advanced directional beam system for field testing. Weapons officers should familiarise themselves with its controls and report its performance under conditions. Successful delivery depends on sound navigation, disciplined communications, and discretion from every station aboard."
   }
 ];
 
@@ -93,6 +110,12 @@
   const records = [...missions, campaign];
 
   const NEW_DEPLOYMENT_DAYS = 28;
+  const MISSION_HOOKS = [
+    "Escort under pressure...", "Blend in, survive...", "Something feels wrong...",
+    "Protect the future...", "Keep the peace...", "Trust the unlikely...",
+    "Verify every identity...", "Respond to crisis...", "Intelligence is changing...",
+    "Bring her home...", "Investigate dangerous technology...", "Protect the timeline..."
+  ];
   const parseDeploymentDate = value => {
     if (!value) return null;
     const parts = String(value).split("-").map(Number);
@@ -100,6 +123,11 @@
     return new Date(parts[0], parts[1] - 1, parts[2]);
   };
   const isNewDeployment = record => {
+    if (record.availableFrom) {
+      const start = Date.parse(record.availableFrom);
+      return Date.now() >= start && Date.now() < start + record.newDays * 86400000;
+    }
+    if (record.code === "OP12") return false;
     const added = parseDeploymentDate(record.added);
     if (!added) return false;
     const expiry = new Date(added);
@@ -108,6 +136,10 @@
     return now >= added && now < expiry;
   };
   const newExpiryLabel = record => {
+    if (record.availableFrom) {
+      return new Date(Date.parse(record.availableFrom) + record.newDays * 86400000)
+        .toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "Europe/London" });
+    }
     const added = parseDeploymentDate(record.added);
     if (!added) return "";
     const expiry = new Date(added);
@@ -126,7 +158,7 @@
         <span class="deployment-tile-copy">
           <span class="deployment-tile-code">${mission.code}</span>
           <strong>${mission.title}</strong>
-          <span class="deployment-tile-type">Standalone Deployment</span>
+          <span class="deployment-tile-type">${mission.hook || MISSION_HOOKS[index] || "Standalone Deployment"}</span>
         </span>
       </span>
     </button>
@@ -160,8 +192,8 @@
           <h2>Available Deployments</h2>
           <p>Select an operation to open its Fleet Command mission record and authorised briefing.</p>
         </div>
-        <div class="deployment-register-counts" aria-label="12 standalone missions and 6 campaign missions">
-          <div><strong>12</strong><span>STANDALONE<br />MISSIONS</span></div>
+        <div class="deployment-register-counts" aria-label="${missions.length} standalone missions and 6 campaign missions">
+          <div><strong>${missions.length}</strong><span>STANDALONE<br />MISSIONS</span></div>
           <div><strong>06</strong><span>CAMPAIGN<br />MISSIONS</span></div>
         </div>
       </section>
@@ -169,7 +201,7 @@
       <section class="deployment-register-section">
         <div class="deployment-section-heading">
           <span class="micro-label">DEPLOYMENT CLASS // STANDALONE</span>
-          <h3>Standalone Missions <span>12</span></h3>
+          <h3>Standalone Missions <span>${missions.length}</span></h3>
         </div>
         <div class="deployment-tile-grid" aria-label="Standalone mission deployments">
           ${tileMarkup}
@@ -228,7 +260,7 @@
     return [
       ["RECORD", record.code],
       ["DEPLOYMENT", "STANDALONE"],
-      ["STATUS", "AVAILABLE"],
+      ["STATUS", record.availableFrom ? (isNewDeployment(record) ? "NOW AVAILABLE" : "AVAILABLE NOW") : "AVAILABLE"],
       ["ACCESS", "CREW AUTHORISED"]
     ];
   }
@@ -301,8 +333,8 @@
                 ${isNew ? `<span class="deployment-record-new-badge" title="New deployment until ${newExpiryLabel(record)}">NEW DEPLOYMENT</span>` : ""}
               </div>
             </div>
-            <div class="deployment-record-stamp ${isCampaign ? "restricted" : ""}" aria-hidden="true">
-              ${isCampaign ? "REDACTED" : "AUTHORISED"}
+            <div class="deployment-record-stamp ${isCampaign ? "restricted" : isNew && record.availableFrom ? "new-available" : ""}" aria-hidden="true">
+              ${isCampaign ? "REDACTED" : isNew && record.availableFrom ? "NOW AVAILABLE" : "AUTHORISED"}
             </div>
           </div>
 
