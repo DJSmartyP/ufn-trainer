@@ -210,6 +210,7 @@
               <div class="hero-actions">
                 <button class="button primary" type="button" data-nav="general">Open Sector Briefing</button>
                 <a class="button secondary" href="assets/UFN-Sector-Briefing.pdf" target="_blank" rel="noopener">Open Intelligence Packet</a>
+                <a class="button secondary" href="new-to-ufn.html">New to UFN? Start here</a>
               </div>
             </div>
             <img src="assets/ufn-logo.webp" alt="" class="hero-emblem" />
