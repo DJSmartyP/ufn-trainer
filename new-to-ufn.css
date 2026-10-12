@@ -123,6 +123,14 @@ p { color: var(--muted); }
 .terminal-explainer-list span { grid-row: span 2; color: var(--gold); font-family: Orbitron, sans-serif; font-size: .61rem; }
 .terminal-explainer-list strong { color: #ecf8ff; font-size: 1.03rem; line-height: 1.1; }
 .terminal-explainer-list small { color: #a8c5d4; font-size: .91rem; }
+.terminal-portal-preview { grid-column: 1 / -1; min-width: 0; margin: 0; padding-top: 24px; border-top: 1px solid rgba(240, 207, 117, .24); }
+.terminal-portal-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.terminal-portal-images a { position: relative; display: block; min-width: 0; overflow: hidden; border: 1px solid rgba(112, 209, 247, .34); border-radius: 9px; background: #020912; }
+.terminal-portal-images a:focus-visible { outline-offset: 5px; }
+.terminal-portal-images img { display: block; width: 100%; height: 450px; object-fit: cover; object-position: top; }
+.terminal-portal-images .terminal-portal-medals img { object-position: bottom; }
+.terminal-portal-images a span { position: absolute; inset: auto 0 0; padding: 30px 15px 12px; color: #fff; background: linear-gradient(transparent, rgba(2, 7, 13, .94)); font-family: Orbitron, sans-serif; font-size: .67rem; font-weight: 600; letter-spacing: .04em; }
+.terminal-portal-preview figcaption { margin-top: 10px; color: #aec9d8; font-size: .85rem; }
 .joining-note { display: grid; grid-template-columns: 230px 1fr; align-items: center; gap: 22px; margin-top: 20px; padding: 22px 25px; border-left: 3px solid var(--gold); background: rgba(23, 50, 65, .6); }
 .joining-note strong { font-family: Orbitron, sans-serif; font-size: .92rem; }
 .joining-note p { margin: 0; }
@@ -194,6 +202,10 @@ p { color: var(--muted); }
   .pane-label small { margin-left: 0; }
   .joining-note { grid-template-columns: 1fr; gap: 8px; }
   .terminal-explainer { gap: 20px; padding: 23px; }
+  .terminal-portal-images { grid-template-columns: 1fr; }
+  .terminal-portal-images img { height: auto; }
+  .terminal-portal-medals { display: none !important; }
+  .terminal-portal-images a span { font-size: .61rem; }
   .version-callout strong { font-size: .72rem; }
   .station-screen figcaption { text-align: left; }
   .final-cta { padding-block: 60px; }
