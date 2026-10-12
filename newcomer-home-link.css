@@ -1,0 +1,16 @@
+/* Scoped to the single newcomer link; the home layout stays intact. */
+.hero-actions .button.newcomer-home-link {
+  gap: 9px;
+  color: #101b25;
+  border-color: #ffe5a0;
+  background: linear-gradient(135deg, #ffe7aa, #edbe64);
+  box-shadow: 0 0 0 1px rgba(249, 215, 136, .25), 0 0 25px rgba(237, 190, 100, .28);
+  font-weight: 800;
+}
+.hero-actions .button.newcomer-home-link:hover,
+.hero-actions .button.newcomer-home-link:focus-visible {
+  color: #071320;
+  background: linear-gradient(135deg, #fff1c8, #ffd476);
+  box-shadow: 0 0 0 2px rgba(255, 231, 170, .54), 0 0 35px rgba(237, 190, 100, .42);
+}
+.hero-actions .button.newcomer-home-link span { font-size: .9rem; line-height: 0; }
