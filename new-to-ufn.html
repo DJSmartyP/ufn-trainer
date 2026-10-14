@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="new-to-ufn.css?v=20261014-firstgame1" />
+  <link rel="stylesheet" href="new-to-ufn.css?v=20261014-layout1" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -43,11 +43,25 @@
       </div>
     </section>
 
+    <nav class="page-nav" aria-label="On this page">
+      <div class="page-nav-inner page-width">
+        <div class="page-nav-links">
+          <a href="#the-experience">Explore</a>
+          <a href="#session-title">Session</a>
+          <a href="#join">Join</a>
+          <a href="#equipment">Setup</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <a class="page-nav-action" href="https://discord.gg/VapwZsZkJE" target="_blank" rel="noopener noreferrer">Join SXP <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+
     <section class="section intro page-width" id="the-experience" aria-labelledby="experience-title">
       <div class="section-heading">
         <span class="eyebrow">THE EXPERIENCE</span>
         <h2 id="experience-title">More than a space battle.</h2>
-        <p>UFN (United Federated Navy) Missions are cooperative stories played over the internet by a crew of usually 4–6 people. Each player uses their own device to connect to EmptyEpsilon, the starship game software, and joins voice chat in Discord. You each run a different station aboard the same ship, sharing information and making decisions as one crew. SXP (Shared XP) is the Discord community where you find games and meet your team.</p>
+        <p>Join a crew of usually 4–6 players, each online from their own device. In EmptyEpsilon, the starship game software, you operate one station while your team talks over Discord and makes decisions together.</p>
+        <p class="intro-glossary">UFN means United Federated Navy, the setting for our missions. SXP (Shared XP) is the Discord community where you find games and meet your team.</p>
       </div>
       <div class="experience-grid">
         <article class="feature-card">
@@ -117,6 +131,7 @@
           <li><div class="card-art"><img src="assets/newcomer-art/mission.jpg" alt="" loading="lazy" width="1792" height="1024" /><span class="step-index">03</span></div><div class="card-body"><h3>The mission</h3><p>Work with your crew as new information, characters and challenges enter the story.</p></div></li>
           <li><div class="card-art"><img src="assets/newcomer-art/debrief.jpg" alt="" loading="lazy" width="1792" height="1024" /><span class="step-index">04</span></div><div class="card-body"><h3>Debrief</h3><p>Talk through the experience together. Medals or promotions may also be awarded.</p></div></li>
         </ol>
+        <div class="session-cta"><div><strong>Ready to try a mission?</strong><span>No experience needed. We train every crew before play begins.</span></div><a href="#join">See how to join <span aria-hidden="true">→</span></a></div>
       </div>
     </section>
 
@@ -132,17 +147,19 @@
         <li><div class="card-art"><img src="assets/newcomer-art/booking.jpg" alt="" loading="lazy" width="1792" height="1024" /><span class="step-index">03</span></div><div class="card-body"><h3>Choose an open slot</h3><p>Tell us your first and second station choices, or select no preference. Terminal tries to place you accordingly; crews can discuss and change stations right up to mission start.</p></div></li>
       </ol>
       <section class="terminal-explainer" aria-labelledby="terminal-title">
-        <div class="terminal-explainer-copy">
-          <span class="eyebrow">YOUR UFN HUB</span>
-          <h3 id="terminal-title">What is Terminal?</h3>
-          <p>UFN Terminal is our mission booking system. It is also where you can follow your journey as a player: see the sessions you have played, read your mission reports and keep track of the stations you have taken.</p>
-          <p>Your record also shows the medals and promotions you earn along the way.</p>
-          <a href="https://terminal.ufn.systems/" target="_blank" rel="noopener noreferrer">Explore UFN Terminal <span aria-hidden="true">↗</span></a>
-        </div>
-        <div class="terminal-explainer-list" aria-label="What Terminal helps you do">
-          <div><span>01</span><strong>Book missions</strong><small>Find open slots and manage your bookings</small></div>
-          <div><span>02</span><strong>Revisit your story</strong><small>Read reports from your sessions</small></div>
-          <div><span>03</span><strong>See your progression</strong><small>Stations played, medals and promotions</small></div>
+        <div class="terminal-content">
+          <div class="terminal-explainer-copy">
+            <span class="eyebrow">YOUR UFN HUB</span>
+            <h3 id="terminal-title">What is Terminal?</h3>
+            <p>UFN Terminal is our mission booking system. It is also where you can follow your journey as a player: see the sessions you have played, read your mission reports and keep track of the stations you have taken.</p>
+            <p>Your record also shows the medals and promotions you earn along the way.</p>
+            <a href="https://terminal.ufn.systems/" target="_blank" rel="noopener noreferrer">Explore UFN Terminal <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="terminal-explainer-list" aria-label="What Terminal helps you do">
+            <div><span>01</span><strong>Book missions</strong><small>Find open slots and manage your bookings</small></div>
+            <div><span>02</span><strong>Revisit your story</strong><small>Read reports from your sessions</small></div>
+            <div><span>03</span><strong>See your progression</strong><small>Stations played, medals and promotions</small></div>
+          </div>
         </div>
         <figure class="terminal-portal-preview">
           <img src="assets/screens/terminal-player-portal.jpg" alt="A real UFN Terminal player portal showing Smarty's profile, station totals, mission history and medal case" loading="lazy" width="699" height="1277" />
