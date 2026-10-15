@@ -127,6 +127,14 @@ main [id] { scroll-margin-top: 78px; }
 .join-steps .card-body { padding: 19px 26px 25px; }
 .join-steps a { align-self: flex-start; margin-top: auto; padding-top: 17px; color: var(--gold); font-weight: 700; text-underline-offset: 3px; }
 .join-steps strong, .faq-grid strong { color: #e0f2fb; }
+.discord-community { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 372px); gap: clamp(24px, 5vw, 70px); align-items: center; margin-top: 24px; padding: clamp(24px, 4vw, 46px); border: 1px solid rgba(112, 209, 247, .35); border-radius: 13px; background: radial-gradient(circle at 14% 82%, rgba(40, 116, 151, .27), transparent 48%), linear-gradient(130deg, #0a2030, #06131e 65%); box-shadow: 0 24px 60px rgba(0, 0, 0, .2); }
+.discord-community h3 { max-width: 600px; margin: 13px 0 18px; color: #fff; font-family: Orbitron, sans-serif; font-size: clamp(1.45rem, 2.5vw, 2.25rem); }
+.discord-community-copy p { max-width: 600px; margin-bottom: 13px; }
+.discord-community-copy strong { color: #e0f2fb; }
+.discord-community-copy .button { margin-top: 15px; }
+.discord-widget-shell { width: 100%; max-width: 372px; padding: 10px; border: 1px solid rgba(240, 207, 117, .3); border-radius: 12px; background: #1f2228; box-shadow: 0 16px 45px rgba(0, 0, 0, .36); }
+.discord-widget-label { display: block; padding: 4px 6px 10px; color: var(--gold); font-family: Orbitron, sans-serif; font-size: .55rem; font-weight: 700; letter-spacing: .1em; }
+.discord-widget-shell iframe { display: block; width: 100%; height: 500px; border: 0; border-radius: 7px; background: #232428; }
 .terminal-explainer { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(330px, .8fr); gap: 38px; align-items: center; margin-top: 24px; padding: 33px; border: 1px solid rgba(240, 207, 117, .38); border-radius: 13px; background: radial-gradient(circle at 78% 24%, rgba(35, 105, 141, .24), transparent 48%), linear-gradient(135deg, #0b2130, #06131e); box-shadow: 0 24px 60px rgba(0, 0, 0, .23); }
 .terminal-content { display: grid; gap: 27px; align-content: center; }
 .terminal-explainer h3 { margin: 12px 0 13px; color: #fff; font-family: Orbitron, sans-serif; font-size: clamp(1.3rem, 2.1vw, 1.9rem); }
@@ -198,6 +206,8 @@ main [id] { scroll-margin-top: 78px; }
   .mission-example-art { height: 260px; min-height: 0; }
   .session-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .session-steps li { min-height: 170px; }
+  .discord-community { grid-template-columns: 1fr; }
+  .discord-widget-shell { justify-self: center; }
   .terminal-explainer { grid-template-columns: 1fr; gap: 22px; }
   .terminal-content { gap: 20px; }
   .terminal-portal-preview { width: 100%; max-width: 420px; margin-top: 8px; }
@@ -241,6 +251,8 @@ main [id] { scroll-margin-top: 78px; }
   .pane-label { flex-wrap: wrap; }
   .pane-label small { margin-left: 0; }
   .joining-note, .availability-note { grid-template-columns: 1fr; gap: 8px; }
+  .discord-community { padding: 23px; }
+  .discord-community-copy .button { width: 100%; }
   .first-game-checklist { padding: 23px; }
   .terminal-explainer { gap: 20px; padding: 23px; }
   .platform-grid article { grid-template-columns: 50px minmax(0, 1fr); gap: 14px; }
