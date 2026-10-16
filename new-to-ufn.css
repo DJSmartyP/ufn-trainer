@@ -140,8 +140,8 @@ main [id] { scroll-margin-top: 78px; }
 .terminal-explainer p { max-width: 570px; margin-bottom: 10px; }
 .terminal-explainer-copy a { display: inline-block; margin-top: 10px; color: var(--gold); font-weight: 700; text-underline-offset: 4px; }
 .terminal-explainer-list { display: grid; gap: 9px; }
-.terminal-explainer-list div { display: grid; grid-template-columns: 33px 1fr; gap: 2px 13px; padding: 14px 16px; border: 1px solid rgba(121, 201, 236, .22); border-radius: 7px; background: rgba(2, 12, 22, .54); }
-.terminal-explainer-list span { grid-row: span 2; color: var(--gold); font-family: Orbitron, sans-serif; font-size: .61rem; }
+.terminal-explainer-list div { display: grid; grid-template-columns: 56px minmax(0, 1fr); align-items: center; gap: 2px 14px; min-height: 82px; padding: 10px 16px; border: 1px solid rgba(121, 201, 236, .22); border-radius: 7px; background: rgba(2, 12, 22, .54); }
+.terminal-explainer-list img { grid-row: span 2; width: 56px; height: 56px; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .35)); }
 .terminal-explainer-list strong { color: #ecf8ff; font-size: 1.03rem; line-height: 1.1; }
 .terminal-explainer-list small { color: #a8c5d4; font-size: .91rem; }
 .terminal-portal-preview { justify-self: center; min-width: 0; max-width: 390px; margin: 0; text-align: center; }
