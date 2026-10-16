@@ -86,22 +86,29 @@ main [id] { scroll-margin-top: 78px; }
 .mission-example ol { display: grid; gap: 10px; margin: 0 0 20px; padding-left: 1.25em; color: #e3f2f9; }
 .mission-example li::marker { color: var(--gold); font-weight: 700; }
 .mission-example .example-reassurance { margin: 0; color: var(--gold); font-weight: 700; }
-.comms-visual { overflow: hidden; margin-top: 24px; border: 1px solid rgba(112, 209, 247, .42); border-radius: 14px; background: radial-gradient(circle at 70% 50%, rgba(28, 92, 124, .29), transparent 36%), #04111d; box-shadow: 0 25px 70px rgba(0, 0, 0, .25); }
-.comms-topline { display: flex; align-items: center; gap: 10px; padding: 13px 20px; border-bottom: 1px solid var(--line); color: var(--blue); font-family: Orbitron, sans-serif; font-size: .63rem; font-weight: 700; letter-spacing: .11em; }
+.comms-visual { overflow: hidden; margin-top: 24px; border: 1px solid rgba(112, 209, 247, .42); border-radius: 14px; background: radial-gradient(circle at 82% 8%, rgba(28, 92, 124, .3), transparent 34%), #04111d; box-shadow: 0 25px 70px rgba(0, 0, 0, .25); }
+.comms-topline { display: flex; align-items: center; gap: 10px; padding: 13px 22px; border-bottom: 1px solid var(--line); color: var(--blue); font-family: Orbitron, sans-serif; font-size: .63rem; font-weight: 700; letter-spacing: .11em; }
 .comms-topline > span:last-child { margin-left: auto; color: #b7d6e6; }
 .signal-dot { width: 8px; height: 8px; border-radius: 50%; background: #79f0ba; box-shadow: 0 0 12px #79f0ba; }
-.comms-intro { display: grid; grid-template-columns: minmax(210px, .85fr) 1.5fr; align-items: center; gap: 26px; padding: 27px 28px 18px; }
-.comms-intro h3 { margin: 0; color: #fff; font-family: Orbitron, sans-serif; font-size: clamp(1.15rem, 2vw, 1.55rem); }
-.comms-intro p { margin: 0; }
-.comms-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; padding: 0 22px 20px; }
-.comms-pane { display: flex; flex-direction: column; min-width: 0; padding: 17px; border: 1px solid rgba(123, 202, 238, .23); border-radius: 10px; background: rgba(2, 10, 19, .7); }
-.pane-label { display: flex; align-items: baseline; gap: 10px; min-height: 35px; }
-.pane-label span { color: var(--gold); font-family: Orbitron, sans-serif; font-size: .59rem; }
-.pane-label strong { color: #f1faff; font-family: Orbitron, sans-serif; font-size: .83rem; }
-.pane-label small { margin-left: auto; color: var(--blue); font-family: Orbitron, sans-serif; font-size: .51rem; letter-spacing: .09em; }
-.comms-screenshot { display: grid; flex: 1; place-items: center; overflow: hidden; border: 1px solid rgba(130, 194, 226, .29); border-radius: 7px; background: #081b29; }
-.comms-screenshot img { display: block; width: 100%; height: 410px; object-fit: contain; }
-.visual-note { margin: 0; padding: 0 22px 13px; color: #a3bfce; font-size: .76rem; text-align: right; }
+.comms-intro { max-width: 870px; padding: 35px 32px 28px; }
+.comms-intro h3 { margin: 0 0 13px; color: #fff; font-family: Orbitron, sans-serif; font-size: clamp(1.3rem, 2.5vw, 2rem); }
+.comms-intro p { margin: 0; font-size: 1.16rem; }
+.comms-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 20px 23px; }
+.comms-pane { display: flex; flex-direction: column; min-width: 0; padding: 24px 20px 20px; border-top: 1px solid rgba(123, 202, 238, .27); }
+.comms-pane + .comms-pane { border-left: 1px solid rgba(123, 202, 238, .27); }
+.comms-mode { display: flex; align-items: center; gap: 10px; margin-bottom: 17px; font-family: Orbitron, sans-serif; font-weight: 700; letter-spacing: .08em; }
+.comms-mode-number { color: var(--gold); font-size: .56rem; }
+.comms-mode-tag { padding: 5px 10px; border: 1px solid rgba(112, 209, 247, .5); border-radius: 4px; color: var(--blue); background: rgba(112, 209, 247, .1); font-size: .68rem; }
+.comms-pane-voice .comms-mode-tag { border-color: rgba(240, 207, 117, .52); color: var(--gold); background: rgba(240, 207, 117, .09); }
+.comms-mode-platform { margin-left: auto; color: #a9c9d9; font-size: .53rem; text-align: right; }
+.comms-pane h4 { margin: 0 0 10px; color: #f4fbff; font-family: Orbitron, sans-serif; font-size: clamp(1rem, 1.5vw, 1.23rem); line-height: 1.25; }
+.comms-pane > p { max-width: 520px; min-height: 72px; margin-bottom: 20px; }
+.comms-screenshot { overflow: hidden; margin: auto 0 0; border: 1px solid rgba(130, 194, 226, .35); border-radius: 8px; background: #081b29; }
+.comms-screenshot img { display: block; width: 100%; height: auto; object-fit: cover; }
+.comms-pane-text .comms-screenshot img { aspect-ratio: 2.15 / 1; object-position: center top; }
+.comms-pane-voice .comms-screenshot img { aspect-ratio: 2.15 / 1; object-position: center bottom; }
+.comms-screenshot figcaption { padding: 9px 13px; border-top: 1px solid rgba(130, 194, 226, .2); color: #c8e0ec; background: rgba(2, 10, 19, .72); font-size: .81rem; }
+.visual-note { margin: 0; padding: 14px 32px 17px; border-top: 1px solid rgba(123, 202, 238, .18); color: #a9c6d5; font-size: .86rem; }
 .session-steps, .join-steps { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
 .session-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .session-steps li, .join-steps li { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border-radius: 12px; }
@@ -234,12 +241,14 @@ main [id] { scroll-margin-top: 78px; }
   .session-steps .card-art, .join-steps .card-art { height: 150px; }
   .session-steps .card-body, .join-steps .card-body { padding: 17px 21px 22px; }
   .comms-topline { font-size: .54rem; }
-  .comms-intro, .comms-split { grid-template-columns: 1fr; }
-  .comms-intro { gap: 10px; padding: 22px; }
-  .comms-split { padding: 0 14px 16px; }
-  .comms-screenshot img { height: auto; }
-  .pane-label { flex-wrap: wrap; }
-  .pane-label small { margin-left: 0; }
+  .comms-intro { padding: 25px 22px 20px; }
+  .comms-split { grid-template-columns: 1fr; padding: 0 16px 17px; }
+  .comms-pane { padding: 20px 10px; }
+  .comms-pane + .comms-pane { border-left: 0; }
+  .comms-pane > p { min-height: 0; }
+  .comms-mode-platform { font-size: .48rem; }
+  .comms-pane-text .comms-screenshot img { width: 140%; max-width: none; }
+  .visual-note { padding: 15px 22px; }
   .joining-note, .availability-note { grid-template-columns: 1fr; gap: 8px; }
   .first-game-checklist { padding: 23px; }
   .terminal-explainer { gap: 20px; padding: 23px; }
