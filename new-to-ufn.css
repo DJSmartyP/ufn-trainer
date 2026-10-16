@@ -182,6 +182,10 @@ main [id] { scroll-margin-top: 78px; }
 .station-screen { overflow: hidden; margin: 0; border: 1px solid rgba(112, 209, 247, .32); border-radius: 13px; background: #0b1019; box-shadow: 0 30px 80px rgba(0, 0, 0, .35); }
 .station-screen img { display: block; width: 100%; height: auto; }
 .station-screen figcaption { padding: 9px 15px; color: #b4d5e4; font-size: .83rem; text-align: right; }
+.faq-group + .faq-group { margin-top: 38px; }
+.faq-group-heading { display: flex; align-items: baseline; gap: 13px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid rgba(112, 209, 247, .23); }
+.faq-group-heading h3 { margin: 0; color: #e7f6fc; font-family: Orbitron, sans-serif; font-size: 1.08rem; font-weight: 600; letter-spacing: .015em; }
+.faq-group-index { flex: none; color: var(--gold); font-family: Orbitron, sans-serif; font-size: .72rem; font-weight: 600; letter-spacing: .1em; }
 .faq-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 12px; }
 .faq-grid details { min-width: 0; border: 1px solid var(--line); border-radius: 10px; background: rgba(2, 12, 22, .67); }
 .faq-grid details[open] { border-color: rgba(240, 207, 117, .46); background: rgba(7, 27, 42, .86); }
@@ -242,6 +246,7 @@ main [id] { scroll-margin-top: 78px; }
   .section-heading p, .station-copy p { font-size: 1.1rem; }
   .feature-content, .platform-grid article { padding: 21px; }
   .session-steps, .platform-grid, .faq-grid { grid-template-columns: 1fr; }
+  .faq-group + .faq-group { margin-top: 33px; }
   .session-steps li, .platform-grid article { min-height: 0; }
   .session-cta { align-items: flex-start; flex-direction: column; }
   .session-steps .card-art, .join-steps .card-art { height: 150px; }
