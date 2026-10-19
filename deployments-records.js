@@ -11,6 +11,7 @@
     "code": "OP01",
     "title": "Operation: Narrow Gate",
     "image": "assets/deployments/op01-narrow-gate.webp",
+    "temporarilyUnavailable": true,
     "briefing": "Three high-value cargo vessels are en route to Tradepost 21 carrying supplies critical to outer-sector operations. Intelligence confirms the route is heavily infested with pirate forces, including coordinated splinter groups operating from fortified defence platforms. Your assignment is to escort the convoy through hostile space and ensure all three ships arrive intact. Expect ambushes, cloaked attackers, and attempts to isolate individual freighters before they reach the final approach. Pirate infrastructure along the route may be scanned and neutralised to weaken their control of the sector. TSN forces are also known to operate nearby, and limited support or repairs may be available if contact can be established. Maintain convoy integrity, respond quickly to emerging threats, and prioritise cargo survival above secondary targets. Loss of the convoy would severely affect Tradepost 21 and the wider UFN supply chain. Command is watching closely."
   },
   {
@@ -148,12 +149,14 @@
   };
 
   const tileMarkup = missions.map((mission, index) => {
-    const isNew = isNewDeployment(mission);
+    const unavailable = Boolean(mission.temporarilyUnavailable);
+    const isNew = !unavailable && isNewDeployment(mission);
     return `
-    <button class="deployment-tile${isNew ? " deployment-tile-new" : ""}" type="button" data-deployment-index="${index}" aria-label="Open ${mission.title} mission record${isNew ? ", new deployment" : ""}">
+    <button class="deployment-tile${isNew ? " deployment-tile-new" : ""}${unavailable ? " deployment-tile-unavailable" : ""}" type="button" data-deployment-index="${index}" aria-label="Open ${mission.title} mission record${unavailable ? ", temporarily unavailable" : isNew ? ", new deployment" : ""}">
       <span class="deployment-tile-art">
         <img src="${mission.image}" alt="" loading="eager" decoding="async" />
         <span class="deployment-tile-shade" aria-hidden="true"></span>
+        ${unavailable ? '<span class="deployment-unavailable-badge">TEMPORARILY UNAVAILABLE</span>' : ""}
         ${isNew ? `<span class="deployment-new-badge" title="New deployment until ${newExpiryLabel(mission)}">NEW</span>` : ""}
         <span class="deployment-tile-copy">
           <span class="deployment-tile-code">${mission.code}</span>
@@ -260,7 +263,7 @@
     return [
       ["RECORD", record.code],
       ["DEPLOYMENT", "STANDALONE"],
-      ["STATUS", record.availableFrom ? (isNewDeployment(record) ? "NOW AVAILABLE" : "AVAILABLE NOW") : "AVAILABLE"],
+      ["STATUS", record.temporarilyUnavailable ? "TEMPORARILY UNAVAILABLE" : record.availableFrom ? (isNewDeployment(record) ? "NOW AVAILABLE" : "AVAILABLE NOW") : "AVAILABLE"],
       ["ACCESS", "CREW AUTHORISED"]
     ];
   }
@@ -274,7 +277,8 @@
     activeRecordIndex = (index + records.length) % records.length;
     const record = records[activeRecordIndex];
     const isCampaign = Boolean(record.campaign);
-    const isNew = !isCampaign && isNewDeployment(record);
+    const unavailable = Boolean(record.temporarilyUnavailable);
+    const isNew = !isCampaign && !unavailable && isNewDeployment(record);
 
     position.textContent = isCampaign
       ? "CAMPAIGN RECORD // 6 MISSIONS"
@@ -312,7 +316,7 @@
     `;
 
     target.innerHTML = `
-      <article class="deployment-record ${isCampaign ? "deployment-record-campaign" : ""}">
+      <article class="deployment-record ${isCampaign ? "deployment-record-campaign" : ""}${unavailable ? " deployment-record-unavailable" : ""}">
         <div class="deployment-record-art">
           <img src="${record.image}" alt="Mission artwork for ${record.title}" />
           <div class="deployment-record-art-grid" aria-hidden="true"></div>
@@ -321,20 +325,21 @@
             <strong>${record.code}</strong>
           </div>
           ${isCampaign ? '<span class="deployment-record-art-stamp">RESTRICTED</span>' : ''}
+          ${unavailable ? '<span class="deployment-record-unavailable-badge">TEMPORARILY UNAVAILABLE</span>' : ''}
         </div>
 
         <div class="deployment-record-document">
           <div class="deployment-record-heading">
             <div>
               <span class="classification">${isCampaign ? "ADMIRALTY // RESTRICTED" : "UFN FLEET COMMAND // ACTIVE BRIEFING"}</span>
-              <span class="micro-label">${isCampaign ? "CAMPAIGN DEPLOYMENT" : "AVAILABLE DEPLOYMENT"}</span>
+              <span class="micro-label">${isCampaign ? "CAMPAIGN DEPLOYMENT" : unavailable ? "TEMPORARILY UNAVAILABLE" : "AVAILABLE DEPLOYMENT"}</span>
               <div class="deployment-record-title-line">
                 <h3 id="deployment-record-title">${record.title}</h3>
                 ${isNew ? `<span class="deployment-record-new-badge" title="New deployment until ${newExpiryLabel(record)}">NEW DEPLOYMENT</span>` : ""}
               </div>
             </div>
-            <div class="deployment-record-stamp ${isCampaign ? "restricted" : isNew && record.availableFrom ? "new-available" : ""}" aria-hidden="true">
-              ${isCampaign ? "REDACTED" : isNew && record.availableFrom ? "NOW AVAILABLE" : "AUTHORISED"}
+            <div class="deployment-record-stamp ${isCampaign ? "restricted" : unavailable ? "unavailable" : isNew && record.availableFrom ? "new-available" : ""}" aria-hidden="true">
+              ${isCampaign ? "REDACTED" : unavailable ? "UNAVAILABLE" : isNew && record.availableFrom ? "NOW AVAILABLE" : "AUTHORISED"}
             </div>
           </div>
 
