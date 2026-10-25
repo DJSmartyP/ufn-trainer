@@ -101,7 +101,7 @@
     code: "OP15",
     title: "Operation: Harvest",
     image: "assets/deployments/op15-harvest.jpg",
-    hook: "A strange message from a rogue Commodore leads to a terrible truth...",
+    hook: "Uncover the truth",
     comingSoon: true,
     briefing: "UFN Fleet Command has assigned your crew to observe GST Hearthside Habitat, a Ghost civilian installation near UFN patrol space. UFN drones have been seen making repeated service runs to the habitat, but the traffic does not appear in authorised supply records. Approach carefully, establish what the drones are carrying, and determine who ordered the visits. The installation houses families and ordinary freighters alongside armed Ghost ships; expect a cautious reception. Command wants a clear account of the traffic and any UFN vessel operating nearby before conclusions are drawn. Keep a record of contacts, signal traces, and recovered documents. You may need to follow the evidence well beyond the habitat. This deployment will test your judgement as much as your combat readiness."
   }
