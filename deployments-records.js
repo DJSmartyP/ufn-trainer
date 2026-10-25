@@ -96,6 +96,14 @@
     availableFrom: "2026-10-09T13:30:00+01:00",
     newDays: 14,
     briefing: "You have been given a quiet but vital transfer assignment - a sealed consignment of sensitive cargo must be carried to a designated UFNI contact for secure handover. The route is not being broadcast, and the nature of the shipment is restricted to those with an operational need to know. Maintain a low profile throughout the journey. Choose your approach, watch for unusual traffic, and avoid drawing attention to the cargo or your destination. Flight Control will provide updates as the situation develops, but the crew should be ready to adapt without compromising the assignment. Vanguard is also carrying an advanced directional beam system for field testing. Weapons officers should familiarise themselves with its controls and report its performance under conditions. Successful delivery depends on sound navigation, disciplined communications, and discretion from every station aboard."
+  },
+  {
+    code: "OP15",
+    title: "Operation: Harvest",
+    image: "assets/deployments/op15-harvest.jpg",
+    hook: "A strange message from a rogue Commodore leads to a terrible truth...",
+    comingSoon: true,
+    briefing: "UFN Fleet Command has assigned your crew to observe GST Hearthside Habitat, a Ghost civilian installation near UFN patrol space. UFN drones have been seen making repeated service runs to the habitat, but the traffic does not appear in authorised supply records. Approach carefully, establish what the drones are carrying, and determine who ordered the visits. The installation houses families and ordinary freighters alongside armed Ghost ships; expect a cautious reception. Command wants a clear account of the traffic and any UFN vessel operating nearby before conclusions are drawn. Keep a record of contacts, signal traces, and recovered documents. You may need to follow the evidence well beyond the habitat. This deployment will test your judgement as much as your combat readiness."
   }
 ];
 
@@ -150,13 +158,15 @@
 
   const tileMarkup = missions.map((mission, index) => {
     const unavailable = Boolean(mission.temporarilyUnavailable);
-    const isNew = !unavailable && isNewDeployment(mission);
+    const comingSoon = Boolean(mission.comingSoon);
+    const isNew = !unavailable && !comingSoon && isNewDeployment(mission);
     return `
-    <button class="deployment-tile${isNew ? " deployment-tile-new" : ""}${unavailable ? " deployment-tile-unavailable" : ""}" type="button" data-deployment-index="${index}" aria-label="Open ${mission.title} mission record${unavailable ? ", temporarily unavailable" : isNew ? ", new deployment" : ""}">
+    <button class="deployment-tile${isNew ? " deployment-tile-new" : ""}${unavailable ? " deployment-tile-unavailable" : ""}${comingSoon ? " deployment-tile-coming-soon" : ""}" type="button" data-deployment-index="${index}" aria-label="Open ${mission.title} mission record${unavailable ? ", temporarily unavailable" : comingSoon ? ", coming soon" : isNew ? ", new deployment" : ""}">
       <span class="deployment-tile-art">
         <img src="${mission.image}" alt="" loading="eager" decoding="async" />
         <span class="deployment-tile-shade" aria-hidden="true"></span>
         ${unavailable ? '<span class="deployment-unavailable-badge">TEMPORARILY UNAVAILABLE</span>' : ""}
+        ${comingSoon ? '<span class="deployment-coming-soon-badge">COMING SOON</span>' : ""}
         ${isNew ? `<span class="deployment-new-badge" title="New deployment until ${newExpiryLabel(mission)}">NEW</span>` : ""}
         <span class="deployment-tile-copy">
           <span class="deployment-tile-code">${mission.code}</span>
@@ -263,8 +273,8 @@
     return [
       ["RECORD", record.code],
       ["DEPLOYMENT", "STANDALONE"],
-      ["STATUS", record.temporarilyUnavailable ? "TEMPORARILY UNAVAILABLE" : record.availableFrom ? (isNewDeployment(record) ? "NOW AVAILABLE" : "AVAILABLE NOW") : "AVAILABLE"],
-      ["ACCESS", "CREW AUTHORISED"]
+      ["STATUS", record.temporarilyUnavailable ? "TEMPORARILY UNAVAILABLE" : record.comingSoon ? "COMING SOON" : record.availableFrom ? (isNewDeployment(record) ? "NOW AVAILABLE" : "AVAILABLE NOW") : "AVAILABLE"],
+      ["ACCESS", record.comingSoon ? "CREW BRIEFING" : "CREW AUTHORISED"]
     ];
   }
 
@@ -278,7 +288,8 @@
     const record = records[activeRecordIndex];
     const isCampaign = Boolean(record.campaign);
     const unavailable = Boolean(record.temporarilyUnavailable);
-    const isNew = !isCampaign && !unavailable && isNewDeployment(record);
+    const comingSoon = Boolean(record.comingSoon);
+    const isNew = !isCampaign && !unavailable && !comingSoon && isNewDeployment(record);
 
     position.textContent = isCampaign
       ? "CAMPAIGN RECORD // 6 MISSIONS"
@@ -308,7 +319,7 @@
     ` : `
       <section class="deployment-record-briefing">
         <div class="deployment-record-section-title">
-          <span class="micro-label">AUTHORISED CREW BRIEFING</span>
+          <span class="micro-label">${comingSoon ? "CREW BRIEFING" : "AUTHORISED CREW BRIEFING"}</span>
           <h4>Mission Briefing</h4>
         </div>
         <p>${record.briefing}</p>
@@ -326,20 +337,21 @@
           </div>
           ${isCampaign ? '<span class="deployment-record-art-stamp">RESTRICTED</span>' : ''}
           ${unavailable ? '<span class="deployment-record-unavailable-badge">TEMPORARILY UNAVAILABLE</span>' : ''}
+          ${comingSoon ? '<span class="deployment-record-coming-soon-badge">COMING SOON</span>' : ''}
         </div>
 
         <div class="deployment-record-document">
           <div class="deployment-record-heading">
             <div>
-              <span class="classification">${isCampaign ? "ADMIRALTY // RESTRICTED" : "UFN FLEET COMMAND // ACTIVE BRIEFING"}</span>
-              <span class="micro-label">${isCampaign ? "CAMPAIGN DEPLOYMENT" : unavailable ? "TEMPORARILY UNAVAILABLE" : "AVAILABLE DEPLOYMENT"}</span>
+              <span class="classification">${isCampaign ? "ADMIRALTY // RESTRICTED" : comingSoon ? "UFN FLEET COMMAND // ADVANCE BRIEFING" : "UFN FLEET COMMAND // ACTIVE BRIEFING"}</span>
+              <span class="micro-label">${isCampaign ? "CAMPAIGN DEPLOYMENT" : unavailable ? "TEMPORARILY UNAVAILABLE" : comingSoon ? "COMING SOON" : "AVAILABLE DEPLOYMENT"}</span>
               <div class="deployment-record-title-line">
                 <h3 id="deployment-record-title">${record.title}</h3>
                 ${isNew ? `<span class="deployment-record-new-badge" title="New deployment until ${newExpiryLabel(record)}">NEW DEPLOYMENT</span>` : ""}
               </div>
             </div>
-            <div class="deployment-record-stamp ${isCampaign ? "restricted" : unavailable ? "unavailable" : isNew && record.availableFrom ? "new-available" : ""}" aria-hidden="true">
-              ${isCampaign ? "REDACTED" : unavailable ? "UNAVAILABLE" : isNew && record.availableFrom ? "NOW AVAILABLE" : "AUTHORISED"}
+            <div class="deployment-record-stamp ${isCampaign ? "restricted" : unavailable ? "unavailable" : comingSoon ? "coming-soon" : isNew && record.availableFrom ? "new-available" : ""}" aria-hidden="true">
+              ${isCampaign ? "REDACTED" : unavailable ? "UNAVAILABLE" : comingSoon ? "COMING SOON" : isNew && record.availableFrom ? "NOW AVAILABLE" : "AUTHORISED"}
             </div>
           </div>
 

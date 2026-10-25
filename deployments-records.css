@@ -127,11 +127,14 @@
 .deployment-tile:hover img,
 .deployment-tile:focus-visible img { transform: scale(1.025); filter: contrast(1.045) brightness(1.02); }
 .deployment-tile-unavailable { border-color: rgba(148,161,172,.42); }
+.deployment-tile-coming-soon { border-color: rgba(242,184,86,.6); }
 .deployment-tile-unavailable img,
 .deployment-tile-unavailable:hover img,
 .deployment-tile-unavailable:focus-visible img { filter: grayscale(1) brightness(.64); }
 .deployment-unavailable-badge,
-.deployment-record-unavailable-badge {
+.deployment-record-unavailable-badge,
+.deployment-coming-soon-badge,
+.deployment-record-coming-soon-badge {
   position: absolute;
   z-index: 5;
   top: 10px;
@@ -148,6 +151,12 @@
   line-height: 1.25;
   text-align: center;
   text-shadow: 0 1px 5px #000;
+}
+.deployment-coming-soon-badge,
+.deployment-record-coming-soon-badge {
+  border-color: rgba(242,184,86,.85);
+  background: rgba(29,19,5,.9);
+  color: #ffd58d;
 }
 .deployment-tile-shade {
   position: absolute;
@@ -310,6 +319,7 @@
 }
 .deployment-record-unavailable .deployment-record-art img { filter: grayscale(1) brightness(.64); }
 .deployment-record-unavailable-badge { top: 24px; right: 24px; padding: 8px 12px; font-size: .65rem; }
+.deployment-record-coming-soon-badge { top: 24px; right: 24px; padding: 8px 12px; font-size: .65rem; }
 .deployment-record-art::after {
   content: "";
   position: absolute;
@@ -406,6 +416,7 @@
 }
 .deployment-record-stamp.restricted { border-color: rgba(255,86,105,.7); color: #ff7181; }
 .deployment-record-stamp.unavailable { border-color: rgba(205,214,222,.55); color: #e4e9ed; }
+.deployment-record-stamp.coming-soon { border-color: rgba(242,184,86,.75); color: #ffd58d; }
 
 .deployment-record-meta {
   display: grid;
@@ -632,4 +643,6 @@
   .deployment-record-new-badge { font-size: .5rem; }
   .deployment-unavailable-badge { top: 7px; right: 7px; font-size: .47rem; }
   .deployment-record-unavailable-badge { top: 10px; right: 10px; font-size: .49rem; }
+  .deployment-coming-soon-badge { top: 7px; right: 7px; font-size: .5rem; }
+  .deployment-record-coming-soon-badge { top: 10px; right: 10px; font-size: .5rem; }
 }
