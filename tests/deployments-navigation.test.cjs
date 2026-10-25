@@ -43,7 +43,7 @@ assert.deepEqual(indexes, Array.from({ length: 16 }, (_, i) => i));
 assert.match(page, /15 standalone missions and 6 campaign missions/);
 assert.match(page, /Open Operation: Harvest mission record, coming soon/);
 assert.match(page, /deployment-coming-soon-badge">COMING SOON/);
-assert.match(page, /deployment-tile-type">Uncover the truth<\/span>/);
+assert.match(page, /deployment-tile-type">Uncover the truth\.\.\.<\/span>/);
 
 function click(index, action) {
   const target = {
