@@ -16,7 +16,7 @@
     "02": {
       category: "EMERGENCY SURVIVAL",
       title: "Emergency Transport Protocol",
-      icon: "assets/protocols/escape-teleport.svg",
+      icon: "assets/protocols/escape-teleport.png",
       alt: "Emergency transport protocol icon",
       tone: "escape"
     },
