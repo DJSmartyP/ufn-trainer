@@ -297,7 +297,7 @@
       : `${String(activeRecordIndex + 1).padStart(2, "0")} / ${String(missions.length).padStart(2, "0")}`;
 
     const meta = recordMeta(record).map(([label, value]) => `
-      <div class="deployment-record-meta-cell">
+      <div class="deployment-record-meta-cell${label === "STATUS" && value === "NOW AVAILABLE" ? " deployment-record-meta-cell-live" : ""}">
         <span>${label}</span>
         <strong>${value}</strong>
       </div>
