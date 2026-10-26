@@ -15,9 +15,9 @@
     },
     "02": {
       category: "EMERGENCY SURVIVAL",
-      title: "Escape Pod Teleportation",
-      icon: "assets/protocols/escape-teleport.png",
-      alt: "Emergency teleportation protocol icon",
+      title: "Emergency Transport Protocol",
+      icon: "assets/protocols/escape-teleport.svg",
+      alt: "Emergency transport protocol icon",
       tone: "escape"
     },
     "03": {
