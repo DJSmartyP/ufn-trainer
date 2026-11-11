@@ -228,24 +228,53 @@
   function initialiseRankProgression(root) {
     if (!root) return;
     const cards = Array.from(root.querySelectorAll(".rank-card"));
-    const status = root.querySelector(".rank-progression-status");
-    const meter = root.querySelector(".rank-progression-meter");
-    if (!cards.length || !status || !meter) return;
+    const dialog = root.querySelector("#rank-dossier");
+    if (!cards.length || !dialog) return;
+    const image = dialog.querySelector("#rank-dialog-image");
+    const title = dialog.querySelector("#rank-dialog-title");
+    const category = dialog.querySelector("#rank-dialog-category");
+    const description = dialog.querySelector("#rank-dialog-description");
+    const requirements = dialog.querySelector("#rank-dialog-requirements");
+    const authority = dialog.querySelector("#rank-dialog-authority");
+    const previous = dialog.querySelector("[data-rank-previous]");
+    const next = dialog.querySelector("[data-rank-next]");
+    let selectedIndex = 0;
     const select = index => {
-      cards.forEach((card, i) => {
-        card.classList.toggle("rank-selected", i === index);
-        card.classList.toggle("rank-preceding", i < index);
-        card.querySelector(".rank-select").setAttribute("aria-pressed", String(i === index));
+      selectedIndex = index;
+      const card = cards[index];
+      const art = card.querySelector(".rank-insignia-frame img");
+      cards.forEach((item, i) => item.classList.toggle("rank-selected", i === index));
+      image.src = art.getAttribute("src");
+      image.alt = art.getAttribute("alt");
+      title.textContent = card.dataset.rankName;
+      category.textContent = index > 5 ? "FLEET COMMAND APPOINTMENT" : index === 5 ? "HIGHEST REGULAR SERVICE HONOUR" : "REGULAR SERVICE";
+      description.replaceChildren();
+      card.querySelector(".rank-record-description").textContent.trim().split(/\n\n/).forEach(text => {
+        const p = document.createElement("p");
+        p.textContent = text;
+        description.append(p);
       });
-      meter.value = index;
-      const current = cards[index];
-      const next = cards[index + 1];
-      const authorities = { "1": "Flight Controller discretion", "2": "Admiral sign-off", "3": "Admiralty sign-off and full review by the Admirals" };
-      status.textContent = `Selected: ${current.dataset.rankName} · Stage ${index + 1} of ${cards.length}. ` +
-        (next ? `Next: ${next.dataset.rankName} — ${authorities[next.dataset.rankTier]}.` : "Admiral is the highest rank in this structure.");
+      const requirement = card.querySelector(".rank-record-requirements").textContent.trim();
+      requirements.hidden = !requirement;
+      requirements.textContent = requirement ? `Requirements: ${requirement}` : "";
+      authority.textContent = `Authority: ${card.querySelector(".rank-approval").textContent.trim()}`;
+      previous.disabled = index === 0;
+      next.disabled = index === cards.length - 1;
+      previous.textContent = index ? `← ${cards[index - 1].dataset.rankName}` : "Previous rank";
+      next.textContent = index < cards.length - 1 ? `${cards[index + 1].dataset.rankName} →` : "Next rank";
     };
-    cards.forEach((card, index) => card.querySelector(".rank-select").addEventListener("click", () => select(index)));
-    select(0);
+    cards.forEach((card, index) => card.querySelector(".rank-select").addEventListener("click", () => {
+      select(index);
+      dialog.showModal();
+    }));
+    previous.addEventListener("click", () => { if (selectedIndex > 0) select(selectedIndex - 1); });
+    next.addEventListener("click", () => { if (selectedIndex < cards.length - 1) select(selectedIndex + 1); });
+    dialog.querySelector(".rank-dialog-close").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", event => {
+      if (event.target !== dialog) return;
+      const rect = dialog.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+    });
   }
 
   function initialiseMedalGallery(root) {

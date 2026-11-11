@@ -148,11 +148,59 @@
       </div>
     </article>`;
 
+  const rankRecords = {
+  "Ensign": {
+    "description": "Every officer’s service begins here. Ensigns learn the ways of the fleet, find their place aboard the bridge and begin building the trust of their fellow crew.",
+    "requirements": "Entry into UFN service.",
+    "authority": "Initial commission."
+  },
+  "Sub Lieutenant": {
+    "description": "Recognises an officer finding their feet within the fleet. Through participation, a willingness to learn and respect for their fellow crew, they have begun to demonstrate the qualities expected of a commissioned UFN officer.",
+    "authority": "Flight Controller discretion."
+  },
+  "Lieutenant": {
+    "description": "Awarded to officers who have established a record of active service and commendable conduct. Advancement considers both the number of deployments served and the manner in which an officer conducts themselves: their cooperation, respect for others and contribution to life aboard the bridge.",
+    "authority": "Flight Controller discretion."
+  },
+  "Lieutenant Commander": {
+    "description": "Recognises sustained service and a positive contribution to the spirit of the fleet. Candidates should have a substantial deployment record, consistently commendable conduct and a willingness to bring the UFN’s traditions, characters and shared endeavours to life.\n\nThese are officers whose presence strengthens both their crew and the world in which they serve.",
+    "authority": "Admiral sign-off."
+  },
+  "Commander": {
+    "description": "Reserved for officers whose extensive service is matched by an exceptional level of support for the fleet. Advancement recognises a distinguished deployment record, exemplary conduct and sustained contributions to fellow personnel and the wider UFN.\n\nA Commander does more than answer the call to serve: they help others find their place within the fleet and give them reason to return.",
+    "authority": "Admiral sign-off."
+  },
+  "Captain": {
+    "description": "The highest honour the UFN can bestow upon an officer through regular service. This rank recognises an outstanding record of deployments, exemplary conduct and exceptional, sustained support for the fleet and its personnel.\n\nIt is awarded to those whose contribution has helped shape the UFN itself—officers who embody its spirit and have earned the enduring respect of their fellow crew.\n\nExceptional Captains may also be appointed Flight Commander.",
+    "authority": "Admiralty approval."
+  },
+  "Commodore": {
+    "description": "Marks the point at which an officer is expected to lead beyond their own bridge. A Commodore must be able to guide others from a distance, maintain the wider operational picture and support officers entrusted with carrying out their intent.\n\nAdvancement recognises the judgement to give clear direction, the trust to let others act and the responsibility to support them when circumstances change.\n\nSome Commodores hold the appointment of Flight Commander, but the appointment is distinct from rank.",
+    "requirements": "Appointment to fleet command duties.",
+    "authority": "Admiralty sign-off and review."
+  },
+  "Rear Admiral": {
+    "description": "Entrusted with the stewardship of assigned fleet elements. Rear Admirals support Flight Commanders, develop the officers under their care and maintain the standards upon which the fleet depends.",
+    "requirements": "Appointment to senior fleet command.",
+    "authority": "Admiralty sign-off and review."
+  },
+  "Vice Admiral": {
+    "description": "Entrusted with responsibilities spanning multiple commands. Vice Admirals coordinate the fleet’s wider commitments, support its senior officers and ensure that individual deployments serve a coherent purpose.",
+    "requirements": "Appointment to senior fleet command.",
+    "authority": "Admiralty sign-off and review."
+  },
+  "Admiral": {
+    "description": "An Admiral bears responsibility for the direction and integrity of the United Federated Navy. Those entrusted with this rank safeguard its traditions, guide its future and uphold their duty to every officer who serves beneath its banner.",
+    "requirements": "Appointment to the Admiralty.",
+    "authority": "UFN Central Council."
+  }
+};
+
   const rankOrder = ["Ensign", "Sub Lieutenant", "Lieutenant", "Lieutenant Commander", "Commander", "Captain", "Commodore", "Rear Admiral", "Vice Admiral", "Admiral"];
 
   const rankCard = (name, image, note = "", tier = 1, tierStart = false) => `
     <article class="rank-card rank-tier-${tier}${tierStart ? " rank-tier-start" : ""}" data-rank-name="${name}" data-rank-tier="${tier}">
-      <button class="rank-select" type="button" aria-label="Explore ${name}" aria-pressed="false">
+      <button class="rank-select" type="button" aria-label="Explore ${name}" aria-haspopup="dialog" aria-controls="rank-dossier">
         <span class="rank-stage">${String(rankOrder.indexOf(name) + 1).padStart(2, "0")} / 10</span>
         <span class="rank-insignia-frame"><img src="assets/ranks/${image}" alt="${name} rank insignia" loading="eager" decoding="async" /></span>
         <span class="rank-select-label">Explore rank</span>
@@ -160,7 +208,9 @@
       <div class="rank-card-copy">
         <span class="control-type">UFN OFFICER RANK</span>
         <h3>${name}</h3>
-        ${note ? `<p class="rank-approval">${note}</p>` : `<p class="rank-approval rank-approval-empty" aria-hidden="true">&nbsp;</p>`}
+        <p class="rank-approval">${rankRecords[name].authority}</p>
+        <span class="rank-record-description" hidden>${rankRecords[name].description}</span>
+        <span class="rank-record-requirements" hidden>${rankRecords[name].requirements || ""}</span>
       </div>
     </article>`;
 
@@ -296,21 +346,16 @@
               <h3>Rank progression and approval</h3>
               <p>All new UFN recruits begin service at the rank of <strong>Ensign</strong>. Promotion to <strong>Sub Lieutenant</strong> or <strong>Lieutenant</strong> is at the discretion of your <strong>Flight Controller</strong>.</p>
               <p>Promotion to <strong>Lieutenant Commander</strong> or <strong>Commander</strong> requires the sign-off of an Admiral.</p>
-              <p>Promotion to <strong>Captain</strong> or any higher rank is subject to <strong>Admiralty sign-off</strong> and a <strong>full review by the Admirals</strong>.</p>
+              <p>Promotion to <strong>Captain</strong>, the highest honour awarded through regular service, requires <strong>Admiralty approval</strong>.</p>
+              <p><strong>Commodore</strong> through <strong>Vice Admiral</strong> are fleet command appointments requiring <strong>Admiralty sign-off and review</strong>. Appointment to <strong>Admiral</strong> is authorised by the <strong>UFN Central Council</strong>.</p>
             </div>
           </div>
           <div class="rank-levels" aria-label="Promotion approval levels">
             <span class="rank-level rank-level-1">Flight Controller progression</span>
             <span class="rank-level rank-level-2">Admiral approval</span>
-            <span class="rank-level rank-level-3">Admiralty review</span>
+            <span class="rank-level rank-level-3">Admiralty &amp; Central Council</span>
           </div>
-          <section class="rank-progression" aria-labelledby="rank-progression-heading">
-            <span class="micro-label">CAREER PATH // ENSIGN TO ADMIRAL</span>
-            <h3 id="rank-progression-heading">Explore the rank progression</h3>
-            <p>Select an insignia to follow the progression and see the next promotion authority.</p>
-            <p class="rank-progression-status" aria-live="polite">Selected: Ensign · Stage 1 of 10. Next: Sub Lieutenant — Flight Controller discretion.</p>
-            <progress class="rank-progression-meter" max="9" value="0" aria-label="Position in the rank structure">0</progress>
-          </section>
+          <p class="rank-explorer-intro">Select an insignia to open its Fleet Personnel record and advancement requirements.</p>
           <div class="rank-grid">
             ${rankCard("Ensign", "ensign.webp", "Starting rank for all new UFN recruits.", 1)}
             ${rankCard("Sub Lieutenant", "sub-lieutenant.webp", "Promotion to this rank is at the discretion of your Flight Controller.", 1)}
@@ -323,6 +368,24 @@
             ${rankCard("Vice Admiral", "vice-admiral.webp", "Admiralty sign-off and full review by the Admirals required.", 3)}
             ${rankCard("Admiral", "admiral.webp", "Admiralty sign-off and full review by the Admirals required.", 3)}
           </div>
+          <dialog class="rank-dialog medal-dialog" id="rank-dossier" aria-labelledby="rank-dialog-title">
+            <div class="medal-dialog-shell">
+              <button class="rank-dialog-close medal-dialog-close" type="button" aria-label="Close rank record">×</button>
+              <div class="medal-dialog-art"><img id="rank-dialog-image" src="" alt="" /></div>
+              <div class="medal-dialog-copy">
+                <span class="classification">FLEET PERSONNEL // OFFICER RECORD</span>
+                <span class="micro-label" id="rank-dialog-category">REGULAR SERVICE</span>
+                <h3 id="rank-dialog-title"></h3>
+                <div class="medal-dialog-description" id="rank-dialog-description"></div>
+                <p class="rank-dialog-requirements" id="rank-dialog-requirements"></p>
+                <p class="rank-dialog-authority" id="rank-dialog-authority"></p>
+                <nav class="rank-dialog-navigation" aria-label="Browse rank records">
+                  <button class="button secondary" type="button" data-rank-previous>Previous rank</button>
+                  <button class="button secondary" type="button" data-rank-next>Next rank</button>
+                </nav>
+              </div>
+            </div>
+          </dialog>
         `},
         { id: "medals", label: "Medals of Service", content: `
           <div class="section-heading"><span class="micro-label">FLEET PERSONNEL // DECORATIONS</span><h2>Medals of Service</h2><p>Select a decoration to open its Fleet Personnel citation record.</p></div>
