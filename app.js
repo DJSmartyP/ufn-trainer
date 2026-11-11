@@ -247,7 +247,7 @@
       image.src = art.getAttribute("src");
       image.alt = art.getAttribute("alt");
       title.textContent = card.dataset.rankName;
-      category.textContent = index > 5 ? "FLEET COMMAND APPOINTMENT" : index === 5 ? "HIGHEST REGULAR SERVICE HONOUR" : "REGULAR SERVICE";
+      category.textContent = index > 5 ? "FLEET COMMAND APPOINTMENT" : "REGULAR SERVICE";
       description.replaceChildren();
       card.querySelector(".rank-record-description").textContent.trim().split(/\n\n/).forEach(text => {
         const p = document.createElement("p");

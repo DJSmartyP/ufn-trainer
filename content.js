@@ -172,7 +172,7 @@
   },
   "Captain": {
     "description": "The highest honour the UFN can bestow upon an officer through regular service. This rank recognises an outstanding record of deployments, exemplary conduct and exceptional, sustained support for the fleet and its personnel.\n\nIt is awarded to those whose contribution has helped shape the UFN itself—officers who embody its spirit and have earned the enduring respect of their fellow crew.\n\nExceptional Captains may also be appointed Flight Commander.",
-    "authority": "Admiralty approval."
+    "authority": "Admiral sign-off."
   },
   "Commodore": {
     "description": "Marks the point at which an officer is expected to lead beyond their own bridge. A Commodore must be able to guide others from a distance, maintain the wider operational picture and support officers entrusted with carrying out their intent.\n\nAdvancement recognises the judgement to give clear direction, the trust to let others act and the responsibility to support them when circumstances change.\n\nSome Commodores hold the appointment of Flight Commander, but the appointment is distinct from rank.",
@@ -345,8 +345,8 @@
             <div>
               <h3>Rank progression and approval</h3>
               <p>All new UFN recruits begin service at the rank of <strong>Ensign</strong>. Promotion to <strong>Sub Lieutenant</strong> or <strong>Lieutenant</strong> is at the discretion of your <strong>Flight Controller</strong>.</p>
-              <p>Promotion to <strong>Lieutenant Commander</strong> or <strong>Commander</strong> requires the sign-off of an Admiral.</p>
-              <p>Promotion to <strong>Captain</strong>, the highest honour awarded through regular service, requires <strong>Admiralty approval</strong>.</p>
+              <p>Promotion to <strong>Lieutenant Commander</strong>, <strong>Commander</strong> or <strong>Captain</strong> requires the sign-off of an Admiral.</p>
+              <p><strong>Captain</strong> remains the highest honour awarded through regular service.</p>
               <p><strong>Commodore</strong> through <strong>Vice Admiral</strong> are fleet command appointments requiring <strong>Admiralty sign-off and review</strong>. Appointment to <strong>Admiral</strong> is authorised by the <strong>UFN Central Council</strong>.</p>
             </div>
           </div>
@@ -362,8 +362,8 @@
             ${rankCard("Lieutenant", "lieutenant.webp", "Promotion to this rank is at the discretion of your Flight Controller.", 1)}
             ${rankCard("Lieutenant Commander", "lieutenant-commander.webp", "Admiral sign-off required for promotion to this rank.", 2, true)}
             ${rankCard("Commander", "commander.webp", "Admiral sign-off required for promotion to this rank.", 2)}
-            ${rankCard("Captain", "captain.webp", "Admiralty sign-off and full review by the Admirals required.", 3, true)}
-            ${rankCard("Commodore", "commodore.webp", "Admiralty sign-off and full review by the Admirals required.", 3)}
+            ${rankCard("Captain", "captain.webp", "Admiral sign-off required for promotion to this rank.", 2)}
+            ${rankCard("Commodore", "commodore.webp", "Admiralty sign-off and full review by the Admirals required.", 3, true)}
             ${rankCard("Rear Admiral", "rear-admiral.webp", "Admiralty sign-off and full review by the Admirals required.", 3)}
             ${rankCard("Vice Admiral", "vice-admiral.webp", "Admiralty sign-off and full review by the Admirals required.", 3)}
             ${rankCard("Admiral", "admiral.webp", "Admiralty sign-off and full review by the Admirals required.", 3)}
