@@ -267,7 +267,13 @@
       const category = card.closest(".medal-category");
       const groupName = category?.querySelector(".section-heading h3")?.textContent?.trim() || "Service Citations";
       const isIncident = category?.getAttribute("aria-labelledby") === "notable-event-citations-heading";
-      if (categoryLabel) categoryLabel.textContent = groupName;
+      const individualLabels = {
+        "Service Citations": "Service Citation",
+        "Notable Event Citations": "Notable Event Citation",
+        "Citations of Excellence": "Citation of Excellence",
+        "Campaign Contribution Medals": "Campaign Contribution Medal"
+      };
+      if (categoryLabel) categoryLabel.textContent = individualLabels[groupName] || groupName;
 
       image.src = art?.getAttribute("src") || "";
       image.alt = art?.getAttribute("alt") || name;

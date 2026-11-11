@@ -363,7 +363,7 @@
               <div class="medal-dialog-art"><img id="medal-dialog-image" src="" alt="" /></div>
               <div class="medal-dialog-copy">
                 <span class="classification" id="medal-dialog-classification">FLEET PERSONNEL // DECORATION RECORD</span>
-                <span class="micro-label" id="medal-dialog-category">Service Citations</span>
+                <span class="micro-label" id="medal-dialog-category">Service Citation</span>
                 <h3 id="medal-dialog-title"></h3>
                 <div id="medal-dialog-description" class="medal-dialog-description"></div>
               </div>
