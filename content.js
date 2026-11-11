@@ -162,7 +162,7 @@
     <button class="medal-card${restricted ? " medal-card-restricted" : ""}" type="button" data-medal-id="${id}" data-medal-restricted="${restricted ? "true" : "false"}">
       <span class="medal-art-frame"><img src="assets/medals/${image}" alt="${name}" loading="eager" decoding="async" /></span>
       <span class="medal-card-copy">
-        <span class="medal-card-kicker">SERVICE DECORATION</span>
+        <span class="medal-card-kicker">${id === "valour" ? "HIGHEST DISTINCTION" : id === "achievement" ? "SUPERIOR ACHIEVEMENT" : id === "smarty" ? "THE WOODEN SPOON" : "SERVICE DECORATION"}</span>
         <strong>${name}</strong>
         <span class="medal-card-action">${restricted ? "VIEW RESTRICTED RECORD" : "VIEW CITATION"}</span>
         <span class="medal-detail-copy" hidden>${description}</span>
@@ -305,6 +305,11 @@
         `},
         { id: "medals", label: "Medals of Service", content: `
           <div class="section-heading"><span class="micro-label">FLEET PERSONNEL // DECORATIONS</span><h2>Medals of Service</h2><p>Select a decoration to open its Fleet Personnel citation record.</p></div>
+          <div class="medal-honours" aria-label="Highest and superior achievements">
+            ${medalCard("valour", "Admiral's Star of Valour", "admirals-star-of-valour.webp", "Presented to those who, when the sky asked everything of them, gave it more than that.\nFor the crew who held their nerve when others wouldn't have. Who made the right call in the wrong moment, and brought it home.\n\n\"I've watched a great many people fly. Very few of them flew like this.\" — The Admiral")}
+            ${medalCard("achievement", "Medal for Superior Achievement", "superior-achievement.webp", "Recognises exceptional performance beyond normal duty expectations. Presented to personnel whose initiative, skill or determination has produced an outstanding result and whose contribution represents a particularly notable example of service to the United Federated Navy.")}
+          </div>
+          <div class="section-heading compact medal-service-heading"><h3>Service Decorations</h3><p>Equal recognition for excellence across the fleet.</p></div>
           <div class="medal-grid" aria-label="UFN medals of service">
             ${medalCard("command", "Star of Command", "star-of-command.webp", "Awarded for exceptional leadership under pressure. Presented to officers who demonstrate decisive judgement, inspire confidence in their crew, and maintain effective command when circumstances demand clarity, courage and responsibility.")}
             ${medalCard("flight", "Citation for Flight Excellence", "flight-excellence.webp", "Recognises outstanding helm control and flight performance. Presented for exceptional skill in navigation, manoeuvring and ship handling, particularly where precision, judgement and control have contributed significantly to mission success.")}
@@ -313,10 +318,10 @@
             ${medalCard("science", "Medal for Scientific Distinction", "scientific-distinction.webp", "Awarded for outstanding scientific insight and analysis. Recognises personnel whose scanning, investigation or interpretation of scientific information has uncovered critical intelligence, solved a significant problem or directly contributed to mission success.")}
             ${medalCard("comms", "Fleet Communications Citation", "fleet-communications.webp", "Recognises excellence in relay, coordination and communications support. Presented for exceptional management of information, communications and fleet coordination, ensuring that vital intelligence reaches the right people and that crews remain connected during demanding operations.")}
             ${medalCard("diplomacy", "Diplomatic Service Citation", "diplomatic-service.webp", "Awarded for distinction in negotiation, diplomacy and peaceful resolution. Recognises personnel whose communication, judgement and restraint have strengthened relations, resolved conflict or achieved an operational objective without unnecessary escalation.")}
-            ${medalCard("achievement", "Medal for Superior Achievement", "superior-achievement.webp", "Recognises exceptional performance beyond normal duty expectations. Presented to personnel whose initiative, skill or determination has produced an outstanding result and whose contribution represents a particularly notable example of service to the United Federated Navy.")}
-            ${medalCard("smarty", "The Smarty Special Medal", "smarty-special.webp", "For a plan that definitely made sense... briefly. Presented to those who committed to a course of action that felt clever in the moment and questionable immediately after. A celebration of optimism over outcomes.")}
-            ${medalCard("valour", "Admiral's Star of Valour", "admirals-star-of-valour.webp", "Presented to those who, when the sky asked everything of them, gave it more than that.\nFor the crew who held their nerve when others wouldn't have. Who made the right call in the wrong moment, and brought it home.\n\n\"I've watched a great many people fly. Very few of them flew like this.\" — The Admiral")}
             ${medalCard("light-dark", "Light and Dark Campaign Medal", "light-dark-campaign.webp", "Award citation and associated operational record withheld by order of UFN Intelligence. Access to further information requires appropriate security clearance.", true)}
+          </div>
+          <div class="medal-gag" aria-label="The fleet wooden spoon">
+            ${medalCard("smarty", "The Smarty Special Medal", "smarty-special.webp", "For a plan that definitely made sense... briefly. Presented to those who committed to a course of action that felt clever in the moment and questionable immediately after. A celebration of optimism over outcomes.")}
           </div>
           <dialog class="medal-dialog" id="medal-dossier" aria-labelledby="medal-dialog-title">
             <div class="medal-dialog-shell">

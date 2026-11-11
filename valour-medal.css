@@ -1,26 +1,152 @@
+/* Ribbon palettes apply to both the gallery and the open citation. */
+.medal-card, .medal-dialog {
+  --ribbon-a: #86b7ff;
+  --ribbon-b: #f5f7f5;
+  --ribbon-c: var(--ribbon-a);
+  --ribbon-d: var(--ribbon-b);
+  --ribbon-light: #c9ddff;
+}
+.medal-card[data-medal-id="command"], .medal-dialog[data-medal-id="command"] {
+  --ribbon-a: #10246d;
+  --ribbon-b: #d6ac28;
+  --ribbon-c: #d6ac28;
+  --ribbon-d: #10246d;
+  --ribbon-light: #f2d16b;
+}
+.medal-card[data-medal-id="flight"], .medal-dialog[data-medal-id="flight"] {
+  --ribbon-a: #89b7f8;
+  --ribbon-b: #fafcfc;
+  --ribbon-c: #fafcfc;
+  --ribbon-d: #89b7f8;
+  --ribbon-light: #d6e8ff;
+}
+.medal-card[data-medal-id="gunnery"], .medal-dialog[data-medal-id="gunnery"] {
+  --ribbon-a: #c61527;
+  --ribbon-b: #050609;
+  --ribbon-c: #050609;
+  --ribbon-d: #c61527;
+  --ribbon-light: #ff9ca6;
+}
+.medal-card[data-medal-id="engineering"], .medal-dialog[data-medal-id="engineering"] {
+  --ribbon-a: #ed9218;
+  --ribbon-b: #3e4751;
+  --ribbon-c: #ed9218;
+  --ribbon-d: #3e4751;
+  --ribbon-light: #ffc77c;
+}
+.medal-card[data-medal-id="science"], .medal-dialog[data-medal-id="science"] {
+  --ribbon-a: #098b50;
+  --ribbon-b: #f1f6ee;
+  --ribbon-c: #f1f6ee;
+  --ribbon-d: #098b50;
+  --ribbon-light: #9ce7bb;
+}
+.medal-card[data-medal-id="comms"], .medal-dialog[data-medal-id="comms"] {
+  --ribbon-a: #7232be;
+  --ribbon-b: #ffffff;
+  --ribbon-c: #ffffff;
+  --ribbon-d: #7232be;
+  --ribbon-light: #d7b2ff;
+}
+.medal-card[data-medal-id="diplomacy"], .medal-dialog[data-medal-id="diplomacy"] {
+  --ribbon-a: #2166d1;
+  --ribbon-b: #21ce58;
+  --ribbon-c: #21ce58;
+  --ribbon-d: #2166d1;
+  --ribbon-light: #9cddf4;
+}
+.medal-card[data-medal-id="achievement"], .medal-dialog[data-medal-id="achievement"] {
+  --ribbon-a: #d2aa29;
+  --ribbon-b: #050609;
+  --ribbon-c: #050609;
+  --ribbon-d: #d2aa29;
+  --ribbon-light: #f2d16b;
+}
+.medal-card[data-medal-id="smarty"], .medal-dialog[data-medal-id="smarty"] {
+  --ribbon-a: #f0f11b;
+  --ribbon-b: #050609;
+  --ribbon-c: #f0f11b;
+  --ribbon-d: #050609;
+  --ribbon-light: #f7f795;
+}
+.medal-card[data-medal-id="valour"], .medal-dialog[data-medal-id="valour"] {
+  --ribbon-a: #e38e1c;
+  --ribbon-b: #7900ff;
+  --ribbon-c: #7900ff;
+  --ribbon-d: #e38e1c;
+  --ribbon-light: #e4bdff;
+}
+.medal-card[data-medal-id="light-dark"], .medal-dialog[data-medal-id="light-dark"] {
+  --ribbon-a: #050609;
+  --ribbon-b: #050609;
+  --ribbon-c: #ffffff;
+  --ribbon-d: #ffffff;
+  --ribbon-light: #e3e8ef;
+}
+.medal-card {
+  position: relative;
+  border: 1px solid transparent;
+  background: linear-gradient(#0a1521, #07101a) padding-box,
+    linear-gradient(115deg, var(--ribbon-a), var(--ribbon-b), var(--ribbon-c), var(--ribbon-d)) border-box;
+  box-shadow: -3px 0 16px color-mix(in srgb, var(--ribbon-a) 14%, transparent),
+    3px 0 16px color-mix(in srgb, var(--ribbon-d) 14%, transparent);
+}
+.medal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--ribbon-a), var(--ribbon-b), var(--ribbon-c), var(--ribbon-d));
+}
+.medal-card .medal-art-frame {
+  background: radial-gradient(ellipse at 15% 20%, color-mix(in srgb, var(--ribbon-a) 20%, transparent), transparent 70%),
+    radial-gradient(ellipse at 85% 70%, color-mix(in srgb, var(--ribbon-d) 17%, transparent), transparent 70%), #07101a;
+  border-bottom-color: color-mix(in srgb, var(--ribbon-light) 28%, transparent);
+}
+.medal-card .medal-card-kicker, .medal-card .medal-card-action { color: var(--ribbon-light); }
+.medal-card:hover, .medal-card:focus-visible {
+  border-color: transparent;
+  background: linear-gradient(#112031, #0a1422) padding-box,
+    linear-gradient(115deg, var(--ribbon-a), var(--ribbon-b), var(--ribbon-c), var(--ribbon-d)) border-box;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ribbon-light) 55%, transparent),
+    0 0 22px color-mix(in srgb, var(--ribbon-a) 28%, transparent);
+}
+.medal-honours { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; margin: 8px 0 34px; align-items: start; }
+.medal-honours .medal-card { width: 100%; }
+.medal-honours .medal-art-frame { height: 280px; padding: 25px; }
+.medal-honours .medal-card-copy > strong { min-height: 0; font-size: 1.05rem; margin-bottom: 20px; }
 .medal-card[data-medal-id="valour"] {
-  border: 2px solid #b66aff;
-  box-shadow: 0 0 18px rgba(156, 66, 244, .28), inset 0 0 20px rgba(156, 66, 244, .08);
-  background: linear-gradient(145deg, #251039, #0d081a);
+  border-width: 3px;
+  box-shadow: -6px 0 28px rgba(227,142,28,.22), 6px 0 30px rgba(121,0,255,.38);
 }
-.medal-card[data-medal-id="valour"] .medal-art-frame {
-  background: radial-gradient(circle at 50% 45%, rgba(157, 62, 255, .26), transparent 72%), #10091f;
-  border-bottom-color: rgba(182, 106, 255, .45);
+.medal-card[data-medal-id="valour"]::before { height: 7px; }
+.medal-card[data-medal-id="valour"] .medal-art-frame { height: 320px; }
+.medal-card[data-medal-id="valour"] .medal-card-kicker { letter-spacing: .16em; font-weight: 700; }
+.medal-card[data-medal-id="achievement"] { border-width: 2px; box-shadow: 0 0 16px rgba(210,170,41,.18); }
+.medal-service-heading { margin-top: 12px; }
+.medal-gag { margin-top: 30px; padding-top: 24px; border-top: 1px dashed rgba(240,241,27,.25); }
+.medal-gag .medal-card { display: grid; grid-template-columns: 135px 1fr; width: min(100%, 540px); box-shadow: none; border-style: dashed; }
+.medal-gag .medal-art-frame { height: 155px; border-bottom: 0; }
+.medal-gag .medal-card-copy { min-height: 155px; }
+.medal-gag .medal-card-copy > strong { min-height: 0; }
+.medal-dialog[data-medal-id] {
+  border: 2px solid transparent;
+  background: linear-gradient(#07121d, #07121d) padding-box,
+    linear-gradient(115deg, var(--ribbon-a), var(--ribbon-b), var(--ribbon-c), var(--ribbon-d)) border-box;
+  box-shadow: 0 0 24px color-mix(in srgb, var(--ribbon-a) 22%, transparent);
 }
-.medal-card[data-medal-id="valour"] .medal-card-kicker,
-.medal-card[data-medal-id="valour"] .medal-card-action { color: #d9adff; }
-.medal-card[data-medal-id="valour"]:hover,
-.medal-card[data-medal-id="valour"]:focus-visible {
-  border-color: #e0b6ff;
-  box-shadow: 0 0 24px rgba(173, 83, 255, .45);
-  background: linear-gradient(145deg, #341448, #170b29);
+.medal-dialog[data-medal-id] .medal-dialog-art {
+  background: radial-gradient(ellipse at 15% 20%, color-mix(in srgb, var(--ribbon-a) 20%, transparent), transparent 70%),
+    radial-gradient(ellipse at 85% 70%, color-mix(in srgb, var(--ribbon-d) 17%, transparent), transparent 70%), #07101a;
 }
-.medal-dialog.valour-record {
-  border-color: #b66aff;
-  box-shadow: 0 0 30px rgba(156, 66, 244, .24);
+.medal-dialog[data-medal-id] .medal-dialog-description { border-top-color: color-mix(in srgb, var(--ribbon-light) 40%, transparent); }
+.medal-dialog[data-medal-id] .medal-dialog-description p { white-space: pre-line; }
+.medal-dialog[data-medal-id="valour"] { border-width: 3px; box-shadow: -6px 0 30px rgba(227,142,28,.22), 6px 0 35px rgba(121,0,255,.4); }
+.medal-dialog[data-medal-id="valour"] .medal-dialog-description p { color: #e4d4ef; }
+@media (max-width: 700px) {
+  .medal-honours { grid-template-columns: 1fr; gap: 22px; }
+  .medal-honours .medal-art-frame { height: 240px; }
+  .medal-card[data-medal-id="valour"] .medal-art-frame { height: 280px; }
+  .medal-gag .medal-card { grid-template-columns: 105px 1fr; }
+  .medal-gag .medal-art-frame { height: 160px; padding: 12px; }
 }
-.medal-dialog.valour-record .medal-dialog-art {
-  background: radial-gradient(circle, rgba(157, 62, 255, .22), transparent 75%), #10091f;
-}
-.medal-dialog.valour-record .medal-dialog-description { border-top-color: rgba(182, 106, 255, .5); }
-.medal-dialog.valour-record .medal-dialog-description p { white-space: pre-line; color: #e4d4ef; }

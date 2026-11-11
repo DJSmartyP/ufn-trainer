@@ -243,6 +243,7 @@
       title.textContent = name;
       dialog.classList.toggle("restricted-record", restricted);
       dialog.classList.toggle("valour-record", card.dataset.medalId === "valour");
+      dialog.dataset.medalId = card.dataset.medalId;
       classification.textContent = restricted ? "UFN INTELLIGENCE // RESTRICTED RECORD" : "FLEET PERSONNEL // DECORATION RECORD";
       description.replaceChildren();
 
