@@ -211,3 +211,27 @@
 @media (orientation: landscape) and (max-height: 650px) and (min-width: 701px) {
   .medal-category .medal-honours { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Bound artwork to its frame instead of the image's intrinsic grid size. */
+.medal-card .medal-art-frame {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  min-width: 0;
+  min-height: 0;
+  --medal-art-inset: 12px;
+}
+.medal-card .medal-art-frame img {
+  position: absolute;
+  top: var(--medal-art-inset);
+  left: var(--medal-art-inset);
+  width: calc(100% - var(--medal-art-inset) * 2);
+  height: calc(100% - var(--medal-art-inset) * 2);
+  max-width: none;
+  max-height: none;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  object-fit: contain;
+  object-position: center;
+}

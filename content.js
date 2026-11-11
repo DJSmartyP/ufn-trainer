@@ -317,6 +317,12 @@
             ${medalCard("diplomacy", "Diplomatic Service Citation", "diplomatic-service.webp", "Awarded for distinction in negotiation, diplomacy and peaceful resolution. Recognises personnel whose communication, judgement and restraint have strengthened relations, resolved conflict or achieved an operational objective without unnecessary escalation.")}
             </div>
           </section>
+          <section class="medal-category" aria-labelledby="notable-event-citations-heading">
+            <div class="section-heading compact"><h3 id="notable-event-citations-heading">Notable Event Citations</h3></div>
+            <div class="medal-gag" aria-label="Notable Event Citations">
+            ${medalCard("smarty", "The Smarty Special Medal", "smarty-special.webp", "For a plan that definitely made sense... briefly. Presented to those who committed to a course of action that felt clever in the moment and questionable immediately after. A celebration of optimism over outcomes.")}
+            </div>
+          </section>
           <section class="medal-category" aria-labelledby="citations-of-excellence-heading">
             <div class="section-heading compact"><h3 id="citations-of-excellence-heading">Citations of Excellence</h3></div>
             <div class="medal-honours" aria-label="Citations of Excellence">
@@ -328,12 +334,6 @@
             <div class="section-heading compact"><h3 id="campaign-contribution-medals-heading">Campaign Contribution Medals</h3></div>
             <div class="medal-campaign" aria-label="Campaign Contribution Medals">
             ${medalCard("light-dark", "Light and Dark Campaign Medal", "light-dark-campaign.webp", "Award citation and associated operational record withheld by order of UFN Intelligence. Access to further information requires appropriate security clearance.", true)}
-            </div>
-          </section>
-          <section class="medal-category" aria-labelledby="notable-event-citations-heading">
-            <div class="section-heading compact"><h3 id="notable-event-citations-heading">Notable Event Citations</h3></div>
-            <div class="medal-gag" aria-label="Notable Event Citations">
-            ${medalCard("smarty", "The Smarty Special Medal", "smarty-special.webp", "For a plan that definitely made sense... briefly. Presented to those who committed to a course of action that felt clever in the moment and questionable immediately after. A celebration of optimism over outcomes.")}
             </div>
           </section>
           <dialog class="medal-dialog" id="medal-dossier" aria-labelledby="medal-dialog-title">
