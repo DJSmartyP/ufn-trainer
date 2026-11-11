@@ -242,6 +242,7 @@
       image.alt = art?.getAttribute("alt") || name;
       title.textContent = name;
       dialog.classList.toggle("restricted-record", restricted);
+      dialog.classList.toggle("valour-record", card.dataset.medalId === "valour");
       classification.textContent = restricted ? "UFN INTELLIGENCE // RESTRICTED RECORD" : "FLEET PERSONNEL // DECORATION RECORD";
       description.replaceChildren();
 

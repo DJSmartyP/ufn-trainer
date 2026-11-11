@@ -1,0 +1,26 @@
+.medal-card[data-medal-id="valour"] {
+  border: 2px solid #b66aff;
+  box-shadow: 0 0 18px rgba(156, 66, 244, .28), inset 0 0 20px rgba(156, 66, 244, .08);
+  background: linear-gradient(145deg, #251039, #0d081a);
+}
+.medal-card[data-medal-id="valour"] .medal-art-frame {
+  background: radial-gradient(circle at 50% 45%, rgba(157, 62, 255, .26), transparent 72%), #10091f;
+  border-bottom-color: rgba(182, 106, 255, .45);
+}
+.medal-card[data-medal-id="valour"] .medal-card-kicker,
+.medal-card[data-medal-id="valour"] .medal-card-action { color: #d9adff; }
+.medal-card[data-medal-id="valour"]:hover,
+.medal-card[data-medal-id="valour"]:focus-visible {
+  border-color: #e0b6ff;
+  box-shadow: 0 0 24px rgba(173, 83, 255, .45);
+  background: linear-gradient(145deg, #341448, #170b29);
+}
+.medal-dialog.valour-record {
+  border-color: #b66aff;
+  box-shadow: 0 0 30px rgba(156, 66, 244, .24);
+}
+.medal-dialog.valour-record .medal-dialog-art {
+  background: radial-gradient(circle, rgba(157, 62, 255, .22), transparent 75%), #10091f;
+}
+.medal-dialog.valour-record .medal-dialog-description { border-top-color: rgba(182, 106, 255, .5); }
+.medal-dialog.valour-record .medal-dialog-description p { white-space: pre-line; color: #e4d4ef; }
