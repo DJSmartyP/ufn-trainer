@@ -162,7 +162,7 @@
     <button class="medal-card${restricted ? " medal-card-restricted" : ""}" type="button" data-medal-id="${id}" data-medal-restricted="${restricted ? "true" : "false"}">
       <span class="medal-art-frame"><img src="assets/medals/${image}" alt="${name}" loading="eager" decoding="async" /></span>
       <span class="medal-card-copy">
-        <span class="medal-card-kicker">${id === "valour" ? "HIGHEST DISTINCTION" : id === "achievement" ? "SUPERIOR ACHIEVEMENT" : id === "smarty" ? "NOTABLE INCIDENT CITATION" : "SERVICE DECORATION"}</span>
+        <span class="medal-card-kicker">${id === "valour" ? "HIGHEST DISTINCTION" : id === "achievement" ? "SUPERIOR ACHIEVEMENT" : id === "smarty" ? "NOTABLE INCIDENT CITATION" : id === "light-dark" ? "CAMPAIGN RECOGNITION" : "SERVICE DECORATION"}</span>
         <strong>${name}</strong>
         <span class="medal-card-action">${restricted ? "VIEW RESTRICTED RECORD" : "VIEW CITATION"}</span>
         <span class="medal-detail-copy" hidden>${description}</span>
@@ -318,8 +318,11 @@
             ${medalCard("science", "Medal for Scientific Distinction", "scientific-distinction.webp", "Awarded for outstanding scientific insight and analysis. Recognises personnel whose scanning, investigation or interpretation of scientific information has uncovered critical intelligence, solved a significant problem or directly contributed to mission success.")}
             ${medalCard("comms", "Fleet Communications Citation", "fleet-communications.webp", "Recognises excellence in relay, coordination and communications support. Presented for exceptional management of information, communications and fleet coordination, ensuring that vital intelligence reaches the right people and that crews remain connected during demanding operations.")}
             ${medalCard("diplomacy", "Diplomatic Service Citation", "diplomatic-service.webp", "Awarded for distinction in negotiation, diplomacy and peaceful resolution. Recognises personnel whose communication, judgement and restraint have strengthened relations, resolved conflict or achieved an operational objective without unnecessary escalation.")}
-            ${medalCard("light-dark", "Light and Dark Campaign Medal", "light-dark-campaign.webp", "Award citation and associated operational record withheld by order of UFN Intelligence. Access to further information requires appropriate security clearance.", true)}
           </div>
+          <section class="medal-campaign" aria-labelledby="campaign-recognition-heading">
+            <div class="section-heading compact"><h3 id="campaign-recognition-heading">Campaign Recognition</h3></div>
+            ${medalCard("light-dark", "Light and Dark Campaign Medal", "light-dark-campaign.webp", "Award citation and associated operational record withheld by order of UFN Intelligence. Access to further information requires appropriate security clearance.", true)}
+          </section>
           <div class="medal-gag" aria-label="Notable incident citation">
             ${medalCard("smarty", "The Smarty Special Medal", "smarty-special.webp", "For a plan that definitely made sense... briefly. Presented to those who committed to a course of action that felt clever in the moment and questionable immediately after. A celebration of optimism over outcomes.")}
           </div>

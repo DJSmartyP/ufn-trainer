@@ -111,7 +111,7 @@
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--ribbon-light) 55%, transparent),
     0 0 22px color-mix(in srgb, var(--ribbon-a) 28%, transparent);
 }
-.medal-honours { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; margin: 8px 0 34px; align-items: start; }
+.medal-honours { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 20px; margin: 8px 0 34px; align-items: stretch; }
 .medal-honours .medal-card { width: 100%; }
 .medal-honours .medal-art-frame { height: 280px; padding: 25px; }
 .medal-honours .medal-card-copy > strong { min-height: 0; font-size: 1.05rem; margin-bottom: 20px; }
@@ -120,7 +120,7 @@
   box-shadow: -6px 0 28px rgba(227,142,28,.22), 6px 0 30px rgba(121,0,255,.38);
 }
 .medal-card[data-medal-id="valour"]::before { height: 7px; }
-.medal-card[data-medal-id="valour"] .medal-art-frame { height: 320px; }
+.medal-card[data-medal-id="valour"] .medal-art-frame { height: 280px; }
 .medal-card[data-medal-id="valour"] .medal-card-kicker { letter-spacing: .16em; font-weight: 700; }
 .medal-card[data-medal-id="achievement"] { border-width: 2px; box-shadow: 0 0 16px rgba(210,170,41,.18); }
 .medal-service-heading { margin-top: 12px; }
@@ -149,4 +149,47 @@
   .medal-card[data-medal-id="valour"] .medal-art-frame { height: 280px; }
   .medal-gag .medal-card { grid-template-columns: 105px 1fr; }
   .medal-gag .medal-art-frame { height: 160px; padding: 12px; }
+}
+
+/* Keep wide layouts balanced, including short phone/tablet landscape views. */
+.medal-honours .medal-card { display: flex; flex-direction: column; min-width: 0; }
+.medal-honours .medal-card-copy { flex: 1; min-width: 0; }
+.medal-honours .medal-card-copy > strong { min-height: 2.9em; overflow-wrap: anywhere; }
+.medal-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.medal-grid .medal-card { display: flex; flex-direction: column; }
+.medal-grid .medal-card-copy { flex: 1; min-width: 0; }
+.medal-card-copy > strong { overflow-wrap: anywhere; }
+.medal-campaign { margin-top: 30px; padding-top: 24px; border-top: 1px solid rgba(220,231,240,.2); }
+.medal-campaign .medal-card, .medal-gag .medal-card {
+  display: grid; grid-template-columns: 140px minmax(0, 1fr); width: 100%; align-items: stretch;
+}
+.medal-campaign .medal-art-frame, .medal-gag .medal-art-frame {
+  height: 165px; padding: 14px; border-bottom: 0;
+}
+.medal-campaign .medal-card-copy, .medal-gag .medal-card-copy { min-height: 165px; min-width: 0; }
+.medal-campaign .medal-card-copy > strong, .medal-gag .medal-card-copy > strong { min-height: 0; }
+@media (max-width: 1100px) {
+  .medal-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .medal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .medal-honours .medal-card-copy > strong { min-height: 0; }
+  .medal-campaign .medal-card, .medal-gag .medal-card { grid-template-columns: 105px minmax(0, 1fr); }
+}
+@media (orientation: landscape) and (max-height: 650px) and (min-width: 701px) {
+  .medal-honours { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .medal-honours .medal-card { display: grid; grid-template-columns: minmax(110px, .75fr) minmax(0, 1fr); }
+  .medal-honours .medal-art-frame, .medal-honours .medal-card[data-medal-id="valour"] .medal-art-frame {
+    height: 210px; padding: 18px 10px; border-bottom: 0;
+  }
+  .medal-honours .medal-card-copy { min-height: 210px; padding: 22px 12px 14px; }
+  .medal-honours .medal-card-copy > strong { font-size: .82rem; min-height: 0; }
+  .medal-honours .medal-card-kicker { font-size: .5rem; letter-spacing: .07em; }
+  .medal-grid .medal-art-frame { height: 160px; }
+  .medal-grid .medal-card-copy { min-height: 125px; }
+  .medal-dialog { max-height: calc(100dvh - 20px); overflow-y: auto; }
+  .medal-dialog-shell { grid-template-columns: minmax(150px, .65fr) minmax(0, 1.35fr); min-height: 0; }
+  .medal-dialog-art { min-height: 0; padding: 22px 16px; border-bottom: 0; }
+  .medal-dialog-art img { max-height: 240px; }
+  .medal-dialog-copy { padding: 30px 24px; }
 }
