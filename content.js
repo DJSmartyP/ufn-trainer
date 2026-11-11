@@ -148,9 +148,15 @@
       </div>
     </article>`;
 
+  const rankOrder = ["Ensign", "Sub Lieutenant", "Lieutenant", "Lieutenant Commander", "Commander", "Captain", "Commodore", "Rear Admiral", "Vice Admiral", "Admiral"];
+
   const rankCard = (name, image, note = "", tier = 1, tierStart = false) => `
-    <article class="rank-card rank-tier-${tier}${tierStart ? " rank-tier-start" : ""}">
-      <div class="rank-insignia-frame"><img src="assets/ranks/${image}" alt="${name} rank insignia" loading="eager" decoding="async" /></div>
+    <article class="rank-card rank-tier-${tier}${tierStart ? " rank-tier-start" : ""}" data-rank-name="${name}" data-rank-tier="${tier}">
+      <button class="rank-select" type="button" aria-label="Explore ${name}" aria-pressed="false">
+        <span class="rank-stage">${String(rankOrder.indexOf(name) + 1).padStart(2, "0")} / 10</span>
+        <span class="rank-insignia-frame"><img src="assets/ranks/${image}" alt="${name} rank insignia" loading="eager" decoding="async" /></span>
+        <span class="rank-select-label">Explore rank</span>
+      </button>
       <div class="rank-card-copy">
         <span class="control-type">UFN OFFICER RANK</span>
         <h3>${name}</h3>
@@ -298,6 +304,13 @@
             <span class="rank-level rank-level-2">Admiral approval</span>
             <span class="rank-level rank-level-3">Admiralty review</span>
           </div>
+          <section class="rank-progression" aria-labelledby="rank-progression-heading">
+            <span class="micro-label">CAREER PATH // ENSIGN TO ADMIRAL</span>
+            <h3 id="rank-progression-heading">Explore the rank progression</h3>
+            <p>Select an insignia to follow the progression and see the next promotion authority.</p>
+            <p class="rank-progression-status" aria-live="polite">Selected: Ensign · Stage 1 of 10. Next: Sub Lieutenant — Flight Controller discretion.</p>
+            <progress class="rank-progression-meter" max="9" value="0" aria-label="Position in the rank structure">0</progress>
+          </section>
           <div class="rank-grid">
             ${rankCard("Ensign", "ensign.webp", "Starting rank for all new UFN recruits.", 1)}
             ${rankCard("Sub Lieutenant", "sub-lieutenant.webp", "Promotion to this rank is at the discretion of your Flight Controller.", 1)}
@@ -350,7 +363,7 @@
               <div class="medal-dialog-art"><img id="medal-dialog-image" src="" alt="" /></div>
               <div class="medal-dialog-copy">
                 <span class="classification" id="medal-dialog-classification">FLEET PERSONNEL // DECORATION RECORD</span>
-                <span class="micro-label">OFFICIAL SERVICE CITATION</span>
+                <span class="micro-label" id="medal-dialog-category">Service Citations</span>
                 <h3 id="medal-dialog-title"></h3>
                 <div id="medal-dialog-description" class="medal-dialog-description"></div>
               </div>

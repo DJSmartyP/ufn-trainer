@@ -155,6 +155,9 @@
     if (route === "science" && tab === "scan-practice") {
       scanController = createScanSimulator(document.getElementById("scan-simulator-root"));
     }
+    if (route === "general" && tab === "ranks") {
+      initialiseRankProgression(document.querySelector('[data-panel="ranks"]'));
+    }
     if (route === "general" && tab === "medals") {
       initialiseMedalGallery(document.querySelector('[data-panel="medals"]'));
     }
@@ -222,6 +225,29 @@
     });
   }
 
+  function initialiseRankProgression(root) {
+    if (!root) return;
+    const cards = Array.from(root.querySelectorAll(".rank-card"));
+    const status = root.querySelector(".rank-progression-status");
+    const meter = root.querySelector(".rank-progression-meter");
+    if (!cards.length || !status || !meter) return;
+    const select = index => {
+      cards.forEach((card, i) => {
+        card.classList.toggle("rank-selected", i === index);
+        card.classList.toggle("rank-preceding", i < index);
+        card.querySelector(".rank-select").setAttribute("aria-pressed", String(i === index));
+      });
+      meter.value = index;
+      const current = cards[index];
+      const next = cards[index + 1];
+      const authorities = { "1": "Flight Controller discretion", "2": "Admiral sign-off", "3": "Admiralty sign-off and full review by the Admirals" };
+      status.textContent = `Selected: ${current.dataset.rankName} · Stage ${index + 1} of ${cards.length}. ` +
+        (next ? `Next: ${next.dataset.rankName} — ${authorities[next.dataset.rankTier]}.` : "Admiral is the highest rank in this structure.");
+    };
+    cards.forEach((card, index) => card.querySelector(".rank-select").addEventListener("click", () => select(index)));
+    select(0);
+  }
+
   function initialiseMedalGallery(root) {
     if (!root) return;
     const dialog = root.querySelector("#medal-dossier");
@@ -230,6 +256,7 @@
     const title = dialog.querySelector("#medal-dialog-title");
     const description = dialog.querySelector("#medal-dialog-description");
     const classification = dialog.querySelector("#medal-dialog-classification");
+    const categoryLabel = dialog.querySelector("#medal-dialog-category");
     const close = dialog.querySelector(".medal-dialog-close");
 
     const openRecord = card => {
@@ -237,6 +264,10 @@
       const name = card.querySelector(".medal-card-copy > strong")?.textContent?.trim() || "UFN Decoration";
       const detail = card.querySelector(".medal-detail-copy")?.textContent?.trim() || "";
       const restricted = card.dataset.medalRestricted === "true";
+      const category = card.closest(".medal-category");
+      const groupName = category?.querySelector(".section-heading h3")?.textContent?.trim() || "Service Citations";
+      const isIncident = category?.getAttribute("aria-labelledby") === "notable-event-citations-heading";
+      if (categoryLabel) categoryLabel.textContent = groupName;
 
       image.src = art?.getAttribute("src") || "";
       image.alt = art?.getAttribute("alt") || name;
@@ -244,7 +275,7 @@
       dialog.classList.toggle("restricted-record", restricted);
       dialog.classList.toggle("valour-record", card.dataset.medalId === "valour");
       dialog.dataset.medalId = card.dataset.medalId;
-      classification.textContent = restricted ? "UFN INTELLIGENCE // RESTRICTED RECORD" : "FLEET PERSONNEL // DECORATION RECORD";
+      classification.textContent = isIncident ? "FLEET PERSONNEL // INCIDENT MARKER" : restricted ? "UFN INTELLIGENCE // RESTRICTED RECORD" : "FLEET PERSONNEL // DECORATION RECORD";
       description.replaceChildren();
 
       if (restricted) {
