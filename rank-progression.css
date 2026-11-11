@@ -23,3 +23,57 @@
   .rank-dialog .medal-dialog-art { min-height: 0; padding: 22px 14px; }
   .rank-dialog .medal-dialog-art img { max-height: 65dvh; }
 }
+
+/* Vivid approval-tier palettes, shared by cards and personnel records. */
+.rank-card.rank-tier-1, .rank-dialog[data-rank-tier="1"] { --rank-tier: #39c4ff; --rank-accent: #2867ff; --rank-light: #a5eaff; }
+.rank-card.rank-tier-2, .rank-dialog[data-rank-tier="2"] { --rank-tier: #ffc644; --rank-accent: #ea831c; --rank-light: #ffe7a5; }
+.rank-card.rank-tier-3, .rank-dialog[data-rank-tier="3"] { --rank-tier: #b68aff; --rank-accent: #d9e8ff; --rank-light: #e6d5ff; }
+.rank-card {
+  border-color: transparent;
+  background: linear-gradient(#071523, #07111d) padding-box,
+    linear-gradient(135deg, var(--rank-tier), var(--rank-accent), var(--rank-tier)) border-box;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--rank-tier) 24%, transparent);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.rank-card::before { background: linear-gradient(90deg, var(--rank-tier), var(--rank-accent), var(--rank-tier)); }
+.rank-card.rank-tier-start {
+  border-color: transparent;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--rank-tier) 50%, transparent), 0 0 25px color-mix(in srgb, var(--rank-tier) 28%, transparent);
+}
+.rank-card .rank-insignia-frame {
+  background: radial-gradient(ellipse at 50% 35%, color-mix(in srgb, var(--rank-tier) 26%, transparent), transparent 75%),
+    linear-gradient(145deg, color-mix(in srgb, var(--rank-accent) 15%, #07111d), #06101b);
+}
+.rank-card .rank-stage { background: var(--rank-tier); color: #07111d; font-weight: 800; box-shadow: 0 0 10px color-mix(in srgb, var(--rank-tier) 35%, transparent); }
+.rank-card .rank-select-label {
+  background: linear-gradient(110deg, color-mix(in srgb, var(--rank-tier) 24%, #07111d), color-mix(in srgb, var(--rank-accent) 18%, #07111d));
+  border-top: 1px solid color-mix(in srgb, var(--rank-tier) 50%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--rank-tier) 40%, transparent);
+  color: var(--rank-light); font-weight: 700;
+}
+.rank-card .rank-card-copy { background: linear-gradient(145deg, color-mix(in srgb, var(--rank-tier) 9%, #07111d), #07111d); }
+.rank-card .control-type { color: var(--rank-light); font-size: .65rem; letter-spacing: .09em; }
+.rank-card h3 { color: #f2f8ff; font-weight: 700; }
+.rank-card .rank-approval { color: var(--rank-light); border-top-color: color-mix(in srgb, var(--rank-tier) 35%, transparent); }
+.rank-card:hover, .rank-card:focus-within, .rank-card.rank-selected {
+  border-color: var(--rank-tier);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--rank-tier) 32%, transparent), 0 0 30px color-mix(in srgb, var(--rank-tier) 40%, transparent);
+}
+@media (hover: hover) { .rank-card:hover { transform: translateY(-3px); } }
+.rank-select:focus-visible { outline-color: var(--rank-light); }
+.rank-level-1 { color: #a5eaff; border-color: #39c4ff; background: #123454; }
+.rank-level-2 { color: #ffe7a5; border-color: #ffc644; background: #3c2d12; }
+.rank-level-3 { color: #e6d5ff; border-color: #b68aff; background: #2a2043; }
+.rank-dialog[data-rank-tier] {
+  border: 2px solid transparent;
+  background: linear-gradient(#07121d, #07121d) padding-box,
+    linear-gradient(135deg, var(--rank-tier), var(--rank-accent), var(--rank-tier)) border-box;
+  box-shadow: 0 0 36px color-mix(in srgb, var(--rank-tier) 30%, transparent);
+}
+.rank-dialog[data-rank-tier] .medal-dialog-art {
+  background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--rank-tier) 24%, transparent), transparent 78%), #07111d;
+}
+.rank-dialog[data-rank-tier] .classification, .rank-dialog[data-rank-tier] .micro-label, .rank-dialog[data-rank-tier] .rank-dialog-authority { color: var(--rank-light); }
+.rank-dialog[data-rank-tier] .medal-dialog-description { border-top-color: color-mix(in srgb, var(--rank-tier) 45%, transparent); }
+.rank-dialog[data-rank-tier] .rank-dialog-navigation button { border-color: color-mix(in srgb, var(--rank-tier) 65%, transparent); color: var(--rank-light); }
+@media (prefers-reduced-motion: reduce) { .rank-card { transition: none; } .rank-card:hover { transform: none; } }

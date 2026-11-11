@@ -247,6 +247,7 @@
       image.src = art.getAttribute("src");
       image.alt = art.getAttribute("alt");
       title.textContent = card.dataset.rankName;
+      dialog.dataset.rankTier = card.dataset.rankTier;
       category.textContent = index > 5 ? "FLEET COMMAND APPOINTMENT" : "REGULAR SERVICE";
       description.replaceChildren();
       card.querySelector(".rank-record-description").textContent.trim().split(/\n\n/).forEach(text => {
