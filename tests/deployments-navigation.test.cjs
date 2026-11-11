@@ -38,10 +38,10 @@ const codes = [...page.matchAll(/<span class="deployment-tile-code">(OP\d+)<\/sp
   .map(match => match[1]);
 const indexes = [...page.matchAll(/data-deployment-index="(\d+)"/g)]
   .map(match => Number(match[1]));
-assert.deepEqual(codes, Array.from({ length: 15 }, (_, i) => `OP${String(i + 1).padStart(2, "0")}`));
-assert.deepEqual(indexes, Array.from({ length: 16 }, (_, i) => i));
-assert.match(page, /15 standalone missions and 6 campaign missions/);
-assert.match(page, /Open Operation: Harvest mission record, coming soon/);
+assert.deepEqual(codes, Array.from({ length: 16 }, (_, i) => `OP${String(i + 1).padStart(2, "0")}`));
+assert.deepEqual(indexes, Array.from({ length: 17 }, (_, i) => i));
+assert.match(page, /16 standalone missions and 6 campaign missions/);
+assert.match(page, /Open Operation: Lifeboat mission record, coming soon/);
 assert.match(page, /deployment-coming-soon-badge">COMING SOON/);
 assert.match(page, /deployment-tile-type">Uncover the truth\.\.\.<\/span>/);
 
@@ -61,9 +61,9 @@ function click(index, action) {
 }
 
 click(2);
-for (let i = 2; i <= 14; i++) {
+for (let i = 2; i <= 15; i++) {
   assert.match(content.innerHTML, new RegExp(`<strong>OP${String(i + 1).padStart(2, "0")}</strong>`));
-  assert.equal(position.textContent, `${String(i + 1).padStart(2, "0")} / 15`);
+  assert.equal(position.textContent, `${String(i + 1).padStart(2, "0")} / 16`);
   click(undefined, "next");
 }
 assert.match(content.innerHTML, /CAMPAIGN-LD|CAMPAIGN RECORD/);
@@ -72,15 +72,20 @@ assert.match(content.innerHTML, /<strong>OP01<\/strong>/);
 click(undefined, "previous");
 assert.match(content.innerHTML, /CAMPAIGN-LD|CAMPAIGN RECORD/);
 click(undefined, "previous");
-assert.match(content.innerHTML, /<strong>OP15<\/strong>/);
+assert.match(content.innerHTML, /<strong>OP16<\/strong>/);
 click(12);
 assert.match(content.innerHTML, /<strong>OP13<\/strong>/);
 click(13);
 assert.match(content.innerHTML, /<strong>OP14<\/strong>/);
 click(14);
 assert.match(content.innerHTML, /<strong>OP15<\/strong>/);
+click(15);
+assert.match(content.innerHTML, /<strong>OP16<\/strong>/);
 assert.match(content.innerHTML, /<strong>COMING SOON<\/strong>/);
 assert.match(content.innerHTML, /<strong>CREW BRIEFING<\/strong>/);
+assert.match(content.innerHTML, /where no such field existed twenty-four hours ago/);
+assert.match(content.innerHTML, /Umbra has offered assistance on the condition that its ship is rescued alongside the others/);
+assert.match(content.innerHTML, /Bring every crew home, regardless of allegiance\./);
 
 let prevented = false;
 listeners.get("keydown")[0]({
@@ -88,6 +93,7 @@ listeners.get("keydown")[0]({
   preventDefault() { prevented = true; }
 });
 assert.equal(prevented, true);
-assert.match(content.innerHTML, /<strong>OP14<\/strong>/);
+assert.match(content.innerHTML, /<strong>OP15<\/strong>/);
 
-console.log("Deployment cards and Previous/Next cover OP01–OP15 and the campaign record.");
+assert.ok(fs.existsSync(path.join(__dirname, "..", "assets", "deployments", "op16-lifeboat.png")));
+console.log("Deployment cards and Previous/Next cover OP01–OP16 and the campaign record.");

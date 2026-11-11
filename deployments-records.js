@@ -105,6 +105,14 @@
     availableFrom: "2026-10-26T20:00:00Z",
     newDays: 14,
     briefing: "UFN Fleet Command has assigned your crew to observe GST Hearthside Habitat, a Ghost civilian installation near UFN patrol space. UFN drones have been seen making repeated service runs to the habitat, but the traffic does not appear in authorised supply records. Approach carefully, establish what the drones are carrying, and determine who ordered the visits. The installation houses families and ordinary freighters alongside armed Ghost ships; expect a cautious reception. Command wants a clear account of the traffic and any UFN vessel operating nearby before conclusions are drawn. Keep a record of contacts, signal traces, and recovered documents. You may need to follow the evidence well beyond the habitat. This deployment will test your judgement as much as your combat readiness."
+  },
+  {
+    code: "OP16",
+    title: "Operation: Lifeboat",
+    image: "assets/deployments/op16-lifeboat.png",
+    hook: "Bring them home...",
+    comingSoon: true,
+    briefing: "Fleet Command has received reports of a large nebula in a sector where no such field existed twenty-four hours ago. Its sudden appearance and highly unstable readings suggest that someone—or something—created it. Four ships are trapped inside: two UFN vessels, one TSN vessel, and one Umbra vessel. Umbra has offered assistance on the condition that its ship is rescued alongside the others. Your mission is to enter the field, locate all four ships, and guide them to safety. Expect hazardous conditions and hostile activity within the nebula. During the rescue, gather evidence of the field’s origin and determine how to stop it from spreading further. Bring every crew home, regardless of allegiance."
   }
 ];
 
