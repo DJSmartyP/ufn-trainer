@@ -193,3 +193,21 @@
   .medal-dialog-art img { max-height: 240px; }
   .medal-dialog-copy { padding: 30px 24px; }
 }
+
+/* Approved medal categories in fleet registry order. */
+.medal-category { margin-top: 30px; }
+.medal-category > .section-heading { margin-bottom: 18px; }
+.medal-category > .section-heading h3 {
+  color: #e7f5ff;
+  font-weight: 800;
+  font-size: clamp(1.15rem, 2.1vw, 1.55rem);
+  line-height: 1.3;
+}
+.medal-category .medal-honours { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); margin: 0; }
+.medal-category .medal-campaign, .medal-category .medal-gag { margin-top: 0; padding-top: 0; border-top: 0; }
+@media (max-width: 700px) {
+  .medal-category .medal-honours { grid-template-columns: 1fr; }
+}
+@media (orientation: landscape) and (max-height: 650px) and (min-width: 701px) {
+  .medal-category .medal-honours { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
