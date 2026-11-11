@@ -158,12 +158,20 @@
       </div>
     </article>`;
 
+  const medalShortDescriptions = {
+    smarty: "For a plan that definitely made sense... briefly.",
+    achievement: "For exceptional performance beyond normal duty expectations.",
+    valour: "For continued excellence in the field over multiple missions.",
+    "light-dark": "Operational record withheld by order of UFN Intelligence."
+  };
+
   const medalCard = (id, name, image, description, restricted = false) => `
     <button class="medal-card${restricted ? " medal-card-restricted" : ""}" type="button" data-medal-id="${id}" data-medal-restricted="${restricted ? "true" : "false"}">
       <span class="medal-art-frame"><img src="assets/medals/${image}" alt="${name}" loading="eager" decoding="async" /></span>
       <span class="medal-card-copy">
         <span class="medal-card-kicker">${id === "valour" ? "HIGHEST DISTINCTION" : id === "achievement" ? "SUPERIOR ACHIEVEMENT" : id === "smarty" ? "NOTABLE INCIDENT CITATION" : id === "light-dark" ? "CAMPAIGN RECOGNITION" : "SERVICE DECORATION"}</span>
         <strong>${name}</strong>
+        ${medalShortDescriptions[id] ? `<span class="medal-card-summary">${medalShortDescriptions[id]}</span>` : ""}
         <span class="medal-card-action">${restricted ? "VIEW RESTRICTED RECORD" : "VIEW CITATION"}</span>
         <span class="medal-detail-copy" hidden>${description}</span>
       </span>
