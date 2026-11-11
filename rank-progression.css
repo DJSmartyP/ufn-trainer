@@ -77,3 +77,5 @@
 .rank-dialog[data-rank-tier] .medal-dialog-description { border-top-color: color-mix(in srgb, var(--rank-tier) 45%, transparent); }
 .rank-dialog[data-rank-tier] .rank-dialog-navigation button { border-color: color-mix(in srgb, var(--rank-tier) 65%, transparent); color: var(--rank-light); }
 @media (prefers-reduced-motion: reduce) { .rank-card { transition: none; } .rank-card:hover { transform: none; } }
+/* Keep insignia controls stable when navigating to an off-screen rank. */
+.rank-grid, .rank-card { content-visibility: visible; contain-intrinsic-size: none; }
