@@ -111,7 +111,9 @@
     title: "Operation: Lifeboat",
     image: "assets/deployments/op16-lifeboat.png",
     hook: "Bring them home...",
-    comingSoon: true,
+    availableFrom: "2026-11-13T00:00:00Z",
+    newDays: 7,
+    showAvailableBadge: true,
     briefing: "Fleet Command has received reports of a large nebula in a sector where no such field existed twenty-four hours ago. Its sudden appearance and highly unstable readings suggest that someone—or something—created it. Four ships are trapped inside: two UFN vessels, one TSN vessel, and one Umbra vessel. Umbra has offered assistance on the condition that its ship is rescued alongside the others. Your mission is to enter the field, locate all four ships, and guide them to safety. Expect hazardous conditions and hostile activity within the nebula. During the rescue, gather evidence of the field’s origin and determine how to stop it from spreading further. Bring every crew home, regardless of allegiance."
   }
 ];
@@ -169,13 +171,16 @@
     const unavailable = Boolean(mission.temporarilyUnavailable);
     const comingSoon = Boolean(mission.comingSoon);
     const isNew = !unavailable && !comingSoon && isNewDeployment(mission);
+    const availableBadge = mission.showAvailableBadge && mission.availableFrom &&
+      Date.now() >= Date.parse(mission.availableFrom);
     return `
-    <button class="deployment-tile${isNew ? " deployment-tile-new" : ""}${unavailable ? " deployment-tile-unavailable" : ""}${comingSoon ? " deployment-tile-coming-soon" : ""}" type="button" data-deployment-index="${index}" aria-label="Open ${mission.title} mission record${unavailable ? ", temporarily unavailable" : comingSoon ? ", coming soon" : isNew ? ", new deployment" : ""}">
+    <button class="deployment-tile${isNew ? " deployment-tile-new" : ""}${unavailable ? " deployment-tile-unavailable" : ""}${comingSoon ? " deployment-tile-coming-soon" : ""}" type="button" data-deployment-index="${index}" aria-label="Open ${mission.title} mission record${unavailable ? ", temporarily unavailable" : comingSoon ? ", coming soon" : isNew ? ", new deployment, available now" : availableBadge ? ", available now" : ""}">
       <span class="deployment-tile-art">
         <img src="${mission.image}" alt="" loading="eager" decoding="async" />
         <span class="deployment-tile-shade" aria-hidden="true"></span>
         ${unavailable ? '<span class="deployment-unavailable-badge">TEMPORARILY UNAVAILABLE</span>' : ""}
         ${comingSoon ? '<span class="deployment-coming-soon-badge">COMING SOON</span>' : ""}
+        ${availableBadge ? '<span class="deployment-available-badge">AVAILABLE NOW</span>' : ""}
         ${isNew ? `<span class="deployment-new-badge" title="New deployment until ${newExpiryLabel(mission)}">NEW</span>` : ""}
         <span class="deployment-tile-copy">
           <span class="deployment-tile-code">${mission.code}</span>
